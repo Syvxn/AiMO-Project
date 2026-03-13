@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bqdkxfg4o3384"]
+
+[ext_resource type="Script" uid="uid://dusi4op230tps" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://0uetlpjv785j" path="res://multiplayer_spawner.gd" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bsolow83stix5" path="res://ui/loading/loading_screen.tscn" id="3_h2yge"]
+
+[node name="Main" type="Node" unique_id=237721343]
+script = ExtResource("1_ig7tw")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=632750434]
+spawn_path = NodePath("GameController")
+script = ExtResource("2_0xm2m")
+
+[node name="GameController" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
+
+[node name="LoadingScreen" parent="." unique_id=1452673750 instance=ExtResource("3_h2yge")]

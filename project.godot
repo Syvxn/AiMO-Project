@@ -11,8 +11,30 @@ config_version=5
 [application]
 
 config/name="AiMO_game_proto"
+run/main_scene="uid://bqdkxfg4o3384"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dftki6ryj2lco"
+
+[autoload]
+
+NetworkHandler="*uid://clyvgvpwu0knk"
+SignalBus="*uid://tspfsguyxkbx"
+
+[file_customization]
+
+folder_colors={
+"res://autoloads/": "yellow",
+"res://exports/": "red",
+"res://npcs/": "purple",
+"res://player/": "purple",
+"res://rooms/": "purple",
+"res://textures/": "blue",
+"res://textures/sprite_frames/": "blue",
+"res://textures/spritesheets/": "blue",
+"res://textures/tilesets/": "blue",
+"res://textures/tilesheets/": "blue",
+"res://ui/": "green"
+}
 
 [physics]
 
