@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://drwj4gnyovy7n"]
+
+[ext_resource type="Texture2D" uid="uid://bu0c1pqacme25" path="res://textures/spritesheets/skeletonspritesheet_white.png" id="1_5203l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5203l"]
+atlas = ExtResource("1_5203l")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kotn"]
+atlas = ExtResource("1_5203l")
+region = Rect2(64, 0, 32, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.8,
+"texture": SubResource("AtlasTexture_5203l")
+}, {
+"duration": 1.8,
+"texture": SubResource("AtlasTexture_3kotn")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

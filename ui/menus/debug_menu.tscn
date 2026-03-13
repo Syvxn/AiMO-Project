@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://dab8lpwc6mlti"]
+
+[ext_resource type="Script" uid="uid://cm7uyba6g370d" path="res://ui/menus/debug_menu.gd" id="1_0juoi"]
+
+[node name="DebugMenu" type="CanvasLayer" unique_id=727512519]
+visible = false
+script = ExtResource("1_0juoi")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1184328724]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.38481867, 0.092853315, 0.140737, 0.54901963)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=257141931]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -174.5
+offset_top = 58.0
+offset_right = 174.5
+offset_bottom = 107.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 35
+text = "this is a debug menu"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=2071939886]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ServerButton" type="Button" parent="ColorRect/VBoxContainer" unique_id=736692431]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "server"
+
+[node name="ClientButton" type="Button" parent="ColorRect/VBoxContainer" unique_id=690999631]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "client"
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/ServerButton" to="." method="_on_server_button_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/ClientButton" to="." method="_on_client_button_pressed"]

@@ -1,32 +1,10 @@
 [gd_scene format=3 uid="uid://bsolow83stix5"]
 
-[ext_resource type="Texture2D" uid="uid://bu0c1pqacme25" path="res://textures/spritesheets/skeletonspritesheet.png" id="1_3con0"]
 [ext_resource type="Script" uid="uid://n4rg6xd52qax" path="res://ui/loading/loading_screen.gd" id="1_butmh"]
+[ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen_sprite_frames.tres" id="2_butmh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kfex"]
 font_size = 28
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_butmh"]
-atlas = ExtResource("1_3con0")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xen5b"]
-atlas = ExtResource("1_3con0")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_s7f4n"]
-animations = [{
-"frames": [{
-"duration": 1.8,
-"texture": SubResource("AtlasTexture_butmh")
-}, {
-"duration": 1.8,
-"texture": SubResource("AtlasTexture_xen5b")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
 
 [node name="LoadingScreen" type="CanvasLayer" unique_id=1452673750]
 visible = false
@@ -67,6 +45,6 @@ vertical_alignment = 1
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=26065665]
 position = Vector2(1061, 562)
 scale = Vector2(2.155, 2.155)
-sprite_frames = SubResource("SpriteFrames_s7f4n")
+sprite_frames = ExtResource("2_butmh")
 animation = &"walk"
 frame_progress = 0.15969737

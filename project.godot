@@ -13,12 +13,16 @@ config_version=5
 config/name="AiMO_game_proto"
 run/main_scene="uid://bqdkxfg4o3384"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="uid://dftki6ryj2lco"
+config/icon="uid://dw5sprprt2b13"
 
 [autoload]
 
 NetworkHandler="*uid://clyvgvpwu0knk"
 SignalBus="*uid://tspfsguyxkbx"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [file_customization]
 
@@ -42,6 +46,7 @@ folder_colors={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
