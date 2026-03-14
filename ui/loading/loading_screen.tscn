@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bsolow83stix5"]
 
 [ext_resource type="Script" uid="uid://n4rg6xd52qax" path="res://ui/loading/loading_screen.gd" id="1_butmh"]
-[ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen_sprite_frames.tres" id="2_butmh"]
+[ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen.tres" id="2_butmh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kfex"]
 font_size = 28

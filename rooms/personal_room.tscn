@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="2_w8a5v"]
 [ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/props/companion_cube.tscn" id="3_pdwsy"]
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/props/camera.tscn" id="4_3epd3"]
+[ext_resource type="PackedScene" uid="uid://cwwh57547n81f" path="res://player/player.tscn" id="5_2o05r"]
 
 [node name="PersonalRoom" type="Node2D" unique_id=576984484]
 
@@ -23,12 +24,11 @@ tile_set = ExtResource("2_w8a5v")
 [node name="Decorations" type="Node2D" parent="." unique_id=767305767]
 
 [node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("3_pdwsy")]
-z_index = 1
-z_as_relative = false
-y_sort_enabled = true
 position = Vector2(44, -54)
 
 [node name="Camera" parent="Decorations" unique_id=1952480078 instance=ExtResource("4_3epd3")]
 z_index = 1
 z_as_relative = false
 position = Vector2(18, -146)
+
+[node name="Player" parent="." unique_id=685008524 instance=ExtResource("5_2o05r")]
