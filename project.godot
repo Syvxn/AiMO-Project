@@ -13,7 +13,8 @@ config_version=5
 config/name="AiMO_game_proto"
 run/main_scene="uid://bqdkxfg4o3384"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="uid://dw5sprprt2b13"
+boot_splash/show_image=false
+config/icon="uid://bng85tuelwpxo"
 
 [autoload]
 

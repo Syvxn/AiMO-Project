@@ -2,8 +2,8 @@
 
 [ext_resource type="TileSet" uid="uid://8t2h13jjtxag" path="res://textures/tilesets/floors_test.tres" id="1_dp1jf"]
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="2_w8a5v"]
-[ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/static_props/companion_cube.tscn" id="3_pdwsy"]
-[ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/animated_props/camera.tscn" id="4_3epd3"]
+[ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/props/companion_cube.tscn" id="3_pdwsy"]
+[ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/props/camera.tscn" id="4_3epd3"]
 
 [node name="PersonalRoom" type="Node2D" unique_id=576984484]
 
