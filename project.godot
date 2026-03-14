@@ -29,12 +29,14 @@ window/stretch/mode="canvas_items"
 folder_colors={
 "res://autoloads/": "yellow",
 "res://exports/": "red",
+"res://items/": "purple",
 "res://npcs/": "purple",
 "res://player/": "purple",
 "res://rooms/": "purple",
 "res://textures/": "blue",
 "res://textures/sprite_frames/": "blue",
 "res://textures/spritesheets/": "blue",
+"res://textures/static_textures/": "blue",
 "res://textures/tilesets/": "blue",
 "res://textures/tilesheets/": "blue",
 "res://ui/": "green"

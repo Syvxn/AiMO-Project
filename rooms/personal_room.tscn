@@ -2,6 +2,8 @@
 
 [ext_resource type="TileSet" uid="uid://8t2h13jjtxag" path="res://textures/tilesets/floors_test.tres" id="1_dp1jf"]
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="2_w8a5v"]
+[ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/static_props/companion_cube.tscn" id="3_pdwsy"]
+[ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/animated_props/camera.tscn" id="4_3epd3"]
 
 [node name="PersonalRoom" type="Node2D" unique_id=576984484]
 
@@ -15,7 +17,18 @@ tile_set = ExtResource("1_dp1jf")
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//v/AAABAAAAAAD9//r/AAABAAAAAAD9//n/AAABAAAAAAD+//j/AAABAAAAAAD+//f/AAABAAAAAAD///b/AAABAAAAAAD///X/AAABAAAAAAAAAPT/AAABAAAAAAABAPT/AAABAAEAAAABAPX/AAABAAEAAAACAPb/AAABAAEAAAACAPf/AAABAAEAAAADAPj/AAABAAEAAAADAPn/AAABAAEAAAAEAPr/AAABAAEAAAAEAPv/AAABAAEAAAAFAPz/AAABAAEAAAAFAP3/AAABAAEAAAAGAP7/AAABAAEAAAAGAP//AAABAAEAAAA=")
+tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//v/AAABAAAAAAD9//r/AAABAAAAAAD9//n/AAABAAAAAAD+//j/AAABAAAAAAD+//f/AAABAAAAAAD///b/AAABAAAAAAD///X/AAABAAAAAAAAAPT/AAABAAAAAAABAPT/AAABAAEAAAABAPX/AAABAAEAAAACAPb/AAABAAEAAAACAPf/AAABAAEAAAADAPj/AAABAAEAAAADAPn/AAABAAEAAAAEAPr/AAABAAEAAAAEAPv/AAABAAEAAAAFAPz/AAABAAEAAAAFAP3/AAABAAEAAAAGAP7/AAABAAEAAAAGAP//AAABAAEAAAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAAAAAD9/wEAAAAJAAAAAAD+/wIAAAAJAAAAAAD+/wMAAAAJAAAAAAD//wQAAAAJAAAAAAD//wUAAAAJAAAAAAAAAAQAAAAJAAAAAAAAAAMAAAAJAAAAAAABAAIAAAAJAAAAAAABAAEAAAAJAAAAAAACAAIAAAAJAAAAAAACAAMAAAAJAAAAAAADAAQAAAAJAAAAAAADAAUAAAAJAAAAAAAEAAYAAAAJAAAAAAAEAAUAAAAJAAAAAAAFAAQAAAAJAAAAAAAFAAMAAAAJAAAAAAAGAAIAAAAJAAAAAAAGAAEAAAAJAAAAAAA=")
 tile_set = ExtResource("2_w8a5v")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1735386871]
+[node name="Decorations" type="Node2D" parent="." unique_id=767305767]
+
+[node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("3_pdwsy")]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(44, -54)
+
+[node name="Camera" parent="Decorations" unique_id=1952480078 instance=ExtResource("4_3epd3")]
+z_index = 1
+z_as_relative = false
+position = Vector2(18, -146)

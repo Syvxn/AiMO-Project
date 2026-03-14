@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cy46wgn8xkpbb"]
+
+[ext_resource type="Texture2D" uid="uid://jfevjysokjmd" path="res://textures/spritesheets/camera.png" id="1_ro3tp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y73cw"]
+atlas = ExtResource("1_ro3tp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdouo"]
+atlas = ExtResource("1_ro3tp")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tals3"]
+atlas = ExtResource("1_ro3tp")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y6b5k"]
+animations = [{
+"frames": [{
+"duration": 6.0,
+"texture": SubResource("AtlasTexture_y73cw")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_mdouo")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_tals3")
+}],
+"loop": true,
+"name": &"blink",
+"speed": 5.0
+}]
+
+[node name="Camera" type="AnimatedSprite2D" unique_id=1952480078]
+sprite_frames = SubResource("SpriteFrames_y6b5k")
+animation = &"blink"
+autoplay = "blink"
+frame_progress = 0.6774598
