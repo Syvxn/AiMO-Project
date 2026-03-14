@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0jtagnx2148t"
-path="res://.godot/imported/skeletonspritesheet_lavender.png-467aea2081a5beb136f917824169c1d7.ctex"
+uid="uid://c7nxsv2xjd6tw"
+path="res://.godot/imported/walls_test.png-c3edf608503136094e2b7ed31b714a4a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/skeletonspritesheet_lavender.png"
-dest_files=["res://.godot/imported/skeletonspritesheet_lavender.png-467aea2081a5beb136f917824169c1d7.ctex"]
+source_file="res://textures/tilesheets/walls_test.png"
+dest_files=["res://.godot/imported/walls_test.png-c3edf608503136094e2b7ed31b714a4a.ctex"]
 
 [params]
 

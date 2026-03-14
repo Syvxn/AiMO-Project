@@ -1,0 +1,28 @@
+[gd_resource type="TileSet" format=3 uid="uid://bg38fuc0vxvb4"]
+
+[ext_resource type="Texture2D" uid="uid://c7nxsv2xjd6tw" path="res://textures/tilesheets/walls_test.png" id="1_0ylyi"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pdwsy"]
+texture = ExtResource("1_0ylyi")
+texture_region_size = Vector2i(32, 96)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 40)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 40)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 40)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, 40)
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+9:0/0 = 0
+9:0/0/texture_origin = Vector2i(0, 40)
+9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pdwsy")

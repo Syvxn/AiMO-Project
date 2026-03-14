@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi0nlv1bbd4ko"
-path="res://.godot/imported/skeletonspritesheet_orange.png-48cb374fd56eb3c45bb07d13a3e81944.ctex"
+uid="uid://0jtagnx2148t"
+path="res://.godot/imported/skeletonspritesheet_lavender.png-b931c6314789fc72b226a62d290c41dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/skeletonspritesheet_orange.png"
-dest_files=["res://.godot/imported/skeletonspritesheet_orange.png-48cb374fd56eb3c45bb07d13a3e81944.ctex"]
+source_file="res://textures/spritesheets/skeleton/skeletonspritesheet_lavender.png"
+dest_files=["res://.godot/imported/skeletonspritesheet_lavender.png-b931c6314789fc72b226a62d290c41dd.ctex"]
 
 [params]
 

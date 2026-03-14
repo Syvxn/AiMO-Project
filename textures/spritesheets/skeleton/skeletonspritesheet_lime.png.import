@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://eacfitpcaa8a"
-path="res://.godot/imported/skeletonspritesheet_lime.png-c7c066391d689923fcdfa3312f7c6be4.ctex"
+path="res://.godot/imported/skeletonspritesheet_lime.png-dab913d39a8d2ef32466b3e4df8e2bc2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/skeletonspritesheet_lime.png"
-dest_files=["res://.godot/imported/skeletonspritesheet_lime.png-c7c066391d689923fcdfa3312f7c6be4.ctex"]
+source_file="res://textures/spritesheets/skeleton/skeletonspritesheet_lime.png"
+dest_files=["res://.godot/imported/skeletonspritesheet_lime.png-dab913d39a8d2ef32466b3e4df8e2bc2.ctex"]
 
 [params]
 

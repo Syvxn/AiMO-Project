@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://cm7uyba6g370d" path="res://ui/menus/debug_menu.gd" id="1_0juoi"]
 
 [node name="DebugMenu" type="CanvasLayer" unique_id=727512519]
-visible = false
 script = ExtResource("1_0juoi")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1184328724]

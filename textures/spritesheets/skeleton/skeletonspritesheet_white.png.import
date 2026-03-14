@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxrt37at61ml1"
-path="res://.godot/imported/skeletonspritesheet_blue.png-0b19c2c5345ad9720e880c7e2777f324.ctex"
+uid="uid://bu0c1pqacme25"
+path="res://.godot/imported/skeletonspritesheet_white.png-4eef344e0a77f79c9aab630a37ee7b46.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/skeletonspritesheet_blue.png"
-dest_files=["res://.godot/imported/skeletonspritesheet_blue.png-0b19c2c5345ad9720e880c7e2777f324.ctex"]
+source_file="res://textures/spritesheets/skeleton/skeletonspritesheet_white.png"
+dest_files=["res://.godot/imported/skeletonspritesheet_white.png-4eef344e0a77f79c9aab630a37ee7b46.ctex"]
 
 [params]
 

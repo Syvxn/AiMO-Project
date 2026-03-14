@@ -13,5 +13,7 @@ spawn_path = NodePath("GameController")
 [node name="GameController" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
 
 [node name="LoadingScreen" parent="." unique_id=1452673750 instance=ExtResource("3_h2yge")]
+visible = false
 
 [node name="DebugMenu" parent="." unique_id=727512519 instance=ExtResource("4_1bvp3")]
+visible = false

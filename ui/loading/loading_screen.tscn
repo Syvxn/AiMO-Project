@@ -7,7 +7,6 @@
 font_size = 28
 
 [node name="LoadingScreen" type="CanvasLayer" unique_id=1452673750]
-visible = false
 script = ExtResource("1_butmh")
 
 [node name="Control" type="Control" parent="." unique_id=2062439925]
