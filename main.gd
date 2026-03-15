@@ -8,6 +8,7 @@ func _ready() -> void:
 	elif OS.has_feature("web"):
 		NetworkHandler.start_client()
 	else:
+		# lets us pick between server/client
 		$DebugMenu.show()
 	
 	

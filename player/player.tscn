@@ -159,15 +159,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_3eadt"]
-script/source = "extends Camera2D
-
-
-func enable():
-	if is_multiplayer_authority():
-		enabled = true
-"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
 radius = 20.0
 
@@ -188,6 +179,15 @@ properties/4/path = NodePath(".:color")
 properties/4/spawn = true
 properties/4/replication_mode = 1
 
+[sub_resource type="GDScript" id="GDScript_3eadt"]
+script/source = "extends Camera2D
+
+
+func enable():
+	if is_multiplayer_authority():
+		enabled = true
+"
+
 [node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
 z_index = 1
 z_as_relative = false
@@ -205,15 +205,10 @@ script = SubResource("GDScript_x0jl3")
 shape = SubResource("CircleShape2D_54qew")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=2107491442]
-position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_g6k8r")
-animation = &"stand_down"
+animation = &"walk_down"
 autoplay = "stand_down"
-
-[node name="Camera2D" type="Camera2D" parent="BodySprite" unique_id=1918190193]
-enabled = false
-zoom = Vector2(3.125, 3.125)
-script = SubResource("GDScript_3eadt")
+offset = Vector2(0, -32)
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1252570051]
 collision_layer = 0
@@ -224,3 +219,8 @@ shape = SubResource("CircleShape2D_3eadt")
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=25996146]
 replication_config = SubResource("SceneReplicationConfig_3eadt")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1918190193]
+position = Vector2(0, -23)
+enabled = false
+script = SubResource("GDScript_3eadt")

@@ -11,7 +11,7 @@ func _ready() -> void:
 	apply_visuals()
 	#$PlayerInputAttacher.set_multiplayer_authority(int(name))
 	#$BodySprite/Camera2D.set_multiplayer_authority(int(name))
-	$BodySprite/Camera2D.enable()
+	$Camera2D.enable()
 
 
 
