@@ -43,6 +43,11 @@ folder_colors={
 "res://ui/": "green"
 }
 
+[global_group]
+
+movables=""
+players=""
+
 [input]
 
 move_left={

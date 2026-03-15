@@ -5,11 +5,14 @@
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qtbqk"]
 points = PackedVector2Array(-16, 9, 0, 16, 16, 9, 0, 2)
 
-[node name="CompanionCube" type="RigidBody2D" unique_id=1013754895]
+[node name="CompanionCube" type="RigidBody2D" unique_id=1013754895 groups=["movables"]]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
+mass = 50.0
 gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1570555660]
 position = Vector2(0, -9)

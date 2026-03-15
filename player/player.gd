@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 var walk_speed := 100
+var push_force := 70
 var current_stand_animation := "stand_down"
 
 @onready var body_sprite = $BodySprite
@@ -16,6 +17,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void: 
+	#region movement and animation
 	# velocity + move_and_slide() handle actual movement, rest is animation
 	var walk_vec = input_handler.walk_direction
 	if walk_vec == Vector2.ZERO:
@@ -38,7 +40,14 @@ func _physics_process(_delta: float) -> void:
 				body_sprite.play("walk_up")
 				current_stand_animation = "stand_up"
 	move_and_slide()
-
+	#endregion
+	#region push movables
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider.is_in_group("movables") and collider.has_method("apply_central_impulse"):
+			collider.apply_central_impulse(collision.get_normal() * -1 * push_force)
+	#endregion
 
 
 func apply_visuals():

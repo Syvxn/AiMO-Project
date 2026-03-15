@@ -223,4 +223,5 @@ replication_config = SubResource("SceneReplicationConfig_3eadt")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1918190193]
 position = Vector2(0, -23)
 enabled = false
+zoom = Vector2(2, 2)
 script = SubResource("GDScript_3eadt")
