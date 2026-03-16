@@ -9,6 +9,6 @@ func _ready() -> void:
 		NetworkHandler.start_client()
 	else:
 		# lets us pick between server/client
-		$DebugMenu.show()
+		$DebugMenu.show_sub_menu($DebugMenu.SubMenu.SERVERCLIENT)
 	
 	

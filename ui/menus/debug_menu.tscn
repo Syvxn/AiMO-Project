@@ -27,29 +27,58 @@ theme_override_font_sizes/font_size = 35
 text = "this is a debug menu"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=2071939886]
+[node name="SubMenus" type="Control" parent="ColorRect" unique_id=1527899521]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ServerClientChoice" type="VBoxContainer" parent="ColorRect/SubMenus" unique_id=2071939886]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 506.5
+offset_top = 252.0
+offset_right = 605.5
+offset_bottom = 356.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ServerButton" type="Button" parent="ColorRect/VBoxContainer" unique_id=736692431]
+[node name="ServerButton" type="Button" parent="ColorRect/SubMenus/ServerClientChoice" unique_id=736692431]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "server"
 
-[node name="ClientButton" type="Button" parent="ColorRect/VBoxContainer" unique_id=690999631]
+[node name="ClientButton" type="Button" parent="ColorRect/SubMenus/ServerClientChoice" unique_id=690999631]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "client"
 
-[connection signal="pressed" from="ColorRect/VBoxContainer/ServerButton" to="." method="_on_server_button_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/ClientButton" to="." method="_on_client_button_pressed"]
+[node name="TeacherStudentChoice" type="VBoxContainer" parent="ColorRect/SubMenus" unique_id=314747405]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 521.0
+offset_top = 271.0
+offset_right = 591.0
+offset_bottom = 337.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TeacherButton" type="Button" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=1871679610]
+layout_mode = 2
+text = "Teacher"
+
+[node name="StudentButton" type="Button" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=1632626051]
+layout_mode = 2
+text = "Student"
+
+[connection signal="pressed" from="ColorRect/SubMenus/ServerClientChoice/ServerButton" to="." method="_on_server_button_pressed"]
+[connection signal="pressed" from="ColorRect/SubMenus/ServerClientChoice/ClientButton" to="." method="_on_client_button_pressed"]
+[connection signal="pressed" from="ColorRect/SubMenus/TeacherStudentChoice/TeacherButton" to="." method="_on_teacher_button_pressed"]
+[connection signal="pressed" from="ColorRect/SubMenus/TeacherStudentChoice/StudentButton" to="." method="_on_student_button_pressed"]

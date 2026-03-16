@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bqdkxfg4o3384"]
 
 [ext_resource type="Script" uid="uid://dusi4op230tps" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://d35eol5p808ek" path="res://rooms/personal_room.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bsolow83stix5" path="res://ui/loading/loading_screen.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://dab8lpwc6mlti" path="res://ui/menus/debug_menu.tscn" id="4_1bvp3"]
 
@@ -8,9 +9,16 @@
 script = ExtResource("1_ig7tw")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=632750434]
-spawn_path = NodePath("GameController")
+spawn_path = NodePath("GameWorld/Shared")
 
-[node name="GameController" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
+[node name="GameWorld" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
+
+[node name="Shared" type="Node2D" parent="MultiplayerSpawner/GameWorld" unique_id=1797831178]
+
+[node name="Private" type="Node2D" parent="MultiplayerSpawner/GameWorld" unique_id=573270914]
+
+[node name="PersonalRoom" parent="MultiplayerSpawner/GameWorld/Private" unique_id=576984484 instance=ExtResource("2_1bvp3")]
+position = Vector2(-4000, -4000)
 
 [node name="LoadingScreen" parent="." unique_id=1452673750 instance=ExtResource("3_h2yge")]
 visible = false

@@ -25,6 +25,8 @@ func _physics_process(_delta: float) -> void:
 		body_sprite.play(current_stand_animation)
 	else:
 		velocity = walk_speed * walk_vec
+		# iso version
+		#velocity = walk_speed * Vector2(walk_vec.x, walk_vec.y * 0.5)
 		if abs(walk_vec.x) > abs(walk_vec.y):
 			if walk_vec.x > 0:
 				body_sprite.play("walk_right")

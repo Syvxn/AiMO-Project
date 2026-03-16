@@ -31,7 +31,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Camera" type="AnimatedSprite2D" unique_id=1952480078]
+[node name="SurveillanceCamera" type="AnimatedSprite2D" unique_id=1952480078]
 sprite_frames = SubResource("SpriteFrames_y6b5k")
 animation = &"blink"
 autoplay = "blink"
