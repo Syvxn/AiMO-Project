@@ -37,45 +37,58 @@ spawn_path = NodePath("GameWorld")
 
 [node name="GameWorld" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
 
-[node name="PrivateRoomPlotMarkers" type="Node2D" parent="MultiplayerSpawner/GameWorld" unique_id=917459398]
+[node name="PersonalRoomPlotMarkers" type="Node2D" parent="MultiplayerSpawner/GameWorld" unique_id=917459398]
+editor_description = "Note: Do not spawn anything here, these are just for easy storage of coordinates, availability, and inhabitant information"
 
-[node name="PlotMarker" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1053809868 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1053809868 instance=ExtResource("2_1bvp3")]
 position = Vector2(-1500, -1500)
 
-[node name="PlotMarker2" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=781607905 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker2" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=781607905 instance=ExtResource("2_1bvp3")]
 position = Vector2(-3000, -1500)
 
-[node name="PlotMarker3" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1792650806 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker3" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1792650806 instance=ExtResource("2_1bvp3")]
 position = Vector2(-4500, -1500)
 
-[node name="PlotMarker4" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1015751725 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker4" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1015751725 instance=ExtResource("2_1bvp3")]
 position = Vector2(-6000, -1500)
 
-[node name="PlotMarker5" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=2030237557 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker5" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=2030237557 instance=ExtResource("2_1bvp3")]
 position = Vector2(-1500, -3000)
 
-[node name="PlotMarker6" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=912679285 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker6" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=912679285 instance=ExtResource("2_1bvp3")]
 position = Vector2(-3000, -3000)
 
-[node name="PlotMarker7" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=138566928 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker7" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=138566928 instance=ExtResource("2_1bvp3")]
 position = Vector2(-4500, -3000)
 
-[node name="PlotMarker8" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1210984626 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker8" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1210984626 instance=ExtResource("2_1bvp3")]
 position = Vector2(-6000, -3000)
 
-[node name="PlotMarker9" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1887504023 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker9" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1887504023 instance=ExtResource("2_1bvp3")]
 position = Vector2(-1500, -4500)
 
-[node name="PlotMarker10" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1415956755 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker10" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1415956755 instance=ExtResource("2_1bvp3")]
 position = Vector2(-3000, -4500)
 
-[node name="PlotMarker11" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=1405748070 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker11" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1405748070 instance=ExtResource("2_1bvp3")]
 position = Vector2(-4500, -4500)
 
-[node name="PlotMarker12" parent="MultiplayerSpawner/GameWorld/PrivateRoomPlotMarkers" unique_id=52327436 instance=ExtResource("2_1bvp3")]
+[node name="PlotMarker12" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=52327436 instance=ExtResource("2_1bvp3")]
 position = Vector2(-6000, -4500)
 
-[node name="OrigoSkeleton" type="AnimatedSprite2D" parent="MultiplayerSpawner/GameWorld" unique_id=1908527526]
+[node name="PlotMarker13" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1360450494 instance=ExtResource("2_1bvp3")]
+position = Vector2(-1500, -6000)
+
+[node name="PlotMarker14" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=626198238 instance=ExtResource("2_1bvp3")]
+position = Vector2(-3000, -6000)
+
+[node name="PlotMarker15" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=121583941 instance=ExtResource("2_1bvp3")]
+position = Vector2(-4500, -6000)
+
+[node name="PlotMarker16" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1676060249 instance=ExtResource("2_1bvp3")]
+position = Vector2(-6000, -6000)
+
+[node name="SecretServerSkeleton" type="AnimatedSprite2D" parent="MultiplayerSpawner/GameWorld" unique_id=1908527526]
 sprite_frames = SubResource("SpriteFrames_5vw27")
 autoplay = "default"
 frame_progress = 0.7552426

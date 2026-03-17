@@ -14,6 +14,7 @@ func _ready() -> void:
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
 	$Camera2D.enable()
+	SignalBus.finished_loading.emit()
 
 
 

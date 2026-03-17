@@ -3,7 +3,12 @@ extends CanvasLayer
 func _ready() -> void:
 	# show() and hide() are existing methods
 	SignalBus.started_loading.connect(show)
-	SignalBus.finished_loading.connect(hide)
+	SignalBus.finished_loading.connect(hide_after_a_moment)
+	
+
+func hide_after_a_moment():
+	await get_tree().create_timer(1).timeout
+	hide()
 
 func set_label_text(text: String) -> void:
 	$Control/MarginContainer/Label.text = text

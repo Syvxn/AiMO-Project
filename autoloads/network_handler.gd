@@ -3,6 +3,7 @@ extends Node
 const SERVER_URL := "ws://localhost"
 #var server_bind_address := "127.0.0.1"
 const PORT := 80
+# if you change this, check plot marker count for private rooms
 const MAX_CLIENTS := 10
 
 

@@ -46,4 +46,5 @@ position = Vector2(1061, 562)
 scale = Vector2(2.155, 2.155)
 sprite_frames = ExtResource("2_butmh")
 animation = &"walk"
+autoplay = "walk"
 frame_progress = 0.15969737

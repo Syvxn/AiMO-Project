@@ -4,6 +4,7 @@
 script/source = "extends Marker2D
 
 var inhabitant_username := \"\"
+var inhabitant_peer_id : int
 var plot_available := true
 "
 
