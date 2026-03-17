@@ -3,6 +3,7 @@ extends Node
 const SERVER_URL := "ws://localhost"
 #var server_bind_address := "127.0.0.1"
 const PORT := 80
+const MAX_CLIENTS := 10
 
 
 # should only be called by one instance of the game, i.e. the dedicated server

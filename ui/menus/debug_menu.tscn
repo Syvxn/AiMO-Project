@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.38481867, 0.092853315, 0.140737, 0.54901963)
 
-[node name="Label" type="Label" parent="ColorRect" unique_id=257141931]
+[node name="TopLabel" type="Label" parent="ColorRect" unique_id=257141931]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -27,12 +27,30 @@ theme_override_font_sizes/font_size = 35
 text = "this is a debug menu"
 horizontal_alignment = 1
 
+[node name="BottomLabel" type="Label" parent="ColorRect" unique_id=807526062]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -386.5
+offset_top = -115.244995
+offset_right = 386.5
+offset_bottom = -66.244995
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 35
+text = "this will be handled automatically / elsewhere"
+horizontal_alignment = 1
+
 [node name="SubMenus" type="Control" parent="ColorRect" unique_id=1527899521]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ServerClientChoice" type="VBoxContainer" parent="ColorRect/SubMenus" unique_id=2071939886]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -70,12 +88,22 @@ offset_bottom = 337.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=2065470540]
+layout_mode = 2
+theme_override_constants/margin_bottom = 64
+
+[node name="UsernameField" type="LineEdit" parent="ColorRect/SubMenus/TeacherStudentChoice/MarginContainer" unique_id=1098538375]
+layout_mode = 2
+placeholder_text = "Username"
+
 [node name="TeacherButton" type="Button" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=1871679610]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Teacher"
 
 [node name="StudentButton" type="Button" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=1632626051]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Student"
 
 [connection signal="pressed" from="ColorRect/SubMenus/ServerClientChoice/ServerButton" to="." method="_on_server_button_pressed"]

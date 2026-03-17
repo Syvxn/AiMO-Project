@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var username := ""
 var walk_speed := 100
 var push_force := 70
 var current_stand_animation := "stand_down"
