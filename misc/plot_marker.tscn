@@ -4,8 +4,18 @@
 script/source = "extends Marker2D
 
 var inhabitant_username := \"\"
-var inhabitant_peer_id : int
+var inhabitant_peer_id := -1
 var plot_available := true
+
+
+func _ready():
+	print(inhabitant_peer_id)
+
+
+func reset():
+	inhabitant_username = \"\"
+	inhabitant_peer_id = -1
+	plot_available = true
 "
 
 [node name="PlotMarker" type="Marker2D" unique_id=1053809868]

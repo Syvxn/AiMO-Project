@@ -60,19 +60,25 @@ func add_player_and_personal_room(player_info: Array):
 
 func remove_personal_room():
 	# done only when player disconnects
-	pass
+	# should reset marker info
+	assert(multiplayer.is_server())
 
 
+@rpc("any_peer")
 func add_public_room():
 	#prolly just spawn the fucken thing right at (0,0)
-	pass
+	assert(multiplayer.is_server())
 
 
+@rpc("any_peer")
 func remove_public_room():
 	#when we're done with it i dunno?
 	#there should probably be a seprate lobby that's always loaded
-	pass
+	assert(multiplayer.is_server())
 
 
+@rpc("any_peer")
 func join_room():
-	pass
+	# should be as simple as moving the player to the right coordinates
+	assert(multiplayer.is_server())
+	
