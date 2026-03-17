@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.38481867, 0.092853315, 0.140737, 0.54901963)
+color = Color(0.34509805, 0.1882353, 0.21176471, 1)
 
 [node name="TopLabel" type="Label" parent="ColorRect" unique_id=257141931]
 layout_mode = 1

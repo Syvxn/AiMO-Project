@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://c0vmncqyaqw3q" path="res://textures/spritesheets/chell.png" id="2_g1dw6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
-properties/0/path = NodePath(".:direction")
+properties/0/path = NodePath(".:walk_direction")
 properties/0/spawn = true
-properties/0/replication_mode = 2
+properties/0/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_x0jl3"]
 script/source = "extends MultiplayerSynchronizer
@@ -17,8 +17,8 @@ var walk_direction := Vector2.ZERO
 
 func _physics_process(_delta: float) -> void:
 	# inputs are only processed for the client's player instance
-	#if not is_multiplayer_authority():
-		#return
+	if not is_multiplayer_authority():
+		return
 	
 	walk_direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
 	

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bkc7i24nwyi2i"]
+
+[sub_resource type="GDScript" id="GDScript_sq48t"]
+script/source = "extends Camera2D
+
+var direction := Vector2.ZERO
+
+@export var vert_pan_speed := 3.0
+@export var hori_pan_speed := 3.0
+
+
+
+func _physics_process(_delta: float) -> void:
+	direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
+	move_local_x(direction.x * vert_pan_speed)
+	move_local_y(direction.y * hori_pan_speed)
+
+	if Input.is_action_just_pressed(\"interact\"):
+		position = Vector2.ZERO
+"
+
+[node name="ServerCamera" type="Camera2D" unique_id=518778710]
+zoom = Vector2(2, 2)
+script = SubResource("GDScript_sq48t")

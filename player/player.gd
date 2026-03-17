@@ -11,8 +11,8 @@ var current_stand_animation := "stand_down"
 
 func _ready() -> void:
 	apply_visuals()
-	#$PlayerInputAttacher.set_multiplayer_authority(int(name))
-	#$BodySprite/Camera2D.set_multiplayer_authority(int(name))
+	$InputHandler.set_multiplayer_authority(int(name))
+	$Camera2D.set_multiplayer_authority(int(name))
 	$Camera2D.enable()
 
 

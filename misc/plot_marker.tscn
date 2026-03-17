@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://cf4547yfvchiw"]
 
 [sub_resource type="GDScript" id="GDScript_6uf08"]
-script/source = "extends Node2D
+script/source = "extends Marker2D
 
 var inhabitant_username := \"\"
 var plot_available := true
 "
 
-[node name="PlotMarker" type="Node2D" unique_id=1569352848]
+[node name="PlotMarker" type="Marker2D" unique_id=1053809868]
 script = SubResource("GDScript_6uf08")
