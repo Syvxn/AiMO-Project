@@ -8,10 +8,10 @@ signal started_loading
 @warning_ignore("unused_signal")
 signal finished_loading
 @warning_ignore("unused_signal")
-signal player_info_received(username: String, role: String)
+signal new_player_info_received(username: String, role: String)
 @warning_ignore("unused_signal")
 signal activity_launched
 @warning_ignore("unused_signal")
 signal activity_ended
 @warning_ignore("unused_signal")
-signal room_join_requested(joiner_peer_id: int, room_name: String)
+signal player_clicked_join_room(room_name: String)

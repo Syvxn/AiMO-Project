@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://d4fefj4hwgbg7"]
+
+[ext_resource type="Script" uid="uid://b5juyq36wkm5w" path="res://ui/menus/pause_menu.gd" id="1_hv7dm"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1705228437]
+visible = false
+script = ExtResource("1_hv7dm")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=231742313]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.68235296, 0.78431374, 1, 0.5647059)
+
+[node name="TopLabel" type="Label" parent="ColorRect" unique_id=226725132]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -166.0
+offset_top = 34.0
+offset_right = 167.0
+offset_bottom = 76.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "This is the pause menu"
+horizontal_alignment = 1
+
+[node name="BottomLabel" type="Label" parent="ColorRect" unique_id=47848802]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -295.0
+offset_top = -93.0
+offset_right = 292.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "Contents should change based on current role / room"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=639581616]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -63.0
+offset_top = -15.5
+offset_right = 63.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/VBoxContainer" unique_id=887355599]
+layout_mode = 2
+theme_override_constants/margin_bottom = 32
+
+[node name="LaunchActivityButton" type="Button" parent="ColorRect/VBoxContainer/MarginContainer" unique_id=718229174]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Launch Activity"
+
+[node name="PanelContainer" type="PanelContainer" parent="ColorRect/VBoxContainer" unique_id=554634984]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/VBoxContainer/PanelContainer" unique_id=1275230927]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/VBoxContainer/PanelContainer/MarginContainer" unique_id=452633542]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="JoinList" type="VBoxContainer" parent="ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer" unique_id=56585542]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

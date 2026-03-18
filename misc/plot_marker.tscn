@@ -3,18 +3,16 @@
 [sub_resource type="GDScript" id="GDScript_6uf08"]
 script/source = "extends Marker2D
 
-var inhabitant_username := \"\"
-var inhabitant_peer_id := -1
+# losing the plot, as it were
+#var inhabitant_username := \"\"
+#var inhabitant_peer_id := -1
 var plot_available := true
 
 
-func _ready():
-	print(inhabitant_peer_id)
-
 
 func reset():
-	inhabitant_username = \"\"
-	inhabitant_peer_id = -1
+	#inhabitant_username = \"\"
+	#inhabitant_peer_id = -1
 	plot_available = true
 "
 

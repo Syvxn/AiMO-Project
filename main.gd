@@ -1,10 +1,14 @@
 extends Node
 
 
+var existing_rooms = []
+
+
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(print.bind("Connected to server (as client)"))
 	multiplayer.connected_to_server.connect($DebugMenu.show_sub_menu.bind("TEACHERSTUDENT"))
-	SignalBus.player_info_received.connect(request_spawn_from_server)
+	SignalBus.new_player_info_received.connect(request_spawn_from_server)
+	SignalBus.player_clicked_join_room.connect(request_join_room_from_server)
 	
 	if OS.has_feature("dedicated_server"):
 		NetworkHandler.start_server()
@@ -35,8 +39,6 @@ func add_player_and_personal_room(player_info: Array):
 	for child in $MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers.get_children():
 		if child.plot_available:
 			child.plot_available = false
-			child.inhabitant_username = username
-			child.inhabitant_peer_id = player_peer_id
 			plot_marker = child
 			break
 	if plot_marker == null:
@@ -44,9 +46,12 @@ func add_player_and_personal_room(player_info: Array):
 		return
 	var personal_room_instance = load("res://rooms/personal_room.tscn").instantiate()
 	personal_room_instance.name = "PROOM-" + str(player_peer_id)
+	personal_room_instance.owner_username = username
+	personal_room_instance.owner_peer_id = player_peer_id
 	personal_room_instance.set_global_position(plot_marker.get_global_position())
 	$MultiplayerSpawner/GameWorld.call_deferred("add_child", personal_room_instance)
-	print("Personal room " + personal_room_instance.name + " has spawned for ", username)
+	$PauseMenu.update_room_list.rpc()
+	print(username, "'s personal room " + personal_room_instance.name + " has spawned")
 	#endregion
 	#region  okay adding the player character this time
 	var player_instance = load("res://player/player.tscn").instantiate()
@@ -58,16 +63,27 @@ func add_player_and_personal_room(player_info: Array):
 	#endregion
 
 
-func remove_personal_room():
+func remove_personal_room(owner_peer_id):
 	# done only when player disconnects
 	# should reset marker info
 	assert(multiplayer.is_server())
+	# emit early so it disappears from players' join lists immediately
+	$PauseMenu.update_room_list.rpc()
+	for room in get_tree().get_nodes_in_group("personal_rooms"):
+		var room_name = room.name
+		if room.owner_peer_id == owner_peer_id:
+			room.queue_free()
+			print(room_name, " removed")
+		break
 
 
+#region public room add/remove for later
 @rpc("any_peer")
 func add_public_room():
 	#prolly just spawn the fucken thing right at (0,0)
 	assert(multiplayer.is_server())
+	pass
+	$PauseMenu.update_room_list.rpc()
 
 
 @rpc("any_peer")
@@ -75,10 +91,38 @@ func remove_public_room():
 	#when we're done with it i dunno?
 	#there should probably be a seprate lobby that's always loaded
 	assert(multiplayer.is_server())
+	# emit early so it disappears from players' join lists immediately
+	$PauseMenu.update_room_list.rpc()
+	pass
+#endregion
 
 
+# called only on clients, requesting that server move the player to the given room
+func request_join_room_from_server(room_name: String):
+	assert(not multiplayer.is_server(), "room join requested by server somehow what the hell")
+	print("Requesting join room from server")
+	move_player_to_room.rpc_id(1, [multiplayer.get_unique_id(), room_name])
+	
+	
+# called only on server
 @rpc("any_peer")
-func join_room():
+func move_player_to_room(move_info):
 	# should be as simple as moving the player to the right coordinates
 	assert(multiplayer.is_server())
+	print("Moving ", move_info[0], " to ", move_info[1])
+	var joiner_peer_id = move_info[0]
+	var room_name = move_info[1]
+	var room_to_join
+	for room in get_tree().get_nodes_in_group("rooms"):
+		if room.name == room_name:
+			room_to_join = room
+			break
+	assert(not room_to_join == null)
+	var spawn_location = room_to_join.get_node("SpawnPoint").get_global_position()
+	for player in get_tree().get_nodes_in_group("players"):
+		if int(player.name) == joiner_peer_id:
+			player.set_global_position(spawn_location)
+			break
+	
+	
 	

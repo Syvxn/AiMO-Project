@@ -1,7 +1,5 @@
 extends Node2D
 
-var owner_username : String
-var owner_peer_id : int
 #var players_in_room = []
 
 

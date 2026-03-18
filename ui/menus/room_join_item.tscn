@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://c6w7aikde6xt5"]
+
+[sub_resource type="GDScript" id="GDScript_h0wsf"]
+script/source = "extends MarginContainer
+
+var room_name
+
+func set_room_label_text(text: String):
+	# here's where we might render player inputted text,
+	# for example \"[USERNAME]'s Room\".
+	# this should be sanitized either here or upstream
+	$HBoxContainer/RoomLabel.text = text
+
+
+func _on_join_button_pressed() -> void:
+	SignalBus.player_clicked_join_room.emit(room_name)
+"
+
+[node name="RoomJoinItem" type="MarginContainer" unique_id=2052026462]
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 4
+script = SubResource("GDScript_h0wsf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=853827725]
+layout_mode = 2
+
+[node name="RoomLabel" type="Label" parent="HBoxContainer" unique_id=61698636]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[PLAYER]'s Room"
+clip_text = true
+
+[node name="JoinButton" type="Button" parent="HBoxContainer" unique_id=548952539]
+layout_mode = 2
+text = "Join"
+
+[connection signal="pressed" from="HBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

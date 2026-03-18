@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bsolow83stix5" path="res://ui/loading/loading_screen.tscn" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://bu0c1pqacme25" path="res://textures/spritesheets/skeleton/skeletonspritesheet_white.png" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dab8lpwc6mlti" path="res://ui/menus/debug_menu.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://d4fefj4hwgbg7" path="res://ui/menus/pause_menu.tscn" id="6_7mycd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
 atlas = ExtResource("3_lquwl")
@@ -98,3 +99,5 @@ visible = false
 
 [node name="DebugMenu" parent="." unique_id=727512519 instance=ExtResource("4_1bvp3")]
 visible = false
+
+[node name="PauseMenu" parent="." unique_id=1705228437 instance=ExtResource("6_7mycd")]
