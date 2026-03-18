@@ -7,6 +7,7 @@ var existing_rooms = []
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(print.bind("Connected to server (as client)"))
 	multiplayer.connected_to_server.connect($DebugMenu.show_sub_menu.bind("TEACHERSTUDENT"))
+	multiplayer.peer_disconnected.connect(remove_personal_room)
 	SignalBus.new_player_info_received.connect(request_spawn_from_server)
 	SignalBus.player_clicked_join_room.connect(request_join_room_from_server)
 	
@@ -48,6 +49,7 @@ func add_player_and_personal_room(player_info: Array):
 	personal_room_instance.name = "PROOM-" + str(player_peer_id)
 	personal_room_instance.owner_username = username
 	personal_room_instance.owner_peer_id = player_peer_id
+	personal_room_instance.plot_marker = plot_marker
 	personal_room_instance.set_global_position(plot_marker.get_global_position())
 	$MultiplayerSpawner/GameWorld.call_deferred("add_child", personal_room_instance)
 	$PauseMenu.update_room_list.rpc()
@@ -63,18 +65,23 @@ func add_player_and_personal_room(player_info: Array):
 	#endregion
 
 
+# called only when player disconnects
 func remove_personal_room(owner_peer_id):
-	# done only when player disconnects
-	# should reset marker info
-	assert(multiplayer.is_server())
-	# emit early so it disappears from players' join lists immediately
-	$PauseMenu.update_room_list.rpc()
+	# called on every remianing peer, but we only want server to do this
+	if not multiplayer.is_server():
+		return
+	var plot_marker
 	for room in get_tree().get_nodes_in_group("personal_rooms"):
-		var room_name = room.name
+		# should also move remaining players in room out, but that requires
+		# that the room knows who's in there to begin with
 		if room.owner_peer_id == owner_peer_id:
+			print("Removing, ", room.name)
+			plot_marker = room.plot_marker
 			room.queue_free()
-			print(room_name, " removed")
+			plot_marker.plot_available = true
 		break
+	$PauseMenu.update_room_list.rpc()
+	
 
 
 #region public room add/remove for later
@@ -91,9 +98,7 @@ func remove_public_room():
 	#when we're done with it i dunno?
 	#there should probably be a seprate lobby that's always loaded
 	assert(multiplayer.is_server())
-	# emit early so it disappears from players' join lists immediately
 	$PauseMenu.update_room_list.rpc()
-	pass
 #endregion
 
 
