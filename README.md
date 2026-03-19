@@ -1,50 +1,47 @@
 # AiMO Agents
 
-AiMO Agents is a LangGraph-based teaching assistant project organized around three core areas:
-
-- `src/aimo_agents/agents/`: one folder per agent, plus shared graph and state.
-- `src/aimo_agents/tools/`: one file per tool.
-- `src/aimo_agents/config/`: runtime settings loaded from the environment.
-
 ## Repository layout
 
 ```text
 AiMO Agents/
-|-- notebooks/                      # Demos and experiments
-|   `-- demo.ipynb
-|-- src/
-|   `-- aimo_agents/                # Main Python package
-|       |-- agents/                 # One folder per agent
-|       |   |-- __init__.py
-|       |   |-- graph.py            # Parent StateGraph wiring subgraphs together
-|       |   |-- orchestrator/       # Orchestrator agent scaffold
-|       |   |   |-- __init__.py
-|       |   |   |-- graph.py
-|       |   |   |-- nodes.py
-|       |   |   `-- state.py
-|       |   `-- teacher/            # Teacher agent scaffold
-|       |       |-- __init__.py
-|       |       |-- graph.py
-|       |       |-- nodes.py
-|       |       `-- state.py
-|       |-- config/                 # Centralized runtime settings
-|       |   |-- __init__.py
-|       |   `-- settings.py         # Model names, temperature, and defaults
-|       |-- tools/                  # One file per shared tool
-|       |   |-- __init__.py         # Exposes all tools and the tool registry
-|       |   |-- create_quiz.py
-|       |   |-- retrieve_material.py
-|       |   `-- send_analytics.py
-|       |-- __init__.py
-|       `-- runner.py               # CLI and programmatic entrypoints
-|-- tests/                          # One test file per tool or component
-|   |-- test_agent.py
-|   |-- test_create_quiz.py
-|   `-- test_retrieve_material.py
-|-- .env.example
-|-- .gitignore
-|-- pyproject.toml
-`-- requirements.txt                # Pinned dependencies
+├── notebooks/
+│   ├── demo.ipynb
+│   └── langgraph_demo_v2.ipynb
+├── src/
+│   └── aimo_agents/
+│       ├── __init__.py
+│       ├── runner.py
+│       ├── agents/
+│       │   ├── __init__.py
+│       │   ├── graph.py
+│       │   ├── orchestrator/
+│       │   │   ├── __init__.py
+│       │   │   ├── graph.py
+│       │   │   ├── nodes.py
+│       │   │   └── state.py
+│       │   └── teacher/
+│       │       ├── __init__.py
+│       │       ├── graph.py
+│       │       ├── nodes.py
+│       │       └── state.py
+│       ├── tools/
+│       │   ├── __init__.py
+│       │   ├── create_quiz.py
+│       │   ├── retrieve_material.py
+│       │   └── send_analytics.py
+│       └── config/
+│           ├── __init__.py
+│           └── settings.py
+├── tests/
+│   ├── test_agent.py
+│   ├── test_create_quiz.py
+│   └── test_retrieve_material.py
+├── .env.example
+├── .gitattributes
+├── .gitignore
+├── pyproject.toml
+├── README.md
+└── requirements.txt
 ```
 
 ## Setup
@@ -57,6 +54,12 @@ pip install -r requirements.txt
 ```
 
 3. Copy `.env.example` to `.env` and adjust the model IDs if needed.
+
+Optional: install in editable mode if you want imports to resolve as a package while developing.
+
+```bash
+pip install -e .
+```
 
 ## Usage
 
@@ -80,6 +83,8 @@ result = run_once(
 
 print(result.get("quiz"))
 ```
+
+Note: runtime files are currently scaffolded (`pass`) by design, so this repository is intended as a project template/structure at this stage.
 
 ## Tests
 
