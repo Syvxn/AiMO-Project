@@ -21,7 +21,6 @@ def run_once(
     # Pass defaults if you are not targeting the teacher agent.
     learning_material: str = "",
     topic: str = "general",
-    learner_level: str = "beginner",
     question_count: int = 5,
 ) -> AgentState:
     """Run the multi-agent graph for one request and return the final state.
@@ -30,7 +29,6 @@ def run_once(
         user_input:        The user's request text (required).
         learning_material: Source text for the teacher agent to base the quiz on.
         topic:             Optional topic hint to focus the quiz.
-        learner_level:     Difficulty — "beginner", "intermediate", or "advanced".
         question_count:    Number of MCQ questions to generate.
 
     Returns:
@@ -44,7 +42,6 @@ def run_once(
         "user_input": user_input,
         "learning_material": learning_material,
         "topic": topic,
-        "learner_level": learner_level,
         "question_count": question_count,
     }
 
@@ -59,10 +56,6 @@ def run_cli() -> None:
     print("\n--- Teacher agent settings ---")
     learning_material = input("Learning material:\n> ").strip()
     topic = input("Topic focus [general]: ").strip() or "general"
-    learner_level = (
-        input("Learner level (beginner / intermediate / advanced) [beginner]: ").strip()
-        or "beginner"
-    )
     raw_count = input("Number of questions [5]: ").strip() or "5"
     try:
         question_count = max(1, int(raw_count))
@@ -74,7 +67,6 @@ def run_cli() -> None:
         user_input=user_input,
         learning_material=learning_material,
         topic=topic,
-        learner_level=learner_level,
         question_count=question_count,
     )
 

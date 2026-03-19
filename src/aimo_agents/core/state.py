@@ -48,7 +48,6 @@ class AgentState(TypedDict, total=False):
     # These are provided by the caller when a quiz is expected.
     learning_material: str   # Source text the teacher uses to write quiz questions
     topic: str               # Optional topic focus (e.g. "photosynthesis")
-    learner_level: str       # Difficulty level: beginner | intermediate | advanced
     question_count: int      # How many MCQ questions to generate
     quiz: str                # The final MCQ quiz produced by the teacher agent
 

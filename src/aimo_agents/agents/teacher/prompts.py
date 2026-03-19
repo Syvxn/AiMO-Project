@@ -17,7 +17,6 @@ Learning material:
 {learning_material}
 
 Topic focus: {topic}
-Learner level: {learner_level}
 Number of questions: {question_count}
 
 Instructions:
