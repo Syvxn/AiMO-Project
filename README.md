@@ -5,7 +5,6 @@
 ```text
 AiMO Agents/
 ├── notebooks/
-│   ├── demo.ipynb
 │   └── langgraph_demo_v2.ipynb
 ├── src/
 │   └── aimo_agents/
