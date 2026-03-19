@@ -1,19 +1,7 @@
-"""config/settings.py — Settings loader
-
-All runtime configuration is read from environment variables or a .env file.
-Copy .env.example to .env and edit the values before running the system.
-
-To add a setting for a new agent:
-  1. Add a new field to the Settings dataclass below.
-  2. Read it in load_settings() using os.getenv().
-    3. Reference it in core/graph.py when building that agent's pipeline.
-"""
+"""Configuration scaffolding for the project."""
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass
-
-from dotenv import load_dotenv
 
 
 @dataclass(frozen=True)
@@ -38,14 +26,10 @@ class Settings:
     # "cpu"   — forces CPU inference (slow but universally compatible).
     device_map: str
 
+    # Default quiz size used by the CLI and run_once().
+    default_question_count: int
+
 
 def load_settings() -> Settings:
-    """Read configuration from environment variables or a .env file."""
-    load_dotenv()
-    return Settings(
-        orchestrator_model_id=os.getenv("ORCHESTRATOR_MODEL_ID", "Qwen/Qwen2.5-7B-Instruct"),
-        teacher_model_id=os.getenv("TEACHER_MODEL_ID", "Qwen/Qwen2.5-7B-Instruct"),
-        max_new_tokens=int(os.getenv("MAX_NEW_TOKENS", "1024")),
-        temperature=float(os.getenv("TEMPERATURE", "0.0")),
-        device_map=os.getenv("DEVICE_MAP", "auto"),
-    )
+    """Load runtime settings."""
+    pass

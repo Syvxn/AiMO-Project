@@ -1,5 +1,5 @@
-"""Agents package.
+"""Agent graph wiring — one subgraph per agent."""
 
-Contains one subpackage per agent so each role's logic, prompts,
-and tools stay grouped for easier team navigation.
-"""
+from .graph import build_graph
+
+__all__ = ["build_graph"]

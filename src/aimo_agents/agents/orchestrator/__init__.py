@@ -1,9 +1,12 @@
-"""orchestrator — Orchestrator agent package
+"""Orchestrator agent scaffold package."""
 
-Contains everything the orchestrator agent needs:
-  agent.py   — node function that validates input, calls the LLM, and returns a route
-  prompts.py — the routing prompt template
+from .graph import build_orchestrator_graph
+from .nodes import orchestrator_llm_call, orchestrator_tool_node
+from .state import OrchestratorState
 
-The orchestrator is intentionally small and stateless.
-It only decides which agent handles a request — it never produces content itself.
-"""
+__all__ = [
+	"OrchestratorState",
+	"build_orchestrator_graph",
+	"orchestrator_llm_call",
+	"orchestrator_tool_node",
+]

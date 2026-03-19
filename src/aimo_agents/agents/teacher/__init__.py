@@ -1,13 +1,12 @@
-"""teacher — Teacher agent package
+"""Teacher agent scaffold package."""
 
-Contains everything the teacher agent needs:
-  agent.py   — three node functions forming the ReAct loop (llm_call, tool_node, should_continue)
-  prompts.py — the MCQ quiz generation prompt template
-  tools.py   — @tool-decorated functions the LLM can call during its ReAct loop
+from .graph import build_teacher_graph
+from .nodes import teacher_llm_call, teacher_tool_node
+from .state import TeacherState
 
-ReAct loop flow
----------------
-  teacher_llm_call
-    └─► teacher_should_continue ──(tool calls)──► teacher_tool_node ──► teacher_llm_call
-                                ──(no tool calls)────────────────────────────────────► END
-"""
+__all__ = [
+	"TeacherState",
+	"build_teacher_graph",
+	"teacher_llm_call",
+	"teacher_tool_node",
+]

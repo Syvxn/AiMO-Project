@@ -22,10 +22,14 @@ dependencies = [
 dev = ["pytest>=8.3.0"]
 
 [project.scripts]
-quiz-run = "aimo_agents.app.runner:run_cli"
+quiz-run = "aimo_agents.runner:run_cli"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
