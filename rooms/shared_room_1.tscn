@@ -20,6 +20,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 2
 
 [node name="SharedRoom1" type="Node2D" unique_id=211128965 groups=["rooms"]]
+y_sort_enabled = true
 script = ExtResource("1_ni0bi")
 
 [node name="PlaceHolderLava" type="Sprite2D" parent="." unique_id=2079645704]
@@ -50,6 +51,7 @@ tile_map_data = PackedByteArray("AADz////AAABAAAAAAD0//7/AAABAAAAAAD0//3/AAABAAA
 tile_set = ExtResource("2_ahoao")
 
 [node name="Decorations" type="Node2D" parent="." unique_id=1180086956]
+y_sort_enabled = true
 position = Vector2(998, 986)
 
 [node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("3_xeauk")]
@@ -74,3 +76,4 @@ texture = ExtResource("5_3blj3")
 replication_config = SubResource("SceneReplicationConfig_3blj3")
 
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=200081995]
+position = Vector2(870, 979)

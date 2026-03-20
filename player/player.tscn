@@ -178,6 +178,15 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:username")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath(".:z_index")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:z_as_relative")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:y_sort_enabled")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_3eadt"]
 script/source = "extends Camera2D
@@ -205,6 +214,7 @@ script = SubResource("GDScript_x0jl3")
 shape = SubResource("CircleShape2D_54qew")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=2107491442]
+y_sort_enabled = true
 sprite_frames = SubResource("SpriteFrames_g6k8r")
 animation = &"walk_down"
 autoplay = "stand_down"

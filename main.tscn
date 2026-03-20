@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bsolow83stix5" path="res://ui/loading/loading_screen.tscn" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://bu0c1pqacme25" path="res://textures/spritesheets/skeleton/skeletonspritesheet_white.png" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dab8lpwc6mlti" path="res://ui/menus/debug_menu.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://dcfb1bataqbvi" path="res://rooms/shared_room_1.tscn" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://d4fefj4hwgbg7" path="res://ui/menus/pause_menu.tscn" id="6_7mycd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
@@ -37,6 +38,7 @@ _spawnable_scenes = PackedStringArray("uid://d35eol5p808ek", "uid://cwwh57547n81
 spawn_path = NodePath("GameWorld")
 
 [node name="GameWorld" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
+y_sort_enabled = true
 
 [node name="PersonalRoomPlotMarkers" type="Node2D" parent="MultiplayerSpawner/GameWorld" unique_id=917459398]
 editor_description = "Note: Do not spawn anything here, these are just for easy storage of coordinates, availability, and inhabitant information"
@@ -93,6 +95,8 @@ position = Vector2(-6000, -6000)
 sprite_frames = SubResource("SpriteFrames_5vw27")
 autoplay = "default"
 frame_progress = 0.7552426
+
+[node name="Lobby" parent="MultiplayerSpawner/GameWorld" unique_id=211128965 instance=ExtResource("4_272bh")]
 
 [node name="LoadingScreen" parent="." unique_id=1452673750 instance=ExtResource("3_h2yge")]
 visible = false

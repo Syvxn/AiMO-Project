@@ -20,5 +20,8 @@ position = Vector2(0, -9)
 shape = SubResource("ConvexPolygonShape2D_qtbqk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1069940731]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 texture = ExtResource("1_qtbqk")
 offset = Vector2(0, -9)
