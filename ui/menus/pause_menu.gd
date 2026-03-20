@@ -28,6 +28,7 @@ func update_room_list():
 		if room.is_in_group("personal_rooms"):
 			label_text = room.owner_username + "'s Room"
 		var room_join_item_instance = room_join_item.instantiate()
+		room_join_item_instance.pause_menu = self
 		room_join_item_instance.room_name = room_name
 		room_join_item_instance.set_room_label_text(label_text)
 		join_list.add_child(room_join_item_instance)
