@@ -8,6 +8,7 @@ func _ready() -> void:
 	multiplayer.connected_to_server.connect(print.bind("Connected to server (as client)"))
 	multiplayer.connected_to_server.connect($DebugMenu.show_sub_menu.bind("TEACHERSTUDENT"))
 	multiplayer.peer_disconnected.connect(remove_personal_room)
+	multiplayer.peer_disconnected.connect(remove_player)
 	SignalBus.new_player_info_received.connect(request_spawn_from_server)
 	SignalBus.player_clicked_join_room.connect(request_join_room_from_server)
 	
@@ -76,13 +77,24 @@ func remove_personal_room(owner_peer_id):
 		# should also move remaining players in room out, but that requires
 		# that the room knows who's in there to begin with
 		if room.owner_peer_id == owner_peer_id:
-			print("Removing, ", room.name)
+			print("Removing ", room.name)
 			plot_marker = room.plot_marker
 			room.queue_free()
 			plot_marker.plot_available = true
-		break
+			break
 	$PauseMenu.update_room_list.rpc()
-	
+
+
+# called only when player disconnects
+func remove_player(player_peer_id):
+	if not multiplayer.is_server():
+		return
+	for player in get_tree().get_nodes_in_group("players"):
+		if int(player.name) == player_peer_id:
+			print("Removing ", player.name)
+			print("Removing ", player.name)
+			player.queue_free()
+			break
 
 
 #region public room add/remove (for later)

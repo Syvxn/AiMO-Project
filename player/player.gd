@@ -54,9 +54,9 @@ func _physics_process(_delta: float) -> void:
 	#endregion
 
 
+# this would be a little more elaborate, obviously
 func apply_visuals():
 	if username == "Lasse":
-		print("yay")
 		$BodySprite.sprite_frames = load("res://textures/sprite_frames/chell_var1.tres")
 	
 	
