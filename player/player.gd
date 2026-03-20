@@ -55,6 +55,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func apply_visuals():
-	pass
+	if username == "Lasse":
+		print("yay")
+		$BodySprite.sprite_frames = load("res://textures/sprite_frames/chell_var1.tres")
 	
 	

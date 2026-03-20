@@ -59,6 +59,7 @@ func add_player_and_personal_room(player_info: Array):
 	var player_instance = load("res://player/player.tscn").instantiate()
 	# this was a clever trick to easily ferry the id when synching between peers
 	player_instance.name = str(player_peer_id)
+	player_instance.username = username
 	player_instance.set_global_position(personal_room_instance.get_node("SpawnPoint").get_global_position())
 	$MultiplayerSpawner/GameWorld.call_deferred("add_child", player_instance)
 	print("Player " + str(player_peer_id) + " (" + username + ") " + " has spawned")
@@ -84,7 +85,7 @@ func remove_personal_room(owner_peer_id):
 	
 
 
-#region public room add/remove for later
+#region public room add/remove (for later)
 @rpc("any_peer")
 func add_public_room():
 	#prolly just spawn the fucken thing right at (0,0)
