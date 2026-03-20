@@ -1,0 +1,67 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://blf3kqutjls86"]
+
+[ext_resource type="Texture2D" uid="uid://qfn1p2rvmkqg" path="res://textures/spritesheets/elizabeth_loading.png" id="1_vfv8h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfv8h"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsfuj"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eewd4"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jjqx"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krsco"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kv7mj"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0h3b"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je8gc"]
+atlas = ExtResource("1_vfv8h")
+region = Rect2(112, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_vfv8h")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_hsfuj")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_eewd4")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_6jjqx")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_krsco")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_kv7mj")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_l0h3b")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_je8gc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -2,79 +2,10 @@
 
 [ext_resource type="Script" uid="uid://n4rg6xd52qax" path="res://ui/loading/loading_screen.gd" id="1_butmh"]
 [ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen.tres" id="2_butmh"]
-[ext_resource type="Texture2D" uid="uid://qfn1p2rvmkqg" path="res://textures/spritesheets/elizabeth_loading.png" id="3_xen5b"]
+[ext_resource type="SpriteFrames" uid="uid://blf3kqutjls86" path="res://textures/sprite_frames/loading_elizabeth.tres" id="3_xen5b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kfex"]
 font_size = 28
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s7f4n"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dy5tn"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5d1e0"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2riq8"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tmb01"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lpso4"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1urh0"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(96, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5v8s6"]
-atlas = ExtResource("3_xen5b")
-region = Rect2(112, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_butmh"]
-animations = [{
-"frames": [{
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_s7f4n")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_dy5tn")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_5d1e0")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_2riq8")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_tmb01")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_lpso4")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_1urh0")
-}, {
-"duration": 0.9,
-"texture": SubResource("AtlasTexture_5v8s6")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
 
 [node name="LoadingScreen" type="CanvasLayer" unique_id=1452673750]
 script = ExtResource("1_butmh")
@@ -113,16 +44,16 @@ vertical_alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=26065665]
 visible = false
-position = Vector2(1061, 562)
+position = Vector2(1089, 562)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("2_butmh")
 animation = &"walk"
 autoplay = "walk"
-frame_progress = 0.12744392
+frame_progress = 0.1255059
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Control" unique_id=766065477]
 position = Vector2(1042, 560)
 scale = Vector2(4, 4)
-sprite_frames = SubResource("SpriteFrames_butmh")
-animation = &"new_animation"
+sprite_frames = ExtResource("3_xen5b")
 autoplay = "default"
+frame_progress = 0.61896235

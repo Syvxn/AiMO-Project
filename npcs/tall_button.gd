@@ -35,3 +35,5 @@ func request_chicken() -> void:
 func _chicken_request_completed(_result, _response_code, _headers, body) -> void:
 	var body_text = body.get_string_from_utf8()
 	$Control/DialogueBox/MarginContainer/RichTextLabel.text = body_text
+	
+	
