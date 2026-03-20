@@ -51,6 +51,7 @@ movables=""
 players=""
 rooms=""
 personal_rooms=""
+npcs=""
 
 [input]
 

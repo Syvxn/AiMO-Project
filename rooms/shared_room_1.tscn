@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/props/surveillance_camera.tscn" id="3_xeauk"]
 [ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/props/companion_cube.tscn" id="4_lah35"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_3blj3"]
+[ext_resource type="PackedScene" uid="uid://dheevgi1fsmup" path="res://npcs/tall_button.tscn" id="6_mc7ab"]
 
 [sub_resource type="Gradient" id="Gradient_3blj3"]
 colors = PackedColorArray(0.6711391, 0.097887985, 0.065878436, 1, 0.8136673, 0.3119917, 3.85046e-07, 1)
@@ -65,6 +66,9 @@ position = Vector2(57, 2)
 
 [node name="CompanionCube3" parent="Decorations" unique_id=184109799 instance=ExtResource("4_lah35")]
 position = Vector2(-33, 64)
+
+[node name="TallButton" parent="." unique_id=952456853 instance=ExtResource("6_mc7ab")]
+position = Vector2(1094, 915)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=954700916]
 z_index = -999
