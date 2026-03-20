@@ -5,8 +5,8 @@ script/source = "extends Camera2D
 
 var direction := Vector2.ZERO
 
-@export var vert_pan_speed := 3.0
-@export var hori_pan_speed := 3.0
+@export var vert_pan_speed := 30.0
+@export var hori_pan_speed := 30.0
 
 
 
@@ -20,5 +20,5 @@ func _physics_process(_delta: float) -> void:
 "
 
 [node name="ServerCamera" type="Camera2D" unique_id=518778710]
-zoom = Vector2(2, 2)
+zoom = Vector2(0.5, 0.5)
 script = SubResource("GDScript_sq48t")

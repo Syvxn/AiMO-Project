@@ -1,9 +1,6 @@
 extends Node
 
 
-var existing_rooms = []
-
-
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(print.bind("Connected to server (as client)"))
 	multiplayer.connected_to_server.connect($DebugMenu.show_sub_menu.bind("TEACHERSTUDENT"))
@@ -18,6 +15,7 @@ func _ready() -> void:
 		NetworkHandler.start_client()
 	else:
 		$DebugMenu.show_sub_menu("SERVERCLIENT")
+		
 
 
 # called only on clients, requesting that server add their player to the game

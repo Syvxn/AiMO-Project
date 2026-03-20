@@ -24,6 +24,7 @@ func show_sub_menu(menu : String):
 
 func _on_server_button_pressed() -> void:
 	NetworkHandler.start_server()
+	get_parent().get_node("MultiplayerSpawner/GameWorld").add_child(load("res://misc/server_camera.tscn").instantiate())
 	hide()
 	
 func _on_client_button_pressed() -> void:
