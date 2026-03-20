@@ -33,3 +33,7 @@ func update_room_list():
 		room_join_item_instance.set_room_label_text(label_text)
 		join_list.add_child(room_join_item_instance)
 	
+
+
+func _on_launch_activity_button_pressed() -> void:
+	SignalBus.activity_launched.emit()

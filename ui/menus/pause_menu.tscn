@@ -85,3 +85,5 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/MarginContainer/LaunchActivityButton" to="." method="_on_launch_activity_button_pressed"]

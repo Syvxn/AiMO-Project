@@ -1,6 +1,7 @@
 extends Node
 
 
+
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(print.bind("Connected to server (as client)"))
 	multiplayer.connected_to_server.connect($DebugMenu.show_sub_menu.bind("TEACHERSTUDENT"))
@@ -8,6 +9,7 @@ func _ready() -> void:
 	multiplayer.peer_disconnected.connect(remove_player)
 	SignalBus.new_player_info_received.connect(request_spawn_from_server)
 	SignalBus.player_clicked_join_room.connect(request_join_room_from_server)
+	SignalBus.activity_launched.connect(request_activity_launch_from_server)
 	
 	if OS.has_feature("dedicated_server"):
 		NetworkHandler.start_server()
@@ -111,6 +113,22 @@ func remove_public_room():
 	assert(multiplayer.is_server())
 	$PauseMenu.update_room_list.rpc()
 #endregion
+
+
+func request_activity_launch_from_server():
+	assert(not multiplayer.is_server())
+	launch_activity.rpc_id(1)
+
+
+# called only on server.
+@rpc("any_peer")
+func launch_activity():
+	# this would be more complicated, check role/permissions,
+	# and apply to whichever room is relevant
+	for player in get_tree().get_nodes_in_group("players"):
+		move_player_to_room([int(player.name), "Lobby"])
+		# with only one spawnpoint, this is necessary to prevent glitching
+		await get_tree().create_timer(.2).timeout
 
 
 # called only on clients, requesting that server move the player to the given room
