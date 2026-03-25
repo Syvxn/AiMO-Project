@@ -52,8 +52,8 @@ autoplay = "walk"
 frame_progress = 0.1255059
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Control" unique_id=766065477]
-position = Vector2(1042, 560)
+position = Vector2(1056, 554)
 scale = Vector2(4, 4)
 sprite_frames = ExtResource("3_xen5b")
 autoplay = "default"
-frame_progress = 0.61896235
+frame_progress = 0.7721303

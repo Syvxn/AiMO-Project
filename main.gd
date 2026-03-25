@@ -157,6 +157,3 @@ func move_player_to_room(move_info):
 		if int(player.name) == joiner_peer_id:
 			player.set_global_position(spawn_location)
 			break
-	
-	
-	
