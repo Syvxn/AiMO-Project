@@ -1,3 +1,5 @@
+(this README is mostly LLM generated, and should not be taken as gospel.)
+
 # AiMO Game Prototype
 
 A 2D top-down multiplayer social/educational platform game prototype built in Godot 4.6. A **Teacher** hosts a session, students join and move freely through tile-based rooms, and the teacher can launch activities that teleport everyone to a shared space.
@@ -50,21 +52,11 @@ Open **Godot 4.6**, click **Import**, and select the `project.godot` file from t
 
 ## Running Locally
 
-Because the game is multiplayer, you need to run two instances simultaneously — one as the server and one as a client.
+Once you've opened the project in the Godot editor, set the number of run isntances to at least 2 from **Debug -> Customize Run Instances...**
 
-**Step 1 — Start the server**
+This will allow you to set one instance as the server, and the rest as clients afterward, when running the project with F5.
 
-Run the project from the Godot editor (F5). The debug menu appears. Click **Server**. A headless server window opens (no camera, no player character).
-
-**Step 2 — Start a client**
-
-Open a second Godot editor instance with the same project, or use **Debug → Run Second Instance** from the menu. Click **Client**, then choose a role (**Teacher** or **Student**) and enter a username.
-
-**Step 3 — Play**
-
-The client spawns a player in its personal room. Open the pause menu (**Escape**) to see available rooms and join them. As the Teacher, the "Launch Activity" button teleports all connected players to the Lobby.
-
-> The server listens on `ws://localhost` (port 80) by default. If port 80 is unavailable, change `PORT` in `autoloads/network_handler.gd`.
+Alternatively, you can export a dedicated server build, run it as an executable, and then run the client either from the editor or as a web export. Web exports must be served through an HTTP(S) server, for example with ```python3 -m http.server 80```.
 
 ---
 
