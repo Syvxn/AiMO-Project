@@ -4,12 +4,15 @@ var username := ""
 var walk_speed := 100
 var push_force := 70
 var current_stand_animation := "stand_down"
+var controllable := true
 
 @onready var body_sprite = $BodySprite
 @onready var input_handler = $InputHandler
 
 
 func _ready() -> void:
+	SignalBus.chat_opened.connect(lock_controls)
+	SignalBus.chat_closed.connect(release_controls)
 	apply_visuals()
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
@@ -59,4 +62,8 @@ func apply_visuals():
 	if username == "Lasse":
 		$BodySprite.sprite_frames = load("res://textures/sprite_frames/chell_var1.tres")
 	
-	
+
+func lock_controls():
+	controllable = false
+func release_controls():
+	controllable = true

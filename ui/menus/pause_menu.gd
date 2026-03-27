@@ -9,14 +9,6 @@ func _ready() -> void:
 	hide()
 	update_room_list()
 
-func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		if visible:
-			hide()
-		else: 
-			update_room_list()
-			show()
-
 
 @rpc
 func update_room_list():

@@ -17,7 +17,24 @@ func _ready() -> void:
 		NetworkHandler.start_client()
 	else:
 		$DebugMenu.show_sub_menu("SERVERCLIENT")
-		
+
+
+func _physics_process(_delta: float) -> void:
+	# boy this is some trash
+	if Input.is_action_just_pressed("ui_cancel"):
+		if $LoadingScreen.visible:
+			pass
+		elif $DebugMenu.visible:
+			pass
+		elif $ChatScreen.visible:
+			$ChatScreen.hide()
+			SignalBus.chat_closed.emit()
+		elif $PauseMenu.visible:
+			$PauseMenu.hide()
+		else: 
+			$PauseMenu.update_room_list()
+			$PauseMenu.show()
+
 
 
 # called only on clients, requesting that server add their player to the game

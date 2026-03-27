@@ -19,6 +19,8 @@ func _physics_process(_delta: float) -> void:
 	# inputs are only processed for the client's player instance
 	if not is_multiplayer_authority():
 		return
+	if not get_parent().controllable:
+		return
 	
 	walk_direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
 	
