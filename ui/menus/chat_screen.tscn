@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_screen.gd" id="1_ldjw3"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
+[ext_resource type="PackedScene" uid="uid://b1vw47qi4pr7j" path="res://ui/menus/chat_bubble.tscn" id="3_tanbp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
 corner_radius_top_left = 20
@@ -52,7 +53,6 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2" unique_id=797728545]
 layout_mode = 2
@@ -61,6 +61,17 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="ChatBubble" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer" unique_id=784290558 instance=ExtResource("3_tanbp")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ChatBubble2" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer" unique_id=858834289 instance=ExtResource("3_tanbp")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="RichTextLabel" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer/ChatBubble2" index="0" unique_id=367681210]
+text = "It was thus with Milady. She escaped the cruisers of both nations, and arrived at Boulogne without accident."
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer" unique_id=1268693992]
 layout_mode = 2
@@ -93,7 +104,10 @@ layout_mode = 2
 [node name="InputField" type="LineEdit" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=549342335]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("2_ywf3k")
 
 [node name="SubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=1581675107]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+
+[editable path="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer/ChatBubble2"]
