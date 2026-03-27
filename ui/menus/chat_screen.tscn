@@ -74,6 +74,7 @@ size_flags_horizontal = 8
 text = "It was thus with Milady. She escaped the cruisers of both nations, and arrived at Boulogne without accident."
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer" unique_id=1268693992]
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10

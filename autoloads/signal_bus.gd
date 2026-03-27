@@ -15,3 +15,7 @@ signal activity_launched
 signal activity_ended
 @warning_ignore("unused_signal")
 signal player_clicked_join_room(room_name: String)
+@warning_ignore("unused_signal")
+signal chat_opened
+@warning_ignore("unused_signal")
+signal chat_closed

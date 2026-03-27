@@ -76,6 +76,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="DialogueBox" type="ColorRect" parent="Control" unique_id=1619135313]
+visible = false
 layout_mode = 0
 offset_left = -151.0
 offset_top = -127.0

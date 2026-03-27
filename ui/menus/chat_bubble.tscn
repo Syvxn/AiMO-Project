@@ -22,6 +22,6 @@ theme_override_constants/margin_bottom = 10
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=367681210]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_gfnwe")
-text = "Great criminals bear about them a kind of predestination which makes	them surmount all obstacles, which makes them escape all dangers, up to the moment which a wearied Providence has marked as the rock of their impious fortunes."
+text = "Great criminals bear about them a kind of predestination which makes them surmount all obstacles, which makes them escape all dangers, up to the moment which a wearied Providence has marked as the rock of their impious fortunes."
 fit_content = true
 scroll_active = false

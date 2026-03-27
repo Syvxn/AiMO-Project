@@ -60,7 +60,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Llehc" type="Area2D" unique_id=1888177192]
+[node name="Llehc" type="Area2D" unique_id=1888177192 groups=["npcs"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 script = ExtResource("1_1nwid")
 
 [node name="InteractionAreaCollision" type="CollisionShape2D" parent="." unique_id=1798813788]

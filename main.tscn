@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dab8lpwc6mlti" path="res://ui/menus/debug_menu.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dcfb1bataqbvi" path="res://rooms/shared_room_1.tscn" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://d4fefj4hwgbg7" path="res://ui/menus/pause_menu.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://c8x34nugd04c8" path="res://ui/menus/chat_screen.tscn" id="8_5vw27"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
 atlas = ExtResource("3_lquwl")
@@ -105,3 +106,6 @@ visible = false
 visible = false
 
 [node name="PauseMenu" parent="." unique_id=1705228437 instance=ExtResource("6_7mycd")]
+
+[node name="ChatScreen" parent="." unique_id=916964389 instance=ExtResource("8_5vw27")]
+visible = false
