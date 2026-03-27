@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://c8x34nugd04c8"]
+
+[ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_screen.gd" id="1_ldjw3"]
+[ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="ChatScreen" type="CanvasLayer" unique_id=916964389]
+script = ExtResource("1_ldjw3")
+
+[node name="Control" type="Control" parent="." unique_id=1024478060]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=564910708]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/MarginContainer" unique_id=1262480437]
+layout_mode = 2
+ratio = 0.8
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=940803565]
+layout_mode = 2
+theme = ExtResource("2_ywf3k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel" unique_id=1493294553]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer" unique_id=1181069298]
+custom_minimum_size = Vector2(0, 528.855)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2" unique_id=797728545]
+layout_mode = 2
+
+[node name="ChatContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer" unique_id=532373280]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer" unique_id=1268693992]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer" unique_id=1891246671]
+layout_mode = 2
+theme = ExtResource("2_ywf3k")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ywf3k")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel" unique_id=1696599969]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer" unique_id=1463605355]
+layout_mode = 2
+
+[node name="InputField" type="LineEdit" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=549342335]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=1581675107]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
