@@ -2,13 +2,21 @@
 
 [ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_screen.gd" id="1_ldjw3"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
-[ext_resource type="PackedScene" uid="uid://b1vw47qi4pr7j" path="res://ui/menus/chat_bubble.tscn" id="3_tanbp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tanbp"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="ChatScreen" type="CanvasLayer" unique_id=916964389]
 script = ExtResource("1_ldjw3")
@@ -55,23 +63,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2" unique_id=797728545]
+unique_name_in_owner = true
 layout_mode = 2
+follow_focus = true
 
 [node name="ChatContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer" unique_id=532373280]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="ChatBubble" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer" unique_id=784290558 instance=ExtResource("3_tanbp")]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="ChatBubble2" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer" unique_id=858834289 instance=ExtResource("3_tanbp")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="RichTextLabel" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer/ChatBubble2" index="0" unique_id=367681210]
-text = "It was thus with Milady. She escaped the cruisers of both nations, and arrived at Boulogne without accident."
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer" unique_id=1268693992]
 custom_minimum_size = Vector2(0, 76)
@@ -103,12 +103,19 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="InputField" type="LineEdit" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=549342335]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ywf3k")
+theme_override_constants/caret_width = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_tanbp")
+placeholder_text = "Say something"
+keep_editing_on_text_submit = true
 
 [node name="SubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=1581675107]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+text = ">"
 
-[editable path="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer2/ScrollContainer/ChatContainer/ChatBubble2"]
+[connection signal="text_submitted" from="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/InputField" to="." method="_on_input_field_text_submitted"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/Panel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/SubmitButton" to="." method="_on_submit_button_pressed"]
