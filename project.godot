@@ -20,6 +20,7 @@ config/icon="uid://bng85tuelwpxo"
 
 NetworkHandler="*uid://clyvgvpwu0knk"
 SignalBus="*uid://tspfsguyxkbx"
+Env="*uid://d4b5kic111fvh"
 
 [display]
 

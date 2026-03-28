@@ -25,7 +25,7 @@ func add_bubble(text: String, side: String):
 	else:
 		chat_bubble_instance.set_h_size_flags(Control.SizeFlags.SIZE_SHRINK_END)
 		# don't forget to remove this
-		add_debug_reply()
+		#add_debug_reply()
 	chat_container.add_child(chat_bubble_instance)
 	await get_tree().process_frame
 	scroll_container.ensure_control_visible(chat_bubble_instance)
@@ -40,9 +40,24 @@ func add_debug_reply():
 func submit_input(input_text):
 	input_field.set_text("")
 	add_bubble(input_text, "right")
-	# send HTTP request here, then have callback add the npc response bubble 
-	
-	
+	#region http 
+	var http_request = HTTPRequest.new()
+	add_child(http_request)
+	http_request.request_completed.connect(self.chat_request_completed)
+	var url = Env.CHAT_SERVER_URL
+	var custom_headers = PackedStringArray()
+	var method = HTTPClient.Method.METHOD_POST
+	# sanitizer? i hardly know 'er
+	var data = input_text
+	http_request.request(url, custom_headers, method, data)
+	#endregion
+
+
+func chat_request_completed(result, response_code, _headers, body):
+	print("HTTP request: ", str(result), " ", str(response_code))
+	add_bubble(body.get_string_from_utf8(), "left")
+
+
 func _on_submit_button_pressed() -> void:
 	submit_input(input_field.get_text())
 	input_field.grab_focus()

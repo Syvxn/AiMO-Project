@@ -64,6 +64,8 @@ func apply_visuals():
 	
 
 func lock_controls():
+	# this back-and-forth is a little stupid, but hey
+	input_handler.walk_direction = Vector2.ZERO
 	controllable = false
 func release_controls():
 	controllable = true
