@@ -67,7 +67,7 @@ Alternatively, you can export a dedicated server build, run it as an executable,
 
 Files ending in .tscn are scenes, files ending in .gd are GDScript scripts.
 Most scripts are attached to scenes of the same name.
-Autlodoad scripts are made globally available at runtime.
+Autoload scripts are made globally available at runtime.
 Some nodes/scenes might have small built-in scripts that aren't saved separately.
 
 ```    
@@ -199,4 +199,3 @@ Good starting points for new contributors:
 - **Room gameplay** — `rooms/personal_room.gd` and `rooms/shared_room_1.gd` are mostly stubs; the room logic is the main area waiting to be built out.
 - **Character selection** — `player.gd`'s `apply_visuals()` currently hard-codes sprites by username. This should be replaced with a proper selection UI.
 - **Public rooms** — `main.gd` has stubbed `add_public_room` / `remove_public_room` functions ready to be implemented.
-- **NPC interactions** — `npcs/tall_button.gd` is a working proof-of-concept; new NPC types can follow the same pattern.
