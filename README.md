@@ -117,7 +117,7 @@ aimo_game_proto/
 
 ### Authoritative server
 
-Clients never write to the game world. When a client wants to do something (join a room, launch an activity), it calls an `@rpc` function on the server. The server validates and performs the action, and Godot's `MultiplayerSpawner` automatically replicates the resulting node changes to all clients.
+Clients never write to the game world. When a client wants to do something (join a room, launch an activity), it calls an `@rpc` function on the server. The server validates and performs the action, and Godot's `MultiplayerSpawner` and `MultiplayerSynchronizer` automatically replicate the resulting node changes to all clients.
 
 ```
                        Client                                                 Server
