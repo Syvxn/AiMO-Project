@@ -16,10 +16,15 @@ func _ready() -> void:
 func add_bubble(text: String, side: String):
 	var chat_bubble_instance = chat_bubble.instantiate()
 	chat_bubble_instance.get_node("BubbleText").text = text
+	#region garbage magic number resizing circus
+	var bubble_min_size = Vector2(clamp(len(text)*10, 80, 400), 0)
+	chat_bubble_instance.set_custom_minimum_size(bubble_min_size)
+	#endregion
 	if side == "left":
 		chat_bubble_instance.set_h_size_flags(Control.SizeFlags.SIZE_SHRINK_BEGIN)
 	else:
 		chat_bubble_instance.set_h_size_flags(Control.SizeFlags.SIZE_SHRINK_END)
+		# don't forget to remove this
 		add_debug_reply()
 	chat_container.add_child(chat_bubble_instance)
 	await get_tree().process_frame
@@ -35,6 +40,7 @@ func add_debug_reply():
 func submit_input(input_text):
 	input_field.set_text("")
 	add_bubble(input_text, "right")
+	# send HTTP request here, then have callback add the npc response bubble 
 	
 	
 func _on_submit_button_pressed() -> void:
