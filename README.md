@@ -65,57 +65,48 @@ Alternatively, you can export a dedicated server build, run it as an executable,
 
 ## Project Structure
 
-Files ending in .tscn are scene, files ending in .gd are GDScript scripts.
+Files ending in .tscn are scenes, files ending in .gd are GDScript scripts.
 Most scripts are attached to scenes of the same name.
 Autlodoad scripts are made globally available at runtime.
 Some nodes/scenes might have small built-in scripts that aren't saved separately.
 
-```
-aimo_game_proto/
-├── icon.png           # Placeholder project icon stolen from Gate 1 powerpoint
-├── .env_example.json  # CHANGE NAME TO .env.json TO RUN PROJECT
-├── main.tscn          # Main scene — core RPC logic, spawning, room management
-├── main.gd          
-├── autoloads/
-│   ├── env.gd                   # Singleton — loads environment variables from .env.json
-│   ├── network_handler.gd       # Singleton — creates WebSocket server or client peer
-│   └── signal_bus.gd            # Singleton — global signal hub for decoupled communication
-├── player/
-│   └── player.tscn               # CharacterBody2D — movement, animation, pushing movables
-│   └── player.gd
-├── rooms/
-│   ├── personal_room.tscn         # Per-player private room (tracks owner username/peer ID)
-│   ├── personal_room.gd           
-│   ├── room_color_test.tscn       
-│   └── shared_room_1.tscn         # Shared Lobby room
-│   └── shared_room_1.gd
-├── npcs/
-│   └── llehc.tscn               # Test NPC with HTTP chat window
-│   └── llehc.gd
-│   └── tall_button.tscn         # Test button that sends an HTTP request to oispa.kieveinkanaa.fi
-│   └── tall_button.gd           
-├── items/
-│   └── props/                   # Movable/static props (companion cube, surveillance camera)
-├── misc/
-│   ├── plot_marker.tscn         # Marker2D slots used to position personal rooms (16 in a grid)
-│   └── server_camera.tscn       # WASD-movable debug camera spawned server-side only
-├── ui/
-│   ├── loading/                 
-│       ├── loading_screen.tscn  # Full-screen loading overlay
-│       ├── loading_screen.gd
+```    
+aimo_game_proto/    
+├── icon.png                         # Placeholder project icon stolen from Gate 1 powerpoint
+├── .env_example.json                # CHANGE NAME TO .env.json TO RUN PROJECT
+├── main.tscn/.gd                    # Main scene — core RPC logic, spawning, room management      
+├── autoloads/    
+│   ├── env.gd                       # Singleton — loads environment variables from .env.json
+│   ├── network_handler.gd           # Singleton — creates WebSocket server or client peer
+│   └── signal_bus.gd                # Singleton — global signal hub for decoupled communication
+├── player/    
+│   └── player.tscn/.gd              # CharacterBody2D — movement, animation, pushing movables
+├── rooms/    
+│   ├── personal_room.tscn/.gd       # Per-player private room (tracks owner username/peer ID)       
+│   ├── room_color_test.tscn           
+│   └── shared_room_1.tscn/.gd       # Shared Lobby room
+├── npcs/    
+│   └── llehc.tscn/.gd               # Test NPC with HTTP chat window
+│   └── tall_button.tscn/.gd         # Test button that sends an HTTP request to oispa.kieveinkanaa.fi     
+├── items/    
+│   └── props/                       # Movable/static props (companion cube, surveillance camera)
+├── misc/    
+│   ├── plot_marker.tscn             # Marker2D slots used to position personal rooms (16 in a grid)
+│   └── server_camera.tscn           # WASD-movable debug camera spawned server-side only
+├── ui/    
+│   ├── loading/                     
+│   │   ├── loading_screen.tscn/.gd  # Full-screen loading overlay
+│   │   ├── loading_screen.gd
 │   └── menus/
-│       ├── chat_bubble.tscn     # Simple two-node scene for chat bubbles
-│       ├── chat_screen.tscn     # Full-screen HTTP chat window
-│       ├── chat_screen.gd
-│       ├── debug_menu.tscn      # Dev-only menu: server/client and teacher/student selection
-│       ├── debug_menu.gd
-│       └── pause_menu.tscn      # In-game menu: room list, join room, launch activity
-│       └── pause_menu.gd        
-│       └── room_join_item.tscn  # List item for pause menu rooms list     
-│   └── themes/
-│       └── chat_test.tres       # Theme that applies to chat window bg Panel and LineEdit
-└── textures/                    # Sprite frames, spritesheets, tilesets
-└── exports/                     # Directories for project exports
+│   │   ├── chat_bubble.tscn         # Simple two-node scene for chat bubbles
+│   │   ├── chat_screen.tscn/.gd     # Full-screen HTTP chat window
+│   │   ├── debug_menu.tscn/.gd      # Dev-only menu: server/client and teacher/student selection
+│   │   └── pause_menu.tscn/.gd      # In-game menu: room list, join room, launch activity    
+│   │   └── room_join_item.tscn      # List item for pause menu rooms list     
+│   └── themes/    
+│       └── chat_test.tres           # Theme that applies to chat window bg Panel and LineEdit
+└── textures/                        # Sprite frames, spritesheets, tilesets
+└── exports/                         # Directories for project exports
 ```
 
 **Start reading here:** `main.gd` is the heart of the project. It handles player/room spawning, all server-side RPCs, and the startup branching logic for each platform mode.
