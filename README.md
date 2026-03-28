@@ -60,6 +60,7 @@ Once you've opened the project in the Godot editor, set the number of run isntan
 This will allow you to set one instance as the server, and the rest as clients afterward, when running the project with F5.
 
 Alternatively, you can export a dedicated server build, run it as an executable, and then run the client either from the editor or as a web export. Web exports must be served through an HTTP(S) server, for example with ```python3 -m http.server 80```.
+
 ---
 
 ## Project Structure (wrong and out of date, do not believe its lies -robin)
