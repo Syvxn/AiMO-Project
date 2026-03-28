@@ -5,7 +5,7 @@ var GAME_SERVER_URL : String
 var GAME_SERVER_PORT : int
 var MAX_GAME_CLIENTS : int    # not used yet
 var CHAT_SERVER_URL : String
-var CHAT_SERVER_PORT : int    # not used yet
+#var CHAT_SERVER_PORT : int
 
 
 func _ready() -> void:
@@ -17,5 +17,5 @@ func _ready() -> void:
 		GAME_SERVER_PORT = json.data["GAME_SERVER_PORT"]
 		MAX_GAME_CLIENTS = json.data["MAX_GAME_CLIENTS"]
 		CHAT_SERVER_URL = json.data["CHAT_SERVER_URL"]
-		CHAT_SERVER_PORT = json.data["CHAT_SERVER_PORT"]
+		#CHAT_SERVER_PORT = json.data["CHAT_SERVER_PORT"]
 		

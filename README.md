@@ -52,40 +52,69 @@ Open **Godot 4.6**, click **Import**, and select the `project.godot` file from t
 
 ## Running Locally
 
+Rename ```.env_example.json``` to ```.env.json```, and fill it with the appropriate information.
+If you want the NPC to reply in chat, ```CHAT_SERVER_URL``` must point to a valid URL.
+
 Once you've opened the project in the Godot editor, set the number of run isntances to at least 2 from **Debug -> Customize Run Instances...**
 
 This will allow you to set one instance as the server, and the rest as clients afterward, when running the project with F5.
 
 Alternatively, you can export a dedicated server build, run it as an executable, and then run the client either from the editor or as a web export. Web exports must be served through an HTTP(S) server, for example with ```python3 -m http.server 80```.
-
 ---
 
 ## Project Structure (wrong and out of date, do not believe its lies -robin)
 
+Files ending in .tscn are scene, files ending in .gd are GDScript scripts.
+Most scripts are attached to scenes of the same name.
+Autlodoad scripts are made globally available at runtime.
+Some nodes/scenes might have small built-in scripts that aren't saved separately.
+
 ```
 aimo_game_proto/
-├── main.gd / main.tscn          # Root scene — core RPC logic, spawning, room management
+├── icon.png           # Placeholder project icon stolen from Gate 1 powerpoint
+├── .env_example.json  # CHANGE NAME TO .env.json TO RUN PROJECT
+├── main.tscn          # Main scene — core RPC logic, spawning, room management
+├── main.gd          
 ├── autoloads/
+│   ├── env.gd                   # Singleton — loads environment variables from .env.json
 │   ├── network_handler.gd       # Singleton — creates WebSocket server or client peer
 │   └── signal_bus.gd            # Singleton — global signal hub for decoupled communication
 ├── player/
-│   └── player.gd                # CharacterBody2D — movement, animation, pushing movables
+│   └── player.tscn               # CharacterBody2D — movement, animation, pushing movables
+│   └── player.gd
 ├── rooms/
-│   ├── personal_room.gd         # Per-player private room (tracks owner username/peer ID)
-│   └── shared_room_1.gd         # Shared Lobby room
+│   ├── personal_room.tscn         # Per-player private room (tracks owner username/peer ID)
+│   ├── personal_room.gd           
+│   ├── room_color_test.tscn       
+│   └── shared_room_1.tscn         # Shared Lobby room
+│   └── shared_room_1.gd
 ├── npcs/
-│   └── tall_button.gd           # Interactive NPC: animation, HTTP request, response display
+│   └── llehc.tscn               # Test NPC with HTTP chat window
+│   └── llehc.gd
+│   └── tall_button.tscn         # Test button that sends an HTTP request to oispa.kieveinkanaa.fi
+│   └── tall_button.gd           
 ├── items/
-│   └── props/                   # Movable props (Companion Cube, surveillance camera)
+│   └── props/                   # Movable/static props (companion cube, surveillance camera)
 ├── misc/
 │   ├── plot_marker.tscn         # Marker2D slots used to position personal rooms (16 in a grid)
-│   └── server_camera.tscn       # Debug camera spawned server-side only
+│   └── server_camera.tscn       # WASD-movable debug camera spawned server-side only
 ├── ui/
-│   ├── loading/                 # Full-screen loading overlay
+│   ├── loading/                 
+│       ├── loading_screen.tscn  # Full-screen loading overlay
+│       ├── loading_screen.gd
 │   └── menus/
-│       ├── debug_menu.gd        # Dev-only menu: server/client and teacher/student selection
-│       └── pause_menu.gd        # In-game menu: room list, join room, launch activity
+│       ├── chat_bubble.tscn     # Simple two-node scene for chat bubbles
+│       ├── chat_screen.tscn     # Full-screen HTTP chat window
+│       ├── chat_screen.gd
+│       ├── debug_menu.tscn      # Dev-only menu: server/client and teacher/student selection
+│       ├── debug_menu.gd
+│       └── pause_menu.tscn      # In-game menu: room list, join room, launch activity
+│       └── pause_menu.gd        
+│       └── room_join_item.tscn  # List item for pause menu rooms list     
+│   └── themes/
+│       └── chat_test.tres       # Theme that applies to chat window bg Panel and LineEdit
 └── textures/                    # Sprite frames, spritesheets, tilesets
+└── exports/                     # Directories for project exports
 ```
 
 **Start reading here:** `main.gd` is the heart of the project. It handles player/room spawning, all server-side RPCs, and the startup branching logic for each platform mode.
@@ -122,7 +151,7 @@ Each player node's `InputHandler` and `Camera2D` have their `multiplayer_authori
 |---|---|
 | `dedicated_server` | Auto-starts as server |
 | `web` | Auto-connects as client |
-| Desktop (editor / debug) | Shows the debug menu for manual role selection |
+| Anything else | Shows the debug menu for manual role selection |
 
 ---
 
@@ -140,6 +169,8 @@ A lightweight global event system. Instead of getting direct node references, sy
 | `activity_launched` | Teacher started an activity |
 | `activity_ended` | Activity is over |
 | `player_clicked_join_room` | Player selected a room from the pause menu |
+| `chat_opened` | Player has opened the chat window |
+| `chat_closed` | Player has closed the chat window |
 
 ### Global Groups
 
@@ -155,12 +186,12 @@ Nodes are tagged with groups so any script can query them without storing direct
 
 ### Roles
 
+THESE DO NOTHING. YET.
+
 | Role | Capabilities |
 |---|---|
 | **Teacher** | Can launch activities (teleports all players to the Lobby) |
 | **Student** | Moves freely, joins rooms, interacts with NPCs |
-
-Role enforcement is a known TODO — currently any peer can call teacher-only RPCs.
 
 ### Personal Rooms
 

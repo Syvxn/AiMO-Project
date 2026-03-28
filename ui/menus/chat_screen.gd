@@ -13,7 +13,7 @@ func _ready() -> void:
 	SignalBus.chat_closed.connect(hide)
 
 
-func add_bubble(text: String, side: String):
+func add_bubble(text: String, side):
 	var chat_bubble_instance = chat_bubble.instantiate()
 	chat_bubble_instance.get_node("BubbleText").text = text
 	#region garbage magic number resizing circus
