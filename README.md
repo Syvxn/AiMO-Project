@@ -55,7 +55,7 @@ Open **Godot 4.6**, click **Import**, and select the `project.godot` file from t
 Rename ```.env_example.json``` to ```.env.json```, and fill it with the appropriate information.
 If you want the NPC to reply in chat, ```CHAT_SERVER_URL``` must point to a valid URL.
 
-Once you've opened the project in the Godot editor, set the number of run isntances to at least 2 from **Debug -> Customize Run Instances...**
+Once you've opened the project in the Godot editor, set the number of run instances to at least 2 from **Debug -> Customize Run Instances...**
 
 This will allow you to set one instance as the server, and the rest as clients afterward, when running the project with F5.
 
@@ -63,7 +63,7 @@ Alternatively, you can export a dedicated server build, run it as an executable,
 
 ---
 
-## Project Structure (wrong and out of date, do not believe its lies -robin)
+## Project Structure
 
 Files ending in .tscn are scene, files ending in .gd are GDScript scripts.
 Most scripts are attached to scenes of the same name.
