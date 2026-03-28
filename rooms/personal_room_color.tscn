@@ -1,0 +1,79 @@
+[gd_scene format=4 uid="uid://dw5go7ht1n1nt"]
+
+[ext_resource type="TileSet" uid="uid://bk1do0kll2d6g" path="res://textures/tilesets/floors_color_test.tres" id="1_00vxv"]
+[ext_resource type="TileSet" uid="uid://c6612olcg2y5m" path="res://textures/tilesets/walls_color_test.tres" id="2_00vxv"]
+[ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/props/companion_cube.tscn" id="4_s1rs6"]
+[ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/props/surveillance_camera.tscn" id="5_3fbny"]
+[ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="6_gfac6"]
+
+[sub_resource type="GDScript" id="GDScript_00vxv"]
+script/source = "extends Node2D
+
+var owner_username : String
+var owner_peer_id : int
+var plot_marker : Marker2D
+#var players_in_room = []
+
+
+
+# so here we'd have some code that
+# - operates game logic / interacts with Game object
+# - keeps track of players in room
+# - does whatever else we need the room itself to do
+"
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:owner_username")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:owner_peer_id")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="PersonalRoomColor" type="Node2D" unique_id=576984484 groups=["personal_rooms", "rooms"]]
+z_as_relative = false
+y_sort_enabled = true
+script = SubResource("GDScript_00vxv")
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=892723032]
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAD9////AAAJAAAAAAD+/wAAAAAJAAAAAAD+/wEAAAAJAAAAAAD//wIAAAAJAAAAAAD//wMAAAAJAAAAAAAAAAIAAAAJAAAAAAAAAAEAAAAJAAAAAAABAAAAAAAJAAAAAAABAP//AAAJAAAAAAABAP7/AAAJAAAAAAACAP7/AAAJAAAAAAACAP3/AAAJAAAAAAACAPz/AAAJAAAAAAACAPv/AAAJAAAAAAACAPr/AAAJAAAAAAABAPn/AAAJAAAAAAABAPj/AAAJAAAAAAAAAPn/AAAJAAAAAAD///v/AAAJAAAAAAD///z/AAAJAAAAAAD+//3/AAAJAAAAAAD+//7/AAAJAAAAAAD+////AAAJAAAAAAD///7/AAAJAAAAAAD/////AAAJAAAAAAAAAAAAAAAJAAAAAAD//wEAAAAJAAAAAAD//wAAAAAJAAAAAAD///3/AAAJAAAAAAAAAP7/AAAJAAAAAAAAAP//AAAJAAAAAAAAAPz/AAAJAAAAAAAAAPr/AAAJAAAAAAAAAPv/AAAJAAAAAAABAPz/AAAJAAAAAAABAP3/AAAJAAAAAAABAPv/AAAJAAAAAAABAPr/AAAGAAMAAAAAAP3/AAAJAAAAAAADAPz/AAAJAAAAAAACAAAAAAAJAAAAAAACAAEAAAAJAAAAAAADAAIAAAAJAAAAAAADAAMAAAAJAAAAAAAEAAQAAAAJAAAAAAAEAAMAAAAJAAAAAAAFAAIAAAAJAAAAAAAEAAEAAAAJAAAAAAAFAAAAAAAJAAAAAAAFAAEAAAAJAAAAAAAEAP//AAAJAAAAAAAEAP7/AAAJAAAAAAADAP3/AAAJAAAAAAADAP7/AAAJAAAAAAACAP//AAAJAAAAAAADAAAAAAAJAAAAAAADAAEAAAAJAAAAAAAEAAIAAAAJAAAAAAAEAAAAAAAJAAAAAAADAP//AAAJAAAAAAAGAAAAAAAJAAAAAAAFAP//AAAJAAAAAAAFAP7/AAAJAAAAAAAEAP3/AAAJAAAAAAAEAPz/AAAJAAAAAAADAPv/AAAJAAAAAAADAPr/AAAJAAAAAAABAPf/AAAJAAAAAAACAPj/AAAJAAAAAAACAPn/AAAJAAAAAAAAAPX/AAAJAAAAAAD9//v/AAAJAAAAAAD9//z/AAAJAAAAAAD8//3/AAAJAAAAAAD+//r/AAAJAAAAAAD+//n/AAAJAAAAAAD///j/AAAJAAAAAAD///f/AAAJAAAAAAAAAPb/AAAJAAAAAAD9//7/AAAJAAAAAAD9//3/AAAJAAAAAAD+//z/AAAJAAAAAAD+//v/AAAJAAAAAAD///r/AAAJAAAAAAD///n/AAAJAAAAAAAAAPj/AAAJAAAAAAAAAPf/AAAJAAAAAAABAPb/AAAJAAAAAAA=")
+tile_set = ExtResource("1_00vxv")
+
+[node name="Walls" type="TileMapLayer" parent="." unique_id=123381295]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//v/AAABAAAAAAD9//r/AAABAAAAAAD9//n/AAABAAAAAAD+//j/AAABAAAAAAD+//f/AAABAAAAAAD///b/AAABAAAAAAD///X/AAABAAAAAAAAAPT/AAABAAAAAAABAPT/AAAEAAEAAAABAPX/AAAEAAEAAAACAPb/AAAEAAEAAAACAPf/AAAEAAEAAAADAPj/AAAEAAEAAAADAPn/AAAEAAEAAAAEAPr/AAAEAAEAAAAEAPv/AAACAAEAAAAFAPz/AAACAAEAAAAFAP3/AAACAAEAAAAGAP7/AAACAAEAAAAGAP//AAABAAEAAAA=")
+tile_set = ExtResource("2_00vxv")
+
+[node name="Decorations" type="Node2D" parent="." unique_id=767305767]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+
+[node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("4_s1rs6")]
+position = Vector2(48, -33)
+
+[node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("5_3fbny")]
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(18, -146)
+
+[node name="Background" type="Sprite2D" parent="." unique_id=536427304]
+z_index = -999
+position = Vector2(641, 640)
+scale = Vector2(20, 20)
+texture = ExtResource("6_gfac6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=660103265]
+replication_config = SubResource("SceneReplicationConfig_m0cm6")
+
+[node name="SpawnPoint" type="Node2D" parent="." unique_id=1025427760]
+position = Vector2(586, 662)
