@@ -120,11 +120,11 @@ aimo_game_proto/
 Clients never write to the game world. When a client wants to do something (join a room, launch an activity), it calls an `@rpc` function on the server. The server validates and performs the action, and Godot's `MultiplayerSpawner` automatically replicates the resulting node changes to all clients.
 
 ```
-Client                        Server
-  |                              |
-  |-- rpc("move_player_to_room") -->|
-  |                              | validates, moves node
-  |<-- MultiplayerSpawner sync --|
+                       Client                                                 Server
+ Player clicks join room |                                                       |
+                         |----- move_player_to_room.rpc_id(1, [parameters]) ---->|
+                         |                                                       | Moves player to room
+                         |<---------- MultiplayerSynchronizer sync --------------|
 ```
 
 ### MultiplayerSpawner
