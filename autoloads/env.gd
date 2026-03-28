@@ -5,7 +5,7 @@ var GAME_SERVER_URL : String
 var GAME_SERVER_PORT : int
 var MAX_GAME_CLIENTS : int    # not used yet
 var CHAT_SERVER_URL : String
-var CHAT_SERVER_PORT : int
+var CHAT_SERVER_PORT : int    # not used yet
 
 
 func _ready() -> void:

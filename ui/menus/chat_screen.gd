@@ -24,17 +24,9 @@ func add_bubble(text: String, side: String):
 		chat_bubble_instance.set_h_size_flags(Control.SizeFlags.SIZE_SHRINK_BEGIN)
 	else:
 		chat_bubble_instance.set_h_size_flags(Control.SizeFlags.SIZE_SHRINK_END)
-		# don't forget to remove this
-		#add_debug_reply()
 	chat_container.add_child(chat_bubble_instance)
 	await get_tree().process_frame
 	scroll_container.ensure_control_visible(chat_bubble_instance)
-
-
-func add_debug_reply():
-	await get_tree().create_timer(1).timeout
-	var musketeerism = "\"Great criminals bear about them a kind of predestination which makes them surmount all obstacles, which makes them escape all dangers, up to the moment which a wearied Providence has marked as the rock of their impious fortunes.\""
-	add_bubble(musketeerism, "left")
 
 
 func submit_input(input_text):
@@ -46,7 +38,8 @@ func submit_input(input_text):
 	http_request.request_completed.connect(self.chat_request_completed)
 	var url = Env.CHAT_SERVER_URL
 	var custom_headers = PackedStringArray()
-	var method = HTTPClient.Method.METHOD_POST
+	#var method = HTTPClient.Method.METHOD_POST
+	var method = HTTPClient.Method.METHOD_GET
 	# sanitizer? i hardly know 'er
 	var data = input_text
 	http_request.request(url, custom_headers, method, data)
@@ -55,7 +48,14 @@ func submit_input(input_text):
 
 func chat_request_completed(result, response_code, _headers, body):
 	print("HTTP request: ", str(result), " ", str(response_code))
+	await get_tree().create_timer(0.5).timeout    # simulate wait
 	add_bubble(body.get_string_from_utf8(), "left")
+
+
+func add_debug_reply():
+	await get_tree().create_timer(1).timeout
+	var musketeerism = "\"Great criminals bear about them a kind of predestination which makes them surmount all obstacles, which makes them escape all dangers, up to the moment which a wearied Providence has marked as the rock of their impious fortunes.\""
+	add_bubble(musketeerism, "left")
 
 
 func _on_submit_button_pressed() -> void:
