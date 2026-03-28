@@ -60,7 +60,7 @@ Alternatively, you can export a dedicated server build, run it as an executable,
 
 ---
 
-## Project Structure
+## Project Structure (wrong and out of date, do not believe its lies -robin)
 
 ```
 aimo_game_proto/
