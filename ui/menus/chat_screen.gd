@@ -17,7 +17,7 @@ func add_bubble(text: String, side: String):
 	var chat_bubble_instance = chat_bubble.instantiate()
 	chat_bubble_instance.get_node("BubbleText").text = text
 	#region garbage magic number resizing circus
-	var bubble_min_size = Vector2(clamp(len(text)*10, 80, 400), 0)
+	var bubble_min_size = Vector2(clamp(len(text)*10, 80, 400), 37)
 	chat_bubble_instance.set_custom_minimum_size(bubble_min_size)
 	#endregion
 	if side == "left":
@@ -34,6 +34,7 @@ func submit_input(input_text):
 	add_bubble(input_text, "right")
 	#region http 
 	var http_request = HTTPRequest.new()
+	http_request.set_timeout(10.0)    # move this to .env.json?
 	add_child(http_request)
 	http_request.request_completed.connect(self.chat_request_completed)
 	var url = Env.CHAT_SERVER_URL
