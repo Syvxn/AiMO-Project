@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://blvq8551fjnlv"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_tgwug"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jq6r"]
+atlas = ExtResource("1_tgwug")
+region = Rect2(100, 49, 9, 13)
+
+[node name="BookStraightWine" type="Sprite2D" unique_id=1161927385]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_0jq6r")
+offset = Vector2(0, -4)

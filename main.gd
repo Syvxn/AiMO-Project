@@ -63,7 +63,7 @@ func add_player_and_personal_room(player_info: Array):
 	if plot_marker == null:
 		print("damn, no space somehow")
 		return
-	var personal_room_instance = load("res://rooms/personal_room.tscn").instantiate()
+	var personal_room_instance = load("res://rooms/room_color_test.tscn").instantiate()
 	personal_room_instance.name = "PROOM-" + str(player_peer_id)
 	personal_room_instance.owner_username = username
 	personal_room_instance.owner_peer_id = player_peer_id

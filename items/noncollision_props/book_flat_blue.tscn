@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c1gpnf5cf47se"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_235nf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o17pm"]
+atlas = ExtResource("1_235nf")
+region = Rect2(65, 34, 15, 12)
+
+[node name="BookFlatBlue" type="Sprite2D" unique_id=783691530]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_o17pm")
