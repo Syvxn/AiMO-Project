@@ -1,3 +1,5 @@
+![Promo Image](promo.png)
+
 (this README is mostly LLM generated (and slightly out of date), and should not be taken as gospel.)
 
 # AiMO Game Prototype
