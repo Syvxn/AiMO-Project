@@ -1,0 +1,148 @@
+[gd_scene format=4 uid="uid://dw5go7ht1n1nt"]
+
+[ext_resource type="Script" uid="uid://bapn8fjpgf1g2" path="res://rooms/personal_room.gd" id="1_r46r2"]
+[ext_resource type="TileSet" uid="uid://bk1do0kll2d6g" path="res://textures/tilesets/floors_color_test.tres" id="2_hiwxv"]
+[ext_resource type="TileSet" uid="uid://c6612olcg2y5m" path="res://textures/tilesets/walls_color_test.tres" id="3_ousnj"]
+[ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_yubdi"]
+[ext_resource type="PackedScene" uid="uid://ch4cxx7b5c2si" path="res://items/collision_props/cabinet.tscn" id="5_iosdr"]
+[ext_resource type="PackedScene" uid="uid://ccvsv5f1b1877" path="res://items/collision_props/cbox_small.tscn" id="6_fooej"]
+[ext_resource type="PackedScene" uid="uid://fw6yn83qxa3k" path="res://items/collision_props/table_flip.tscn" id="7_gdcsi"]
+[ext_resource type="PackedScene" uid="uid://c1gpnf5cf47se" path="res://items/noncollision_props/book_flat_blue.tscn" id="8_udne1"]
+[ext_resource type="PackedScene" uid="uid://b73chvvckrijn" path="res://items/collision_props/chair.tscn" id="9_6kbe1"]
+[ext_resource type="PackedScene" uid="uid://duwucti54s2o5" path="res://items/noncollision_props/painting_waves.tscn" id="10_m1wrp"]
+[ext_resource type="PackedScene" uid="uid://cmhhl7cixr2uj" path="res://items/noncollision_props/painting_still_life.tscn" id="11_tidbe"]
+[ext_resource type="PackedScene" uid="uid://j8qdj1d4e27q" path="res://items/collision_props/cbox_large.tscn" id="12_lbyxo"]
+[ext_resource type="PackedScene" uid="uid://dp3nwv5pw7jgk" path="res://items/collision_props/cbox_large_flip.tscn" id="13_aratw"]
+[ext_resource type="PackedScene" uid="uid://b64654j1fnohy" path="res://items/noncollision_props/bookshelf_floating.tscn" id="14_051rw"]
+[ext_resource type="PackedScene" uid="uid://de2fex7s86mo2" path="res://items/noncollision_props/book_straight_green.tscn" id="15_1wyis"]
+[ext_resource type="PackedScene" uid="uid://dw2vymg1f0p2i" path="res://items/noncollision_props/book_straight_brown.tscn" id="16_oldrl"]
+[ext_resource type="PackedScene" uid="uid://blvq8551fjnlv" path="res://items/noncollision_props/book_straight_wine.tscn" id="17_tfj0s"]
+[ext_resource type="PackedScene" uid="uid://cxlpnbvun8ivd" path="res://items/noncollision_props/book_straight_blue.tscn" id="18_a52n1"]
+[ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/physics_props/companion_cube.tscn" id="19_pah0g"]
+[ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="20_5k3lj"]
+[ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="21_47bbc"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:owner_username")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:owner_peer_id")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="RoomColorTest1" type="Node2D" unique_id=576984484 groups=["personal_rooms", "rooms"]]
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_r46r2")
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=892723032]
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAD9////AAAHAAEAAAD+/wAAAAAHAAEAAAD+/wEAAAAHAAEAAAD//wIAAAAHAAEAAAD//wMAAAAHAAEAAAAAAAIAAAAHAAEAAAAAAAEAAAAHAAEAAAABAAAAAAAHAAEAAAABAP//AAAHAAEAAAABAP7/AAAHAAEAAAACAP7/AAAHAAEAAAACAP3/AAAHAAEAAAACAPz/AAAHAAEAAAACAPv/AAAHAAEAAAACAPr/AAAHAAEAAAABAPn/AAAHAAEAAAABAPj/AAAHAAEAAAAAAPn/AAAHAAEAAAD///v/AAAHAAEAAAD///z/AAAHAAEAAAD+//3/AAAHAAEAAAD+//7/AAAHAAEAAAD+////AAAHAAEAAAD///7/AAAHAAEAAAD/////AAAHAAEAAAAAAAAAAAAHAAEAAAD//wEAAAAHAAEAAAD//wAAAAAHAAEAAAD///3/AAAHAAEAAAAAAP7/AAAHAAEAAAAAAP//AAAHAAEAAAAAAPz/AAAHAAEAAAAAAPr/AAAHAAEAAAAAAPv/AAAHAAEAAAABAPz/AAAHAAEAAAABAP3/AAAHAAEAAAABAPv/AAAHAAEAAAABAPr/AAAHAAEAAAAAAP3/AAAHAAEAAAADAPz/AAAHAAEAAAACAAAAAAAHAAEAAAACAAEAAAAHAAEAAAADAAIAAAAHAAEAAAADAAMAAAAHAAEAAAAEAAQAAAAHAAEAAAAEAAMAAAADAAEAAAAFAAIAAAADAAEAAAAEAAEAAAADAAEAAAAFAAAAAAADAAEAAAAFAAEAAAADAAEAAAAEAP//AAAHAAEAAAAEAP7/AAAHAAEAAAADAP3/AAAHAAEAAAADAP7/AAAHAAEAAAACAP//AAAHAAEAAAADAAAAAAAHAAEAAAADAAEAAAAHAAEAAAAEAAIAAAADAAEAAAAEAAAAAAAHAAEAAAADAP//AAAHAAEAAAAGAAAAAAAHAAEAAAAFAP//AAAHAAEAAAAFAP7/AAAHAAEAAAAEAP3/AAAHAAEAAAAEAPz/AAAHAAEAAAADAPv/AAAHAAEAAAADAPr/AAAHAAEAAAABAPf/AAAHAAEAAAACAPj/AAAHAAEAAAACAPn/AAAHAAEAAAAAAPX/AAAHAAEAAAD9//v/AAAHAAEAAAD9//z/AAAHAAEAAAD8//3/AAAHAAEAAAD+//r/AAAHAAEAAAD+//n/AAAHAAEAAAD///j/AAAHAAEAAAD///f/AAAHAAEAAAAAAPb/AAAHAAEAAAD9//7/AAAHAAEAAAD9//3/AAAHAAEAAAD+//z/AAAHAAEAAAD+//v/AAAHAAEAAAD///r/AAAHAAEAAAD///n/AAAHAAEAAAAAAPj/AAAHAAEAAAAAAPf/AAAHAAEAAAABAPb/AAAHAAEAAAA=")
+tile_set = ExtResource("2_hiwxv")
+
+[node name="Walls" type="TileMapLayer" parent="." unique_id=123381295]
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAABAPT/AAAJAAQAAAABAPX/AAAJAAQAAAACAPb/AAAJAAQAAAACAPf/AAAJAAQAAAADAPj/AAAJAAQAAAADAPn/AAAJAAQAAAAEAPr/AAAJAAQAAAAEAPv/AAAJAAQAAAAFAPz/AAAJAAQAAAAFAP3/AAAJAAQAAAAGAP7/AAAJAAQAAAAGAP//AAAJAAQAAAAAAPT/AAAGAAAAAAD///X/AAAGAAAAAAD///b/AAAGAAAAAAD+//f/AAAGAAAAAAD+//j/AAAGAAAAAAD9//n/AAAGAAAAAAD9//r/AAAGAAAAAAD8//v/AAAGAAAAAAD8//z/AAAGAAAAAAA=")
+tile_set = ExtResource("3_ousnj")
+
+[node name="InvisibleWalls" type="TileMapLayer" parent="." unique_id=1497396712]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAAAAAD9/wEAAAAJAAAAAAD+/wIAAAAJAAAAAAD+/wMAAAAJAAAAAAD//wQAAAAJAAAAAAD//wUAAAAJAAAAAAAAAAQAAAAJAAAAAAAAAAMAAAAJAAAAAAABAAIAAAAJAAAAAAABAAEAAAAJAAAAAAACAAIAAAAJAAAAAAACAAMAAAAJAAAAAAADAAQAAAAJAAAAAAADAAUAAAAJAAAAAAAEAAYAAAAJAAAAAAAEAAUAAAAJAAAAAAAFAAQAAAAJAAAAAAAFAAMAAAAJAAAAAAAGAAIAAAAJAAAAAAAGAAEAAAAJAAAAAAA=")
+tile_set = ExtResource("4_yubdi")
+
+[node name="Decorations" type="Node2D" parent="." unique_id=767305767]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+
+[node name="Cabinet" parent="Decorations" unique_id=1277890595 instance=ExtResource("5_iosdr")]
+position = Vector2(55.99994, -68)
+
+[node name="CboxSmall" parent="Decorations/Cabinet" unique_id=278122156 instance=ExtResource("6_fooej")]
+z_index = 2
+position = Vector2(8, -60)
+
+[node name="CollisionShape2D" parent="Decorations/Cabinet/CboxSmall/StaticBody2D" parent_id_path=PackedInt32Array(278122156, 1596983020) index="0" unique_id=1144008494]
+disabled = true
+
+[node name="Table" parent="Decorations" unique_id=573156054 instance=ExtResource("7_gdcsi")]
+position = Vector2(-66.00006, -32)
+
+[node name="BookFlatBlue" parent="Decorations/Table" unique_id=783691530 instance=ExtResource("8_udne1")]
+position = Vector2(-2, 0)
+offset = Vector2(0, -14)
+
+[node name="Chair" parent="Decorations" unique_id=1229567162 instance=ExtResource("9_6kbe1")]
+position = Vector2(131.99994, -30)
+
+[node name="PaintingWaves" parent="Decorations" unique_id=1972470628 instance=ExtResource("10_m1wrp")]
+visibility_layer = 3
+position = Vector2(118.99994, -93)
+
+[node name="PaintingStillLife" parent="Decorations" unique_id=1712648968 instance=ExtResource("11_tidbe")]
+position = Vector2(154.99994, -77)
+
+[node name="PaintingStillLife2" parent="Decorations" unique_id=1352283082 instance=ExtResource("11_tidbe")]
+position = Vector2(-80.00006, -75)
+flip_h = true
+
+[node name="CboxLarge" parent="Decorations" unique_id=1369988656 instance=ExtResource("12_lbyxo")]
+position = Vector2(-37.00006, -43)
+
+[node name="CboxLarge2" parent="Decorations" unique_id=1719873887 instance=ExtResource("13_aratw")]
+position = Vector2(-14.000061, -57)
+
+[node name="BookShelfFloating" parent="Decorations" unique_id=815231254 instance=ExtResource("14_051rw")]
+position = Vector2(-34.00006, -100)
+flip_h = true
+
+[node name="BookStraightGreen" parent="Decorations/BookShelfFloating" unique_id=1161927385 instance=ExtResource("15_1wyis")]
+position = Vector2(-11, 12)
+flip_h = true
+
+[node name="BookStraightBrown" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=1068449812 instance=ExtResource("16_oldrl")]
+position = Vector2(3, -1)
+flip_h = true
+
+[node name="BookStraightWine" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=79118145 instance=ExtResource("17_tfj0s")]
+position = Vector2(5, -2)
+flip_h = true
+
+[node name="BookStraightBlue" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=1007088488 instance=ExtResource("18_a52n1")]
+position = Vector2(9, -4)
+flip_h = true
+
+[node name="BookStraightBrown2" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=1040355387 instance=ExtResource("16_oldrl")]
+position = Vector2(12, -5)
+flip_h = true
+
+[node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("19_pah0g")]
+position = Vector2(48, -33)
+
+[node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("20_5k3lj")]
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(18, -146)
+
+[node name="Background" type="Sprite2D" parent="." unique_id=536427304]
+z_index = -999
+position = Vector2(641, 640)
+scale = Vector2(20, 20)
+texture = ExtResource("21_47bbc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=660103265]
+replication_config = SubResource("SceneReplicationConfig_m0cm6")
+
+[node name="SpawnPoint" type="Node2D" parent="." unique_id=1025427760]
+position = Vector2(586, 662)
+
+[editable path="Decorations/Cabinet/CboxSmall"]

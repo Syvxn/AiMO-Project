@@ -1,5 +1,7 @@
 extends Node
 
+var players_joined := 0
+
 
 
 func _ready() -> void:
@@ -48,6 +50,7 @@ func request_spawn_from_server(username: String, role: String):
 # also i apologize -robin.
 @rpc("any_peer")
 func add_player_and_personal_room(player_info: Array):
+	players_joined += 1
 	assert(multiplayer.is_server(), "add_player() somehow called from client what the hell")
 	var username = player_info[0]
 	var role = player_info[1]
@@ -63,7 +66,13 @@ func add_player_and_personal_room(player_info: Array):
 	if plot_marker == null:
 		print("damn, no space somehow")
 		return
-	var personal_room_instance = load("res://rooms/room_color_test.tscn").instantiate()
+	# this is just to fake customization
+	var room_path : String
+	if players_joined % 2 == 1:
+		room_path = "res://rooms/room_color_test_1.tscn"
+	else:
+		room_path = "res://rooms/room_color_test_2.tscn"
+	var personal_room_instance = load(room_path).instantiate()
 	personal_room_instance.name = "PROOM-" + str(player_peer_id)
 	personal_room_instance.owner_username = username
 	personal_room_instance.owner_peer_id = player_peer_id
