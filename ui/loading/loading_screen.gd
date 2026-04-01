@@ -7,7 +7,7 @@ func _ready() -> void:
 	
 
 func hide_after_a_moment():
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.75).timeout
 	hide()
 
 func set_label_text(text: String) -> void:

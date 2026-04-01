@@ -57,7 +57,7 @@ position = Vector2(2075, 1032)
 position = Vector2(2111, 1126)
 
 [node name="Table4" parent="Decorations" unique_id=340377889 instance=ExtResource("7_intad")]
-modulate = Color(0.925148, 0.925148, 0.92514783, 1)
+modulate = Color(0.95686275, 0.95686275, 0.95686275, 1)
 position = Vector2(1799, 1069)
 
 [node name="Table3" parent="Decorations/Table4" unique_id=1189863511 instance=ExtResource("7_intad")]
