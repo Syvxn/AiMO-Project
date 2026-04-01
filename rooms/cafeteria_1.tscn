@@ -19,6 +19,8 @@ properties/0/spawn = true
 properties/0/replication_mode = 1
 
 [node name="Cafeteria1" type="Node2D" unique_id=85734091 groups=["rooms"]]
+z_as_relative = false
+y_sort_enabled = true
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=796578305]
 z_as_relative = false
@@ -27,7 +29,7 @@ tile_map_data = PackedByteArray("AAAwAJQAAAAHAAMAAAAwAJMAAAAHAAMAAAAxAJIAAAAHAAM
 tile_set = ExtResource("1_i880t")
 
 [node name="Walls" type="TileMapLayer" parent="." unique_id=1476839384]
-modulate = Color(0.9046355, 0.6818188, 0.8986436, 1)
+modulate = Color(0.96967643, 0.7569151, 0.7380359, 1)
 z_as_relative = false
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAyAI4AAAAJAAMAAAAyAI0AAAAJAAMAAAAzAIwAAAAJAAMAAAAzAIsAAAAJAAMAAAA0AIoAAAAJAAMAAAA0AIkAAAAJAAMAAAA1AIgAAAAJAAMAAAA1AIcAAAAJAAMAAAA2AIYAAAAJAAMAAAA2AIUAAAAJAAMAAAA3AIQAAAAJAAMAAAA3AIMAAAAJAAMAAAA4AIIAAAAJAAMAAAA4AIEAAAAJAAMAAAA5AIAAAAAJAAMAAAA5AH8AAAAJAAMAAAA6AH4AAAAJAAMAAAA6AH0AAAAJAAMAAAA7AH0AAAAJAAQAAAA8AH4AAAAJAAQAAAA8AH8AAAAJAAQAAAA9AIAAAAAJAAQAAAA9AIEAAAAJAAQAAAA+AIIAAAAJAAQAAAA+AIMAAAAJAAQAAAA/AIQAAAAJAAQAAAA/AIUAAAAJAAQAAABAAIYAAAAJAAQAAABAAIcAAAAJAAQAAABBAIgAAAAJAAQAAABBAIkAAAAJAAQAAABCAIoAAAAJAAQAAABCAIsAAAAJAAQAAABDAIwAAAAJAAQAAABDAI0AAAAJAAQAAABEAI4AAAAJAAQAAAA=")
@@ -55,7 +57,7 @@ position = Vector2(2075, 1032)
 position = Vector2(2111, 1126)
 
 [node name="Table4" parent="Decorations" unique_id=340377889 instance=ExtResource("7_intad")]
-modulate = Color(0.92941177, 0.9490196, 0.9647059, 1)
+modulate = Color(0.925148, 0.925148, 0.92514783, 1)
 position = Vector2(1799, 1069)
 
 [node name="Table3" parent="Decorations/Table4" unique_id=1189863511 instance=ExtResource("7_intad")]

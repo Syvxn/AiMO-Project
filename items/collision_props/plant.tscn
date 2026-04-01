@@ -11,6 +11,9 @@ radius = 3.0
 height = 11.9998255
 
 [node name="Plant" type="Sprite2D" unique_id=1433253236]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 texture = SubResource("AtlasTexture_jmrui")
 offset = Vector2(0, -10)
 
