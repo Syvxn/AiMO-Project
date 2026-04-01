@@ -6,9 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="3_xeauk"]
 [ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/physics_props/companion_cube.tscn" id="4_lah35"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_3blj3"]
-[ext_resource type="PackedScene" uid="uid://b8ui2d4tsgu2y" path="res://items/collision_props/vending_machine.tscn" id="6_h4frv"]
 [ext_resource type="PackedScene" uid="uid://dheevgi1fsmup" path="res://npcs/tall_button.tscn" id="6_mc7ab"]
-[ext_resource type="PackedScene" uid="uid://bbbf6kotug4kf" path="res://npcs/llehc.tscn" id="7_35k4s"]
 
 [sub_resource type="Gradient" id="Gradient_3blj3"]
 colors = PackedColorArray(0.6711391, 0.097887985, 0.065878436, 1, 0.8136673, 0.3119917, 3.85046e-07, 1)
@@ -69,14 +67,8 @@ position = Vector2(57, 2)
 [node name="CompanionCube3" parent="Decorations" unique_id=184109799 instance=ExtResource("4_lah35")]
 position = Vector2(-33, 64)
 
-[node name="VendingMachine" parent="Decorations" unique_id=1943679091 instance=ExtResource("6_h4frv")]
-position = Vector2(220, -205)
-
 [node name="TallButton" parent="." unique_id=952456853 instance=ExtResource("6_mc7ab")]
 position = Vector2(1094, 915)
-
-[node name="Llehc" parent="." unique_id=1888177192 instance=ExtResource("7_35k4s")]
-position = Vector2(1023, 925)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=954700916]
 z_index = -999

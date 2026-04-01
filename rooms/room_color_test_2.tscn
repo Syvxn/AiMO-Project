@@ -34,7 +34,7 @@ properties/2/path = NodePath(".:owner_peer_id")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="RoomColorTest1" type="Node2D" unique_id=576984484 groups=["personal_rooms", "rooms"]]
+[node name="RoomColorTest2" type="Node2D" unique_id=576984484 groups=["personal_rooms", "rooms"]]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_gpjh1")
