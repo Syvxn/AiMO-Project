@@ -41,7 +41,11 @@ def retrieve_material(chapter: str, topic: str) -> str:
     assert _settings is not None  # set by _get_retriever()
 
     query = f"{chapter} {topic}"
-    chunks = retriever.query(query, top_k=_settings.rag_top_k)
+    chunks = retriever.query(
+        query,
+        top_k=_settings.rag_top_k,
+        score_threshold=_settings.rag_score_threshold,
+    )
 
     if not chunks:
         return (

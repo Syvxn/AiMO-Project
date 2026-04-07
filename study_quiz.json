@@ -12,44 +12,34 @@
             "answer": "B"
         },
         {
-            "question": "Which of these is a synonym for 'blue'?",
+            "question": "Complete the sentence: 'Purple is a mix of red and ___.'",
             "options": [
-                "A: Green",
-                "B: Sky",
-                "C: Gray",
-                "D: Purple"
+                "A: yellow",
+                "B: green",
+                "C: orange",
+                "D: blue"
+            ],
+            "answer": "D"
+        },
+        {
+            "question": "What word describes the darkness of the night?",
+            "options": [
+                "A: Light",
+                "B: Dark",
+                "C: Bright",
+                "D: Shadowy"
             ],
             "answer": "B"
         },
         {
-            "question": "What is the opposite of 'black'? ",
+            "question": "Which colour is often associated with royalty?",
             "options": [
-                "A: White",
-                "B: Red",
-                "C: Yellow",
-                "D: Blue"
+                "A: Gold",
+                "B: Blue",
+                "C: Green",
+                "D: Red"
             ],
             "answer": "A"
-        },
-        {
-            "question": "Which word best describes the feeling of being 'cold and windy'? ",
-            "options": [
-                "A: Stormy",
-                "B: Snowy",
-                "C: Foggy",
-                "D: Rainy"
-            ],
-            "answer": "A"
-        },
-        {
-            "question": "What is the past tense of 'to eat'? ",
-            "options": [
-                "A: eats",
-                "B: eaten",
-                "C: eating",
-                "D: ate"
-            ],
-            "answer": "D"
         }
     ]
 }

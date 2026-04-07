@@ -78,10 +78,24 @@ class TxtRetriever:
     # Retrieval
     # ------------------------------------------------------------------
 
-    def query(self, query: str, top_k: int = 3) -> list[str]:
+    def query(
+        self,
+        query: str,
+        top_k: int = 3,
+        score_threshold: float = 0.0,
+    ) -> list[str]:
         """Return the *top_k* most relevant text chunks for *query*.
 
-        Returns an empty list when the index is empty.
+        Args:
+            query: Search query string.
+            top_k: Maximum number of chunks to return.
+            score_threshold: Minimum cosine similarity (0–1) a chunk must reach
+                to be included. Chunks below this value are discarded even if
+                they rank in the top-k. Set to 0.0 to disable filtering.
+
+        Returns:
+            List of matching chunks ordered by descending similarity.
+            Empty when the index is empty or no chunk clears the threshold.
         """
         if not self._chunks or self._embeddings is None:
             return []
@@ -95,4 +109,8 @@ class TxtRetriever:
         else:
             top_indices = np.argsort(scores)[::-1][:k].tolist()
 
-        return [self._chunks[i] for i in top_indices]
+        return [
+            self._chunks[i]
+            for i in top_indices
+            if float(scores[i] if scores.ndim > 0 else scores) >= score_threshold
+        ]

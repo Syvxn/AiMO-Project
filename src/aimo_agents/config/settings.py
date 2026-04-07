@@ -34,9 +34,10 @@ class Settings:
     # RAG settings
     material_dir: str       # Directory containing .txt study material files.
     rag_model_id: str       # Sentence-transformers model used for embeddings.
-    rag_chunk_size: int     # Chunk size in words.
-    rag_chunk_overlap: int  # Overlap between consecutive chunks, in words.
-    rag_top_k: int          # Number of chunks returned per retrieval query.
+    rag_chunk_size: int          # Chunk size in words.
+    rag_chunk_overlap: int       # Overlap between consecutive chunks, in words.
+    rag_top_k: int               # Number of chunks returned per retrieval query.
+    rag_score_threshold: float   # Minimum cosine similarity to accept a chunk (0–1).
 
 
 def load_settings() -> Settings:
@@ -64,4 +65,5 @@ def load_settings() -> Settings:
         rag_chunk_size=int(os.getenv("RAG_CHUNK_SIZE", "200")),
         rag_chunk_overlap=int(os.getenv("RAG_CHUNK_OVERLAP", "40")),
         rag_top_k=int(os.getenv("RAG_TOP_K", "3")),
+        rag_score_threshold=float(os.getenv("RAG_SCORE_THRESHOLD", "0.30")),
     )
