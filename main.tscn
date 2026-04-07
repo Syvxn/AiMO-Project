@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dcfb1bataqbvi" path="res://rooms/shared_room_1.tscn" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://c8hfitdfol1jn" path="res://rooms/cafeteria_1.tscn" id="5_kek77"]
 [ext_resource type="PackedScene" uid="uid://d4fefj4hwgbg7" path="res://ui/menus/pause_menu.tscn" id="6_7mycd"]
-[ext_resource type="PackedScene" uid="uid://c8x34nugd04c8" path="res://ui/menus/chat_screen.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://c8x34nugd04c8" path="res://ui/menus/chat_and_quiz/chat_screen.tscn" id="8_5vw27"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
 atlas = ExtResource("3_lquwl")

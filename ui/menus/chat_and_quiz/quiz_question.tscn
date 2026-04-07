@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://i155sn4fkbml"]
+
+[node name="QuizQuestion" type="MarginContainer" unique_id=2087413258]
+offset_right = 192.0
+offset_bottom = 120.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1762350045]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=1872320879]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer" unique_id=819081297]
+layout_mode = 2
+text = "What's the right answer?"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer" unique_id=1612421603]
+layout_mode = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/MarginContainer2" unique_id=620434432]
+layout_mode = 2
+allow_search = false
+auto_height = true
+item_count = 3
+item_0/text = "Option A"
+item_1/text = "Option B"
+item_2/text = "Option C"

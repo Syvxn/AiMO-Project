@@ -1,15 +1,15 @@
 extends CanvasLayer
 
 
-@onready var chat_bubble = load("res://ui/menus/chat_bubble.tscn")
-@onready var scroll_container = %ScrollContainer
+@onready var chat_bubble = load("res://ui/menus/chat_and_quiz/chat_bubble.tscn")
+@onready var chat_scroll_container = %ChatScrollContainer
 @onready var chat_container = %ChatContainer
-@onready var input_field = %InputField
+@onready var chat_input_field = %ChatInputField
 
 
 func _ready() -> void:
 	SignalBus.chat_opened.connect(show)
-	SignalBus.chat_opened.connect(input_field.grab_focus)
+	SignalBus.chat_opened.connect(chat_input_field.grab_focus)
 	SignalBus.chat_closed.connect(hide)
 
 
@@ -26,11 +26,11 @@ func add_bubble(text: String, side):
 		chat_bubble_instance.set_h_size_flags(Control.SizeFlags.SIZE_SHRINK_END)
 	chat_container.add_child(chat_bubble_instance)
 	await get_tree().process_frame
-	scroll_container.ensure_control_visible(chat_bubble_instance)
+	chat_scroll_container.ensure_control_visible(chat_bubble_instance)
 
 
 func submit_input(input_text):
-	input_field.set_text("")
+	chat_input_field.set_text("")
 	add_bubble(input_text, "right")
 	#region http 
 	var http_request = HTTPRequest.new()
@@ -59,8 +59,9 @@ func add_debug_reply():
 	add_bubble(musketeerism, "left")
 
 
-func _on_submit_button_pressed() -> void:
-	submit_input(input_field.get_text())
-	input_field.grab_focus()
-func _on_input_field_text_submitted(new_text: String) -> void:
+func _on_chat_submit_button_pressed() -> void:
+	submit_input(chat_input_field.get_text())
+	chat_input_field.grab_focus()
+
+func _on_chat_input_field_text_submitted(new_text: String) -> void:
 	submit_input(new_text)
