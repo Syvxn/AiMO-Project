@@ -110,6 +110,7 @@ visible = false
 visible = false
 
 [node name="PauseMenu" parent="." unique_id=1705228437 instance=ExtResource("6_7mycd")]
+visible = false
 
 [node name="ChatScreen" parent="." unique_id=916964389 instance=ExtResource("8_5vw27")]
 visible = false

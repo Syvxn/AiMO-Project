@@ -35,6 +35,7 @@ folder_colors={
 "res://items/": "purple",
 "res://misc/": "purple",
 "res://npcs/": "purple",
+"res://old_junk/": "gray",
 "res://player/": "purple",
 "res://rooms/": "purple",
 "res://textures/": "blue",

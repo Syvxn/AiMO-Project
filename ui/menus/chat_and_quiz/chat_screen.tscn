@@ -45,7 +45,6 @@ ratio = 0.8
 
 [node name="ChatPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=940803565]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme = ExtResource("2_ywf3k")
 
@@ -120,6 +119,7 @@ text = ">"
 
 [node name="QuizPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=475803253]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme = ExtResource("2_ywf3k")
 
@@ -139,7 +139,6 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
 [node name="QuizScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2" unique_id=1646867412]
-unique_name_in_owner = true
 layout_mode = 2
 follow_focus = true
 
@@ -178,13 +177,13 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer" unique_id=1911409843]
 layout_mode = 2
 
-[node name="QuizCancelButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=943818700]
+[node name="QuizCloseButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=943818700]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ywf3k")
 theme_override_styles/normal = SubResource("StyleBoxFlat_tanbp")
-text = "Cancel"
+text = "Close"
 
 [node name="QuizSubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=504919708]
 unique_name_in_owner = true
@@ -195,5 +194,5 @@ text = "Submit"
 
 [connection signal="text_submitted" from="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/ChatInputField" to="." method="_on_chat_input_field_text_submitted"]
 [connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/ChatSubmitButton" to="." method="_on_chat_submit_button_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizCancelButton" to="." method="_on_quiz_cancel_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizCloseButton" to="." method="_on_quiz_close_button_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizSubmitButton" to="." method="_on_quiz_submit_button_pressed"]

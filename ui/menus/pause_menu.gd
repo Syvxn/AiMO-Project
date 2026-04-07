@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-@onready var join_list = $ColorRect/VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/JoinList
+@onready var join_list = %JoinList
 @onready var room_join_item = load("res://ui/menus/room_join_item.tscn")
 
 

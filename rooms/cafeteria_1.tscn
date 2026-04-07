@@ -54,6 +54,9 @@ position = Vector2(2004, 1071)
 position = Vector2(2075, 1032)
 
 [node name="Chair" parent="Decorations" unique_id=1229567162 instance=ExtResource("6_5mj4w")]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(2111, 1126)
 
 [node name="Table4" parent="Decorations" unique_id=340377889 instance=ExtResource("7_intad")]

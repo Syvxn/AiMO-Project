@@ -17,7 +17,8 @@ theme_override_constants/margin_top = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer" unique_id=819081297]
 layout_mode = 2
-text = "What's the right answer?"
+text = "[Question text should appear here
+"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer" unique_id=1612421603]
 layout_mode = 2
