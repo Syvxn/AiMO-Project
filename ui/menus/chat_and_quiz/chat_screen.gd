@@ -64,11 +64,11 @@ func chat_request_completed(result, response_code, _headers, body):
 		var quiz_data = JSON.parse_string(body_text)
 		if not typeof(quiz_data) == TYPE_DICTIONARY:
 			print(quiz_data)
-			add_bubble("Sorry, I just got hit with a solar ray. You were saying?", "left")
+			add_bubble("Sorry, I just got hit by a solar ray. You were saying?", "left")
 			return
-		add_bubble("Sure, here you go", "left")
+		add_bubble("Sure, here you go.", "left")
 		chat_input_field.editable = false
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.7).timeout
 		chat_panel.hide()
 		chat_input_field.editable = true
 		for child in quiz_container.get_children():
@@ -78,8 +78,11 @@ func chat_request_completed(result, response_code, _headers, body):
 		for question in questions:
 			var question_instance = quiz_question.instantiate()
 			quiz_container.add_child(question_instance)
-			question_instance.fill_out_question(question["question"], question["options"], question["answer"])
-
+			question_instance.fill_out_question(
+				question["question"], 
+				question["options"], 
+				question["answer"]
+			)
 
 
 func add_debug_reply():

@@ -20,8 +20,8 @@ func check_answer() -> bool:
 		return false
 	var selected_answer_index = item_list.get_selected_items()[0] # should only be one
 	if item_list.get_item_text(selected_answer_index).begins_with(correct_key):
-		item_list.set_item_custom_bg_color(selected_answer_index, Color("YELLOW_GREEN"))
+		item_list.set_item_custom_bg_color(selected_answer_index, Color("FOREST_GREEN"))
 		return true
 	else:
-		item_list.set_item_custom_bg_color(selected_answer_index, Color("ORANGE_RED"))
+		item_list.set_item_custom_bg_color(selected_answer_index, Color("DARK_RED"))
 		return false
