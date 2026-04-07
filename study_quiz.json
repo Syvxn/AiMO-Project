@@ -1,0 +1,55 @@
+{
+    "quiz_title": "English Quiz: colours",
+    "questions": [
+        {
+            "question": "What colour is the sky described as in the text?",
+            "options": [
+                "A: Red",
+                "B: Blue",
+                "C: Green",
+                "D: Yellow"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "Which of these is a synonym for 'blue'?",
+            "options": [
+                "A: Green",
+                "B: Sky",
+                "C: Gray",
+                "D: Purple"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "What is the opposite of 'black'? ",
+            "options": [
+                "A: White",
+                "B: Red",
+                "C: Yellow",
+                "D: Blue"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "Which word best describes the feeling of being 'cold and windy'? ",
+            "options": [
+                "A: Stormy",
+                "B: Snowy",
+                "C: Foggy",
+                "D: Rainy"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "What is the past tense of 'to eat'? ",
+            "options": [
+                "A: eats",
+                "B: eaten",
+                "C: eating",
+                "D: ate"
+            ],
+            "answer": "D"
+        }
+    ]
+}

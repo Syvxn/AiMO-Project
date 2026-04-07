@@ -1,0 +1,333 @@
+ENGLISH FOR FINNISH 5TH GRADERS
+================================
+Study material for quiz generation and RAG retrieval.
+Each section is a chapter covering a core English topic.
+
+
+========================================
+CHAPTER 1: GREETINGS AND INTRODUCTIONS
+========================================
+
+When you meet someone for the first time, you greet them. In English there are
+many ways to say hello. Common greetings include: Hello, Hi, Good morning, Good
+afternoon, and Good evening. Good morning is used before noon. Good afternoon
+is used from noon until around six o'clock. Good evening is used in the evening.
+
+When you leave someone, you say goodbye. You can also say: Bye, See you later,
+See you tomorrow, or Take care.
+
+To introduce yourself, you say: "My name is ..." or "I am ...". To ask someone's
+name you say: "What is your name?" or "What's your name?"
+
+To ask how someone is feeling you say: "How are you?" Common answers are: "I am
+fine, thank you.", "I am great!", "Not bad, thank you.", or "I am tired today."
+
+Polite words are very important. Please, thank you, you're welcome, sorry, and
+excuse me are all polite expressions. You say "please" when asking for something.
+You say "thank you" when someone helps you. You say "you're welcome" when someone
+thanks you. You say "sorry" when you make a mistake. You say "excuse me" to get
+someone's attention or to pass by someone.
+
+
+========================================
+CHAPTER 2: NUMBERS AND COUNTING
+========================================
+
+Numbers in English from one to twenty: one, two, three, four, five, six, seven,
+eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen,
+eighteen, nineteen, twenty.
+
+Numbers from twenty to one hundred: twenty, thirty, forty, fifty, sixty, seventy,
+eighty, ninety, one hundred. To say numbers between tens you combine them:
+twenty-one, thirty-five, forty-seven, fifty-eight, sixty-three, seventy-nine,
+eighty-two, ninety-four.
+
+Ordinal numbers tell the order of things. First (1st), second (2nd), third (3rd),
+fourth (4th), fifth (5th), sixth (6th), seventh (7th), eighth (8th), ninth (9th),
+tenth (10th). After tenth the pattern becomes: eleventh, twelfth, thirteenth,
+fourteenth, fifteenth, twentieth, twenty-first.
+
+We use ordinal numbers to talk about dates and positions. For example: "Today is
+the fifth of April." or "She finished in third place."
+
+Zero is the number before one. It is also called nought or "oh" in phone numbers.
+A dozen means twelve. A hundred means one hundred. A thousand means one thousand.
+
+
+========================================
+CHAPTER 3: COLOURS
+========================================
+
+Colours are an important part of English vocabulary. The basic colours are: red,
+blue, yellow, green, orange, purple, pink, brown, black, white, and grey.
+
+Red is the colour of fire engines, roses, and blood. Blue is the colour of the sky
+and the sea. Yellow is the colour of the sun and bananas. Green is the colour of
+grass and trees. Orange is both a colour and a fruit. Purple is a mix of red and
+blue. Pink is a light red colour. Brown is the colour of chocolate and mud.
+Black is the darkest colour. White is the lightest colour. Grey is between black
+and white.
+
+Some colours have light and dark versions. Light blue is called sky blue or baby
+blue. Dark blue is called navy blue. Light green can be called lime green.
+Dark green is called forest green.
+
+To describe something using a colour you put the colour before the noun: a red
+apple, a blue sky, a yellow banana, a green leaf, a black cat, a white dog.
+You can also say: "The apple is red." or "The sky is blue."
+
+
+========================================
+CHAPTER 4: DAYS OF THE WEEK AND MONTHS
+========================================
+
+There are seven days in a week. The days of the week in English are: Monday,
+Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday. Monday is the first
+day of the school week. Saturday and Sunday are the weekend.
+
+Each day has a short form: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+
+There are twelve months in a year. The months are: January, February, March,
+April, May, June, July, August, September, October, November, and December.
+January is the first month. December is the last month.
+
+Seasons of the year: spring (March–May), summer (June–August), autumn or fall
+(September–November), and winter (December–February). In Finland, winter is cold
+and snowy. Summer is warm and sunny.
+
+To say what day it is: "Today is Monday." To ask what day it is: "What day is it
+today?" To say what month it is: "It is April." To ask what the date is:
+"What is the date today?"
+
+Common prepositions with time: on Monday, on Tuesday, in January, in summer,
+at noon, at midnight, at three o'clock, in the morning, in the afternoon,
+in the evening, at night.
+
+
+========================================
+CHAPTER 5: SCHOOL AND CLASSROOM VOCABULARY
+========================================
+
+The classroom is where students learn. In a classroom you can find: a board
+(blackboard or whiteboard), a teacher's desk, student desks, chairs, a projector,
+windows, and doors.
+
+School subjects taught in Finnish 5th grade include: English, Finnish, mathematics
+(maths), science, history, arts and crafts, physical education (PE), music, and
+religion or ethics.
+
+Classroom objects: a pencil, a pen, a rubber (eraser), a ruler, a pencil case,
+a notebook, a textbook, a schoolbag (backpack), scissors, glue, and coloured
+pencils.
+
+Useful classroom phrases: "May I go to the toilet?", "Can you repeat that,
+please?", "I don't understand.", "Can you help me?", "What does this word mean?",
+"How do you spell that?", "Is this correct?", "Can I borrow a pencil?"
+
+The teacher gives homework and tests. Students study, read, write, listen, and
+speak in lessons. A lesson is usually forty-five minutes long. There are breaks
+between lessons. Lunch break is the longest break in the school day.
+
+
+========================================
+CHAPTER 6: FAMILY MEMBERS
+========================================
+
+A family is a group of people who are related to each other. Family members in
+English: mother (mum/mom), father (dad), sister, brother, grandmother (grandma),
+grandfather (grandpa), aunt, uncle, cousin, daughter, son, wife, husband, and baby.
+
+A nuclear family usually means parents and their children. An extended family
+includes grandparents, aunts, uncles, and cousins.
+
+To describe family relationships you say: "She is my sister.", "He is my father.",
+"They are my parents.", "She is my grandmother on my mother's side."
+
+Possessive adjectives used with family: my mother, your father, his sister,
+her brother, our grandparents, their children. The possessive 's is also common:
+"This is Tom's sister." or "Anna's mum works in a hospital."
+
+Common questions about family: "How many brothers and sisters do you have?",
+"Do you have any siblings?", "What does your father do?", "Where does your
+family live?"
+
+
+========================================
+CHAPTER 7: FOOD AND DRINKS
+========================================
+
+Food vocabulary is very useful in everyday life. Common foods: bread, butter,
+cheese, milk, eggs, rice, pasta, potatoes, chicken, fish, beef, pork, soup,
+salad, pizza, sandwich, and cereal.
+
+Fruits: apple, banana, orange, strawberry, blueberry, grapes, pear, lemon,
+mango, and pineapple. Vegetables: carrot, onion, potato, tomato, cucumber,
+broccoli, peas, corn, garlic, and cabbage.
+
+Drinks: water, juice, milk, tea, hot chocolate, lemonade, and smoothie.
+Children usually drink water, milk, or juice with meals.
+
+At a restaurant or café you can say: "Can I have a glass of water, please?",
+"I would like a cheese sandwich.", "What do you recommend?", "The bill, please."
+
+Meal times: breakfast is in the morning, lunch is at midday, dinner (or supper)
+is in the evening. A snack is a small amount of food eaten between meals.
+
+To say what you like: "I love pizza.", "I like apples.", "I don't like onions.",
+"I hate broccoli." To say what you are eating: "I am eating a banana.",
+"She is drinking milk."
+
+
+========================================
+CHAPTER 8: ANIMALS
+========================================
+
+Animals are living creatures. They are divided into several groups. Mammals are
+warm-blooded animals that feed their young with milk. Examples: dog, cat, horse,
+cow, elephant, lion, dolphin, and whale. Birds have feathers and wings. Examples:
+eagle, penguin, sparrow, robin, duck, owl, and parrot.
+
+Reptiles have scales and are cold-blooded. Examples: snake, lizard, crocodile,
+and turtle. Amphibians live on land and in water. Examples: frog and salamander.
+Fish live in water and breathe through gills. Examples: salmon, tuna, goldfish,
+and shark. Insects have six legs. Examples: butterfly, ant, bee, and mosquito.
+
+Common pets: dog, cat, rabbit, hamster, guinea pig, goldfish, budgerigar (budgie),
+and turtle. Dogs are often called man's best friend. Cats are independent and clean.
+
+Wild animals found in Finland: elk (moose), reindeer, brown bear, wolf, fox,
+lynx, beaver, otter, and many species of birds.
+
+Animal sounds in English: a dog barks, a cat meows, a cow moos, a sheep bleats,
+a horse neighs, a duck quacks, a lion roars, a bird sings/chirps.
+
+To describe animals you can use adjectives: fast, slow, big, small, dangerous,
+friendly, fluffy, scaly, and wild.
+
+
+========================================
+CHAPTER 9: WEATHER AND SEASONS
+========================================
+
+The weather tells us what the sky and air are like outside. Common weather words:
+sunny, cloudy, windy, rainy, snowy, foggy, stormy, and icy. To ask about the
+weather: "What is the weather like today?" or "How is the weather?"
+
+Weather descriptions: "It is sunny today.", "It is raining.", "It is snowing.",
+"It is cold and windy.", "It is warm and cloudy.", "There is a storm coming."
+
+Temperature is measured in degrees Celsius (°C) in Finland and most of Europe,
+and in degrees Fahrenheit (°F) in the United States. Water freezes at 0°C and
+boils at 100°C. A warm summer day in Finland might be 25°C. A cold winter day
+might be -15°C.
+
+Season vocabulary:
+Spring — warm, flowers bloom, birds return, rainy, green.
+Summer — hot, sunny, long days, holidays, swimming, light nights.
+Autumn — cool, leaves change colour (red, orange, yellow), windy, shorter days.
+Winter — cold, snow, ice, dark, short days, skiing, Christmas.
+
+Useful weather vocabulary: umbrella (used when it rains), raincoat, boots, sunglasses
+(used when it is sunny), scarf, gloves, and hat (used when it is cold).
+
+
+========================================
+CHAPTER 10: PRESENT SIMPLE TENSE
+========================================
+
+The present simple tense is used to talk about habits, routines, and facts that
+are always true. It is one of the most important tenses in English.
+
+Positive sentences: I eat breakfast every morning. She reads books. He plays
+football on Saturdays. They go to school by bus. We live in Helsinki.
+
+Negative sentences: use do not (don't) for I, you, we, they. Use does not
+(doesn't) for he, she, it. I don't eat meat. She doesn't like coffee. They
+don't watch TV on weekdays. He doesn't play video games.
+
+Question form: use Do for I, you, we, they. Use Does for he, she, it.
+"Do you like pizza?" "Does she speak French?" "Do they have a dog?"
+"Does he play music?"
+
+Short answers: "Yes, I do." / "No, I don't." "Yes, she does." / "No, she doesn't."
+
+Third person singular (he, she, it) adds -s or -es to the verb:
+play → plays, eat → eats, run → runs, watch → watches, go → goes, do → does.
+
+Common time expressions used with present simple: every day, every week, always,
+usually, often, sometimes, rarely, never, on Mondays, in the morning.
+
+Example sentences with time expressions: "I always brush my teeth before bed.",
+"She usually walks to school.", "He sometimes forgets his homework.",
+"They never eat vegetables.", "We often play outside after school."
+
+
+========================================
+CHAPTER 11: PRESENT CONTINUOUS TENSE
+========================================
+
+The present continuous tense (also called present progressive) is used to describe
+actions that are happening right now, at this moment. It is formed with the verb
+to be (am, is, are) plus the -ing form of the main verb.
+
+Positive form: I am eating lunch. She is watching TV. He is playing football.
+We are studying English. They are sleeping.
+
+Negative form: I am not eating. She isn't watching TV. He isn't playing.
+We aren't studying. They aren't sleeping.
+
+Question form: Am I late? Is she watching TV? Is he playing outside? Are we
+finished? Are they coming?
+
+Short answers: "Yes, I am." / "No, I am not." "Yes, she is." / "No, she isn't."
+
+Spelling rules for the -ing form:
+- Most verbs: add -ing → eat → eating, sleep → sleeping, read → reading.
+- Verbs ending in silent -e: drop the e and add -ing → write → writing,
+  make → making, come → coming.
+- Short verbs with one vowel between two consonants: double the last consonant
+  and add -ing → run → running, swim → swimming, sit → sitting.
+
+Present continuous is also used to talk about plans in the near future:
+"We are visiting our grandparents next weekend.",
+"She is starting a new school in September."
+
+The difference between present simple and present continuous:
+Present simple — habits and routines: "I walk to school every day."
+Present continuous — happening now: "I am walking to school right now."
+
+
+========================================
+CHAPTER 12: COMMON ADJECTIVES AND OPPOSITES
+========================================
+
+Adjectives are words that describe nouns. They tell us more about people, places,
+animals, and things. Adjectives usually come before the noun or after the verb
+to be.
+
+Examples before the noun: a tall boy, a small cat, a happy girl, an old house,
+a beautiful flower, a scary monster, a fast car.
+Examples after to be: "The boy is tall.", "The cat is small.", "She is happy."
+
+Common adjectives and their opposites (antonyms):
+big / small — The elephant is big. The mouse is small.
+tall / short — My dad is tall. My little sister is short.
+fast / slow — Cheetahs are fast. Tortoises are slow.
+hot / cold — The soup is hot. The ice cream is cold.
+new / old — I have a new phone. My bike is old.
+clean / dirty — The classroom is clean. The boots are dirty.
+easy / difficult (hard) — This exercise is easy. That maths problem is difficult.
+happy / sad — She is happy today. He was sad after the match.
+loud / quiet — The concert was loud. The library is quiet.
+rich / poor — The king was rich. The beggar was poor.
+strong / weak — Bears are strong. Baby kittens are weak.
+light / dark — The room is light. The cave is dark.
+beautiful / ugly — The sunset is beautiful. The rubbish bin is ugly.
+full / empty — The glass is full. The box is empty.
+safe / dangerous — The playground is safe. The road is dangerous.
+
+Comparative adjectives are used to compare two things. Add -er to short adjectives:
+tall → taller, fast → faster, old → older, cold → colder.
+Use more before long adjectives: more beautiful, more dangerous, more interesting.
+Example: "She is taller than her brother.", "This book is more interesting than
+that one."

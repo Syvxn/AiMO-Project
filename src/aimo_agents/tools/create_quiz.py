@@ -30,9 +30,9 @@ def create_quiz(quiz_title: str, questions: list) -> str:
     """
     print("---CREATING JSON QUIZ ---")
     
-    ### This needs to be updated based on our implementation ###
-    toolsit_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(toolsit_dir)
+    tools_dir = os.path.dirname(os.path.abspath(__file__))
+    # tools/ → aimo_agents/ → src/ → AiMO-Agents/
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(tools_dir)))
     file_path = os.path.join(project_root, "study_quiz.json")
     
     quiz_data = {
