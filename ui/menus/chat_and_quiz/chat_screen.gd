@@ -5,6 +5,8 @@ extends CanvasLayer
 @onready var chat_scroll_container = %ChatScrollContainer
 @onready var chat_container = %ChatContainer
 @onready var chat_input_field = %ChatInputField
+@onready var quiz_scroll_container = %QuizScrollContainer
+@onready var quiz_container = %QuizContainer
 
 
 func _ready() -> void:
@@ -65,3 +67,11 @@ func _on_chat_submit_button_pressed() -> void:
 
 func _on_chat_input_field_text_submitted(new_text: String) -> void:
 	submit_input(new_text)
+
+
+func _on_quiz_cancel_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_quiz_submit_button_pressed() -> void:
+	pass # Replace with function body.

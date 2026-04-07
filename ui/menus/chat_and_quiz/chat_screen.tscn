@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_and_quiz/chat_screen.gd" id="1_ldjw3"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
-[ext_resource type="PackedScene" uid="uid://i155sn4fkbml" path="res://ui/menus/chat_and_quiz/quiz_question.tscn" id="3_spejf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
 corner_radius_top_left = 20
@@ -150,24 +149,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="QuizQuestion" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer/QuizContainer" unique_id=1607645572 instance=ExtResource("3_spejf")]
-layout_mode = 2
-
-[node name="QuizQuestion2" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer/QuizContainer" unique_id=2087413258 instance=ExtResource("3_spejf")]
-layout_mode = 2
-
-[node name="QuizQuestion3" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer/QuizContainer" unique_id=1807892865 instance=ExtResource("3_spejf")]
-layout_mode = 2
-
-[node name="QuizQuestion4" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer/QuizContainer" unique_id=608909377 instance=ExtResource("3_spejf")]
-layout_mode = 2
-
-[node name="QuizQuestion5" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer/QuizContainer" unique_id=1606967428 instance=ExtResource("3_spejf")]
-layout_mode = 2
-
-[node name="QuizQuestion6" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer/QuizContainer" unique_id=19158976 instance=ExtResource("3_spejf")]
-layout_mode = 2
-
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer" unique_id=2086709548]
 custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
@@ -214,3 +195,5 @@ text = "Submit"
 
 [connection signal="text_submitted" from="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/ChatInputField" to="." method="_on_chat_input_field_text_submitted"]
 [connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/ChatSubmitButton" to="." method="_on_chat_submit_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizCancelButton" to="." method="_on_quiz_cancel_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizSubmitButton" to="." method="_on_quiz_submit_button_pressed"]
