@@ -66,7 +66,7 @@ func chat_request_completed(result, response_code, _headers, body):
 			print(quiz_data)
 			add_bubble("Sorry, I just got hit by a solar ray. You were saying?", "left")
 			return
-		add_bubble("Sure, here you go.", "left")
+		add_bubble("Sure, here you go:", "left")
 		chat_input_field.editable = false
 		await get_tree().create_timer(0.7).timeout
 		chat_panel.hide()
