@@ -45,6 +45,7 @@ ratio = 0.8
 
 [node name="ChatPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=940803565]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme = ExtResource("2_ywf3k")
 
@@ -119,7 +120,6 @@ text = ">"
 
 [node name="QuizPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=475803253]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme = ExtResource("2_ywf3k")
 
@@ -131,8 +131,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="QuizTitle" type="Label" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer" unique_id=567562370]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 19
+text = "[Quiz title should display here]"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 4
+
 [node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer" unique_id=1781376330]
-custom_minimum_size = Vector2(0, 528.855)
+custom_minimum_size = Vector2(0, 470)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10

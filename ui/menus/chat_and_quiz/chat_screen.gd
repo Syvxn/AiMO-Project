@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var chat_container = %ChatContainer
 @onready var chat_input_field = %ChatInputField
 @onready var quiz_panel = %QuizPanel
+@onready var quiz_title = %QuizTitle
 @onready var quiz_container = %QuizContainer
 
 
@@ -17,6 +18,8 @@ func _ready() -> void:
 	SignalBus.chat_opened.connect(quiz_panel.hide)
 	SignalBus.chat_opened.connect(chat_input_field.grab_focus)
 	SignalBus.chat_closed.connect(hide)
+	
+	
 
 
 func add_bubble(text: String, side):
@@ -38,7 +41,7 @@ func add_bubble(text: String, side):
 func submit_input(input_text):
 	chat_input_field.set_text("")
 	add_bubble(input_text, "right")
-	#region http 
+	#region http that should be moved to its own component
 	var http_request = HTTPRequest.new()
 	http_request.set_timeout(10.0)    # move this to .env.json?
 	add_child(http_request)
@@ -74,6 +77,7 @@ func chat_request_completed(result, response_code, _headers, body):
 		for child in quiz_container.get_children():
 			child.queue_free()
 		quiz_panel.show()
+		quiz_title.text = quiz_data["quiz_title"]
 		var questions = quiz_data["questions"]
 		for question in questions:
 			var question_instance = quiz_question.instantiate()
@@ -104,5 +108,28 @@ func _on_quiz_close_button_pressed() -> void:
 	chat_panel.show()
 
 func _on_quiz_submit_button_pressed() -> void:
+	var student_name : String
+	# this shows i should have the local player saved as a global variable somewhere
+	for player in get_tree().get_nodes_in_group("players"):
+		if int(player.name) == multiplayer.get_unique_id():
+			student_name = player.username
+	var total_questions = 0
+	var score = 0 
 	for child in quiz_container.get_children():
-		child.check_answer()
+		total_questions += 1
+		if child.check_answer(): # has (desired) visual side effects 
+			score += 1
+	var data_to_send = {
+		"student_name" : student_name,
+		"quiz_title" : quiz_title.text,
+		"score" : score,
+		"total_questions" : total_questions
+	}
+	var json_string = JSON.stringify(data_to_send)
+	#region send thhrough http here
+	print(json_string)
+	#endregion
+	
+	
+	
+	
