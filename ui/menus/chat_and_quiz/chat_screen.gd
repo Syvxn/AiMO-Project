@@ -134,8 +134,8 @@ func _on_quiz_submit_button_pressed() -> void:
 	http_request.request_completed.connect(self._quiz_submit_request_completed)
 	var url = Env.CHAT_SERVER_URL
 	var custom_headers = PackedStringArray()
-	var method = HTTPClient.Method.METHOD_POST
-	#var method = HTTPClient.Method.METHOD_GET
+	#var method = HTTPClient.Method.METHOD_POST
+	var method = HTTPClient.Method.METHOD_GET
 	# sanitizer? i hardly know 'er
 	var data = json_string
 	http_request.request(url, custom_headers, method, data)
