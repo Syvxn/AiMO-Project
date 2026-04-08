@@ -45,7 +45,7 @@ func submit_input(input_text):
 	var http_request = HTTPRequest.new()
 	http_request.set_timeout(10.0)    # move this to .env.json?
 	add_child(http_request)
-	http_request.request_completed.connect(self.chat_request_completed)
+	http_request.request_completed.connect(self._chat_request_completed)
 	var url = Env.CHAT_SERVER_URL
 	var custom_headers = PackedStringArray()
 	#var method = HTTPClient.Method.METHOD_POST
@@ -56,8 +56,8 @@ func submit_input(input_text):
 	#endregion
 
 
-func chat_request_completed(result, response_code, _headers, body):
-	print("HTTP request: ", str(result), " ", str(response_code))
+func _chat_request_completed(result, response_code, _headers, body):
+	print("Chat HTTP request completed: ", str(result), " ", str(response_code))
 	await get_tree().create_timer(0.5).timeout    # simulate wait
 	var body_text = body.get_string_from_utf8()
 	# this is some hack shit; i gotta replace this with a proper check
@@ -126,10 +126,23 @@ func _on_quiz_submit_button_pressed() -> void:
 		"total_questions" : total_questions
 	}
 	var json_string = JSON.stringify(data_to_send)
-	#region send thhrough http here
-	print(json_string)
+	print("Submitting quiz results: " + json_string)
+	#region http
+	var http_request = HTTPRequest.new()
+	http_request.set_timeout(10.0)    # move this to .env.json?
+	add_child(http_request)
+	http_request.request_completed.connect(self._quiz_submit_request_completed)
+	var url = Env.CHAT_SERVER_URL
+	var custom_headers = PackedStringArray()
+	var method = HTTPClient.Method.METHOD_POST
+	#var method = HTTPClient.Method.METHOD_GET
+	# sanitizer? i hardly know 'er
+	var data = json_string
+	http_request.request(url, custom_headers, method, data)
 	#endregion
 	
 	
+func _quiz_submit_request_completed(result, response_code, _headers, _body):
+	print("Quiz submission HTTP request completed: ", str(result), " ", str(response_code))
 	
 	
