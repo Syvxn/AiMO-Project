@@ -43,42 +43,52 @@ func submit_input(input_text):
 	add_bubble(input_text, "right")
 	#region http that should be moved to its own component
 	var http_request = HTTPRequest.new()
-	http_request.set_timeout(10.0)    # move this to .env.json?
+	#http_request.set_timeout(10.0)    # move this to .env.json?
 	add_child(http_request)
 	http_request.request_completed.connect(self._chat_request_completed)
 	var url = Env.CHAT_SERVER_URL
-	var custom_headers = PackedStringArray()
-	#var method = HTTPClient.Method.METHOD_POST
-	var method = HTTPClient.Method.METHOD_GET
+	var custom_headers = PackedStringArray(["Content-Type: application/json"])
+	var method = HTTPClient.Method.METHOD_POST
 	# sanitizer? i hardly know 'er
-	var data = input_text
+	var student_name : String
+	# this shows i should have the local player saved as a global variable somewhere
+	for player in get_tree().get_nodes_in_group("players"):
+		if int(player.name) == multiplayer.get_unique_id():
+			student_name = player.username
+	var data_to_send = {
+		"student_id" : student_name,
+		"message" : input_text
+	}
+	var data = JSON.stringify(data_to_send) 
+	print(data)
 	http_request.request(url, custom_headers, method, data)
+	await get_tree().create_timer(0.7).timeout
+	add_bubble("Sure, hold on a moment.", "left")
 	#endregion
 
 
 func _chat_request_completed(result, response_code, _headers, body):
 	print("Chat HTTP request completed: ", str(result), " ", str(response_code))
-	await get_tree().create_timer(0.5).timeout    # simulate wait
+	await get_tree().create_timer(0.7).timeout    # simulate wait
 	var body_text = body.get_string_from_utf8()
 	# this is some hack shit; i gotta replace this with a proper check
 	if not body_text.begins_with("{"):
 		add_bubble(body_text, "left")
 	else: # json, i assume?
-		var quiz_data = JSON.parse_string(body_text)
-		if not typeof(quiz_data) == TYPE_DICTIONARY:
-			print(quiz_data)
+		var response_data = JSON.parse_string(body_text)
+		print(response_data)
+		if not typeof(response_data) == TYPE_DICTIONARY:
 			add_bubble("Sorry, I just got hit by a solar ray. You were saying?", "left")
 			return
-		add_bubble("Sure, here you go:", "left")
 		chat_input_field.editable = false
-		await get_tree().create_timer(0.7).timeout
 		chat_panel.hide()
 		chat_input_field.editable = true
 		for child in quiz_container.get_children():
 			child.queue_free()
 		quiz_panel.show()
-		quiz_title.text = quiz_data["quiz_title"]
-		var questions = quiz_data["questions"]
+		var quiz = response_data["quiz"]
+		quiz_title.text = quiz["quiz_title"]
+		var questions = quiz["questions"]
 		for question in questions:
 			var question_instance = quiz_question.instantiate()
 			quiz_container.add_child(question_instance)
@@ -99,6 +109,7 @@ func _on_chat_submit_button_pressed() -> void:
 	submit_input(chat_input_field.get_text())
 	chat_input_field.grab_focus()
 
+
 func _on_chat_input_field_text_submitted(new_text: String) -> void:
 	submit_input(new_text)
 
@@ -106,6 +117,7 @@ func _on_chat_input_field_text_submitted(new_text: String) -> void:
 func _on_quiz_close_button_pressed() -> void:
 	quiz_panel.hide()
 	chat_panel.show()
+
 
 func _on_quiz_submit_button_pressed() -> void:
 	var student_name : String
@@ -119,6 +131,7 @@ func _on_quiz_submit_button_pressed() -> void:
 		total_questions += 1
 		if child.check_answer(): # has (desired) visual side effects 
 			score += 1
+	#region http
 	var data_to_send = {
 		"student_name" : student_name,
 		"quiz_title" : quiz_title.text,
@@ -127,22 +140,21 @@ func _on_quiz_submit_button_pressed() -> void:
 	}
 	var json_string = JSON.stringify(data_to_send)
 	print("Submitting quiz results: " + json_string)
-	#region http
 	var http_request = HTTPRequest.new()
-	http_request.set_timeout(10.0)    # move this to .env.json?
 	add_child(http_request)
 	http_request.request_completed.connect(self._quiz_submit_request_completed)
-	var url = Env.CHAT_SERVER_URL
-	var custom_headers = PackedStringArray()
-	#var method = HTTPClient.Method.METHOD_POST
-	var method = HTTPClient.Method.METHOD_GET
+	var url = Env.SCORE_SERVER_URL
+	var custom_headers = PackedStringArray(["Content-Type: application/json"])
+	var method = HTTPClient.Method.METHOD_POST
 	# sanitizer? i hardly know 'er
 	var data = json_string
 	http_request.request(url, custom_headers, method, data)
 	#endregion
-	
-	
-func _quiz_submit_request_completed(result, response_code, _headers, _body):
+
+
+func _quiz_submit_request_completed(result, response_code, _headers, body):
 	print("Quiz submission HTTP request completed: ", str(result), " ", str(response_code))
-	
+	# Here we could do something with the response body, e.g. print something
+	# to the chat with add_bubble()
+	print(body)
 	

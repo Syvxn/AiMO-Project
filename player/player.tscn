@@ -91,8 +91,7 @@ shape = SubResource("CircleShape2D_54qew")
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=2107491442]
 y_sort_enabled = true
 sprite_frames = ExtResource("2_rkbax")
-animation = &"stand_left"
-autoplay = "stand_down"
+animation = &"walk_up"
 offset = Vector2(0, -32)
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1252570051]

@@ -60,7 +60,7 @@ func _physics_process(_delta: float) -> void:
 # this would be a little more elaborate, obviously
 func apply_visuals():
 	if username == "Lasse":
-		$BodySprite.sprite_frames = load("res://textures/sprite_frames/chell_var1.tres")
+		$BodySprite.sprite_frames = load("res://textures/sprite_frames/faith.tres")
 	
 
 func lock_controls():

@@ -19,6 +19,7 @@ theme_override_constants/margin_top = 2
 layout_mode = 2
 text = "[Question text should appear here]
 "
+autowrap_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer" unique_id=1612421603]
 layout_mode = 2

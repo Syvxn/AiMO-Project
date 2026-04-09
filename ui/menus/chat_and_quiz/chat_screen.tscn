@@ -45,7 +45,6 @@ ratio = 0.8
 
 [node name="ChatPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=940803565]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme = ExtResource("2_ywf3k")
 
@@ -120,6 +119,7 @@ text = ">"
 
 [node name="QuizPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=475803253]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme = ExtResource("2_ywf3k")
 
