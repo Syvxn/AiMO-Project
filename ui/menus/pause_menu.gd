@@ -17,6 +17,8 @@ func update_room_list():
 	for room in get_tree().get_nodes_in_group("rooms"):
 		var room_name = room.name
 		var label_text = room_name
+		if not room.get("display_name") == null:
+			label_text = room.get("display_name")
 		if room.is_in_group("personal_rooms"):
 			label_text = room.owner_username + "'s Room"
 		var room_join_item_instance = room_join_item.instantiate()

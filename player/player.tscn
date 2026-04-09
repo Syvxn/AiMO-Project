@@ -76,7 +76,7 @@ func enable():
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-collision_layer = 3
+collision_layer = 259
 motion_mode = 1
 script = ExtResource("1_rkbax")
 

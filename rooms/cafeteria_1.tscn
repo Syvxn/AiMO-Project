@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://c8hfitdfol1jn"]
 
 [ext_resource type="TileSet" uid="uid://bk1do0kll2d6g" path="res://textures/tilesets/floors_color_test.tres" id="1_i880t"]
+[ext_resource type="Script" uid="uid://b2yhwnuqk3l27" path="res://rooms/cafeteria_1.gd" id="1_mjqrp"]
 [ext_resource type="TileSet" uid="uid://c6612olcg2y5m" path="res://textures/tilesets/walls_color_test.tres" id="2_0iroj"]
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="3_mjqrp"]
 [ext_resource type="PackedScene" uid="uid://b8ui2d4tsgu2y" path="res://items/collision_props/vending_machine.tscn" id="4_yhjtf"]
@@ -21,6 +22,7 @@ properties/0/replication_mode = 1
 [node name="Cafeteria1" type="Node2D" unique_id=85734091 groups=["rooms"]]
 z_as_relative = false
 y_sort_enabled = true
+script = ExtResource("1_mjqrp")
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=796578305]
 z_as_relative = false

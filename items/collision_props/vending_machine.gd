@@ -3,6 +3,7 @@ extends Area2D
 
 var turned_on := false
 
+@onready var random_snack = load("res://items/physics_props/random_snack.tscn")
 
 
 func _ready() -> void:
@@ -16,6 +17,8 @@ func buy():
 	if turned_on:
 		$AnimatedSprite2D.play("yes")
 		print("You bought something! I think.")
+		await get_tree().create_timer(1).timeout
+		%SnackPoint.add_child(random_snack.instantiate())
 
 
 func _on_body_entered(body: Node2D) -> void:

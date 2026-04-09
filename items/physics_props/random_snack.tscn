@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://06480w80xjvk"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_5kj18"]
+[ext_resource type="Script" uid="uid://c45t3beduosx5" path="res://items/physics_props/random_snack.gd" id="1_7cwnl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5kj18"]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kj18"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(226, 34, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cwnl"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(231, 33, 8, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2448v"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(239, 33, 4, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2srym"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(245, 34, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjavt"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(250, 33, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2txdt"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(226, 39, 4, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f50vo"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(232, 39, 4, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glisf"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(238, 39, 5, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbeh2"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(245, 39, 4, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4svg"]
+atlas = ExtResource("1_5kj18")
+region = Rect2(251, 39, 3, 4)
+
+[node name="RandomSnack" type="RigidBody2D" unique_id=17062456]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+collision_layer = 256
+collision_mask = 256
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 3.0
+script = ExtResource("1_7cwnl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=483551641]
+shape = SubResource("CircleShape2D_5kj18")
+
+[node name="Sprites" type="Node2D" parent="." unique_id=1313007875]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites" unique_id=1080558266]
+visible = false
+texture = SubResource("AtlasTexture_5kj18")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites" unique_id=160860631]
+visible = false
+texture = SubResource("AtlasTexture_7cwnl")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites" unique_id=1506295667]
+visible = false
+texture = SubResource("AtlasTexture_2448v")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprites" unique_id=323614450]
+texture = SubResource("AtlasTexture_2srym")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Sprites" unique_id=1017602611]
+visible = false
+texture = SubResource("AtlasTexture_gjavt")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Sprites" unique_id=1225820073]
+visible = false
+texture = SubResource("AtlasTexture_2txdt")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Sprites" unique_id=612294153]
+visible = false
+texture = SubResource("AtlasTexture_f50vo")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Sprites" unique_id=508423295]
+visible = false
+texture = SubResource("AtlasTexture_glisf")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Sprites" unique_id=515316708]
+visible = false
+texture = SubResource("AtlasTexture_xbeh2")
+
+[node name="Sprite2D10" type="Sprite2D" parent="Sprites" unique_id=769088951]
+visible = false
+texture = SubResource("AtlasTexture_s4svg")

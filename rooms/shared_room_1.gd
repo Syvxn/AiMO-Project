@@ -1,5 +1,6 @@
 extends Node2D
 
+var display_name = "Old Test Chamber"
 #var players_in_room = []
 
 
