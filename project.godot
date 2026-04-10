@@ -37,6 +37,7 @@ folder_colors={
 "res://npcs/": "purple",
 "res://player/": "purple",
 "res://rooms/": "purple",
+"res://sounds/": "pink",
 "res://textures/": "blue",
 "res://textures/sprite_frames/": "blue",
 "res://textures/spritesheets/": "blue",
