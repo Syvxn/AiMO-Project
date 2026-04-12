@@ -5,9 +5,11 @@ var walk_speed := 100
 var push_force := 70
 var current_stand_animation := "stand_down"
 var controllable := true
+var auto_move := false
 
 @onready var body_sprite = $BodySprite
 @onready var input_handler = $InputHandler
+@onready var nav_agent = $NavAgent
 
 
 func _ready() -> void:
@@ -29,6 +31,7 @@ func _physics_process(_delta: float) -> void:
 		velocity = Vector2.ZERO
 		body_sprite.play(current_stand_animation)
 	else:
+		auto_move = false
 		velocity = walk_speed * walk_vec
 		# iso version
 		#velocity = walk_speed * Vector2(walk_vec.x, walk_vec.y * 0.5)
@@ -57,11 +60,13 @@ func _physics_process(_delta: float) -> void:
 	#endregion
 
 
-# this would be a little more elaborate, obviously
-func apply_visuals():
-	if username == "Lasse":
-		$BodySprite.sprite_frames = load("res://textures/sprite_frames/faith.tres")
-	
+func move_to(target: Vector2):
+	auto_move = true
+	nav_agent.target_position = target
+
+func _on_nav_agent_target_reached() -> void:
+	auto_move = false
+
 
 func lock_controls():
 	# this back-and-forth is a little stupid, but hey
@@ -69,3 +74,10 @@ func lock_controls():
 	controllable = false
 func release_controls():
 	controllable = true
+
+
+
+# this would be a little more elaborate, obviously
+func apply_visuals():
+	if username == "Lasse":
+		$BodySprite.sprite_frames = load("res://textures/sprite_frames/faith.tres")

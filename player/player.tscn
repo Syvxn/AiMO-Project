@@ -29,6 +29,9 @@ func _physics_process(_delta: float) -> void:
 		for area in areas:
 			if area.is_in_group(\"npcs\") and \"interact\" in area:
 				area.interact()
+	
+	if Input.is_action_just_pressed(\"move_to\"):
+		print(get_viewport().get_mouse_position())
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]
@@ -109,3 +112,8 @@ position = Vector2(0, -23)
 enabled = false
 zoom = Vector2(2, 2)
 script = SubResource("GDScript_3eadt")
+
+[node name="NavAgent" type="NavigationAgent2D" parent="." unique_id=866101287]
+avoidance_enabled = true
+
+[connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

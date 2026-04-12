@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bbbf6kotug4kf" path="res://npcs/llehc.tscn" id="11_0iroj"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="11_c2tdw"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mjqrp"]
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l8hkp"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -23,6 +25,12 @@ properties/0/replication_mode = 1
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_mjqrp")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=447033702]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+navigation_polygon = SubResource("NavigationPolygon_mjqrp")
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=796578305]
 z_as_relative = false
