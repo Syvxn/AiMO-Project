@@ -84,7 +84,7 @@ script/source = "extends Camera2D
 
 
 func enable():
-	if is_multiplayer_authority():
+	if (is_multiplayer_authority() or get_parent().debug):
 		enabled = true
 "
 
@@ -129,7 +129,6 @@ script = SubResource("GDScript_3eadt")
 
 [node name="NavAgent" type="NavigationAgent2D" parent="." unique_id=866101287]
 avoidance_enabled = true
-debug_enabled = true
 debug_path_custom_color = Color(0.79399216, 0.10908077, 4.813075e-07, 1)
 
 [connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]
