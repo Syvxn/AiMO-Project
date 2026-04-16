@@ -5,7 +5,7 @@ var walk_speed := 100
 var push_force := 70
 var current_stand_animation := "stand_down"
 var controllable := true
-var auto_move := false
+
 
 @export var debug := false
 
@@ -29,9 +29,10 @@ func _physics_process(_delta: float) -> void:
 	#region movement
 	var walk_vec = input_handler.walk_direction
 	if  walk_vec: # manual walk
-		auto_move = false
 		velocity = walk_speed * walk_vec
-	elif auto_move == true: # click-to-move or external
+	elif $InputHandler.auto_move == true: # click-to-move or external
+		if not nav_agent.target_position == $InputHandler.auto_move_target:
+			nav_agent.target_position = $InputHandler.auto_move_target
 		if not nav_agent.is_target_reachable():
 			velocity = Vector2.ZERO
 		else:
@@ -67,13 +68,8 @@ func _physics_process(_delta: float) -> void:
 	#endregion
 
 
-func move_to(target: Vector2):
-	auto_move = true
-	nav_agent.target_position = target
-
 func _on_nav_agent_target_reached() -> void:
-	#velocity = Vector2.ZERO
-	auto_move = false
+	$InputHandler.auto_move = false
 
 
 func lock_controls():
