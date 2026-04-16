@@ -7,6 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="4_3epd3"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="6_m0cm6"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_m0cm6"]
+vertices = PackedVector2Array(600, 704.77344, 512.2578, 660.1094, 632.9219, 600.2031, 665.1094, 671.72656, 798.3125, 685.1094, 744.0078, 713.6797)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(490, 660, 633, 589, 820, 685, 744, 725, 665, 683, 600, 716)])
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -36,16 +41,19 @@ position = Vector2(600.00006, 677)
 tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//v/AAABAAAAAAD9//r/AAABAAAAAAD9//n/AAABAAAAAAD+//j/AAABAAAAAAD+//f/AAABAAAAAAD///b/AAABAAAAAAD///X/AAABAAAAAAAAAPT/AAABAAAAAAABAPT/AAABAAEAAAABAPX/AAABAAEAAAACAPb/AAABAAEAAAACAPf/AAABAAEAAAADAPj/AAABAAEAAAADAPn/AAABAAEAAAAEAPr/AAABAAEAAAAEAPv/AAACAAEAAAAFAPz/AAACAAEAAAAFAP3/AAACAAEAAAAGAP7/AAACAAEAAAAGAP//AAABAAEAAAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAAAAAD9/wEAAAAJAAAAAAD+/wIAAAAJAAAAAAD+/wMAAAAJAAAAAAD//wQAAAAJAAAAAAD//wUAAAAJAAAAAAAAAAQAAAAJAAAAAAAAAAMAAAAJAAAAAAABAAIAAAAJAAAAAAABAAEAAAAJAAAAAAACAAIAAAAJAAAAAAACAAMAAAAJAAAAAAADAAQAAAAJAAAAAAADAAUAAAAJAAAAAAAEAAYAAAAJAAAAAAAEAAUAAAAJAAAAAAAFAAQAAAAJAAAAAAAFAAMAAAAJAAAAAAAGAAIAAAAJAAAAAAAGAAEAAAAJAAAAAAA=")
 tile_set = ExtResource("2_w8a5v")
 
-[node name="Decorations" type="Node2D" parent="." unique_id=767305767]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1937242360]
+navigation_polygon = SubResource("NavigationPolygon_m0cm6")
+
+[node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=767305767]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(600.00006, 677)
 
-[node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("3_pdwsy")]
+[node name="CompanionCube" parent="NavigationRegion2D/Decorations" unique_id=1069940731 instance=ExtResource("3_pdwsy")]
 position = Vector2(48, -33)
 
-[node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("4_3epd3")]
+[node name="SurveillanceCamera" parent="NavigationRegion2D/Decorations" unique_id=1952480078 instance=ExtResource("4_3epd3")]
 z_index = 2
 z_as_relative = false
 y_sort_enabled = true

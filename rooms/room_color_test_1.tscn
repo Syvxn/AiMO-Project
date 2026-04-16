@@ -22,6 +22,11 @@
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="20_5k3lj"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="21_47bbc"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_r46r2"]
+vertices = PackedVector2Array(599.09375, 703.8672, 523.0625, 665.85156, 530.25, 669.0469, 563.09375, 652.6172, 563.97656, 653.03906, 746.8203, 658.15625, 798.85156, 684.1172, 742.96875, 712.77344, 731.3125, 667.47656, 612.14844, 614.0781, 607.4219, 611.5625, 618, 606.22656, 618, 611.1797, 704.15625, 653.1094, 664.1328, 672.8594, 611.84375, 626.4219, 668, 636.1797, 685.14844, 627.60156, 707.96875, 638.9531, 703.85156, 641.4297, 588.84375, 641.4375, 588.9375, 637.1875)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 8, 7, 14, 15, 9, 16), PackedInt32Array(17, 18, 19, 16), PackedInt32Array(0, 4, 20, 14), PackedInt32Array(14, 20, 21, 15), PackedInt32Array(16, 19, 13), PackedInt32Array(9, 12, 16)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(489, 660, 630, 589, 821, 684, 743, 724, 664, 684, 599, 715)])
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -57,77 +62,80 @@ position = Vector2(600.00006, 677)
 tile_map_data = PackedByteArray("AAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAAAAAD9/wEAAAAJAAAAAAD+/wIAAAAJAAAAAAD+/wMAAAAJAAAAAAD//wQAAAAJAAAAAAD//wUAAAAJAAAAAAAAAAQAAAAJAAAAAAAAAAMAAAAJAAAAAAABAAIAAAAJAAAAAAABAAEAAAAJAAAAAAACAAIAAAAJAAAAAAACAAMAAAAJAAAAAAADAAQAAAAJAAAAAAADAAUAAAAJAAAAAAAEAAYAAAAJAAAAAAAEAAUAAAAJAAAAAAAFAAQAAAAJAAAAAAAFAAMAAAAJAAAAAAAGAAIAAAAJAAAAAAAGAAEAAAAJAAAAAAA=")
 tile_set = ExtResource("4_yubdi")
 
-[node name="Decorations" type="Node2D" parent="." unique_id=767305767]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=543448206]
+navigation_polygon = SubResource("NavigationPolygon_r46r2")
+
+[node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=767305767]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(600.00006, 677)
 
-[node name="Cabinet" parent="Decorations" unique_id=1277890595 instance=ExtResource("5_iosdr")]
+[node name="Cabinet" parent="NavigationRegion2D/Decorations" unique_id=1277890595 instance=ExtResource("5_iosdr")]
 position = Vector2(55.99994, -68)
 
-[node name="CboxSmall" parent="Decorations/Cabinet" unique_id=278122156 instance=ExtResource("6_fooej")]
+[node name="CboxSmall" parent="NavigationRegion2D/Decorations/Cabinet" unique_id=278122156 instance=ExtResource("6_fooej")]
 z_index = 2
 position = Vector2(8, -60)
 
-[node name="CollisionShape2D" parent="Decorations/Cabinet/CboxSmall/StaticBody2D" parent_id_path=PackedInt32Array(278122156, 1596983020) index="0" unique_id=1144008494]
+[node name="CollisionShape2D" parent="NavigationRegion2D/Decorations/Cabinet/CboxSmall/StaticBody2D" parent_id_path=PackedInt32Array(278122156, 1596983020) index="0" unique_id=1144008494]
 disabled = true
 
-[node name="Table" parent="Decorations" unique_id=573156054 instance=ExtResource("7_gdcsi")]
+[node name="Table" parent="NavigationRegion2D/Decorations" unique_id=573156054 instance=ExtResource("7_gdcsi")]
 position = Vector2(-66.00006, -32)
 
-[node name="BookFlatBlue" parent="Decorations/Table" unique_id=783691530 instance=ExtResource("8_udne1")]
+[node name="BookFlatBlue" parent="NavigationRegion2D/Decorations/Table" unique_id=783691530 instance=ExtResource("8_udne1")]
 position = Vector2(-2, 0)
 offset = Vector2(0, -14)
 
-[node name="Chair" parent="Decorations" unique_id=1229567162 instance=ExtResource("9_6kbe1")]
+[node name="Chair" parent="NavigationRegion2D/Decorations" unique_id=1229567162 instance=ExtResource("9_6kbe1")]
 position = Vector2(131.99994, -30)
 
-[node name="PaintingWaves" parent="Decorations" unique_id=1972470628 instance=ExtResource("10_m1wrp")]
+[node name="PaintingWaves" parent="NavigationRegion2D/Decorations" unique_id=1972470628 instance=ExtResource("10_m1wrp")]
 visibility_layer = 3
 position = Vector2(118.99994, -93)
 
-[node name="PaintingStillLife" parent="Decorations" unique_id=1712648968 instance=ExtResource("11_tidbe")]
+[node name="PaintingStillLife" parent="NavigationRegion2D/Decorations" unique_id=1712648968 instance=ExtResource("11_tidbe")]
 position = Vector2(154.99994, -77)
 
-[node name="PaintingStillLife2" parent="Decorations" unique_id=1352283082 instance=ExtResource("11_tidbe")]
+[node name="PaintingStillLife2" parent="NavigationRegion2D/Decorations" unique_id=1352283082 instance=ExtResource("11_tidbe")]
 position = Vector2(-80.00006, -75)
 flip_h = true
 
-[node name="CboxLarge" parent="Decorations" unique_id=1369988656 instance=ExtResource("12_lbyxo")]
+[node name="CboxLarge" parent="NavigationRegion2D/Decorations" unique_id=1369988656 instance=ExtResource("12_lbyxo")]
 position = Vector2(-37.00006, -43)
 
-[node name="CboxLarge2" parent="Decorations" unique_id=1719873887 instance=ExtResource("13_aratw")]
+[node name="CboxLarge2" parent="NavigationRegion2D/Decorations" unique_id=1719873887 instance=ExtResource("13_aratw")]
 position = Vector2(-14.000061, -57)
 
-[node name="BookShelfFloating" parent="Decorations" unique_id=815231254 instance=ExtResource("14_051rw")]
+[node name="BookShelfFloating" parent="NavigationRegion2D/Decorations" unique_id=815231254 instance=ExtResource("14_051rw")]
 position = Vector2(-34.00006, -100)
 flip_h = true
 
-[node name="BookStraightGreen" parent="Decorations/BookShelfFloating" unique_id=1161927385 instance=ExtResource("15_1wyis")]
+[node name="BookStraightGreen" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=1161927385 instance=ExtResource("15_1wyis")]
 position = Vector2(-11, 12)
 flip_h = true
 
-[node name="BookStraightBrown" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=1068449812 instance=ExtResource("16_oldrl")]
+[node name="BookStraightBrown" parent="NavigationRegion2D/Decorations/BookShelfFloating/BookStraightGreen" unique_id=1068449812 instance=ExtResource("16_oldrl")]
 position = Vector2(3, -1)
 flip_h = true
 
-[node name="BookStraightWine" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=79118145 instance=ExtResource("17_tfj0s")]
+[node name="BookStraightWine" parent="NavigationRegion2D/Decorations/BookShelfFloating/BookStraightGreen" unique_id=79118145 instance=ExtResource("17_tfj0s")]
 position = Vector2(5, -2)
 flip_h = true
 
-[node name="BookStraightBlue" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=1007088488 instance=ExtResource("18_a52n1")]
+[node name="BookStraightBlue" parent="NavigationRegion2D/Decorations/BookShelfFloating/BookStraightGreen" unique_id=1007088488 instance=ExtResource("18_a52n1")]
 position = Vector2(9, -4)
 flip_h = true
 
-[node name="BookStraightBrown2" parent="Decorations/BookShelfFloating/BookStraightGreen" unique_id=1040355387 instance=ExtResource("16_oldrl")]
+[node name="BookStraightBrown2" parent="NavigationRegion2D/Decorations/BookShelfFloating/BookStraightGreen" unique_id=1040355387 instance=ExtResource("16_oldrl")]
 position = Vector2(12, -5)
 flip_h = true
 
-[node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("19_pah0g")]
+[node name="CompanionCube" parent="NavigationRegion2D/Decorations" unique_id=1069940731 instance=ExtResource("19_pah0g")]
 position = Vector2(48, -33)
 
-[node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("20_5k3lj")]
+[node name="SurveillanceCamera" parent="NavigationRegion2D/Decorations" unique_id=1952480078 instance=ExtResource("20_5k3lj")]
 z_index = 2
 z_as_relative = false
 y_sort_enabled = true
@@ -145,4 +153,4 @@ replication_config = SubResource("SceneReplicationConfig_m0cm6")
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=1025427760]
 position = Vector2(586, 662)
 
-[editable path="Decorations/Cabinet/CboxSmall"]
+[editable path="NavigationRegion2D/Decorations/Cabinet/CboxSmall"]

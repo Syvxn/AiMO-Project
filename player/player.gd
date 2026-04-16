@@ -7,6 +7,8 @@ var current_stand_animation := "stand_down"
 var controllable := true
 var auto_move := false
 
+@export var debug := false
+
 @onready var body_sprite = $BodySprite
 @onready var input_handler = $InputHandler
 @onready var nav_agent = $NavAgent
@@ -24,32 +26,37 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void: 
-	#region movement and animation
-	# velocity + move_and_slide() handle actual movement, rest is animation
+	#region movement
 	var walk_vec = input_handler.walk_direction
-	if walk_vec == Vector2.ZERO:
-		velocity = Vector2.ZERO
-		body_sprite.play(current_stand_animation)
-	else:
+	if  walk_vec: # manual walk
 		auto_move = false
 		velocity = walk_speed * walk_vec
-		# iso version
-		#velocity = walk_speed * Vector2(walk_vec.x, walk_vec.y * 0.5)
-		if abs(walk_vec.x) > abs(walk_vec.y):
-			if walk_vec.x > 0:
-				body_sprite.play("walk_right")
-				current_stand_animation = "stand_right"
-			else:
-				body_sprite.play("walk_left")
-				current_stand_animation = "stand_left"
+	elif auto_move == true: # click-to-move or external
+		if not nav_agent.is_target_reachable():
+			velocity = Vector2.ZERO
 		else:
-			if walk_vec.y > 0:
-				body_sprite.play("walk_down")
-				current_stand_animation = "stand_down"
-			else:
-				body_sprite.play("walk_up")
-				current_stand_animation = "stand_up"
+			velocity = walk_speed * global_position.direction_to(nav_agent.get_next_path_position())
+	else: # no movement
+		velocity = Vector2.ZERO
 	move_and_slide()
+	#endregion
+	#region animation
+	if abs(velocity.x) > abs(velocity.y):
+		if velocity.x > 0:
+			body_sprite.play("walk_right")
+			current_stand_animation = "stand_right"
+		else:
+			body_sprite.play("walk_left")
+			current_stand_animation = "stand_left"
+	elif abs(velocity.x) < abs(velocity.y):
+		if velocity.y > 0:
+			body_sprite.play("walk_down")
+			current_stand_animation = "stand_down"
+		else:
+			body_sprite.play("walk_up")
+			current_stand_animation = "stand_up"
+	else:
+		body_sprite.play(current_stand_animation)
 	#endregion
 	#region push movables
 	for i in get_slide_collision_count():
@@ -65,6 +72,7 @@ func move_to(target: Vector2):
 	nav_agent.target_position = target
 
 func _on_nav_agent_target_reached() -> void:
+	#velocity = Vector2.ZERO
 	auto_move = false
 
 

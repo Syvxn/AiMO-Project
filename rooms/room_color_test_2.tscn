@@ -23,6 +23,11 @@
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="21_nkq2a"]
 [ext_resource type="PackedScene" uid="uid://28ny2cmvwikv" path="res://items/noncollision_props/painting_citrus_figure.tscn" id="22_3ed8c"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3ed8c"]
+vertices = PackedVector2Array(619.6875, 611.03906, 614.9531, 609.1875, 616.09375, 608.6172, 631.0625, 615.65625, 664.0625, 672.78906, 599.97656, 704.8281, 527.6875, 669.0078, 543.84375, 661.4219, 661.15625, 636.4375, 686.02344, 648.03906, 742.5781, 655.8828, 799.9922, 685.03906, 743.9922, 713.7578, 726.14844, 664.1094, 688.8594, 646.7031, 620.28906, 624.03125, 631.09375, 617.40625, 543.85156, 660.8203, 563.84375, 651.4219, 661.03125, 631.3828, 563.85156, 650.8203, 582.25, 643.0469, 581.28125, 642.6172)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3), PackedInt32Array(4, 5, 6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(14, 13, 12, 4, 9), PackedInt32Array(15, 0, 3, 16), PackedInt32Array(8, 7, 17, 18), PackedInt32Array(19, 8, 18, 20, 21), PackedInt32Array(15, 16, 19), PackedInt32Array(20, 22, 21), PackedInt32Array(15, 19, 21)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(489, 661, 633, 589, 822, 685, 744, 725, 664, 684, 600, 716)])
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -58,73 +63,88 @@ position = Vector2(600.00006, 677)
 tile_map_data = PackedByteArray("AAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAAAAAD9/wEAAAAJAAAAAAD+/wIAAAAJAAAAAAD+/wMAAAAJAAAAAAD//wQAAAAJAAAAAAD//wUAAAAJAAAAAAAAAAQAAAAJAAAAAAAAAAMAAAAJAAAAAAABAAIAAAAJAAAAAAABAAEAAAAJAAAAAAACAAIAAAAJAAAAAAACAAMAAAAJAAAAAAADAAQAAAAJAAAAAAADAAUAAAAJAAAAAAAEAAYAAAAJAAAAAAAEAAUAAAAJAAAAAAAFAAQAAAAJAAAAAAAFAAMAAAAJAAAAAAAGAAIAAAAJAAAAAAAGAAEAAAAJAAAAAAA=")
 tile_set = ExtResource("4_p1gk2")
 
-[node name="Decorations" type="Node2D" parent="." unique_id=767305767]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1236158990]
+navigation_polygon = SubResource("NavigationPolygon_3ed8c")
+
+[node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=767305767]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(600.00006, 677)
 
-[node name="PaintingWaves" parent="Decorations" unique_id=1972470628 instance=ExtResource("10_ibj7m")]
+[node name="PaintingWaves" parent="NavigationRegion2D/Decorations" unique_id=1972470628 instance=ExtResource("10_ibj7m")]
 visibility_layer = 3
 position = Vector2(-9.000061, -107)
 flip_h = true
 
-[node name="PaintingStillLife2" parent="Decorations" unique_id=1352283082 instance=ExtResource("11_rgy01")]
+[node name="PaintingStillLife2" parent="NavigationRegion2D/Decorations" unique_id=1352283082 instance=ExtResource("11_rgy01")]
 position = Vector2(-63.00006, -81)
 flip_h = true
 
-[node name="PaintingCitrusFigure" parent="Decorations" unique_id=1317090288 instance=ExtResource("22_3ed8c")]
+[node name="PaintingCitrusFigure" parent="NavigationRegion2D/Decorations" unique_id=1317090288 instance=ExtResource("22_3ed8c")]
 position = Vector2(-40.00006, -92)
 flip_h = true
 
-[node name="CboxLarge" parent="Decorations" unique_id=1369988656 instance=ExtResource("12_rh567")]
+[node name="CboxLarge" parent="NavigationRegion2D/Decorations" unique_id=1369988656 instance=ExtResource("12_rh567")]
 position = Vector2(32.99994, -79)
 
-[node name="CboxLarge2" parent="Decorations" unique_id=1719873887 instance=ExtResource("13_ks6mf")]
+[node name="CboxLarge2" parent="NavigationRegion2D/Decorations" unique_id=1719873887 instance=ExtResource("13_ks6mf")]
 position = Vector2(86.99994, -48)
 
-[node name="BookShelfFloating" parent="Decorations" unique_id=815231254 instance=ExtResource("14_mmx3m")]
+[node name="BookShelfFloating" parent="NavigationRegion2D/Decorations" unique_id=815231254 instance=ExtResource("14_mmx3m")]
 position = Vector2(114.99994, -87)
 
-[node name="BookFlatBlue" parent="Decorations/BookShelfFloating" unique_id=783691530 instance=ExtResource("8_s10cj")]
+[node name="BookFlatBlue" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=783691530 instance=ExtResource("8_s10cj")]
 position = Vector2(-4, 7)
 
-[node name="BookStraightBrown" parent="Decorations/BookShelfFloating" unique_id=1068449812 instance=ExtResource("16_6tctr")]
+[node name="BookStraightBrown" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=1068449812 instance=ExtResource("16_6tctr")]
 position = Vector2(7, 13)
 
-[node name="BookStraightWine" parent="Decorations/BookShelfFloating" unique_id=79118145 instance=ExtResource("17_mwky7")]
+[node name="BookStraightWine" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=79118145 instance=ExtResource("17_mwky7")]
 position = Vector2(13, 15)
 
-[node name="BookStraightBlue" parent="Decorations/BookShelfFloating" unique_id=1007088488 instance=ExtResource("18_nu6h3")]
+[node name="BookStraightBlue" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=1007088488 instance=ExtResource("18_nu6h3")]
 position = Vector2(4, 12)
 
-[node name="BookStraightBrown2" parent="Decorations/BookShelfFloating" unique_id=1040355387 instance=ExtResource("16_6tctr")]
+[node name="BookStraightBrown2" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=1040355387 instance=ExtResource("16_6tctr")]
 position = Vector2(-10, 4)
 
-[node name="BookStraightGreen" parent="Decorations/BookShelfFloating" unique_id=1161927385 instance=ExtResource("15_4r5dn")]
+[node name="BookStraightGreen" parent="NavigationRegion2D/Decorations/BookShelfFloating" unique_id=1161927385 instance=ExtResource("15_4r5dn")]
 position = Vector2(10, 14)
 
-[node name="CompanionCube" parent="Decorations" unique_id=1069940731 instance=ExtResource("19_yrfy1")]
+[node name="CompanionCube" parent="NavigationRegion2D/Decorations" unique_id=1069940731 instance=ExtResource("19_yrfy1")]
 position = Vector2(91.99994, -22)
 
-[node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("20_k61ts")]
+[node name="SurveillanceCamera" parent="NavigationRegion2D/Decorations" unique_id=1952480078 instance=ExtResource("20_k61ts")]
 z_index = 2
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(18, -146)
 
-[node name="Table" parent="Decorations" unique_id=2121516052 instance=ExtResource("21_3ed8c")]
+[node name="Table" parent="NavigationRegion2D/Decorations" unique_id=2121516052 instance=ExtResource("21_3ed8c")]
 position = Vector2(64.99994, -65)
 
-[node name="CboxSmall" parent="Decorations/Table" unique_id=278122156 instance=ExtResource("6_r7nim")]
+[node name="CboxSmall" parent="NavigationRegion2D/Decorations/Table" unique_id=278122156 instance=ExtResource("6_r7nim")]
 position = Vector2(2, 1)
 offset = Vector2(0, -21.33)
 
-[node name="Clock" parent="Decorations" unique_id=1236786011 instance=ExtResource("20_gpjh1")]
+[node name="Clock" parent="NavigationRegion2D/Decorations" unique_id=1236786011 instance=ExtResource("20_gpjh1")]
 position = Vector2(71.99994, -121)
 
-[node name="Table2" parent="Decorations" unique_id=573156054 instance=ExtResource("21_3ed8c")]
+[node name="Table2" parent="NavigationRegion2D/Decorations" unique_id=573156054 instance=ExtResource("21_3ed8c")]
 position = Vector2(119.99994, -37)
+
+[node name="CboxLarge3" parent="NavigationRegion2D/Decorations" unique_id=1588926850 instance=ExtResource("13_ks6mf")]
+position = Vector2(-82.00006, -22)
+
+[node name="CboxLarge4" parent="NavigationRegion2D/Decorations" unique_id=1044674040 instance=ExtResource("13_ks6mf")]
+position = Vector2(-62.00006, -32)
+
+[node name="CboxLarge5" parent="NavigationRegion2D/Decorations" unique_id=976244457 instance=ExtResource("13_ks6mf")]
+position = Vector2(-42.00006, -42)
+
+[node name="Table3" parent="NavigationRegion2D/Decorations" unique_id=1617181294 instance=ExtResource("7_8yto2")]
+position = Vector2(-14.000061, -58)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=536427304]
 z_index = -999
@@ -137,15 +157,3 @@ replication_config = SubResource("SceneReplicationConfig_m0cm6")
 
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=1025427760]
 position = Vector2(586, 662)
-
-[node name="CboxLarge2" parent="." unique_id=1588926850 instance=ExtResource("13_ks6mf")]
-position = Vector2(518, 655)
-
-[node name="CboxLarge" parent="." unique_id=1044674040 instance=ExtResource("13_ks6mf")]
-position = Vector2(538, 645)
-
-[node name="CboxLarge3" parent="." unique_id=976244457 instance=ExtResource("13_ks6mf")]
-position = Vector2(558, 635)
-
-[node name="Table" parent="." unique_id=1617181294 instance=ExtResource("7_8yto2")]
-position = Vector2(586, 619)

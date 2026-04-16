@@ -15,6 +15,11 @@ colors = PackedColorArray(0.6711391, 0.097887985, 0.065878436, 1, 0.8136673, 0.3
 gradient = SubResource("Gradient_3blj3")
 fill_to = Vector2(1, 0.49017635)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mc7ab"]
+vertices = PackedVector2Array(1107, 941, 1467.7109, 905.03125, 965.97656, 1157.7969, 1141.9766, 742.15625, 1107, 918, 637.3828, 993.03125, 1081, 918, 1081, 941)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 1, 0, 4), PackedInt32Array(2, 5, 3, 6), PackedInt32Array(7, 0, 2), PackedInt32Array(3, 4, 6), PackedInt32Array(2, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(615, 993, 1142, 731, 1490, 905, 966, 1169)])
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3blj3"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -51,23 +56,26 @@ position = Vector2(998, 986)
 tile_map_data = PackedByteArray("AADz////AAABAAAAAAD0//7/AAABAAAAAAD0//3/AAABAAAAAAD1//z/AAABAAAAAAD1//v/AAABAAAAAAD2//r/AAABAAAAAAD2//n/AAABAAAAAAD3//j/AAABAAAAAAD3//f/AAABAAAAAAD4//b/AAABAAAAAAD4//X/AAACAAAAAAD5//T/AAACAAAAAAD5//P/AAACAAAAAAD6//L/AAACAAAAAAD6//H/AAACAAAAAAD7//D/AAACAAAAAAD7/+//AAABAAAAAAD8/+7/AAABAAAAAAD8/+3/AAABAAAAAAD9/+z/AAABAAAAAAD9/+v/AAABAAAAAAD+/+r/AAABAAAAAAD+/+n/AAABAAAAAAD//+j/AAABAAAAAAD//+f/AAABAAAAAAAAAOb/AAABAAAAAAAAAOX/AAABAAAAAAABAOT/AAABAAAAAAABAOP/AAACAAAAAAACAOL/AAACAAAAAAACAOH/AAACAAAAAAADAOD/AAACAAAAAAADAN//AAABAAAAAAAEAN//AAABAAEAAAAFAOD/AAABAAEAAAAFAOH/AAABAAEAAAAGAOL/AAABAAEAAAAGAOP/AAABAAEAAAAHAOT/AAABAAEAAAAHAOX/AAABAAEAAAAIAOb/AAABAAEAAAAIAOf/AAABAAEAAAAJAOj/AAABAAEAAAAJAOn/AAABAAEAAAAKAOr/AAABAAEAAAAKAOv/AAACAAEAAAALAOz/AAACAAEAAAALAO3/AAACAAEAAAAMAO7/AAACAAEAAAAMAO//AAABAAEAAAANAPD/AAABAAEAAAANAPH/AAABAAEAAAAOAPL/AAABAAEAAAAOAPP/AAABAAEAAAAPAPT/AAABAAEAAAD//xYAAAAJAAAAAAD//xUAAAAJAAAAAAAAABQAAAAJAAAAAAAAABMAAAAJAAAAAAABABIAAAAJAAAAAAABABEAAAAJAAAAAAACABAAAAAJAAAAAAACAA8AAAAJAAAAAAADAA4AAAAJAAAAAAADAA0AAAAJAAAAAAAEAAwAAAAJAAAAAAAEAAsAAAAJAAAAAAAFAAoAAAAJAAAAAAAFAAkAAAAJAAAAAAAGAAgAAAAJAAAAAAAGAAcAAAAJAAAAAAAHAAYAAAAJAAAAAAAHAAUAAAAJAAAAAAAIAAQAAAAJAAAAAAAIAAMAAAAJAAAAAAAJAAIAAAAJAAAAAAAJAAEAAAAJAAAAAAAKAAAAAAAJAAAAAAAKAP//AAAJAAAAAAALAP7/AAAJAAAAAAALAP3/AAAJAAAAAAAMAPz/AAAJAAAAAAAMAPv/AAAJAAAAAAANAPr/AAAJAAAAAAANAPn/AAAJAAAAAAAOAPj/AAAJAAAAAAAOAPf/AAAJAAAAAAAPAPb/AAAJAAAAAADz/wEAAAAJAAAAAAD0/wIAAAAJAAAAAAD0/wMAAAAJAAAAAAD1/wQAAAAJAAAAAAD1/wUAAAAJAAAAAAD2/wYAAAAJAAAAAAD2/wcAAAAJAAAAAAD3/wgAAAAJAAAAAAD3/wkAAAAJAAAAAAD4/woAAAAJAAAAAAD4/wsAAAAJAAAAAAD5/wwAAAAJAAAAAAD5/w0AAAAJAAAAAAD6/w4AAAAJAAAAAAD6/w8AAAAJAAAAAAD7/xAAAAAJAAAAAAD7/xEAAAAJAAAAAAD8/xIAAAAJAAAAAAD8/xMAAAAJAAAAAAD9/xQAAAAJAAAAAAD9/xUAAAAJAAAAAAD+/xYAAAAJAAAAAAA=")
 tile_set = ExtResource("2_ahoao")
 
-[node name="Decorations" type="Node2D" parent="." unique_id=1180086956]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=184491934]
+navigation_polygon = SubResource("NavigationPolygon_mc7ab")
+
+[node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=1180086956]
 y_sort_enabled = true
 position = Vector2(998, 986)
 
-[node name="SurveillanceCamera" parent="Decorations" unique_id=1952480078 instance=ExtResource("3_xeauk")]
+[node name="SurveillanceCamera" parent="NavigationRegion2D/Decorations" unique_id=1952480078 instance=ExtResource("3_xeauk")]
 z_index = 2
 position = Vector2(122, -312)
 
-[node name="CompanionCube" parent="Decorations" unique_id=1013754895 instance=ExtResource("4_lah35")]
+[node name="CompanionCube" parent="NavigationRegion2D/Decorations" unique_id=1013754895 instance=ExtResource("4_lah35")]
 
-[node name="CompanionCube2" parent="Decorations" unique_id=1501110140 instance=ExtResource("4_lah35")]
+[node name="CompanionCube2" parent="NavigationRegion2D/Decorations" unique_id=1501110140 instance=ExtResource("4_lah35")]
 position = Vector2(57, 2)
 
-[node name="CompanionCube3" parent="Decorations" unique_id=184109799 instance=ExtResource("4_lah35")]
+[node name="CompanionCube3" parent="NavigationRegion2D/Decorations" unique_id=184109799 instance=ExtResource("4_lah35")]
 position = Vector2(-33, 64)
 
-[node name="TallButton" parent="." unique_id=952456853 instance=ExtResource("6_mc7ab")]
+[node name="TallButton" parent="NavigationRegion2D" unique_id=952456853 instance=ExtResource("6_mc7ab")]
 position = Vector2(1094, 915)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=954700916]
