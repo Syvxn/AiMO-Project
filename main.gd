@@ -100,10 +100,12 @@ func remove_personal_room(owner_peer_id):
 		return
 	var plot_marker
 	for room in get_tree().get_nodes_in_group("personal_rooms"):
-		# should also move remaining players in room out, but that requires
-		# that the room knows who's in there to begin with
+		# should also move remaining players in room out
 		if room.owner_peer_id == owner_peer_id:
 			print("Removing ", room.name)
+			for body in room.get_node("EjectionArea").get_overlapping_bodies():
+				if body.is_in_group("players"):
+					move_player_to_room([int(body.name), "Lobby"])
 			plot_marker = room.plot_marker
 			room.queue_free()
 			plot_marker.plot_available = true
@@ -117,7 +119,6 @@ func remove_player(player_peer_id):
 		return
 	for player in get_tree().get_nodes_in_group("players"):
 		if int(player.name) == player_peer_id:
-			print("Removing ", player.name)
 			print("Removing ", player.name)
 			player.queue_free()
 			break
@@ -137,6 +138,7 @@ func remove_public_room():
 	#when we're done with it i dunno?
 	#there should probably be a seprate lobby that's always loaded
 	assert(multiplayer.is_server())
+	pass
 	$PauseMenu.update_room_list.rpc()
 #endregion
 
@@ -152,7 +154,7 @@ func launch_activity():
 	# this would be more complicated, check role/permissions,
 	# and apply to whichever room is relevant
 	for player in get_tree().get_nodes_in_group("players"):
-		move_player_to_room([int(player.name), "Test Chamber"])
+		move_player_to_room([int(player.name), "Lobby"])
 		# with only one spawnpoint, this is necessary to prevent glitching
 		await get_tree().create_timer(.2).timeout
 

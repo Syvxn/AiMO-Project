@@ -23,6 +23,9 @@
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="21_nkq2a"]
 [ext_resource type="PackedScene" uid="uid://28ny2cmvwikv" path="res://items/noncollision_props/painting_citrus_figure.tscn" id="22_3ed8c"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ed8c"]
+size = Vector2(907, 528)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3ed8c"]
 vertices = PackedVector2Array(619.6875, 611.03906, 614.9531, 609.1875, 616.09375, 608.6172, 631.0625, 615.65625, 664.0625, 672.78906, 599.97656, 704.8281, 527.6875, 669.0078, 543.84375, 661.4219, 661.15625, 636.4375, 686.02344, 648.03906, 742.5781, 655.8828, 799.9922, 685.03906, 743.9922, 713.7578, 726.14844, 664.1094, 688.8594, 646.7031, 620.28906, 624.03125, 631.09375, 617.40625, 543.85156, 660.8203, 563.84375, 651.4219, 661.03125, 631.3828, 563.85156, 650.8203, 582.25, 643.0469, 581.28125, 642.6172)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3), PackedInt32Array(4, 5, 6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(14, 13, 12, 4, 9), PackedInt32Array(15, 0, 3, 16), PackedInt32Array(8, 7, 17, 18), PackedInt32Array(19, 8, 18, 20, 21), PackedInt32Array(15, 16, 19), PackedInt32Array(20, 22, 21), PackedInt32Array(15, 19, 21)])
@@ -43,6 +46,12 @@ properties/2/replication_mode = 1
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_gpjh1")
+
+[node name="EjectionArea" type="Area2D" parent="." unique_id=1601036515]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=149418874]
+position = Vector2(658, 630)
+shape = SubResource("RectangleShape2D_3ed8c")
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=892723032]
 y_sort_enabled = true

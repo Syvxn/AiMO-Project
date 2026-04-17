@@ -7,6 +7,9 @@
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_nxk6l"]
 [ext_resource type="PackedScene" uid="uid://b8ui2d4tsgu2y" path="res://items/collision_props/vending_machine.tscn" id="5_5p5hp"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
+size = Vector2(769, 722)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nxk6l"]
 texture = ExtResource("3_224ey")
 texture_region_size = Vector2i(32, 96)
@@ -116,6 +119,12 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(465, 688, 655, 593, 798
 
 [node name="RoomBase" type="Node2D" unique_id=1093253189]
 script = ExtResource("1_xe5ka")
+
+[node name="EjectionArea" type="Area2D" parent="." unique_id=489091015]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1257454407]
+position = Vector2(639.5, 655)
+shape = SubResource("RectangleShape2D_5p5hp")
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=596481541]
 z_as_relative = false

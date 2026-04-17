@@ -22,6 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="20_5k3lj"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="21_47bbc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r46r2"]
+size = Vector2(907, 528)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r46r2"]
 vertices = PackedVector2Array(599.09375, 703.8672, 523.0625, 665.85156, 530.25, 669.0469, 563.09375, 652.6172, 563.97656, 653.03906, 746.8203, 658.15625, 798.85156, 684.1172, 742.96875, 712.77344, 731.3125, 667.47656, 612.14844, 614.0781, 607.4219, 611.5625, 618, 606.22656, 618, 611.1797, 704.15625, 653.1094, 664.1328, 672.8594, 611.84375, 626.4219, 668, 636.1797, 685.14844, 627.60156, 707.96875, 638.9531, 703.85156, 641.4297, 588.84375, 641.4375, 588.9375, 637.1875)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 8, 7, 14, 15, 9, 16), PackedInt32Array(17, 18, 19, 16), PackedInt32Array(0, 4, 20, 14), PackedInt32Array(14, 20, 21, 15), PackedInt32Array(16, 19, 13), PackedInt32Array(9, 12, 16)])
@@ -42,6 +45,12 @@ properties/2/replication_mode = 1
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_r46r2")
+
+[node name="EjectionArea" type="Area2D" parent="." unique_id=1048511666]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=850313326]
+position = Vector2(658, 630)
+shape = SubResource("RectangleShape2D_r46r2")
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=892723032]
 y_sort_enabled = true

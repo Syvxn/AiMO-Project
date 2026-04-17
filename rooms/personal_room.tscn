@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="4_3epd3"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="6_m0cm6"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0cm6"]
+size = Vector2(842, 571)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_m0cm6"]
 vertices = PackedVector2Array(600, 704.77344, 512.2578, 660.1094, 632.9219, 600.2031, 665.1094, 671.72656, 798.3125, 685.1094, 744.0078, 713.6797)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5)])
@@ -27,6 +30,12 @@ properties/2/replication_mode = 1
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_m0cm6")
+
+[node name="EjectionArea" type="Area2D" parent="." unique_id=54168172]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1083387165]
+position = Vector2(652, 620.5)
+shape = SubResource("RectangleShape2D_m0cm6")
 
 [node name="Floor" type="TileMapLayer" parent="." unique_id=892723032]
 y_sort_enabled = true
