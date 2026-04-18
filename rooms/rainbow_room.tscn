@@ -6,7 +6,6 @@
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_y11tp"]
 [ext_resource type="PackedScene" uid="uid://b8ui2d4tsgu2y" path="res://items/collision_props/vending_machine.tscn" id="6_75y36"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="6_6664d"]
-[ext_resource type="PackedScene" uid="uid://cwwh57547n81f" path="res://player/player.tscn" id="7_dxnoe"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nxk6l"]
 texture = ExtResource("3_75y36")
@@ -166,10 +165,6 @@ texture = ExtResource("6_6664d")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=814658104]
 replication_config = SubResource("SceneReplicationConfig_xe5ka")
-
-[node name="TestPlayer" parent="." unique_id=685008524 instance=ExtResource("7_dxnoe")]
-position = Vector2(643, 572)
-debug = true
 
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=2057992356]
 position = Vector2(622, 679)

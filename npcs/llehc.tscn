@@ -79,3 +79,7 @@ sprite_frames = SubResource("SpriteFrames_ivh5v")
 animation = &"stand_down"
 autoplay = "stand_down"
 offset = Vector2(0, -32)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1236513558]
+avoidance_enabled = true
+radius = 20.0
