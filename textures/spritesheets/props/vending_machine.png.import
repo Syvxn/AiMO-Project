@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0vmncqyaqw3q"
-path="res://.godot/imported/chell.png-301db88293d54e99e8d659547bc114d6.ctex"
+uid="uid://dp0560lrib4rl"
+path="res://.godot/imported/vending_machine.png-d37f4152a918453a131f2afb53302593.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/chell.png"
-dest_files=["res://.godot/imported/chell.png-301db88293d54e99e8d659547bc114d6.ctex"]
+source_file="res://textures/spritesheets/props/vending_machine.png"
+dest_files=["res://.godot/imported/vending_machine.png-d37f4152a918453a131f2afb53302593.ctex"]
 
 [params]
 

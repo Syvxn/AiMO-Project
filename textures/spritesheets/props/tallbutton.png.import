@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dov4m7mby82lg"
-path="res://.godot/imported/elizabeth_loading_promo.png-c0330f6740dffd7ff3750d579601b68a.ctex"
+uid="uid://bj8osu0ehonyi"
+path="res://.godot/imported/tallbutton.png-d7b7515f3c38b2a295597940c2b3d440.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/elizabeth_loading_promo.png"
-dest_files=["res://.godot/imported/elizabeth_loading_promo.png-c0330f6740dffd7ff3750d579601b68a.ctex"]
+source_file="res://textures/spritesheets/props/tallbutton.png"
+dest_files=["res://.godot/imported/tallbutton.png-d7b7515f3c38b2a295597940c2b3d440.ctex"]
 
 [params]
 

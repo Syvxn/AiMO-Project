@@ -6,10 +6,18 @@ func _ready() -> void:
 	randomize_colors()
 
 
+# applies body and hair too, and eyes etc in the future
 func apply_clothes_and_colors(data: Dictionary):
-	# $HairSprite.sprite_frames = load(ClothesBus.Hair[data["hair_item"]])
-	# $HairSprite.self_modulate = Color(data["hair_color"])
-	pass
+	$BodySprite.sprite_frames = load(Clothes.hair_items[data["body_item"]])
+	$BodySprite.self_modulate = Color(data["body_color"])
+	$HairSprite.sprite_frames = load(Clothes.hair_items[data["hair_item"]])
+	$HairSprite.self_modulate = Color(data["hair_color"])
+	$ShirtSprite.sprite_frames = load(Clothes.hair_items[data["shirt_item"]])
+	$ShirtSprite.self_modulate = Color(data["shirt_color"])
+	$PantsSprite.sprite_frames = load(Clothes.hair_items[data["pants_item"]])
+	$PantsSprite.self_modulate = Color(data["pants_color"])
+	$ShoesSprite.sprite_frames = load(Clothes.hair_items[data["shoes_item"]])
+	$ShoesSprite.self_modulate = Color(data["shoes_color"])
 
 
 func play_animation(anim_name: String):

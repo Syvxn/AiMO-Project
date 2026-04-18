@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jfevjysokjmd"
-path="res://.godot/imported/camera.png-88255362280db3b1f82314528e7af7fc.ctex"
+uid="uid://qfn1p2rvmkqg"
+path="res://.godot/imported/elizabeth_loading.png-6f7dfa667ba3550dbc893be617a13786.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/camera.png"
-dest_files=["res://.godot/imported/camera.png-88255362280db3b1f82314528e7af7fc.ctex"]
+source_file="res://textures/spritesheets/elizabeth_loading/elizabeth_loading.png"
+dest_files=["res://.godot/imported/elizabeth_loading.png-6f7dfa667ba3550dbc893be617a13786.ctex"]
 
 [params]
 

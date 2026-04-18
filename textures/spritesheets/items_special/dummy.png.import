@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj8osu0ehonyi"
-path="res://.godot/imported/tallbutton.png-02c79f9b4ff03344b2502c82dd8ea544.ctex"
+uid="uid://brvgi05bu3rf"
+path="res://.godot/imported/dummy.png-16953e94fe6d41746bcd069a9cbac5aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/tallbutton.png"
-dest_files=["res://.godot/imported/tallbutton.png-02c79f9b4ff03344b2502c82dd8ea544.ctex"]
+source_file="res://textures/spritesheets/items_special/dummy.png"
+dest_files=["res://.godot/imported/dummy.png-16953e94fe6d41746bcd069a9cbac5aa.ctex"]
 
 [params]
 

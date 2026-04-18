@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qfn1p2rvmkqg"
-path="res://.godot/imported/elizabeth_loading.png-885c2338cbfa567be62d60c1f84b3fb7.ctex"
+uid="uid://dov4m7mby82lg"
+path="res://.godot/imported/elizabeth_loading_promo.png-650b0e501f2e6d98ae0599675decb2de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/elizabeth_loading.png"
-dest_files=["res://.godot/imported/elizabeth_loading.png-885c2338cbfa567be62d60c1f84b3fb7.ctex"]
+source_file="res://textures/spritesheets/elizabeth_loading/elizabeth_loading_promo.png"
+dest_files=["res://.godot/imported/elizabeth_loading_promo.png-650b0e501f2e6d98ae0599675decb2de.ctex"]
 
 [params]
 

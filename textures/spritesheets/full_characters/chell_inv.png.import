@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwolo0n0c3dro"
-path="res://.godot/imported/faith.png-1a528c03d443b4fcabffb6ad1f1593af.ctex"
+uid="uid://b3dko673v4hou"
+path="res://.godot/imported/chell_inv.png-2abd217cd57a3025c835d5d6e698e92c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/spritesheets/faith.png"
-dest_files=["res://.godot/imported/faith.png-1a528c03d443b4fcabffb6ad1f1593af.ctex"]
+source_file="res://textures/spritesheets/full_characters/chell_inv.png"
+dest_files=["res://.godot/imported/chell_inv.png-2abd217cd57a3025c835d5d6e698e92c.ctex"]
 
 [params]
 
