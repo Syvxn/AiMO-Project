@@ -26,15 +26,17 @@ func switch_mode(mode: String):
 
 
 func apply_sprites_and_colors(data: Dictionary):
-	$BodySprite.sprite_frames = load(Clothes.hair_items[data["body_item"]])
+	$BodySprite.sprite_frames = load(Clothes.body_items[data["body_item"]])
 	$BodySprite.self_modulate = Color(data["body_color"])
+	$EyesSprite.sprite_frames = load(Clothes.eyes_items[data["eyes_item"]])
+	$EyesSprite.self_modulate = Color(data["eyes_color"])
 	$HairSprite.sprite_frames = load(Clothes.hair_items[data["hair_item"]])
 	$HairSprite.self_modulate = Color(data["hair_color"])
-	$ShirtSprite.sprite_frames = load(Clothes.hair_items[data["shirt_item"]])
+	$ShirtSprite.sprite_frames = load(Clothes.shirt_items[data["shirt_item"]])
 	$ShirtSprite.self_modulate = Color(data["shirt_color"])
-	$PantsSprite.sprite_frames = load(Clothes.hair_items[data["pants_item"]])
+	$PantsSprite.sprite_frames = load(Clothes.pants_items[data["pants_item"]])
 	$PantsSprite.self_modulate = Color(data["pants_color"])
-	$ShoesSprite.sprite_frames = load(Clothes.hair_items[data["shoes_item"]])
+	$ShoesSprite.sprite_frames = load(Clothes.shoes_items[data["shoes_item"]])
 	$ShoesSprite.self_modulate = Color(data["shoes_color"])
 
 

@@ -87,6 +87,15 @@ func apply_visuals():
 	elif username == "Robin":
 		character_sprites.apply_costume("chell")
 		character_sprites.switch_mode("costume")
+	elif username == "Aleksi":
+		var file = FileAccess.open("res://aleksi_clothes.json", FileAccess.READ)
+		var json = JSON.new()
+		var error = json.parse(file.get_as_text())
+		if error == OK:
+			character_sprites.apply_sprites_and_colors(json.data)
+		else:
+			character_sprites.randomize_colors()
+		character_sprites.switch_mode("clothes")
 	else:
 		character_sprites.randomize_colors()
 		character_sprites.switch_mode("clothes")
