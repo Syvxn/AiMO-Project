@@ -6,9 +6,10 @@ var push_force := 70
 var current_stand_animation := "stand_down"
 var controllable := true
 
+
 @export var debug := false
 
-@onready var character_sprites = $CharacterSprites
+@onready var body_sprite = $BodySprite
 @onready var input_handler = $InputHandler
 @onready var nav_agent = $NavAgent
 
@@ -41,22 +42,22 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	#endregion
 	#region animation
-	if velocity == Vector2.ZERO:
-		character_sprites.play_animation(current_stand_animation)
-	elif abs(velocity.x) >= abs(velocity.y):
+	if abs(velocity.x) > abs(velocity.y):
 		if velocity.x > 0:
-			character_sprites.play_animation("walk_right")
+			body_sprite.play("walk_right")
 			current_stand_animation = "stand_right"
 		else:
-			character_sprites.play_animation("walk_left")
+			body_sprite.play("walk_left")
 			current_stand_animation = "stand_left"
-	else:
+	elif abs(velocity.x) < abs(velocity.y):
 		if velocity.y > 0:
-			character_sprites.play_animation("walk_down")
+			body_sprite.play("walk_down")
 			current_stand_animation = "stand_down"
 		else:
-			character_sprites.play_animation("walk_up")
+			body_sprite.play("walk_up")
 			current_stand_animation = "stand_up"
+	else:
+		body_sprite.play(current_stand_animation)
 	#endregion
 	#region push movables
 	for i in get_slide_collision_count():
@@ -82,6 +83,5 @@ func release_controls():
 
 # this would be a little more elaborate, obviously
 func apply_visuals():
-	#if username == "Lasse":
-		#$BodySprite.sprite_frames = load("res://textures/sprite_frames/faith.tres")
-	pass
+	if username == "Lasse":
+		$BodySprite.sprite_frames = load("res://textures/sprite_frames/faith.tres")

@@ -31,6 +31,7 @@ window/vsync/vsync_mode=0
 [file_customization]
 
 folder_colors={
+"res://a_place_for_old_junk/": "gray",
 "res://autoloads/": "yellow",
 "res://exports/": "red",
 "res://items/": "purple",

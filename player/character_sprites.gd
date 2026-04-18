@@ -1,13 +1,31 @@
 extends Node2D
 
+var current_mode := "clothes"
 
 
-func _ready() -> void:
-	randomize_colors()
+
+func play_animation(anim_name: String):
+	for child in get_children():
+		if child is AnimatedSprite2D:
+			child.play(anim_name)
+			
 
 
-# applies body and hair too, and eyes etc in the future
-func apply_clothes_and_colors(data: Dictionary):
+func switch_mode(mode: String):
+	if mode == "costume":
+		for child in get_children():
+			if child is AnimatedSprite2D:
+				child.hide()
+		$CostumeSprite.show()
+	elif mode == "clothes":
+		for child in get_children():
+			if child is AnimatedSprite2D:
+				child.show()
+		$CostumeSprite.hide()
+	current_mode = mode
+
+
+func apply_sprites_and_colors(data: Dictionary):
 	$BodySprite.sprite_frames = load(Clothes.hair_items[data["body_item"]])
 	$BodySprite.self_modulate = Color(data["body_color"])
 	$HairSprite.sprite_frames = load(Clothes.hair_items[data["hair_item"]])
@@ -20,16 +38,13 @@ func apply_clothes_and_colors(data: Dictionary):
 	$ShoesSprite.self_modulate = Color(data["shoes_color"])
 
 
-func play_animation(anim_name: String):
-	for child in get_children():
-		if child is AnimatedSprite2D:
-			child.play(anim_name)
+func apply_costume(costume: String):
+	$CostumeSprite.sprite_frames = load(Clothes.costumes[costume])
 
 
 func randomize_colors():
 	for child in get_children():
 		if child is AnimatedSprite2D:
-			print(child.name)
 			var colors = [
 				Color("RED"),
 				Color("ORANGE_RED"),

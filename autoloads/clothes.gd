@@ -20,3 +20,8 @@ var pants_items = {
 var shoes_items = {
 	"shoes_faith" : "res://textures/sprite_frames/items_mono/mono_shoes_faith.tres",
 }
+var costumes = {
+	"chell" : "res://textures/sprite_frames/chell.tres",
+	"chell_var1" : "res://textures/sprite_frames/chell_var1.tres",
+	"faith" : "res://textures/sprite_frames/faith.tres",
+}

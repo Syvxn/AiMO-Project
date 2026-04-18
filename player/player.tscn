@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://cwwh57547n81f"]
+[gd_scene format=3 uid="uid://gph3bj8xbyva"]
 
-[ext_resource type="Script" uid="uid://k04npljiyov6" path="res://player/player.gd" id="1_rkbax"]
-[ext_resource type="SpriteFrames" uid="uid://djnlv1bm83rhn" path="res://textures/sprite_frames/chell.tres" id="2_rkbax"]
+[ext_resource type="Script" uid="uid://cwd8t77hdie00" path="res://player/player.gd" id="1_1xjf6"]
+[ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
 properties/0/path = NodePath(".:walk_direction")
@@ -54,30 +54,24 @@ radius = 20.0
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath("BodySprite:animation")
+properties/1/path = NodePath(".:visible")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath("BodySprite:frame")
+properties/2/path = NodePath(".:username")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath(".:visible")
+properties/3/path = NodePath(".:z_index")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath(".:username")
+properties/4/path = NodePath(".:z_as_relative")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath(".:z_index")
+properties/5/path = NodePath(".:y_sort_enabled")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath(".:z_as_relative")
+properties/6/path = NodePath(".:velocity")
 properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath(".:y_sort_enabled")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath(".:velocity")
-properties/8/spawn = true
-properties/8/replication_mode = 0
+properties/6/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_3eadt"]
 script/source = "extends Camera2D
@@ -94,7 +88,7 @@ z_as_relative = false
 y_sort_enabled = true
 collision_layer = 259
 motion_mode = 1
-script = ExtResource("1_rkbax")
+script = ExtResource("1_1xjf6")
 
 [node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
 root_path = NodePath(".")
@@ -104,11 +98,7 @@ script = SubResource("GDScript_x0jl3")
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=854725048]
 shape = SubResource("CircleShape2D_54qew")
 
-[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=2107491442]
-y_sort_enabled = true
-sprite_frames = ExtResource("2_rkbax")
-animation = &"walk_up"
-offset = Vector2(0, -32)
+[node name="CharacterSprites" parent="." unique_id=1455427902 instance=ExtResource("2_emfdr")]
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1252570051]
 collision_layer = 0

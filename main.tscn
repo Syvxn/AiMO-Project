@@ -36,7 +36,7 @@ animations = [{
 script = ExtResource("1_ig7tw")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=632750434]
-_spawnable_scenes = PackedStringArray("uid://cwwh57547n81f", "uid://d35eol5p808ek", "uid://dcfb1bataqbvi", "uid://dw5go7ht1n1nt", "uid://cok4teq4va5gx", "uid://c8hfitdfol1jn")
+_spawnable_scenes = PackedStringArray("uid://gph3bj8xbyva", "uid://d35eol5p808ek", "uid://dcfb1bataqbvi", "uid://dw5go7ht1n1nt", "uid://cok4teq4va5gx", "uid://c8hfitdfol1jn")
 spawn_path = NodePath("GameWorld")
 
 [node name="GameWorld" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]

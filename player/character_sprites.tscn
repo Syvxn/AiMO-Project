@@ -7,11 +7,9 @@
 [ext_resource type="SpriteFrames" uid="uid://hlv16jqjwi15" path="res://textures/sprite_frames/items_mono/mono_tanktop_faith.tres" id="4_am34g"]
 [ext_resource type="SpriteFrames" uid="uid://drhpmdqdso7lb" path="res://textures/sprite_frames/items_mono/mono_pants_faith.tres" id="5_fh5oi"]
 [ext_resource type="SpriteFrames" uid="uid://cosllrttcd20o" path="res://textures/sprite_frames/items_mono/mono_shoes_faith.tres" id="6_dbxr4"]
+[ext_resource type="SpriteFrames" uid="uid://cqscxs1e4f8as" path="res://textures/sprite_frames/faith.tres" id="8_66ets"]
 
 [node name="CharacterSprites" type="Node2D" unique_id=1455427902]
-z_index = 1
-z_as_relative = false
-y_sort_enabled = true
 script = ExtResource("1_mmihj")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=1949395942]
@@ -44,8 +42,13 @@ sprite_frames = ExtResource("6_dbxr4")
 animation = &"walk_left"
 offset = Vector2(0, -32)
 
+[node name="CostumeSprite" type="AnimatedSprite2D" parent="." unique_id=1732151002]
+visible = false
+sprite_frames = ExtResource("8_66ets")
+animation = &"walk_left"
+offset = Vector2(0, -32)
+
 [node name="DebugRandTimer" type="Timer" parent="." unique_id=781502222]
 wait_time = 0.75
-autostart = true
 
 [connection signal="timeout" from="DebugRandTimer" to="." method="_on_debug_rand_timer_timeout"]

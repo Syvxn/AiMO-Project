@@ -72,11 +72,10 @@ tile_map_data = PackedByteArray("AAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAA
 tile_set = ExtResource("4_yubdi")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=543448206]
+y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_r46r2")
 
 [node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=767305767]
-z_index = 1
-z_as_relative = false
 y_sort_enabled = true
 position = Vector2(600.00006, 677)
 

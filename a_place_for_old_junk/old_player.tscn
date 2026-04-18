@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://gph3bj8xbyva"]
+[gd_scene format=3 uid="uid://cwwh57547n81f"]
 
-[ext_resource type="Script" uid="uid://cwd8t77hdie00" path="res://player/customizable_player.gd" id="1_1xjf6"]
-[ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
+[ext_resource type="Script" uid="uid://k04npljiyov6" path="res://a_place_for_old_junk/old_player.gd" id="1_cyv6q"]
+[ext_resource type="SpriteFrames" uid="uid://djnlv1bm83rhn" path="res://textures/sprite_frames/chell.tres" id="2_0rfno"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
 properties/0/path = NodePath(".:walk_direction")
@@ -88,13 +88,13 @@ func enable():
 		enabled = true
 "
 
-[node name="CustomizablePlayer" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
+[node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 collision_layer = 259
 motion_mode = 1
-script = ExtResource("1_1xjf6")
+script = ExtResource("1_cyv6q")
 
 [node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
 root_path = NodePath(".")
@@ -104,7 +104,11 @@ script = SubResource("GDScript_x0jl3")
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=854725048]
 shape = SubResource("CircleShape2D_54qew")
 
-[node name="CharacterSprites" parent="." unique_id=1455427902 instance=ExtResource("2_emfdr")]
+[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=2107491442]
+y_sort_enabled = true
+sprite_frames = ExtResource("2_0rfno")
+animation = &"walk_up"
+offset = Vector2(0, -32)
 
 [node name="InteractionArea" type="Area2D" parent="." unique_id=1252570051]
 collision_layer = 0

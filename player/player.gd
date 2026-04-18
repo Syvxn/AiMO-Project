@@ -6,10 +6,9 @@ var push_force := 70
 var current_stand_animation := "stand_down"
 var controllable := true
 
-
 @export var debug := false
 
-@onready var body_sprite = $BodySprite
+@onready var character_sprites = $CharacterSprites
 @onready var input_handler = $InputHandler
 @onready var nav_agent = $NavAgent
 
@@ -42,22 +41,22 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	#endregion
 	#region animation
-	if abs(velocity.x) > abs(velocity.y):
+	if velocity == Vector2.ZERO:
+		character_sprites.play_animation(current_stand_animation)
+	elif abs(velocity.x) >= abs(velocity.y):
 		if velocity.x > 0:
-			body_sprite.play("walk_right")
+			character_sprites.play_animation("walk_right")
 			current_stand_animation = "stand_right"
 		else:
-			body_sprite.play("walk_left")
+			character_sprites.play_animation("walk_left")
 			current_stand_animation = "stand_left"
-	elif abs(velocity.x) < abs(velocity.y):
+	else:
 		if velocity.y > 0:
-			body_sprite.play("walk_down")
+			character_sprites.play_animation("walk_down")
 			current_stand_animation = "stand_down"
 		else:
-			body_sprite.play("walk_up")
+			character_sprites.play_animation("walk_up")
 			current_stand_animation = "stand_up"
-	else:
-		body_sprite.play(current_stand_animation)
 	#endregion
 	#region push movables
 	for i in get_slide_collision_count():
@@ -80,8 +79,15 @@ func release_controls():
 	controllable = true
 
 
-
-# this would be a little more elaborate, obviously
+# this will use character_sprites.apply_clothes_and_color() in the future
 func apply_visuals():
 	if username == "Lasse":
-		$BodySprite.sprite_frames = load("res://textures/sprite_frames/faith.tres")
+		character_sprites.apply_costume("faith")
+		character_sprites.switch_mode("costume")
+	elif username == "Robin":
+		character_sprites.apply_costume("chell")
+		character_sprites.switch_mode("costume")
+	else:
+		character_sprites.randomize_colors()
+		character_sprites.switch_mode("clothes")
+		
