@@ -73,6 +73,7 @@ tile_map_data = PackedByteArray("AAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAA
 tile_set = ExtResource("4_p1gk2")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1236158990]
+y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_3ed8c")
 
 [node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=767305767]

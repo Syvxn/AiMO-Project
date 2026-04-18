@@ -14,7 +14,7 @@ script = ExtResource("1_mmihj")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=1949395942]
 sprite_frames = ExtResource("2_o4kvf")
-animation = &"walk_left"
+animation = &"walk_down"
 offset = Vector2(0, -32)
 
 [node name="EyesSprite" type="AnimatedSprite2D" parent="." unique_id=50802771]
