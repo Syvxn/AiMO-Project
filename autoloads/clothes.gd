@@ -9,6 +9,7 @@ var eyes_items = {
 }
 var hair_items = {
 	"faith" : "res://textures/sprite_frames/items_mono/mono_hair_faith.tres",
+	"chell" : "res://textures/sprite_frames/items_mono/mono_hair_chell.tres"
 }
 var shirt_items = {
 	"tanktop_faith" : "res://textures/sprite_frames/items_mono/mono_tanktop_faith.tres",

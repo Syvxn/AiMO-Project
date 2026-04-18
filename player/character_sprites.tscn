@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dcdywa44fa6r4" path="res://player/character_sprites.gd" id="1_mmihj"]
 [ext_resource type="SpriteFrames" uid="uid://mskuy4l57hpl" path="res://textures/sprite_frames/items_mono/mono_body_basic.tres" id="2_o4kvf"]
 [ext_resource type="SpriteFrames" uid="uid://co73b3j60nls5" path="res://textures/sprite_frames/items_mono/mono_eyes_basic.tres" id="3_dbxr4"]
-[ext_resource type="SpriteFrames" uid="uid://c5picig0nvm76" path="res://textures/sprite_frames/items_mono/mono_hair_faith.tres" id="3_w1kbr"]
+[ext_resource type="SpriteFrames" uid="uid://cobn7f6dgd4a7" path="res://textures/sprite_frames/items_mono/mono_hair_chell.tres" id="4_66ets"]
 [ext_resource type="SpriteFrames" uid="uid://hlv16jqjwi15" path="res://textures/sprite_frames/items_mono/mono_tanktop_faith.tres" id="4_am34g"]
 [ext_resource type="SpriteFrames" uid="uid://drhpmdqdso7lb" path="res://textures/sprite_frames/items_mono/mono_pants_faith.tres" id="5_fh5oi"]
 [ext_resource type="SpriteFrames" uid="uid://cosllrttcd20o" path="res://textures/sprite_frames/items_mono/mono_shoes_faith.tres" id="6_dbxr4"]
@@ -23,8 +23,8 @@ animation = &"walk_up"
 offset = Vector2(0, -32)
 
 [node name="HairSprite" type="AnimatedSprite2D" parent="." unique_id=1569101490]
-sprite_frames = ExtResource("3_w1kbr")
-animation = &"walk_left"
+sprite_frames = ExtResource("4_66ets")
+animation = &"walk_right"
 offset = Vector2(0, -32)
 
 [node name="ShirtSprite" type="AnimatedSprite2D" parent="." unique_id=266557850]
