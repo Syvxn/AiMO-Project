@@ -1,6 +1,14 @@
 extends Node2D
 
 var current_mode := "clothes"
+var current_data := {}
+var current_costume : String
+
+
+func _ready() -> void:
+	if current_mode == "clothes":
+		if not current_data.is_empty():
+			apply_sprites_and_colors(current_data)
 
 
 
@@ -11,6 +19,7 @@ func play_animation(anim_name: String):
 			
 
 
+@rpc("any_peer", "call_local")
 func switch_mode(mode: String):
 	if mode == "costume":
 		for child in get_children():
@@ -25,29 +34,32 @@ func switch_mode(mode: String):
 	current_mode = mode
 
 
+@rpc("any_peer", "call_local")
 func apply_sprites_and_colors(data: Dictionary):
-	$BodySprite.sprite_frames = load(Clothes.body_items[data["body_item"]])
-	$BodySprite.self_modulate = Color(data["body_color"])
-	$EyesSprite.sprite_frames = load(Clothes.eyes_items[data["eyes_item"]])
-	$EyesSprite.self_modulate = Color(data["eyes_color"])
-	$HairSprite.sprite_frames = load(Clothes.hair_items[data["hair_item"]])
-	$HairSprite.self_modulate = Color(data["hair_color"])
-	$ShirtSprite.sprite_frames = load(Clothes.shirt_items[data["shirt_item"]])
-	$ShirtSprite.self_modulate = Color(data["shirt_color"])
-	$PantsSprite.sprite_frames = load(Clothes.pants_items[data["pants_item"]])
-	$PantsSprite.self_modulate = Color(data["pants_color"])
-	$ShoesSprite.sprite_frames = load(Clothes.shoes_items[data["shoes_item"]])
-	$ShoesSprite.self_modulate = Color(data["shoes_color"])
+	if not data["items"].is_empty():
+		$BodySprite.sprite_frames = load(Clothes.body_items[data["items"]["body_item"]])
+		$EyesSprite.sprite_frames = load(Clothes.eyes_items[data["items"]["eyes_item"]])
+		$HairSprite.sprite_frames = load(Clothes.hair_items[data["items"]["hair_item"]])
+		$ShirtSprite.sprite_frames = load(Clothes.shirt_items[data["items"]["shirt_item"]])
+		$PantsSprite.sprite_frames = load(Clothes.pants_items[data["items"]["pants_item"]])
+		$ShoesSprite.sprite_frames = load(Clothes.shoes_items[data["items"]["shoes_item"]])
+	if not data["colors"].is_empty():
+		$BodySprite.self_modulate = Color(data["colors"]["body_color"])
+		$EyesSprite.self_modulate = Color(data["colors"]["eyes_color"])
+		$HairSprite.self_modulate = Color(data["colors"]["hair_color"])
+		$ShirtSprite.self_modulate = Color(data["colors"]["shirt_color"])
+		$PantsSprite.self_modulate = Color(data["colors"]["pants_color"])
+		$ShoesSprite.self_modulate = Color(data["colors"]["shoes_color"])
+	current_data = data
 
 
+@rpc("any_peer", "call_local")
 func apply_costume(costume: String):
 	$CostumeSprite.sprite_frames = load(Clothes.costumes[costume])
 
 
 func randomize_colors():
-	for child in get_children():
-		if child is AnimatedSprite2D:
-			var colors = [
+	var colors = [
 				Color("RED"),
 				Color("ORANGE_RED"),
 				Color("ORANGE"),
@@ -80,9 +92,15 @@ func randomize_colors():
 				Color("WEB_MAROON"),
 				Color("GHOST_WHITE"),
 				Color("HOT_PINK"),
-			]
-			child.self_modulate = colors.pick_random()
-
-
-func _on_debug_rand_timer_timeout() -> void:
-	randomize_colors()
+		]
+	var data = {
+		"items" : {},
+		"colors" : {}
+	}
+	data["colors"]["body_color"] = colors.pick_random()
+	data["colors"]["eyes_color"] = colors.pick_random()
+	data["colors"]["hair_color"] = colors.pick_random()
+	data["colors"]["shirt_color"] = colors.pick_random()
+	data["colors"]["pants_color"] = colors.pick_random()
+	data["colors"]["shoes_color"] = colors.pick_random()
+	apply_sprites_and_colors.rpc(data)

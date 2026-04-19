@@ -92,6 +92,7 @@ y_sort_enabled = true
 collision_layer = 259
 motion_mode = 1
 script = ExtResource("1_1xjf6")
+debug = null
 
 [node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
 root_path = NodePath(".")

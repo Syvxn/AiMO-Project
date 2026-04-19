@@ -3,11 +3,16 @@
 [ext_resource type="Script" uid="uid://dcdywa44fa6r4" path="res://player/character_sprites.gd" id="1_mmihj"]
 [ext_resource type="SpriteFrames" uid="uid://mskuy4l57hpl" path="res://textures/sprite_frames/items_mono/mono_body_basic.tres" id="2_o4kvf"]
 [ext_resource type="SpriteFrames" uid="uid://co73b3j60nls5" path="res://textures/sprite_frames/items_mono/mono_eyes_basic.tres" id="3_dbxr4"]
-[ext_resource type="SpriteFrames" uid="uid://cobn7f6dgd4a7" path="res://textures/sprite_frames/items_mono/mono_hair_chell.tres" id="4_66ets"]
+[ext_resource type="SpriteFrames" uid="uid://cobn7f6dgd4a7" path="res://textures/sprite_frames/items_mono/mono_hair_faith.tres" id="4_66ets"]
 [ext_resource type="SpriteFrames" uid="uid://hlv16jqjwi15" path="res://textures/sprite_frames/items_mono/mono_tanktop_faith.tres" id="4_am34g"]
 [ext_resource type="SpriteFrames" uid="uid://drhpmdqdso7lb" path="res://textures/sprite_frames/items_mono/mono_pants_faith.tres" id="5_fh5oi"]
 [ext_resource type="SpriteFrames" uid="uid://cosllrttcd20o" path="res://textures/sprite_frames/items_mono/mono_shoes_faith.tres" id="6_dbxr4"]
 [ext_resource type="SpriteFrames" uid="uid://cqscxs1e4f8as" path="res://textures/sprite_frames/faith.tres" id="8_66ets"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_66ets"]
+properties/0/path = NodePath(".:current_data")
+properties/0/spawn = true
+properties/0/replication_mode = 2
 
 [node name="CharacterSprites" type="Node2D" unique_id=1455427902]
 script = ExtResource("1_mmihj")
@@ -48,7 +53,5 @@ sprite_frames = ExtResource("8_66ets")
 animation = &"walk_left"
 offset = Vector2(0, -32)
 
-[node name="DebugRandTimer" type="Timer" parent="." unique_id=781502222]
-wait_time = 0.75
-
-[connection signal="timeout" from="DebugRandTimer" to="." method="_on_debug_rand_timer_timeout"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=801328493]
+replication_config = SubResource("SceneReplicationConfig_66ets")

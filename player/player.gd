@@ -19,7 +19,7 @@ func _ready() -> void:
 	apply_visuals()
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
-	$Camera2D.enable()
+	$Camera2D.enable_if_authority()
 	SignalBus.finished_loading.emit()
 
 
@@ -79,7 +79,6 @@ func release_controls():
 	controllable = true
 
 
-# this will use character_sprites.apply_clothes_and_color() in the future
 func apply_visuals():
 	if username == "Lasse":
 		character_sprites.apply_costume("faith")
@@ -94,9 +93,10 @@ func apply_visuals():
 		if error == OK:
 			character_sprites.apply_sprites_and_colors(json.data)
 		else:
-			character_sprites.randomize_colors()
+			print(error_string(error))
 		character_sprites.switch_mode("clothes")
 	else:
-		character_sprites.randomize_colors()
+		if multiplayer.get_unique_id() == int(name):
+			character_sprites.randomize_colors()
 		character_sprites.switch_mode("clothes")
 		
