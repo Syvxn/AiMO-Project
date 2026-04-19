@@ -16,7 +16,7 @@ var controllable := true
 func _ready() -> void:
 	SignalBus.chat_opened.connect(lock_controls)
 	SignalBus.chat_closed.connect(release_controls)
-	apply_visuals()
+	fetch_and_apply_visuals()
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
 	$Camera2D.enable_if_authority()
@@ -79,24 +79,15 @@ func release_controls():
 	controllable = true
 
 
-func apply_visuals():
-	if username == "Lasse":
-		character_sprites.apply_costume("faith")
-		character_sprites.switch_mode("costume")
-	elif username == "Robin":
-		character_sprites.apply_costume("chell")
-		character_sprites.switch_mode("costume")
-	elif username == "Aleksi":
-		var file = FileAccess.open("res://aleksi_clothes.json", FileAccess.READ)
-		var json = JSON.new()
-		var error = json.parse(file.get_as_text())
-		if error == OK:
-			character_sprites.apply_sprites_and_colors(json.data)
-		else:
-			print(error_string(error))
-		character_sprites.switch_mode("clothes")
+func fetch_and_apply_visuals():
+	var file_string = "res://databaseish/{0}_visuals.json".format([username])
+	var file = FileAccess.open(file_string, FileAccess.READ)
+	if not file:
+		file = FileAccess.open("res://databaseish/default_visuals.json", FileAccess.READ)
+	var json = JSON.new()
+	var error = json.parse(file.get_as_text())
+	if error == OK:
+		character_sprites.apply_visuals(json.data)
 	else:
-		if multiplayer.get_unique_id() == int(name):
-			character_sprites.randomize_colors()
-		character_sprites.switch_mode("clothes")
-		
+		print("Error: ", error_string(error))
+	

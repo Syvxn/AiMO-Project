@@ -1,0 +1,20 @@
+{
+	"items" : {
+		"body_item" : "basic",
+		"eyes_item" : "basic",
+		"hair_item" : "chell",
+		"shirt_item" : "tanktop_faith",
+		"pants_item" : "pants_faith",
+		"shoes_item" : "shoes_faith",
+	},
+	"colors" : {
+		"body_color" : "574434",
+		"eyes_color" : "36572D",
+		"hair_color" : "211912",
+		"shirt_color" : "476330",
+		"pants_color" : "E39F30",
+		"shoes_color" : "476330",
+	},
+	"use_costume" : false,
+	"costume_name" : "faith"
+}

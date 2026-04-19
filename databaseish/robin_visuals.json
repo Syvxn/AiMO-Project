@@ -14,5 +14,7 @@
 		"shirt_color" : "476330",
 		"pants_color" : "E39F30",
 		"shoes_color" : "476330",
-	}
+	},
+	"use_costume" : true,
+	"costume_name" : "chell"
 }

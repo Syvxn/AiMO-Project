@@ -9,11 +9,6 @@
 [ext_resource type="SpriteFrames" uid="uid://cosllrttcd20o" path="res://textures/sprite_frames/items_mono/mono_shoes_faith.tres" id="6_dbxr4"]
 [ext_resource type="SpriteFrames" uid="uid://cqscxs1e4f8as" path="res://textures/sprite_frames/faith.tres" id="8_66ets"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_66ets"]
-properties/0/path = NodePath(".:current_data")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-
 [node name="CharacterSprites" type="Node2D" unique_id=1455427902]
 script = ExtResource("1_mmihj")
 
@@ -52,6 +47,3 @@ visible = false
 sprite_frames = ExtResource("8_66ets")
 animation = &"walk_left"
 offset = Vector2(0, -32)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=801328493]
-replication_config = SubResource("SceneReplicationConfig_66ets")
