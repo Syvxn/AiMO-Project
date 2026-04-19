@@ -45,6 +45,9 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed(\"inventory\"):
 		get_parent().get_node(\"CharacterSprites\").randomize_colors()
+	
+	if Input.is_action_just_pressed(\"oops\"):
+		get_parent().fetch_and_apply_visuals()
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]

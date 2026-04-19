@@ -11,14 +11,12 @@ func play_animation(anim_name: String):
 @rpc("any_peer", "call_local")
 func apply_visuals(data) -> void:
 	if data["use_costume"]:
-		print("costume")
 		$CostumeSprite.sprite_frames = load(Clothes.costumes[data["costume_name"]])
 		for child in get_children():
 			child.hide()
 		$CostumeSprite.show()
 	else:
 		if not data["items"].is_empty():
-			print("items")
 			$BodySprite.sprite_frames = load(Clothes.body_items[data["items"]["body_item"]])
 			$EyesSprite.sprite_frames = load(Clothes.eyes_items[data["items"]["eyes_item"]])
 			$HairSprite.sprite_frames = load(Clothes.hair_items[data["items"]["hair_item"]])
@@ -26,7 +24,6 @@ func apply_visuals(data) -> void:
 			$PantsSprite.sprite_frames = load(Clothes.pants_items[data["items"]["pants_item"]])
 			$ShoesSprite.sprite_frames = load(Clothes.shoes_items[data["items"]["shoes_item"]])
 		if not data["colors"].is_empty():
-			print("colors")
 			$BodySprite.self_modulate = Color(data["colors"]["body_color"])
 			$EyesSprite.self_modulate = Color(data["colors"]["eyes_color"])
 			$HairSprite.self_modulate = Color(data["colors"]["hair_color"])
