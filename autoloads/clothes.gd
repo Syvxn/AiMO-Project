@@ -13,6 +13,7 @@ var hair_items = {
 }
 var shirt_items = {
 	"tanktop_faith" : "res://textures/sprite_frames/items_mono/mono_tanktop_faith.tres",
+	"tshirt_basic" : "res://textures/sprite_frames/items_mono/mono_tshirt_basic.tres",
 }
 #var jacket_items = {}
 var pants_items = {

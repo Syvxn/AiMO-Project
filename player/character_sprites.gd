@@ -5,7 +5,6 @@ func play_animation(anim_name: String):
 	for child in get_children():
 		if child is AnimatedSprite2D:
 			child.play(anim_name)
-			
 
 
 @rpc("any_peer", "call_local")
@@ -22,14 +21,22 @@ func apply_visuals(data) -> void:
 			$HairSprite.sprite_frames = load(Clothes.hair_items[data["items"]["hair_item"]])
 			$ShirtSprite.sprite_frames = load(Clothes.shirt_items[data["items"]["shirt_item"]])
 			$PantsSprite.sprite_frames = load(Clothes.pants_items[data["items"]["pants_item"]])
+			#$JacketSprite.sprite_frames = load(Clothes.jacket_items[data["items"]["jacket_item"]])
 			$ShoesSprite.sprite_frames = load(Clothes.shoes_items[data["items"]["shoes_item"]])
+			#$AccessorySprite1.sprite_frames = load(Clothes.accessory_items[data["items"]["accessory1_item"]])
+			#$AccessorySprite2.sprite_frames = load(Clothes.accessory_items[data["items"]["accessory2_item"]])
+			#$AccessorySprite3.sprite_frames = load(Clothes.accessory_items[data["items"]["accessory3_item"]])
 		if not data["colors"].is_empty():
 			$BodySprite.self_modulate = Color(data["colors"]["body_color"])
 			$EyesSprite.self_modulate = Color(data["colors"]["eyes_color"])
 			$HairSprite.self_modulate = Color(data["colors"]["hair_color"])
 			$ShirtSprite.self_modulate = Color(data["colors"]["shirt_color"])
 			$PantsSprite.self_modulate = Color(data["colors"]["pants_color"])
+			#$JacketSprite.self_modulate = Color(data["colors"]["jacket_color"])
 			$ShoesSprite.self_modulate = Color(data["colors"]["shoes_color"])
+			#$AccessorySprite1.self_modulate = Color(data["colors"]["accessory1_color"])
+			#$AccessorySprite2.self_modulate = Color(data["colors"]["accessory2_color"])
+			#$AccessorySprite3.self_modulate = Color(data["colors"]["accessory3_color"])
 		for child in get_children():
 			child.show()
 		$CostumeSprite.hide()
