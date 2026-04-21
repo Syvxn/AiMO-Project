@@ -16,7 +16,7 @@ var controllable := true
 func _ready() -> void:
 	SignalBus.chat_opened.connect(lock_controls)
 	SignalBus.chat_closed.connect(release_controls)
-	fetch_and_apply_visuals()
+	apply_visuals(fetch_visuals())
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
 	$Camera2D.enable_if_authority()
@@ -79,7 +79,9 @@ func release_controls():
 	controllable = true
 
 
-func fetch_and_apply_visuals():
+# anyone can call this, and it'll be called everywhere
+@rpc("any_peer", "call_local")
+func fetch_visuals() -> Variant:
 	var file_string = "res://databaseish/{0}_visuals.json".format([username])
 	var file = FileAccess.open(file_string, FileAccess.READ)
 	if not file:
@@ -87,7 +89,23 @@ func fetch_and_apply_visuals():
 	var json = JSON.new()
 	var error = json.parse(file.get_as_text())
 	if error == OK:
-		character_sprites.apply_visuals(json.data)
+		return json.data
 	else:
 		print("Error: ", error_string(error))
+		return null
+
+
+func apply_visuals(data):
+	character_sprites.apply_visuals(data)
+	
+
+# this kinda sucks but it's fine for now
+func toggle_customize_menu():
+	$Camera2D.toggle_view()
+	if not $CustomizeCharMenu.visible:
+		$CustomizeCharMenu.show()
+	else:
+		$CustomizeCharMenu.hide()
+	
+	
 	

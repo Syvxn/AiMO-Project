@@ -1,5 +1,8 @@
 extends Node2D
 
+var current_data := {}
+
+
 
 func play_animation(anim_name: String):
 	for child in get_children():

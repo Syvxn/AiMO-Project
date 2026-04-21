@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwd8t77hdie00" path="res://player/player.gd" id="1_1xjf6"]
 [ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
+[ext_resource type="PackedScene" uid="uid://cphgt42vxsuwq" path="res://ui/menus/customize_char_menu.tscn" id="3_g1dw6"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
 properties/0/path = NodePath(".:walk_direction")
@@ -44,10 +45,11 @@ func _physics_process(_delta: float) -> void:
 				area.interact()
 	
 	if Input.is_action_just_pressed(\"inventory\"):
-		get_parent().get_node(\"CharacterSprites\").randomize_colors()
+		#get_parent().get_node(\"CharacterSprites\").randomize_colors()
+		get_parent().toggle_customize_menu()
 	
 	if Input.is_action_just_pressed(\"oops\"):
-		get_parent().fetch_and_apply_visuals()
+		get_parent().apply_visuals(get_parent().fetch_visuals())
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]
@@ -82,10 +84,22 @@ properties/6/replication_mode = 1
 [sub_resource type="GDScript" id="GDScript_3eadt"]
 script/source = "extends Camera2D
 
+var view := \"normal\"
 
 func enable_if_authority():
 	if (is_multiplayer_authority() or get_parent().debug):
 		enabled = true
+
+
+func toggle_view():
+	if view == \"normal\":
+		view = \"customize\"
+		offset.x = 60
+		zoom = Vector2(5.0, 5.0)
+	else:
+		view = \"normal\"
+		offset = Vector2.ZERO
+		zoom = Vector2(2.0, 2.0)
 "
 
 [node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
@@ -95,6 +109,7 @@ y_sort_enabled = true
 collision_layer = 259
 motion_mode = 1
 script = ExtResource("1_1xjf6")
+debug = true
 
 [node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
 root_path = NodePath(".")
@@ -127,5 +142,8 @@ script = SubResource("GDScript_3eadt")
 avoidance_enabled = true
 radius = 20.0
 debug_enabled = true
+
+[node name="CustomizeCharMenu" parent="." unique_id=830664804 instance=ExtResource("3_g1dw6")]
+visible = false
 
 [connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

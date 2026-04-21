@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://mskuy4l57hpl" path="res://textures/sprite_frames/items_mono/mono_body_basic.tres" id="2_o4kvf"]
 [ext_resource type="SpriteFrames" uid="uid://co73b3j60nls5" path="res://textures/sprite_frames/items_mono/mono_eyes_basic.tres" id="3_dbxr4"]
 [ext_resource type="SpriteFrames" uid="uid://cobn7f6dgd4a7" path="res://textures/sprite_frames/items_mono/mono_hair_faith.tres" id="4_66ets"]
-[ext_resource type="SpriteFrames" uid="uid://88wfevirybjp" path="res://textures/sprite_frames/items_mono/mono_tshirt_basic.tres" id="5_66ets"]
+[ext_resource type="SpriteFrames" uid="uid://hlv16jqjwi15" path="res://textures/sprite_frames/items_mono/mono_tanktop_faith.tres" id="4_am34g"]
 [ext_resource type="SpriteFrames" uid="uid://drhpmdqdso7lb" path="res://textures/sprite_frames/items_mono/mono_pants_faith.tres" id="5_fh5oi"]
 [ext_resource type="SpriteFrames" uid="uid://cosllrttcd20o" path="res://textures/sprite_frames/items_mono/mono_shoes_faith.tres" id="6_dbxr4"]
 [ext_resource type="SpriteFrames" uid="uid://bfgks6113ifr1" path="res://textures/sprite_frames/items_mono/empty.tres" id="7_ncmru"]
@@ -29,7 +29,7 @@ animation = &"walk_right"
 offset = Vector2(0, -32)
 
 [node name="ShirtSprite" type="AnimatedSprite2D" parent="." unique_id=266557850]
-sprite_frames = ExtResource("5_66ets")
+sprite_frames = ExtResource("4_am34g")
 animation = &"stand_down"
 offset = Vector2(0, -32)
 
