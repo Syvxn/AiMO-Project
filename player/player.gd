@@ -95,6 +95,7 @@ func fetch_visuals() -> Variant:
 		return null
 
 
+@rpc("any_peer", "call_local")
 func apply_visuals(data):
 	character_sprites.apply_visuals(data)
 

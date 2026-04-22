@@ -1,6 +1,18 @@
 extends CanvasLayer
 
 
+var bandaid = {
+	"BodyOptions" : {"options_dict" : Clothes.body_items, "data_key" : "body_item"},
+	"EyesOptions" : {"options_dict" : Clothes.eyes_items, "data_key" : "eyes_item"},
+	"HairOptions" : {"options_dict" : Clothes.hair_items, "data_key" : "hair_item"},
+	"ShirtOptions" : {"options_dict" : Clothes.shirt_items, "data_key" : "shirt_item"},
+	"PantsOptions" : {"options_dict" : Clothes.pants_items, "data_key" : "pants_item"},
+	"JacketOptions" : {"options_dict" : Clothes.jacket_items, "data_key" : "jacket_item"},
+	"ShoesOptions" : {"options_dict" : Clothes.shoes_items, "data_key" : "shoes_item"},
+	"Accessory1Options" : {"options_dict" : Clothes.accessory_items, "data_key" : "accessory1_item"},
+	"Accessory2Options" : {"options_dict" : Clothes.accessory_items, "data_key" : "accessory2_item"},
+	"Accessory3Options" : {"options_dict" : Clothes.accessory_items, "data_key" : "accessory3_item"},
+}
 
 
 func _ready() -> void:
@@ -106,3 +118,20 @@ func select_current_options():
 	%Accessory3Color.color = current_data["colors"]["accessory3_color"]
 	#endregion
 	
+
+
+# this, mercifully, does not trigger when select_current_options() is called
+func _on_options_item_selected(index: int, source: OptionButton) -> void:
+	var current_data = get_parent().get_applied_visuals_data()
+	if source.name == "CostumeOptions":
+		for item_key in Clothes.costumes.keys():
+			if Clothes.costumes[item_key]["name"] == source.get_item_text(index):
+				current_data["costume_name"] = item_key
+				current_data["use_costume"] = true
+	else:
+		for item_key in bandaid[source.name]["options_dict"]:
+			if bandaid[source.name]["options_dict"][item_key]["name"] == source.get_item_text(index):
+				current_data["items"][bandaid[source.name]["data_key"]] = item_key
+				current_data["use_costume"] = false
+	print(current_data)
+	get_parent().apply_visuals.rpc(current_data)

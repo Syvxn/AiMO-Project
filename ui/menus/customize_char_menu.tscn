@@ -451,3 +451,15 @@ theme_override_constants/margin_right = 10
 [node name="Control" type="Control" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer2" unique_id=78561865]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
+
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair/MarginContainer/HairOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes/MarginContainer/EyesOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body/MarginContainer/BodyOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt/MarginContainer/ShirtOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket/MarginContainer/JacketOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants/MarginContainer/PantsOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes/MarginContainer/ShoesOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1/MarginContainer/Accessory1Options" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2/MarginContainer/Accessory2Options" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3/MarginContainer/Accessory3Options" to="." method="_on_options_item_selected" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer/CostumeOptions" to="." method="_on_options_item_selected" flags=18]

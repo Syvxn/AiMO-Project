@@ -13,7 +13,7 @@ func play_animation(anim_name: String):
 @rpc("any_peer", "call_local")
 func apply_visuals(data) -> void:
 	if data["use_costume"]:
-		$CostumeSprite.sprite_frames = load(Clothes.costumes[data["costume_name"]])
+		$CostumeSprite.sprite_frames = load(Clothes.costumes[data["costume_name"]]["path"])
 		for child in get_children():
 			child.hide()
 		$CostumeSprite.show()
