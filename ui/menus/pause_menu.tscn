@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://b5juyq36wkm5w" path="res://ui/menus/pause_menu.gd" id="1_hv7dm"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_w225i"]
 
-[node name="PauseMenu" type="CanvasLayer" unique_id=1705228437]
+[node name="PauseMenu" type="CanvasLayer" unique_id=1705228437 groups=["menus"]]
+layer = 10
 script = ExtResource("1_hv7dm")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=599760265]

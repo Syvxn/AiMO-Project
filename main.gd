@@ -24,18 +24,20 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	# boy this is some trash
 	if Input.is_action_just_pressed("ui_cancel"):
-		if $LoadingScreen.visible:
-			pass
-		elif $DebugMenu.visible:
-			pass
-		elif $ChatScreen.visible:
-			$ChatScreen.hide()
-			SignalBus.chat_closed.emit()
-		elif $PauseMenu.visible:
-			$PauseMenu.hide()
-		else: 
-			$PauseMenu.update_room_list()
-			$PauseMenu.show()
+		if not ($LoadingScreen.visible or $DebugMenu.visible):
+			var visible_menus = []
+			for menu in get_tree().get_nodes_in_group("menus"):
+				if menu.visible:
+					visible_menus.append(menu)
+			if visible_menus.is_empty():
+				$PauseMenu.update_room_list()
+				$PauseMenu.show()
+			else:
+				var highest_visible_menu = visible_menus[0]
+				for menu in visible_menus:
+					if menu.layer > highest_visible_menu.layer:
+						highest_visible_menu = menu
+				highest_visible_menu.close_menu()
 
 
 

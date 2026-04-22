@@ -18,7 +18,8 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="ChatScreen" type="CanvasLayer" unique_id=916964389]
+[node name="ChatScreen" type="CanvasLayer" unique_id=916964389 groups=["menus"]]
+layer = 2
 script = ExtResource("1_ldjw3")
 
 [node name="Control" type="Control" parent="." unique_id=1024478060]

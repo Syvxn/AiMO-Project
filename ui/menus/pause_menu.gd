@@ -10,6 +10,11 @@ func _ready() -> void:
 	update_room_list()
 
 
+func close_menu():
+	hide()
+	
+
+
 @rpc
 func update_room_list():
 	for child in join_list.get_children():

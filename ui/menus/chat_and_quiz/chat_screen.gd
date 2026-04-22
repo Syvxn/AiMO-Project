@@ -20,6 +20,9 @@ func _ready() -> void:
 	SignalBus.chat_closed.connect(hide)
 	
 	
+func close_menu():
+	hide()
+	SignalBus.chat_closed.emit()
 
 
 func add_bubble(text: String, side):
