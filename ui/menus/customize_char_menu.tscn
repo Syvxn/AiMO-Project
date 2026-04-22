@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cphgt42vxsuwq"]
 
+[ext_resource type="Script" uid="uid://dylrobxcglp07" path="res://ui/menus/customize_char_menu.gd" id="1_rubk2"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="1_w5nsy"]
 
 [node name="CustomizeCharMenu" type="CanvasLayer" unique_id=830664804]
+script = ExtResource("1_rubk2")
 
 [node name="Control" type="Control" parent="." unique_id=784891581]
 layout_mode = 3
@@ -44,6 +46,16 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer" unique_id=682495763]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=84382774]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/MarginContainer" unique_id=1612818495]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Character Customization"
+horizontal_alignment = 1
 
 [node name="Body" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=771456996]
 layout_mode = 2
@@ -317,9 +329,21 @@ theme_override_constants/margin_right = 5
 
 [node name="OptionButton" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer" unique_id=1360762151]
 layout_mode = 2
-item_count = 1
+item_count = 7
 popup/item_0/text = "Big Shirt"
 popup/item_0/id = 0
+popup/item_1/text = "fdfdsfsd"
+popup/item_1/id = 1
+popup/item_2/text = "fgdgfdgfasdsa"
+popup/item_2/id = 2
+popup/item_3/text = "asdawafdsa"
+popup/item_3/id = 3
+popup/item_4/text = "gfssad"
+popup/item_4/id = 4
+popup/item_5/text = "hhjhgjg"
+popup/item_5/id = 5
+popup/item_6/text = "hgjghjghjhgj"
+popup/item_6/id = 6
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume" unique_id=1363709851]
 layout_mode = 2
