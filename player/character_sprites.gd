@@ -43,6 +43,7 @@ func apply_visuals(data) -> void:
 		for child in get_children():
 			child.show()
 		$CostumeSprite.hide()
+	current_data = data
 
 
 func randomize_colors():

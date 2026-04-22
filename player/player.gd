@@ -97,15 +97,17 @@ func fetch_visuals() -> Variant:
 
 func apply_visuals(data):
 	character_sprites.apply_visuals(data)
-	
+
+
+func get_applied_visuals_data() -> Dictionary:
+	return $CharacterSprites.current_data
+
 
 # this kinda sucks but it's fine for now
 func toggle_customize_menu():
 	$Camera2D.toggle_view()
 	if not $CustomizeCharMenu.visible:
 		$CustomizeCharMenu.show()
+		$CustomizeCharMenu.select_current_options()
 	else:
 		$CustomizeCharMenu.hide()
-	
-	
-	

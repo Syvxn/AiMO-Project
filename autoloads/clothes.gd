@@ -20,7 +20,9 @@ var shirt_items = {
 	"tshirt_basic" : {"name" : "T-shirt (Basic)", "path" : "res://textures/sprite_frames/items_mono/mono_tshirt_basic.tres"},
 	"croptop_basic" : {"name" : "Crop top (Basic)", "path" : "res://textures/sprite_frames/items_mono/mono_croptop_basic.tres"},
 }
-#var jacket_items = {}
+var jacket_items = {
+	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
+}
 var pants_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 	"pants_faith" : {"name" : "Pants (Faith)", "path" : "res://textures/sprite_frames/items_mono/mono_pants_faith.tres"},
@@ -28,6 +30,15 @@ var pants_items = {
 var shoes_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 	"shoes_faith" : {"name" : "Runners (Faith)", "path" : "res://textures/sprite_frames/items_mono/mono_shoes_faith.tres"},
+}
+var accessory1_items = {
+	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
+}
+var accessory2_items = {
+	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
+}
+var accessory3_items = {
+	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 }
 var costumes = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
