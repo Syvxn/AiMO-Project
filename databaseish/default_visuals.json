@@ -17,7 +17,11 @@
 		"hair_color" : "211D1D",
 		"shirt_color" : "9E2937",
 		"pants_color" : "FFDB94",
+		"jacket_color" : "FFFFFF",
 		"shoes_color" : "97CDDE",
+		"accessory1_color" : "FFFFFF",
+		"accessory2_color" : "FFFFFF",
+		"accessory3_color" : "FFFFFF",
 	},
 	"use_costume" : false,
 	"costume_name" : "faith"

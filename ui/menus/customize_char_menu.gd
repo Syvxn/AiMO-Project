@@ -23,12 +23,12 @@ func load_options():
 		%JacketOptions.add_item(Clothes.jacket_items[item_key]["name"])
 	for item_key in Clothes.shoes_items.keys():
 		%ShoesOptions.add_item(Clothes.shoes_items[item_key]["name"])
-	for item_key in Clothes.accessory1_items.keys():
-		%Accessory1Options.add_item(Clothes.accessory1_items[item_key]["name"])
-	for item_key in Clothes.accessory2_items.keys():
-		%Accessory2Options.add_item(Clothes.accessory2_items[item_key]["name"])
-	for item_key in Clothes.accessory3_items.keys():
-		%Accessory3Options.add_item(Clothes.accessory3_items[item_key]["name"])
+	for item_key in Clothes.accessory_items.keys():
+		%Accessory1Options.add_item(Clothes.accessory_items[item_key]["name"])
+	for item_key in Clothes.accessory_items.keys():
+		%Accessory2Options.add_item(Clothes.accessory_items[item_key]["name"])
+	for item_key in Clothes.accessory_items.keys():
+		%Accessory3Options.add_item(Clothes.accessory_items[item_key]["name"])
 	for item_key in Clothes.costumes.keys():
 		%CostumeOptions.add_item(Clothes.costumes[item_key]["name"])
 
@@ -73,18 +73,18 @@ func select_current_options():
 				if item_key == current_data["items"]["shoes_item"]:
 					%ShoesOptions.select(i)
 	for i in range(%Accessory1Options.item_count):
-		for item_key in Clothes.accessory1_items.keys():
-			if Clothes.accessory1_items[item_key]["name"] == %Accessory1Options.get_item_text(i):
+		for item_key in Clothes.accessory_items.keys():
+			if Clothes.accessory_items[item_key]["name"] == %Accessory1Options.get_item_text(i):
 				if item_key == current_data["items"]["accessory1_item"]:
 					%Accessory1Options.select(i)
 	for i in range(%Accessory2Options.item_count):
-		for item_key in Clothes.accessory2_items.keys():
-			if Clothes.accessory2_items[item_key]["name"] == %Accessory2Options.get_item_text(i):
+		for item_key in Clothes.accessory_items.keys():
+			if Clothes.accessory_items[item_key]["name"] == %Accessory2Options.get_item_text(i):
 				if item_key == current_data["items"]["accessory2_item"]:
 					%Accessory2Options.select(i)
 	for i in range(%Accessory3Options.item_count):
-		for item_key in Clothes.accessory3_items.keys():
-			if Clothes.accessory3_items[item_key]["name"] == %Accessory3Options.get_item_text(i):
+		for item_key in Clothes.accessory_items.keys():
+			if Clothes.accessory_items[item_key]["name"] == %Accessory3Options.get_item_text(i):
 				if item_key == current_data["items"]["accessory3_item"]:
 					%Accessory3Options.select(i)
 	for i in range(%CostumeOptions.item_count):
@@ -92,5 +92,17 @@ func select_current_options():
 			if Clothes.costumes[item_key]["name"] == %CostumeOptions.get_item_text(i):
 				if item_key == current_data["costume_name"]:
 					%CostumeOptions.select(i)
+	#endregion
+	#region colors
+	%BodyColor.color = current_data["colors"]["body_color"]
+	%EyesColor.color = current_data["colors"]["eyes_color"]
+	%HairColor.color = current_data["colors"]["hair_color"]
+	%ShirtColor.color = current_data["colors"]["shirt_color"]
+	%PantsColor.color = current_data["colors"]["pants_color"]
+	%JacketColor.color = current_data["colors"]["jacket_color"]
+	%ShoesColor.color = current_data["colors"]["shoes_color"]
+	%Accessory1Color.color = current_data["colors"]["accessory1_color"]
+	%Accessory2Color.color = current_data["colors"]["accessory2_color"]
+	%Accessory3Color.color = current_data["colors"]["accessory3_color"]
 	#endregion
 	

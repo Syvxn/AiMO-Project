@@ -5,7 +5,11 @@
 		"hair_item" : "chell",
 		"shirt_item" : "tanktop_faith",
 		"pants_item" : "pants_faith",
+		"jacket_item" : "",
 		"shoes_item" : "shoes_faith",
+		"accessory1_item" : "",
+		"accessory2_item" : "",
+		"accessory3_item" : "",
 	},
 	"colors" : {
 		"body_color" : "574434",
@@ -13,7 +17,11 @@
 		"hair_color" : "211912",
 		"shirt_color" : "476330",
 		"pants_color" : "E39F30",
+		"jacket_color" : "FFFFFF",
 		"shoes_color" : "476330",
+		"accessory1_color" : "FFFFFF",
+		"accessory2_color" : "FFFFFF",
+		"accessory3_color" : "FFFFFF",
 	},
 	"use_costume" : true,
 	"costume_name" : "chell"

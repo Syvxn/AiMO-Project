@@ -31,13 +31,7 @@ var shoes_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 	"shoes_faith" : {"name" : "Runners (Faith)", "path" : "res://textures/sprite_frames/items_mono/mono_shoes_faith.tres"},
 }
-var accessory1_items = {
-	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
-}
-var accessory2_items = {
-	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
-}
-var accessory3_items = {
+var accessory_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 }
 var costumes = {
