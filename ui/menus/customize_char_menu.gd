@@ -65,7 +65,6 @@ func _on_options_item_selected(index: int, source: OptionButton) -> void:
 		current_data["use_costume"] = true
 	else:
 		current_data["use_costume"] = false
-	print(current_data)
 	get_parent().apply_visuals.rpc(current_data)
 
 
@@ -74,4 +73,5 @@ func _on_color_popup_closed(source: ColorPickerButton) -> void:
 	for key in colors_lookup:
 		if source.name == key:
 			current_data["colors"][colors_lookup[key]["data_key"]] = source.color.to_html()
+	current_data["use_costume"] = false
 	get_parent().apply_visuals.rpc(current_data)
