@@ -10,6 +10,7 @@
 		"accessory1_item" : "",
 		"accessory2_item" : "",
 		"accessory3_item" : "",
+		"costume_item" : "faith"
 	},
 	"colors" : {
 		"body_color" : "574434",
@@ -23,6 +24,5 @@
 		"accessory2_color" : "FFFFFF",
 		"accessory3_color" : "FFFFFF",
 	},
-	"use_costume" : true,
-	"costume_name" : "faith"
+	"use_costume" : true
 }

@@ -13,7 +13,7 @@ func play_animation(anim_name: String):
 @rpc("any_peer", "call_local")
 func apply_visuals(data) -> void:
 	if data["use_costume"]:
-		$CostumeSprite.sprite_frames = load(Clothes.costumes[data["costume_name"]]["path"])
+		$CostumeSprite.sprite_frames = load(Clothes.costume_items[data["items"]["costume_item"]]["path"])
 		for child in get_children():
 			child.hide()
 		$CostumeSprite.show()
@@ -46,51 +46,50 @@ func apply_visuals(data) -> void:
 	current_data = data
 
 
-func randomize_colors():
-	var colors = [
-				Color("RED"),
-				Color("ORANGE_RED"),
-				Color("ORANGE"),
-				Color("BLUE"),
-				Color("GREEN"),
-				Color("WHITE"),
-				Color("PINK"),
-				Color("PURPLE"),
-				Color("FUCHSIA"),
-				Color("YELLOW"),
-				Color("GOLD"),
-				Color("WEB_GREEN"),
-				Color("MINT_CREAM"),
-				Color("ROYAL_BLUE"),
-				Color("OLIVE"),
-				Color("CRIMSON"),
-				Color("YELLOW_GREEN"),
-				Color("LIGHT_SKY_BLUE"),
-				Color("NAVY_BLUE"),
-				Color("MOCCASIN"),
-				Color("SLATE_BLUE"),
-				Color("MAROON"),
-				Color("REBECCA_PURPLE"),
-				Color("SEA_GREEN"),
-				Color("INDIGO"),
-				Color("DARK_OLIVE_GREEN"),
-				Color("TEAL"),
-				Color("KHAKI"),
-				Color("DARK_ORANGE"),
-				Color("WEB_MAROON"),
-				Color("GHOST_WHITE"),
-				Color("HOT_PINK"),
-		]
-	var data = {
-		"items" : {},
-		"colors" : {},
-		"use_costume" : false,
-		"costume_name" : ""
-	}
-	data["colors"]["body_color"] = colors.pick_random()
-	data["colors"]["eyes_color"] = colors.pick_random()
-	data["colors"]["hair_color"] = colors.pick_random()
-	data["colors"]["shirt_color"] = colors.pick_random()
-	data["colors"]["pants_color"] = colors.pick_random()
-	data["colors"]["shoes_color"] = colors.pick_random()
-	apply_visuals.rpc(data)
+#func randomize_colors():
+	#var colors = [
+				#Color("RED"),
+				#Color("ORANGE_RED"),
+				#Color("ORANGE"),
+				#Color("BLUE"),
+				#Color("GREEN"),
+				#Color("WHITE"),
+				#Color("PINK"),
+				#Color("PURPLE"),
+				#Color("FUCHSIA"),
+				#Color("YELLOW"),
+				#Color("GOLD"),
+				#Color("WEB_GREEN"),
+				#Color("MINT_CREAM"),
+				#Color("ROYAL_BLUE"),
+				#Color("OLIVE"),
+				#Color("CRIMSON"),
+				#Color("YELLOW_GREEN"),
+				#Color("LIGHT_SKY_BLUE"),
+				#Color("NAVY_BLUE"),
+				#Color("MOCCASIN"),
+				#Color("SLATE_BLUE"),
+				#Color("MAROON"),
+				#Color("REBECCA_PURPLE"),
+				#Color("SEA_GREEN"),
+				#Color("INDIGO"),
+				#Color("DARK_OLIVE_GREEN"),
+				#Color("TEAL"),
+				#Color("KHAKI"),
+				#Color("DARK_ORANGE"),
+				#Color("WEB_MAROON"),
+				#Color("GHOST_WHITE"),
+				#Color("HOT_PINK"),
+		#]
+	#var data = {
+		#"items" : {},
+		#"colors" : {},
+		#"use_costume" : false,
+	#}
+	#data["colors"]["body_color"] = colors.pick_random()
+	#data["colors"]["eyes_color"] = colors.pick_random()
+	#data["colors"]["hair_color"] = colors.pick_random()
+	#data["colors"]["shirt_color"] = colors.pick_random()
+	#data["colors"]["pants_color"] = colors.pick_random()
+	#data["colors"]["shoes_color"] = colors.pick_random()
+	#apply_visuals.rpc(data)

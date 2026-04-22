@@ -34,7 +34,7 @@ var shoes_items = {
 var accessory_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 }
-var costumes = {
+var costume_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 	"chell" : {"name" : "Chell", "path" : "res://textures/sprite_frames/chell.tres"},
 	"chell_var1" : {"name" : "Chell (Var1)", "path" : "res://textures/sprite_frames/chell_var1.tres"},

@@ -10,6 +10,7 @@
 		"accessory1_item" : "",
 		"accessory2_item" : "",
 		"accessory3_item" : "",
+		"costume_item" : "chell"
 	},
 	"colors" : {
 		"body_color" : "574434",
@@ -24,5 +25,4 @@
 		"accessory3_color" : "FFFFFF",
 	},
 	"use_costume" : true,
-	"costume_name" : "chell"
 }
