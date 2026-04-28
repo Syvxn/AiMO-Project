@@ -71,7 +71,7 @@ Most things are done on the server and then propagated to clients using **Multip
 
 ### Talking to Faraway Nodes
 
-If Node A needs Node B to do something, and they're not in the same scene, you can declare a new globally available signal in ``autoloads/signal_bus.gd``, then have one node emit the signal and the another node connect to it with a callback. For example: 
+If Node A needs Node B to do something, and they're not in the same scene, you can declare a new globally available signal in ``autoloads/signal_bus.gd``, then have one node emit the signal and the other node connect to it with a callback. For example: 
 - ``signal car_broke_down(cause: String)`` <-- signal_bus.gd
 - ``SignalBus.car_broke_down.emit("tire blew out")`` <-- node_a.gd
 - ``SignalBus.car_broke_down.connect(callback_method)`` <-- node_b.gd
