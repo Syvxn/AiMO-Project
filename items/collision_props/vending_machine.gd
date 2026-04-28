@@ -19,6 +19,12 @@ func buy():
 		print("You bought something! I think.")
 		await get_tree().create_timer(1).timeout
 		%SnackPoint.add_child(random_snack.instantiate())
+		if randi_range(1,1000) == 777:
+			%SnackPoint.add_child(random_snack.instantiate())
+			%SnackPoint.add_child(random_snack.instantiate())
+			%SnackPoint.add_child(random_snack.instantiate())
+			%SnackPoint.add_child(random_snack.instantiate())
+			%SnackPoint.add_child(random_snack.instantiate())
 
 
 func _on_body_entered(body: Node2D) -> void:
