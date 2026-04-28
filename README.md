@@ -60,9 +60,9 @@ The most important files/directories are:
 
 ### Client/Server
 
-The game decides whether it runs as a server or aclient based on how the game has been exported. Web exports are automatically clients, dedicated server builds are servers, and anything else lanches into a sort of debug mode. 
+The game decides whether it runs as a server or a client based on how the game has been exported. Web exports are automatically clients, dedicated server builds are servers, and anything else launches into a debug menu. 
 
-**NOTE:** The web client is still missing the functionality that fetches/receives player info and actually spawns the player. Until this is implemented, run the client from debug mode.
+**NOTE:** The web client is still missing the functionality that fetches/receives player info and actually spawns the player. Until this is implemented, run the client from the debug menu.
 
 
 ### Multiplayer Logic
