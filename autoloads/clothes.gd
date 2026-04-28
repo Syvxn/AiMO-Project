@@ -13,6 +13,8 @@ var hair_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
 	"faith" : {"name" : "Faith", "path" : "res://textures/sprite_frames/items_mono/mono_hair_faith.tres"},
 	"chell" : {"name" : "Chell", "path" : "res://textures/sprite_frames/items_mono/mono_hair_chell.tres"},
+	"mohawk" : {"name" : "Mohawk", "path" : "res://textures/sprite_frames/items_mono/mono_hair_mohawk.tres"},
+	"short" : {"name" : "Short", "path" : "res://textures/sprite_frames/items_mono/mono_hair_short.tres"},
 }
 var shirt_items = {
 	"" : {"name" : "Nothing", "path" : "res://textures/sprite_frames/items_mono/empty.tres"},
