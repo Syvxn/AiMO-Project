@@ -79,6 +79,13 @@ If Node A needs Node B to do something, and they're not in the same scene, you c
 If you need all nodes of a type and you don't know where they're going to be, add the nodes to an appropriate global group and fetch them with ``get_tree().get_nodes_in_group("group_name")``.
 
 
+### Making New Rooms
+
+Rooms are scenes with a bunch of different nodes, but not really any mandatory code (even the ``display_name`` is optional). As such, the easiest way to make a new room is to duplicate ``rooms/room_base.tscn`` and go from there.
+
+**NOTE:** Personal rooms are an exception, they have some state attached.
+
+
 ### Networking
 
 *"Uh, yeah, I sure hope it does.""*
