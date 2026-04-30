@@ -9,6 +9,7 @@ var correct_key : String
 
 func fill_out_question(question_text: String, answers: Array, correct_answer_key: String):
 	label.text = question_text
+	item_list.clear()
 	for answer in answers:
 		item_list.add_item(answer)
 	item_list.sort_items_by_text()

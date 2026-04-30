@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c85evq6oy356h" path="res://textures/tilesheets/walls_mono_.png" id="3_1t1q7"]
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_aphrj"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_5br6e"]
+[ext_resource type="PackedScene" uid="uid://i155sn4fkbml" path="res://ui/menus/chat_and_quiz/quiz_question.tscn" id="6_o6s05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
 size = Vector2(1189, 1032)
@@ -200,22 +201,52 @@ texture = ExtResource("5_5br6e")
 replication_config = SubResource("SceneReplicationConfig_xe5ka")
 
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=2057992356]
-position = Vector2(622, 679)
-
-[node name="QuestionTimer" type="Timer" parent="." unique_id=890647864]
 unique_name_in_owner = true
-wait_time = 10.0
-one_shot = true
+position = Vector2(657, 679)
 
-[node name="RewardTimer" type="Timer" parent="." unique_id=377240762]
+[node name="SpawnPointA" type="Node2D" parent="." unique_id=1788749631]
 unique_name_in_owner = true
-wait_time = 10.0
+position = Vector2(384, 668)
 
-[node name="QuizQuestion" type="CanvasLayer" parent="." unique_id=1406152353]
+[node name="SpawnPointB" type="Node2D" parent="." unique_id=1270445094]
+unique_name_in_owner = true
+position = Vector2(925, 668)
 
-[node name="MarginContainer" type="MarginContainer" parent="QuizQuestion" unique_id=2125678175]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
+unique_name_in_owner = true
+layer = 2
 
-[node name="Panel" type="Panel" parent="QuizQuestion/MarginContainer" unique_id=1703688933]
+[node name="Panel" type="Panel" parent="QuizMenu" unique_id=1703688933]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -200.0
+offset_right = 350.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuestionContainer" type="MarginContainer" parent="QuizMenu/Panel" unique_id=2125678175]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="QuizQuestion" parent="QuizMenu/Panel/QuestionContainer" unique_id=2087413258 instance=ExtResource("6_o6s05")]
+unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Label" parent="QuizMenu/Panel/QuestionContainer/QuizQuestion/VBoxContainer/MarginContainer" parent_id_path=PackedInt32Array(2087413258, 1872320879) index="0" unique_id=819081297]
+text = "[Question text should appear hdsadasd asa da as das sad as da dasdere]
+"
+
+[editable path="QuizMenu/Panel/QuestionContainer/QuizQuestion"]

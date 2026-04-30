@@ -44,7 +44,7 @@ func add_bubble(text: String, side):
 func submit_input(input_text):
 	chat_input_field.set_text("")
 	add_bubble(input_text, "right")
-	#region http that should be moved to its own component
+	#region http
 	var http_request = HTTPRequest.new()
 	#http_request.set_timeout(10.0)    # move this to .env.json?
 	add_child(http_request)
