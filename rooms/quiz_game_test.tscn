@@ -111,13 +111,16 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_nxk6l")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5p5hp"]
-vertices = PackedVector2Array(655, 604.1719, 668.4531, 610.84375, 650.0469, 619.6797, 487.47656, 687.9297, 608.96094, 747.8281, 649.9531, 632.15625, 729.3125, 641.0625, 775.6172, 664.0469, 697.90625, 656.1406)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 7, 4, 8), PackedInt32Array(4, 5, 8)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(465, 688, 655, 593, 798, 664, 609, 759)])
+vertices = PackedVector2Array(878.96094, 620.14844, 1017.53125, 689, 654.0078, 869.8281, 783.0078, 667.1328, 291.3203, 688.9531, 429.8125, 619.28125, 521.77344, 669.2578, 654.0078, 604.1406)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(3, 2, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(430, 608, 522, 658, 654, 593, 783, 656, 879, 609, 1040, 689, 654, 881, 269, 689)])
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xe5ka"]
+properties/0/path = NodePath("QuizMenu:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
-[node name="QuizGameTest" type="Node2D" unique_id=1093253189]
+[node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
 script = ExtResource("1_p4v5p")
 
 [node name="EjectionArea" type="Area2D" parent="." unique_id=489091015]
@@ -177,10 +180,10 @@ tile_map_data = PackedByteArray("AAANAF0AAAAJAAAAAAAOAFwAAAAJAAAAAAAOAFsAAAAJAAA
 tile_set = ExtResource("4_aphrj")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=845306726]
-visible = false
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
+position = Vector2(2, -17)
 navigation_polygon = SubResource("NavigationPolygon_5p5hp")
 
 [node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=1599166941]

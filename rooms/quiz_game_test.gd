@@ -16,8 +16,11 @@ var current_question_index := 0
 
 func _ready() -> void:
 	%QuizMenu.hide()
-	await get_tree().create_timer(3).timeout
-	start_game()
+	SignalBus.oops_pressed.connect(request_start_game_from_server)
+
+
+func request_start_game_from_server():
+	start_game.rpc_id(1)
 
 
 @rpc("any_peer", "call_remote")
@@ -69,16 +72,65 @@ func run_next_question():
 		print("end of quiz, yay")
 		for player in players:
 			player.global_position = %SpawnPoint.global_position
+			await get_tree().create_timer(0.1).timeout
+		team_a_players.clear()
+		team_b_players.clear()
+		for key in total_points:
+			total_points[key] = 0
+		for key in current_question_points:
+			current_question_points[key] = 0
 		game_state = "inactive"
 		return
+	for key in current_question_points:
+		current_question_points[key] = 0
 	var question = quiz["questions"][current_question_index]
-	%QuizQuestion.fill_out_question(question["question"], question["options"], question["answer"])
+	fill_and_activate_question.rpc([question])
 	%QuizMenu.show()
 	await get_tree().create_timer(question_time_in_s).timeout
-	# check cureent question points
-	# reward winner (and throw comedic junk at losers?)
 	%QuizMenu.hide()
+	# check current question points
+	# reward winner (and throw comedic junk at losers?)
+	if current_question_points["team_a"] > current_question_points["team_b"]:
+		print("Team A wins this one!")
+	elif current_question_points["team_b"] > current_question_points["team_a"]:
+		print("Team B wins this one!")
+	else:
+		print("It's a tie!")
 	print("here's where stuff would fly out at the teams")
 	await get_tree().create_timer(reward_time_in_s).timeout
 	current_question_index += 1
 	run_next_question()
+
+
+@rpc("authority","call_local")
+func fill_and_activate_question(args: Array):
+	var question = args[0]
+	%QuizQuestion.fill_out_question(question["question"], question["options"], question["answer"])
+	if not %QuizQuestion.item_list.item_selected.is_connected(on_answer_first_selected):
+		%QuizQuestion.item_list.item_selected.connect(on_answer_first_selected)
+	
+
+
+@rpc("any_peer", "call_remote")
+func give_team_point_by_player(args: Array):
+	var id = args[0]
+	assert(multiplayer.is_server())
+	var team = ""
+	if team_a_players.any(func(player): return int(player.name) == id):
+		team = "team_a"
+	elif team_b_players.any(func(player): return int(player.name) == id):
+		team = "team_b"
+	if not team == "":
+		current_question_points[team] += 1
+		total_points[team] += 1
+
+
+func on_answer_first_selected(index: int):
+	%QuizQuestion.item_list.item_selected.disconnect(on_answer_first_selected)
+	if %QuizQuestion.check_answer():
+		give_team_point_by_player.rpc_id(1, [multiplayer.get_unique_id()])
+	
+	
+	
+	
+	

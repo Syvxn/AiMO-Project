@@ -47,6 +47,9 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed(\"inventory\"):
 		#get_parent().get_node(\"CharacterSprites\").randomize_colors()
 		get_parent().toggle_customize_menu()
+	
+	if Input.is_action_just_pressed(\"oops\"):
+		SignalBus.oops_pressed.emit()
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]

@@ -19,3 +19,5 @@ signal player_clicked_join_room(room_name: String)
 signal chat_opened
 @warning_ignore("unused_signal")
 signal chat_closed
+@warning_ignore("unused_signal")
+signal oops_pressed

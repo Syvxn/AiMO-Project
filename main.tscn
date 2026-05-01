@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dab8lpwc6mlti" path="res://ui/menus/debug_menu.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dcfb1bataqbvi" path="res://rooms/shared_room_1.tscn" id="4_272bh"]
 [ext_resource type="PackedScene" uid="uid://c8hfitdfol1jn" path="res://rooms/cafeteria_1.tscn" id="5_kek77"]
+[ext_resource type="PackedScene" uid="uid://c8m178nnp3blr" path="res://rooms/quiz_game_test.tscn" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://d4fefj4hwgbg7" path="res://ui/menus/pause_menu.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://c8x34nugd04c8" path="res://ui/menus/chat_and_quiz/chat_screen.tscn" id="8_5vw27"]
 
@@ -36,7 +37,7 @@ animations = [{
 script = ExtResource("1_ig7tw")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=632750434]
-_spawnable_scenes = PackedStringArray("uid://gph3bj8xbyva", "uid://d35eol5p808ek", "uid://dcfb1bataqbvi", "uid://dw5go7ht1n1nt", "uid://cok4teq4va5gx", "uid://c8hfitdfol1jn")
+_spawnable_scenes = PackedStringArray("uid://gph3bj8xbyva", "uid://d35eol5p808ek", "uid://dcfb1bataqbvi", "uid://dw5go7ht1n1nt", "uid://cok4teq4va5gx", "uid://c8hfitdfol1jn", "uid://c8m178nnp3blr")
 spawn_path = NodePath("GameWorld")
 
 [node name="GameWorld" type="Node2D" parent="MultiplayerSpawner" unique_id=2042220772]
@@ -102,6 +103,9 @@ frame_progress = 0.7552426
 
 [node name="Miserable Cafeteria" parent="MultiplayerSpawner/GameWorld" unique_id=85734091 instance=ExtResource("5_kek77")]
 position = Vector2(1321, -163)
+
+[node name="QuizGameTest" parent="MultiplayerSpawner/GameWorld" unique_id=1093253189 instance=ExtResource("6_4c57u")]
+position = Vector2(4822, 333)
 
 [node name="LoadingScreen" parent="." unique_id=1452673750 instance=ExtResource("3_h2yge")]
 visible = false
