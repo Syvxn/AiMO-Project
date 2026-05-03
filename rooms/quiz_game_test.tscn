@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://c0yngvvqacnc1" path="res://textures/tilesets/floor_mono_test.tres" id="2_o6s05"]
 [ext_resource type="Texture2D" uid="uid://c85evq6oy356h" path="res://textures/tilesheets/walls_mono_.png" id="3_1t1q7"]
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_aphrj"]
+[ext_resource type="PackedScene" uid="uid://dheevgi1fsmup" path="res://items/collision_props/tall_button.tscn" id="5_1t1q7"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_5br6e"]
 [ext_resource type="PackedScene" uid="uid://i155sn4fkbml" path="res://ui/menus/chat_and_quiz/quiz_question.tscn" id="6_o6s05"]
 
@@ -118,7 +119,22 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(430, 608, 522, 658, 654
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xe5ka"]
 properties/0/path = NodePath("QuizMenu:visible")
 properties/0/spawn = true
-properties/0/replication_mode = 1
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:game_state")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:team_a_players")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:team_b_players")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:total_points")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:current_question_points")
+properties/5/spawn = true
+properties/5/replication_mode = 2
 
 [node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
 script = ExtResource("1_p4v5p")
@@ -127,7 +143,6 @@ script = ExtResource("1_p4v5p")
 unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1257454407]
-visible = false
 position = Vector2(683.5, 664)
 shape = SubResource("RectangleShape2D_5p5hp")
 
@@ -190,7 +205,12 @@ navigation_polygon = SubResource("NavigationPolygon_5p5hp")
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(632, 672)
+position = Vector2(654, 632)
+
+[node name="ActivateButton" parent="NavigationRegion2D/Decorations" unique_id=952456853 instance=ExtResource("5_1t1q7")]
+unique_name_in_owner = true
+position = Vector2(0, 56)
+button_id = "quiz_activate_button"
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999
@@ -205,7 +225,7 @@ replication_config = SubResource("SceneReplicationConfig_xe5ka")
 
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=2057992356]
 unique_name_in_owner = true
-position = Vector2(657, 679)
+position = Vector2(656, 713)
 
 [node name="SpawnPointA" type="Node2D" parent="." unique_id=1788749631]
 unique_name_in_owner = true
@@ -218,6 +238,7 @@ position = Vector2(925, 668)
 [node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
 unique_name_in_owner = true
 layer = 2
+visible = false
 
 [node name="Panel" type="Panel" parent="QuizMenu" unique_id=1703688933]
 anchors_preset = 8
@@ -251,5 +272,10 @@ layout_mode = 2
 [node name="Label" parent="QuizMenu/Panel/QuestionContainer/QuizQuestion/VBoxContainer/MarginContainer" parent_id_path=PackedInt32Array(2087413258, 1872320879) index="0" unique_id=819081297]
 text = "[Question text should appear hdsadasd asa da as das sad as da dasdere]
 "
+
+[node name="QuestionTimer" type="Timer" parent="." unique_id=123614519]
+one_shot = true
+
+[connection signal="pushed" from="NavigationRegion2D/Decorations/ActivateButton" to="." method="_on_activate_button_pushed"]
 
 [editable path="QuizMenu/Panel/QuestionContainer/QuizQuestion"]

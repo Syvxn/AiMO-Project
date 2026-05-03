@@ -57,6 +57,7 @@ rooms=""
 personal_rooms=""
 npcs=""
 menus=""
+buttons=""
 
 [input]
 

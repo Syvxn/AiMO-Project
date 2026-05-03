@@ -1,45 +1,45 @@
 {
-    "quiz_title": "English Quiz: colours",
-    "questions": [
-        {
-            "question": "What colour is the sky described as in the text?",
-            "options": [
-                "A: Red",
-                "B: Blue",
-                "C: Green",
+	"quiz_title": "English Quiz: colours",
+	"questions": [
+		{
+			"question": "What colour is the sky described as in the text?",
+			"options": [
+				"A: Red",
+				"B: Blue",
+				"C: Green",
                 "D: Yellow"
-            ],
-            "answer": "B"
-        },
-        {
-            "question": "Complete the sentence: 'Purple is a mix of red and ___.'",
-            "options": [
-                "A: yellow",
-                "B: green",
-                "C: orange",
+			],
+			"answer": "B"
+		},
+		{
+			"question": "Complete the sentence: 'Purple is a mix of red and ___.'",
+			"options": [
+				"A: yellow",
+				"B: green",
+				"C: orange",
                 "D: blue"
-            ],
-            "answer": "D"
-        },
-        {
-            "question": "What word describes the darkness of the night?",
-            "options": [
-                "A: Light",
-                "B: Dark",
-                "C: Bright",
+			],
+			"answer": "D"
+		},
+		{
+			"question": "What word describes the darkness of the night?",
+			"options": [
+				"A: Light",
+				"B: Dark",
+				"C: Bright",
                 "D: Shadowy"
-            ],
-            "answer": "B"
-        },
-        {
-            "question": "Which colour is often associated with royalty?",
-            "options": [
-                "A: Gold",
-                "B: Blue",
-                "C: Green",
+			],
+			"answer": "B"
+		},
+		{
+			"question": "Which colour is often associated with royalty?",
+			"options": [
+				"A: Gold",
+				"B: Blue",
+				"C: Green",
                 "D: Red"
-            ],
-            "answer": "A"
-        }
-    ]
+			],
+			"answer": "A"
+		}
+	]
 }

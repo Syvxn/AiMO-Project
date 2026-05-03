@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dheevgi1fsmup"]
 
-[ext_resource type="Texture2D" uid="uid://bj8osu0ehonyi" path="res://textures/spritesheets/tallbutton.png" id="1_edync"]
-[ext_resource type="Script" uid="uid://dr0lvnnk3wqcl" path="res://npcs/tall_button.gd" id="2_lkmgf"]
+[ext_resource type="Texture2D" uid="uid://bj8osu0ehonyi" path="res://textures/spritesheets/props/tallbutton.png" id="1_edync"]
+[ext_resource type="Script" uid="uid://dr0lvnnk3wqcl" path="res://items/collision_props/tall_button.gd" id="2_lkmgf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lkmgf"]
 
@@ -41,7 +41,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="TallButton" type="Area2D" unique_id=952456853 groups=["npcs"]]
+[node name="TallButton" type="Area2D" unique_id=952456853 groups=["buttons", "npcs"]]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
@@ -66,38 +66,7 @@ frame = 2
 frame_progress = 1.0
 offset = Vector2(0.1, -14)
 
-[node name="Control" type="Control" parent="." unique_id=99289170]
-z_index = 3
-z_as_relative = false
-y_sort_enabled = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1129079513]
+one_shot = true
 
-[node name="DialogueBox" type="ColorRect" parent="Control" unique_id=1619135313]
-visible = false
-layout_mode = 0
-offset_left = -151.0
-offset_top = -127.0
-offset_right = 149.0
-offset_bottom = -27.0
-color = Color(0.15170428, 0.15170428, 0.15170428, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/DialogueBox" unique_id=154471370]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/DialogueBox/MarginContainer" unique_id=1351496453]
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 11
-text = "Requesting..."
-autowrap_mode = 1
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
