@@ -94,6 +94,30 @@ position = Vector2(-4500, -6000)
 [node name="PlotMarker16" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1676060249 instance=ExtResource("2_1bvp3")]
 position = Vector2(-6000, -6000)
 
+[node name="PlotMarker17" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=613064190 instance=ExtResource("2_1bvp3")]
+position = Vector2(-1500, -7500)
+
+[node name="PlotMarker18" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=128210620 instance=ExtResource("2_1bvp3")]
+position = Vector2(-3000, -7500)
+
+[node name="PlotMarker19" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1569622844 instance=ExtResource("2_1bvp3")]
+position = Vector2(-4500, -7500)
+
+[node name="PlotMarker20" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=209354201 instance=ExtResource("2_1bvp3")]
+position = Vector2(-6000, -7500)
+
+[node name="PlotMarker21" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=840900148 instance=ExtResource("2_1bvp3")]
+position = Vector2(-1500, -9000)
+
+[node name="PlotMarker22" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=1865619195 instance=ExtResource("2_1bvp3")]
+position = Vector2(-3000, -9000)
+
+[node name="PlotMarker23" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=899826530 instance=ExtResource("2_1bvp3")]
+position = Vector2(-4500, -9000)
+
+[node name="PlotMarker24" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=93127166 instance=ExtResource("2_1bvp3")]
+position = Vector2(-6000, -9000)
+
 [node name="SecretServerSkeleton" type="AnimatedSprite2D" parent="MultiplayerSpawner/GameWorld" unique_id=1908527526]
 sprite_frames = SubResource("SpriteFrames_5vw27")
 autoplay = "default"

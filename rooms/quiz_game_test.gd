@@ -16,6 +16,7 @@ var current_question_index := 0
 
 func _ready() -> void:
 	%QuizMenu.hide()
+	# get rid of this and replace it with like a button or something
 	SignalBus.oops_pressed.connect(request_start_game_from_server)
 
 
