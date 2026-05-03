@@ -29,12 +29,46 @@ func _on_activate_button_pushed(_id: String) -> void:
 func request_start_game_from_server():
 	start_game.rpc_id(1)
 
+# also called on server for debugging purposes
+@rpc("authority","call_local")
+func fill_and_activate_question(args: Array):
+	var question = args[0]
+	%QuizQuestion.fill_out_question(question["question"], question["options"], question["answer"])
+	if not %QuizQuestion.item_list.item_selected.is_connected(on_answer_first_selected):
+		%QuizQuestion.item_list.item_selected.connect(on_answer_first_selected)
+
 # reusing existing quiz functionality 
 func on_answer_first_selected(_index: int):
 	%QuizQuestion.item_list.item_selected.disconnect(on_answer_first_selected)
 	if %QuizQuestion.check_answer():
 		give_team_point_by_player.rpc_id(1, [multiplayer.get_unique_id()])
 	count_answer.rpc_id(1)
+
+# also called on server for debugging purposes
+@rpc("authority", "call_local")
+func spew_stuff(args: Array):
+	var reward_point_node = get_node(args[0])
+	var target_position = args[1]
+	var type = args[2]
+	var types = {
+		"snacks" : "res://items/physics_props/random_snack.tscn",
+	}
+	for i in range(20):
+		var stuff_instance = load(types[type]).instantiate()
+		reward_point_node.add_child(stuff_instance)
+		target_position.x += randi_range(-10, 10)
+		target_position.y += randi_range(-10, 10)
+		var impulse = stuff_instance.global_position.direction_to(target_position) * 500
+		stuff_instance.apply_central_impulse(impulse)
+		await get_tree().create_timer(0.1).timeout
+
+# also called on server for debugging purposes
+@rpc("authority", "call_local")
+func clear_rewards():
+	for child in %RewardPointA.get_children():
+		child.queue_free()
+	for child in %RewardPointB.get_children():
+		child.queue_free()
 #endregion
 
 
@@ -50,6 +84,7 @@ func start_game():
 	json.parse(file.get_as_text())
 	quiz = json.data
 	#endregion
+	clear_rewards.rpc()
 	players = get_players_present() # no state like real estate
 	make_teams()
 	for player in team_a_players:
@@ -57,6 +92,7 @@ func start_game():
 	for player in team_b_players:
 		player.global_position = %SpawnPointB.global_position
 	game_state = "active"
+	await show_countdown()
 	run_next_question()
 
 
@@ -82,6 +118,15 @@ func make_teams() -> void:
 	print("Team B: ", team_b_players)
 
 
+func show_countdown():
+	%ApparatusScreen.text = "3"
+	await get_tree().create_timer(1).timeout
+	%ApparatusScreen.text = "2"
+	await get_tree().create_timer(1).timeout
+	%ApparatusScreen.text = "1"
+	await get_tree().create_timer(1).timeout
+
+
 func run_next_question():
 	assert(multiplayer.is_server())
 	for key in current_question_points:
@@ -89,6 +134,7 @@ func run_next_question():
 	current_question_players_answered_count = 0
 	if current_question_index == len(quiz["questions"]):
 		print("end of quiz, yay")
+		%ApparatusScreen.text = ""
 		for player in players:
 			player.global_position = %SpawnPoint.global_position
 			await get_tree().create_timer(0.1).timeout
@@ -98,32 +144,32 @@ func run_next_question():
 			total_points[key] = 0
 		game_state = "inactive"
 		return
+	%ApparatusScreen.text = "?"
 	var question = quiz["questions"][current_question_index]
 	fill_and_activate_question.rpc([question])
 	%QuizMenu.show()
 	$QuestionTimer.start(question_time_in_s)
 	await $QuestionTimer.timeout
 	%QuizMenu.hide()
-	# check current question points
-	# reward winner (and throw comedic junk at losers?)
-	if current_question_points["team_a"] > current_question_points["team_b"]:
-		print("Team A wins this one!")
-	elif current_question_points["team_b"] > current_question_points["team_a"]:
-		print("Team B wins this one!")
-	else:
-		print("It's a tie!")
 	print("here's where stuff would fly out at the teams")
+	check_and_reward_winners()
 	await get_tree().create_timer(reward_time_in_s).timeout
 	current_question_index += 1
 	run_next_question()
 
 
-@rpc("authority","call_local")
-func fill_and_activate_question(args: Array):
-	var question = args[0]
-	%QuizQuestion.fill_out_question(question["question"], question["options"], question["answer"])
-	if not %QuizQuestion.item_list.item_selected.is_connected(on_answer_first_selected):
-		%QuizQuestion.item_list.item_selected.connect(on_answer_first_selected)
+func check_and_reward_winners():
+	var reward_a = true
+	var reward_b = true
+	if current_question_points["team_a"] > current_question_points["team_b"]:
+		reward_b = false
+	elif current_question_points["team_b"] > current_question_points["team_a"]:
+		reward_a = false
+	if reward_a:
+		spew_stuff.rpc(["%RewardPointA", %SpawnPointA.global_position, "snacks"])
+	if reward_b:
+		spew_stuff.rpc(["%RewardPointB", %SpawnPointB.global_position, "snacks"])
+	%ApparatusScreen.text = "GO"
 
 
 @rpc("any_peer", "call_remote")

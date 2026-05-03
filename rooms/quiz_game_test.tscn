@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_aphrj"]
 [ext_resource type="PackedScene" uid="uid://dheevgi1fsmup" path="res://items/collision_props/tall_button.tscn" id="5_1t1q7"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_5br6e"]
+[ext_resource type="Texture2D" uid="uid://cg56fsj1g5dtr" path="res://textures/static_textures/apparatus.png" id="6_aphrj"]
 [ext_resource type="PackedScene" uid="uid://i155sn4fkbml" path="res://ui/menus/chat_and_quiz/quiz_question.tscn" id="6_o6s05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
@@ -135,6 +136,9 @@ properties/4/replication_mode = 2
 properties/5/path = NodePath(".:current_question_points")
 properties/5/spawn = true
 properties/5/replication_mode = 2
+properties/6/path = NodePath("NavigationRegion2D/Decorations/Apparatus/ApparatusScreen:text")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
 script = ExtResource("1_p4v5p")
@@ -209,8 +213,37 @@ position = Vector2(654, 632)
 
 [node name="ActivateButton" parent="NavigationRegion2D/Decorations" unique_id=952456853 instance=ExtResource("5_1t1q7")]
 unique_name_in_owner = true
-position = Vector2(0, 56)
+position = Vector2(0, 103)
 button_id = "quiz_activate_button"
+
+[node name="Apparatus" type="Sprite2D" parent="NavigationRegion2D/Decorations" unique_id=741730026]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(0, -37.4)
+scale = Vector2(0.666, 0.666)
+texture = ExtResource("6_aphrj")
+
+[node name="ApparatusScreen" type="Label" parent="NavigationRegion2D/Decorations/Apparatus" unique_id=552613590]
+unique_name_in_owner = true
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+custom_minimum_size = Vector2(130, 130)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.25
+offset_top = -212.33325
+offset_right = -141.25
+offset_bottom = -82.33326
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999
@@ -234,6 +267,14 @@ position = Vector2(384, 668)
 [node name="SpawnPointB" type="Node2D" parent="." unique_id=1270445094]
 unique_name_in_owner = true
 position = Vector2(925, 668)
+
+[node name="RewardPointA" type="Node2D" parent="." unique_id=285392321]
+unique_name_in_owner = true
+position = Vector2(545, 557)
+
+[node name="RewardPointB" type="Node2D" parent="." unique_id=859564890]
+unique_name_in_owner = true
+position = Vector2(763, 556)
 
 [node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
 unique_name_in_owner = true
