@@ -5,18 +5,45 @@ var players_joined := 0
 
 
 func _ready() -> void:
-	multiplayer.connected_to_server.connect(print.bind("Connected to server (as client)"))
-	multiplayer.connected_to_server.connect($DebugMenu.show_sub_menu.bind("TEACHERSTUDENT"))
+	multiplayer.connected_to_server.connect(print.bind("Connected to server as client"))
 	multiplayer.peer_disconnected.connect(remove_personal_room)
 	multiplayer.peer_disconnected.connect(remove_player)
 	SignalBus.new_player_info_received.connect(request_spawn_from_server)
 	SignalBus.player_clicked_join_room.connect(request_join_room_from_server)
 	SignalBus.activity_launched.connect(request_activity_launch_from_server)
 	
+	prints(OS.get_name(), OS.get_model_name())
+	
 	if OS.has_feature("dedicated_server"):
 		NetworkHandler.start_server()
 	elif OS.has_feature("web"):
 		NetworkHandler.start_client()
+		# put some screen here to shor "Connecting..." or smth
+		await multiplayer.connected_to_server
+		var player_info = {"playername" : "", "playerrole" : ""}
+		#region the better way except it doesn't work lmao
+		#var _on_cookie = func(args):
+			#print("callback called")
+			#var cookie = args[0]
+			#print(cookie)
+		#var _cookie_callback = JavaScriptBridge.create_callback(_on_cookie)
+		#var cookie_store = JavaScriptBridge.get_interface("cookieStore")
+		#cookie_store.get("playername").then(_cookie_callback)
+		#cookie_store.get("playerrole").then(_cookie_callback)
+		#endregion
+		var cookies = []
+		for cookie_string in JavaScriptBridge.eval("document.cookie").split("; "):
+			cookies.append({
+				"name" : cookie_string.split("=")[0],
+				"value" : cookie_string.split("=")[1]
+			})
+		for cookie in cookies:
+			if cookie.name == "playername" or cookie.name == "playerrole":
+				player_info[cookie.name] = cookie.value
+		if not (player_info["playername"] == "" or player_info["playerrole"] == ""):
+			SignalBus.new_player_info_received.emit(player_info["playername"], player_info["playerrole"])
+		else: # didn't get player info from cookie, so we show menu for manual entry
+			$DebugMenu.show_sub_menu("TEACHERSTUDENT")
 	else:
 		$DebugMenu.show_sub_menu("SERVERCLIENT")
 
