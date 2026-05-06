@@ -11,7 +11,7 @@ This project, built in Godot, includes client and server functionality in the sa
 
 - **Engine**: Godot 4.6 (GDScript only, no external dependencies)
 - **Renderer**: GL Compatibility (supports mobile/web targets)
-- **Networking**: Godot built-in `WebSocketMultiplayerPeer`, port 80
+- **Networking**: Godot built-in `WebSocketMultiplayerPeer`, port 8910
 - **Physics**: Godot built-in 2D physics
 
 ---
@@ -90,7 +90,6 @@ Rooms are scenes with a bunch of different nodes, but not really any mandatory c
 
 *"Uh, yeah, I sure hope it does.""*
 
-- Browsers get real pissy about WebSockets port numbers, so keep the ``GAME_SERVER_PORT`` as either 80 or 443 in ``env.json``.
 - If running the [multi-agent server](https://github.com/Syvxn/AiMO-Agents) locally, keep the ``GAME_SERVER_URL`` domain name as ``localhost`` in ``env.json``. Otherwise Godot implements a mysterious 30s wait time for HTTP requests.
 
 ### Debugging

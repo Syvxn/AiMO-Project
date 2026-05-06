@@ -31,7 +31,7 @@ func _ready() -> void:
 			Env.GAME_SERVER_URL = "%s://%s:%d" % [ws_scheme, host, Env.GAME_SERVER_PORT]
 		print("Web client target:", Env.GAME_SERVER_URL)
 		NetworkHandler.start_client()
-		# put some screen here to shor "Connecting..." or smth
+		# put some screen here to show "Connecting..." or smth
 		await multiplayer.connected_to_server
 		var player_info = {"playername" : "", "playerrole" : ""}
 		#region the better way except it doesn't work lmao
