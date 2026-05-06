@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --bg-1: #112a46;
+  --bg-2: #3b185f;
+  --bg-3: #0d1321;
+  --surface: #0f172a;
+  --foreground: #f8fafc;
+  --muted: #cbd5e1;
+}
+
+@theme inline {
+  --color-background: var(--surface);
+  --color-foreground: var(--foreground);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+body {
+  background: radial-gradient(circle at top left, var(--bg-1) 0%, transparent 35%),
+    radial-gradient(circle at top right, #4a1f4f 0%, transparent 30%),
+    linear-gradient(135deg, var(--bg-2), var(--bg-3));
+  color: var(--foreground);
+  font-family: var(--font-body), serif;
+}
+
+.app-bg {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+.btn-primary {
+  border-radius: 999px;
+  background: linear-gradient(120deg, #f97316, #facc15);
+  color: #020617;
+  padding: 0.7rem 1.2rem;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  border-radius: 999px;
+  border: 1px solid rgba(248, 250, 252, 0.35);
+  padding: 0.7rem 1.2rem;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+}
+
+.card {
+  border-radius: 1rem;
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  background: rgba(2, 6, 23, 0.45);
+  padding: 1.25rem;
+}
