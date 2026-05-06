@@ -13,13 +13,13 @@ from app.database import get_db
 router = APIRouter(prefix="/auth", tags=["auth"])
 bearer_scheme = HTTPBearer(auto_error=False)
 
-Role = Literal["admin", "teacher", "student"]
+PublicRole = Literal["teacher", "student"]
 
 
 class RegisterRequest(BaseModel):
     email: EmailStr
     password: str
-    role: Role = "student"
+    role: PublicRole = "student"
 
 
 class LoginRequest(BaseModel):
