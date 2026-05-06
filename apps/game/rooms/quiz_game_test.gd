@@ -40,9 +40,14 @@ func fill_and_activate_question(args: Array):
 # reusing existing quiz functionality 
 func on_answer_first_selected(_index: int):
 	%QuizQuestion.item_list.item_selected.disconnect(on_answer_first_selected)
-	if %QuizQuestion.check_answer():
+	if %QuizQuestion.check_answer(false):
 		give_team_point_by_player.rpc_id(1, [multiplayer.get_unique_id()])
 	count_answer.rpc_id(1)
+
+# lmao
+@rpc("authority", "call_local")
+func show_correct_answer():
+	%QuizQuestion.show_correct_answer()
 
 # also called on server for debugging purposes
 @rpc("authority", "call_local")
@@ -150,6 +155,8 @@ func run_next_question():
 	%QuizMenu.show()
 	$QuestionTimer.start(question_time_in_s)
 	await $QuestionTimer.timeout
+	show_correct_answer.rpc()
+	await get_tree().create_timer(1.5).timeout
 	%QuizMenu.hide()
 	print("here's where stuff would fly out at the teams")
 	check_and_reward_winners()

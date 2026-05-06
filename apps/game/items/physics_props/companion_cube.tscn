@@ -5,6 +5,11 @@
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qtbqk"]
 points = PackedVector2Array(-16, 11, -2, 16, 2, 16, 16, 11, 16, 7, 2, 2, -2, 2, -16, 7)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ihn12"]
+properties/0/path = NodePath(".:linear_velocity")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="CompanionCube" type="RigidBody2D" unique_id=1013754895 groups=["movables"]]
 z_index = 1
 z_as_relative = false
@@ -25,3 +30,6 @@ z_as_relative = false
 y_sort_enabled = true
 texture = ExtResource("1_qtbqk")
 offset = Vector2(0, -9)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1661501862]
+replication_config = SubResource("SceneReplicationConfig_ihn12")
