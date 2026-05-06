@@ -5,3 +5,5 @@
 exports/linux_server/*
 exports/windows_client/*
 exports/windows_server/*
+exports/web_client/*
+!exports/web_client/hereforgit.txt
