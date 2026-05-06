@@ -2,4 +2,6 @@
 .godot/
 /android/
 .env.json
-exports/*
+exports/linux_server/*
+exports/windows_client/*
+exports/windows_server/*
