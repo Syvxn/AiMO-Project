@@ -11,9 +11,9 @@ class Settings:
     """Immutable configuration object passed to the graph and all agents."""
 
     # Hugging Face model IDs — one per agent role.
-    # Any model that supports text-generation on HF Hub can be used here.
     orchestrator_model_id: str
     teacher_model_id: str
+    teacher_distractor_model_id: str
 
     # Controls how many new tokens the model is allowed to generate per call.
     # Increase this if quizzes are being cut off mid-output.
@@ -52,7 +52,10 @@ def load_settings() -> Settings:
             "ORCHESTRATOR_MODEL_ID", "HuggingFaceTB/SmolLM2-360M-Instruct"
         ),
         teacher_model_id=os.getenv(
-            "TEACHER_MODEL_ID", "HuggingFaceTB/SmolLM2-360M-Instruct"
+            "TEACHER_MODEL_ID", "potsawee/t5-large-generation-squad-QuestionAnswer"
+        ),
+        teacher_distractor_model_id=os.getenv(
+            "TEACHER_DISTRACTOR_MODEL_ID", "potsawee/t5-large-generation-race-Distractor"
         ),
         max_new_tokens=int(os.getenv("MAX_NEW_TOKENS", "512")),
         temperature=float(os.getenv("TEMPERATURE", "0.2")),

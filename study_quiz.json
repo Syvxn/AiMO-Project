@@ -1,45 +1,85 @@
 {
-    "quiz_title": "English Quiz: colours",
+    "quiz_title": "English Quiz: colors",
     "questions": [
         {
-            "question": "What colour is the sky described as in the text?",
+            "question": "What is the colour of the sky and the sea?",
             "options": [
-                "A: Red",
-                "B: Blue",
+                "A: Green",
+                "B: Yellow",
+                "C: Blue",
+                "D: Red"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "What is the colour of the sun and bananas?",
+            "options": [
+                "A: Orange",
+                "B: Yellow",
                 "C: Green",
-                "D: Yellow"
+                "D: Blue"
             ],
             "answer": "B"
         },
         {
-            "question": "Complete the sentence: 'Purple is a mix of red and ___.'",
+            "question": "Complete the sentence from the colors material: Black is the ____ colour.?",
             "options": [
-                "A: yellow",
+                "A: called",
+                "B: very",
+                "C: darkest",
+                "D: cool"
+            ],
+            "answer": "C"
+        },
+        {
+            "question": "Choose the best word to fill the blank: White is the ____ colour.?",
+            "options": [
+                "A: leaves",
+                "B: lightest",
+                "C: light",
+                "D: basic"
+            ],
+            "answer": "B"
+        },
+        {
+            "question": "From the colors lesson text, which word fits the blank: Neon ____ are very bright.?",
+            "options": [
+                "A: colours",
+                "B: english",
+                "C: forest",
+                "D: naming"
+            ],
+            "answer": "A"
+        },
+        {
+            "question": "Complete the sentence from the colors material: Pink is a ____ red colour.?",
+            "options": [
+                "A: purple",
                 "B: green",
-                "C: orange",
-                "D: blue"
+                "C: people",
+                "D: light"
             ],
             "answer": "D"
         },
         {
-            "question": "What word describes the darkness of the night?",
+            "question": "Choose the best word to fill the blank: Grey is ____ black and white.?",
             "options": [
-                "A: Light",
-                "B: Dark",
-                "C: Bright",
-                "D: Shadowy"
+                "A: forest",
+                "B: between",
+                "C: bananas",
+                "D: important"
             ],
             "answer": "B"
         },
         {
-            "question": "Which colour is often associated with royalty?",
+            "question": "From the colors lesson text, which word fits the blank: Dark ____ is called navy blue.?",
             "options": [
-                "A: Gold",
-                "B: Blue",
-                "C: Green",
-                "D: Red"
+                "A: t-shirt",
+                "B: blue",
+                "C: part",
+                "D: such"
             ],
-            "answer": "A"
+            "answer": "B"
         }
     ]
 }
