@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ProtectedRoute } from '@/components/protected-route';
+import { ProtectedRoute } from "@/components/protected-route";
 
 function AdminContent() {
   return (

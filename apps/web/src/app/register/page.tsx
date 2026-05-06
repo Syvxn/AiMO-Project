@@ -1,34 +1,36 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
-import { registerUser } from '@/lib/api';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { registerUser } from "@/lib/api";
+
+type Role = "student" | "teacher" | "admin";
 
 export default function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState<'student' | 'teacher' | 'admin'>('student');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState<Role>("student");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
       if (password.length < 8) {
-        throw new Error('Password must be at least 8 characters');
+        throw new Error("Password must be at least 8 characters");
       }
       const response = await registerUser(email, password, role);
       login(response.access_token, email, response.role);
-      router.push('/play');
+      router.push("/play");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
+      setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
       setIsLoading(false);
     }
@@ -87,7 +89,7 @@ export default function RegisterPage() {
           <select
             id="role"
             value={role}
-            onChange={(e) => setRole(e.target.value as any)}
+            onChange={(e) => setRole(e.target.value as Role)}
             className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
           >
             <option value="student">Student</option>
@@ -96,10 +98,10 @@ export default function RegisterPage() {
           </select>
         </div>
         <button className="btn-primary w-full" type="submit" disabled={isLoading}>
-          {isLoading ? 'Creating Account...' : 'Create Account'}
+          {isLoading ? "Creating Account..." : "Create Account"}
         </button>
         <p className="text-center text-sm text-text-beige">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <a href="/login" className="text-accent-yellow hover:text-accent-orange underline">
             Login
           </a>

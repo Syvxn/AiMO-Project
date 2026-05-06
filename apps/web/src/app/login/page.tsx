@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
-import { loginUser } from '@/lib/api';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { loginUser } from "@/lib/api";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setIsLoading(true);
 
     try {
       const response = await loginUser(email, password);
       login(response.access_token, email, response.role);
-      router.push('/play');
+      router.push("/play");
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError(err instanceof Error ? err.message : "Login failed");
     } finally {
       setIsLoading(false);
     }
@@ -60,15 +60,11 @@ export default function LoginPage() {
             required
           />
         </div>
-        <button
-          className="btn-primary w-full"
-          type="submit"
-          disabled={isLoading}
-        >
-          {isLoading ? 'Signing in...' : 'Sign In'}
+        <button className="btn-primary w-full" type="submit" disabled={isLoading}>
+          {isLoading ? "Signing in..." : "Sign In"}
         </button>
         <p className="text-center text-sm text-text-beige">
-          Don't have an account?{' '}
+          Do not have an account?{" "}
           <a href="/register" className="text-accent-yellow hover:text-accent-orange underline">
             Register
           </a>

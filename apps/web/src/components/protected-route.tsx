@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/lib/auth-context';
-import { ReactNode, useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth-context";
+import { ReactNode, useEffect } from "react";
 
 interface ProtectedRouteProps {
   children: ReactNode;
-  requiredRole?: 'admin' | 'teacher' | 'student';
+  requiredRole?: "admin" | "teacher" | "student";
 }
 
 export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
@@ -15,9 +15,9 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      router.push('/login');
+      router.push("/login");
     } else if (!isLoading && requiredRole && role !== requiredRole) {
-      router.push('/');
+      router.push("/");
     }
   }, [isLoading, isAuthenticated, role, requiredRole, router]);
 
