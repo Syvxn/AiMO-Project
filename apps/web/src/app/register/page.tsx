@@ -36,12 +36,12 @@ export default function RegisterPage() {
 
   return (
     <section className="space-y-6">
-      <h1 className="font-display text-4xl">Register</h1>
+      <h1 className="font-display text-4xl text-text-natural">Register</h1>
       <form className="card max-w-xl space-y-4" onSubmit={handleSubmit}>
-        {error && <div className="text-red-400 text-sm">{error}</div>}
+        {error && <div className="text-accent-orange text-sm">{error}</div>}
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-1">
-            <label htmlFor="name" className="text-sm text-slate-300">
+            <label htmlFor="name" className="text-sm text-text-beige">
               Display Name
             </label>
             <input
@@ -49,11 +49,11 @@ export default function RegisterPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-md border border-white/20 bg-slate-950/60 px-3 py-2"
+              className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
             />
           </div>
           <div className="space-y-1">
-            <label htmlFor="email" className="text-sm text-slate-300">
+            <label htmlFor="email" className="text-sm text-text-beige">
               Email
             </label>
             <input
@@ -61,13 +61,13 @@ export default function RegisterPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-md border border-white/20 bg-slate-950/60 px-3 py-2"
+              className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
               required
             />
           </div>
         </div>
         <div className="space-y-1">
-          <label htmlFor="password" className="text-sm text-slate-300">
+          <label htmlFor="password" className="text-sm text-text-beige">
             Password
           </label>
           <input
@@ -75,20 +75,20 @@ export default function RegisterPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-md border border-white/20 bg-slate-950/60 px-3 py-2"
+            className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
             required
           />
-          <p className="text-xs text-slate-400">Minimum 8 characters</p>
+          <p className="text-xs text-text-beige">Minimum 8 characters</p>
         </div>
         <div className="space-y-1">
-          <label htmlFor="role" className="text-sm text-slate-300">
+          <label htmlFor="role" className="text-sm text-text-beige">
             Role
           </label>
           <select
             id="role"
             value={role}
             onChange={(e) => setRole(e.target.value as any)}
-            className="w-full rounded-md border border-white/20 bg-slate-950/60 px-3 py-2"
+            className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
           >
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
@@ -98,9 +98,9 @@ export default function RegisterPage() {
         <button className="btn-primary w-full" type="submit" disabled={isLoading}>
           {isLoading ? 'Creating Account...' : 'Create Account'}
         </button>
-        <p className="text-center text-sm text-slate-400">
+        <p className="text-center text-sm text-text-beige">
           Already have an account?{' '}
-          <a href="/login" className="text-amber-400 hover:underline">
+          <a href="/login" className="text-accent-yellow hover:text-accent-orange underline">
             Login
           </a>
         </p>

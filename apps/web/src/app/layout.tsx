@@ -30,13 +30,13 @@ export default function RootLayout({
       lang="en"
       className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full app-bg text-slate-100">
+      <body className="min-h-full app-bg text-natural-white">
         <AuthProvider>
-          <header className="border-b border-white/15 bg-black/25 backdrop-blur-md">
+          <header className="border-b border-accent-orange/30 bg-gradient-to-r from-bg-dark to-bg-medium/80 backdrop-blur-md">
             <Navigation />
           </header>
           <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 py-8">{children}</main>
-          <footer className="border-t border-white/15 bg-black/30 px-6 py-4 text-xs text-slate-300">
+          <footer className="border-t border-accent-orange/20 bg-gradient-to-r from-bg-darkest to-bg-dark/90 px-6 py-4 text-xs">
             <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
               <p>AiMO Website MVP</p>
               <p>Open-source learning platform</p>
