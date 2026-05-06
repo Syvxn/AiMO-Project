@@ -1,0 +1,195 @@
+extends Node2D
+
+var display_name := "Quiz Game"
+var game_state := "inactive"
+var players : Array[CharacterBody2D]
+var team_a_players : Array[CharacterBody2D]
+var team_b_players : Array[CharacterBody2D]
+var total_points = {"team_a" : 0, "team_b" : 0}
+var current_question_points = {"team_a" : 0, "team_b" : 0}
+var current_question_players_answered_count = 0
+var quiz : Dictionary
+var current_question_index := 0
+
+@export var question_time_in_s := 10
+@export var reward_time_in_s := 5
+
+
+func _ready() -> void:
+	%QuizMenu.hide()
+
+
+#region client functionality
+# implicitly client-side since no-one to push button on server
+func _on_activate_button_pushed(_id: String) -> void:
+	if game_state == "inactive":
+		request_start_game_from_server()
+
+# rpc_id(1) means we're calling that function on the server
+func request_start_game_from_server():
+	start_game.rpc_id(1)
+
+# also called on server for debugging purposes
+@rpc("authority","call_local")
+func fill_and_activate_question(args: Array):
+	var question = args[0]
+	%QuizQuestion.fill_out_question(question["question"], question["options"], question["answer"])
+	if not %QuizQuestion.item_list.item_selected.is_connected(on_answer_first_selected):
+		%QuizQuestion.item_list.item_selected.connect(on_answer_first_selected)
+
+# reusing existing quiz functionality 
+func on_answer_first_selected(_index: int):
+	%QuizQuestion.item_list.item_selected.disconnect(on_answer_first_selected)
+	if %QuizQuestion.check_answer():
+		give_team_point_by_player.rpc_id(1, [multiplayer.get_unique_id()])
+	count_answer.rpc_id(1)
+
+# also called on server for debugging purposes
+@rpc("authority", "call_local")
+func spew_stuff(args: Array):
+	var reward_point_node = get_node(args[0])
+	var target_position = args[1]
+	var type = args[2]
+	var types = {
+		"snacks" : "res://items/physics_props/random_snack.tscn",
+	}
+	for i in range(20):
+		var stuff_instance = load(types[type]).instantiate()
+		reward_point_node.add_child(stuff_instance)
+		target_position.x += randi_range(-10, 10)
+		target_position.y += randi_range(-10, 10)
+		var impulse = stuff_instance.global_position.direction_to(target_position) * 500
+		stuff_instance.apply_central_impulse(impulse)
+		await get_tree().create_timer(0.1).timeout
+
+# also called on server for debugging purposes
+@rpc("authority", "call_local")
+func clear_rewards():
+	for child in %RewardPointA.get_children():
+		child.queue_free()
+	for child in %RewardPointB.get_children():
+		child.queue_free()
+#endregion
+
+
+#region server functionality
+@rpc("any_peer", "call_remote")
+func start_game():
+	assert(multiplayer.is_server())
+	game_state = "preparing"
+	#region quiz generation
+	# cheating with JSON file for testing
+	var file = FileAccess.open("res://misc/test_quiz.json", FileAccess.READ)
+	var json = JSON.new()
+	json.parse(file.get_as_text())
+	quiz = json.data
+	#endregion
+	clear_rewards.rpc()
+	players = get_players_present() # no state like real estate
+	make_teams()
+	for player in team_a_players:
+		player.global_position = %SpawnPointA.global_position
+	for player in team_b_players:
+		player.global_position = %SpawnPointB.global_position
+	game_state = "active"
+	await show_countdown()
+	run_next_question()
+
+
+func get_players_present() -> Array[CharacterBody2D]:
+	assert(multiplayer.is_server())
+	var players_here : Array[CharacterBody2D]
+	for body in %EjectionArea.get_overlapping_bodies():
+		if body.is_in_group("players"):
+			players_here.append(body)
+	print(players_here)
+	return players_here
+
+
+func make_teams() -> void:
+	assert(multiplayer.is_server())
+	players.shuffle()
+	for i in range(len(players)):
+		if i % 2 == 0:
+			team_a_players.append(players[i])
+		else:
+			team_b_players.append(players[i])
+	print("Team A: ", team_a_players)
+	print("Team B: ", team_b_players)
+
+
+func show_countdown():
+	%ApparatusScreen.text = "3"
+	await get_tree().create_timer(1).timeout
+	%ApparatusScreen.text = "2"
+	await get_tree().create_timer(1).timeout
+	%ApparatusScreen.text = "1"
+	await get_tree().create_timer(1).timeout
+
+
+func run_next_question():
+	assert(multiplayer.is_server())
+	for key in current_question_points:
+		current_question_points[key] = 0
+	current_question_players_answered_count = 0
+	if current_question_index == len(quiz["questions"]):
+		print("end of quiz, yay")
+		%ApparatusScreen.text = ""
+		for player in players:
+			player.global_position = %SpawnPoint.global_position
+			await get_tree().create_timer(0.1).timeout
+		team_a_players.clear()
+		team_b_players.clear()
+		for key in total_points:
+			total_points[key] = 0
+		game_state = "inactive"
+		return
+	%ApparatusScreen.text = "?"
+	var question = quiz["questions"][current_question_index]
+	fill_and_activate_question.rpc([question])
+	%QuizMenu.show()
+	$QuestionTimer.start(question_time_in_s)
+	await $QuestionTimer.timeout
+	%QuizMenu.hide()
+	print("here's where stuff would fly out at the teams")
+	check_and_reward_winners()
+	await get_tree().create_timer(reward_time_in_s).timeout
+	current_question_index += 1
+	run_next_question()
+
+
+func check_and_reward_winners():
+	var reward_a = true
+	var reward_b = true
+	if current_question_points["team_a"] > current_question_points["team_b"]:
+		reward_b = false
+	elif current_question_points["team_b"] > current_question_points["team_a"]:
+		reward_a = false
+	if reward_a:
+		spew_stuff.rpc(["%RewardPointA", %SpawnPointA.global_position, "snacks"])
+	if reward_b:
+		spew_stuff.rpc(["%RewardPointB", %SpawnPointB.global_position, "snacks"])
+	%ApparatusScreen.text = "GO"
+
+
+@rpc("any_peer", "call_remote")
+func give_team_point_by_player(args: Array):
+	assert(multiplayer.is_server())
+	var id = args[0]
+	# no need to store anything in player
+	if team_a_players.any(func(player): return int(player.name) == id):
+		current_question_points["team_a"] += 1
+		total_points["team_a"] += 1
+	elif team_b_players.any(func(player): return int(player.name) == id):
+		current_question_points["team_b"] += 1
+		total_points["team_b"] += 1
+
+
+@rpc("any_peer", "call_remote")
+func count_answer() -> void:
+	assert(multiplayer.is_server())
+	current_question_players_answered_count += 1
+	if current_question_players_answered_count == len(team_a_players) + len(team_b_players):
+		print("Everybody answered")
+		$QuestionTimer.start(1)
+#endregion

@@ -1,0 +1,28 @@
+{
+	"items" : {
+		"body_item" : "basic",
+		"eyes_item" : "basic",
+		"hair_item" : "faith",
+		"shirt_item" : "tanktop_faith",
+		"pants_item" : "pants_faith",
+		"jacket_item" : "",
+		"shoes_item" : "shoes_faith",
+		"accessory1_item" : "",
+		"accessory2_item" : "",
+		"accessory3_item" : "",
+		"costume_item" : "faith"
+	},
+	"colors" : {
+		"body_color" : "E5BBAA",
+		"eyes_color" : "212121",
+		"hair_color" : "212121",
+		"shirt_color" : "212121",
+		"pants_color" : "B1DAF0",
+		"jacket_color" : "FFFFFF",
+		"shoes_color" : "F0F0F0",
+		"accessory1_color" : "FFFFFF",
+		"accessory2_color" : "FFFFFF",
+		"accessory3_color" : "FFFFFF",
+	},
+	"use_costume" : false
+}

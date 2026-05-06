@@ -1,0 +1,33 @@
+[gd_resource type="TileSet" format=3 uid="uid://8t2h13jjtxag"]
+
+[ext_resource type="Texture2D" uid="uid://c8y3hmhbn08co" path="res://textures/tilesheets/floors_test.png" id="1_48pqm"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cxqb2"]
+texture = ExtResource("1_48pqm")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+9:0/0 = 0
+9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -8, -16, 0, 0, 8, 16, 0)
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+sources/1 = SubResource("TileSetAtlasSource_cxqb2")

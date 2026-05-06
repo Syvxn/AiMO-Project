@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cf4547yfvchiw"]
+
+[sub_resource type="GDScript" id="GDScript_6uf08"]
+script/source = "extends Marker2D
+
+# losing the plot, as it were
+#var inhabitant_username := \"\"
+#var inhabitant_peer_id := -1
+var plot_available := true
+
+
+
+func reset():
+	#inhabitant_username = \"\"
+	#inhabitant_peer_id = -1
+	plot_available = true
+"
+
+[node name="PlotMarker" type="Marker2D" unique_id=1053809868]
+script = SubResource("GDScript_6uf08")

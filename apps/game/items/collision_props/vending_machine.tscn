@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b8ui2d4tsgu2y"]
+
+[ext_resource type="Script" uid="uid://bxeskqvkb88d7" path="res://items/collision_props/vending_machine.gd" id="1_1xjtc"]
+[ext_resource type="SpriteFrames" uid="uid://pdggw1o8sqa3" path="res://textures/sprite_frames/vending_machine.tres" id="1_qfs16"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qfs16"]
+radius = 14.0
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qfs16"]
+points = PackedVector2Array(-17, -9, 21, 10, -4, 22, -42, 3)
+
+[node name="VendingMachine" type="Area2D" unique_id=1943679091 groups=["npcs"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_1xjtc")
+
+[node name="InteractCollision" type="CollisionShape2D" parent="." unique_id=1516354074]
+position = Vector2(-11, 6)
+shape = SubResource("CircleShape2D_qfs16")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1013802056]
+sprite_frames = ExtResource("1_qfs16")
+animation = &"yes"
+autoplay = "dark"
+frame = 4
+frame_progress = 1.0
+offset = Vector2(0, -27)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1299993850]
+
+[node name="BodyCollision" type="CollisionShape2D" parent="StaticBody2D" unique_id=1866313592]
+position = Vector2(11, -6)
+shape = SubResource("ConvexPolygonShape2D_qfs16")
+
+[node name="SleepTimer" type="Timer" parent="." unique_id=107491631]
+wait_time = 10.0
+one_shot = true
+
+[node name="SnackPoint" type="Node2D" parent="." unique_id=403652711]
+unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(-25, 9)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="SleepTimer" to="." method="_on_sleep_timer_timeout"]

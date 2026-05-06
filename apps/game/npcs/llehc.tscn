@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bbbf6kotug4kf"]
+
+[ext_resource type="Script" uid="uid://d05snqyunf2qk" path="res://npcs/llehc.gd" id="1_1nwid"]
+[ext_resource type="Texture2D" uid="uid://b3dko673v4hou" path="res://textures/spritesheets/chell_inv.png" id="1_a3fya"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efieq"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3fya"]
+radius = 7.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nwid"]
+atlas = ExtResource("1_a3fya")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3fya"]
+atlas = ExtResource("1_a3fya")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivh5v"]
+atlas = ExtResource("1_a3fya")
+region = Rect2(64, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s12ax"]
+atlas = ExtResource("1_a3fya")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ivh5v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nwid")
+}],
+"loop": true,
+"name": &"stand_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3fya")
+}],
+"loop": true,
+"name": &"stand_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivh5v")
+}],
+"loop": true,
+"name": &"stand_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s12ax")
+}],
+"loop": true,
+"name": &"stand_up",
+"speed": 5.0
+}]
+
+[node name="Llehc" type="Area2D" unique_id=1888177192 groups=["npcs"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_1nwid")
+
+[node name="InteractionAreaCollision" type="CollisionShape2D" parent="." unique_id=1798813788]
+shape = SubResource("CircleShape2D_efieq")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2104096442]
+
+[node name="BodyCollision" type="CollisionShape2D" parent="StaticBody2D" unique_id=1785117043]
+shape = SubResource("CircleShape2D_a3fya")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1946860278]
+sprite_frames = SubResource("SpriteFrames_ivh5v")
+animation = &"stand_down"
+autoplay = "stand_down"
+offset = Vector2(0, -32)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1236513558]
+avoidance_enabled = true
+radius = 20.0

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b1vw47qi4pr7j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfnwe"]
+border_width_left = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6, 0.6, 0.6, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="ChatBubble" type="MarginContainer" unique_id=216252088]
+offset_right = 29.0
+offset_bottom = 14.0
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BubbleText" type="RichTextLabel" parent="." unique_id=367681210]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gfnwe")
+fit_content = true
+scroll_active = false

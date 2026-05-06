@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b73chvvckrijn"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_lohur"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rogwg"]
+atlas = ExtResource("1_lohur")
+region = Rect2(65, 65, 64, 64)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_lohur"]
+points = PackedVector2Array(-18, 0, -1, 9, 14, 0, -3, -9)
+
+[node name="Chair" type="Sprite2D" unique_id=1229567162]
+texture = SubResource("AtlasTexture_rogwg")
+offset = Vector2(0, -17)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1281509878]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=681136463]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+shape = SubResource("ConvexPolygonShape2D_lohur")

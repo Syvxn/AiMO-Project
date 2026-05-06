@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dheevgi1fsmup"]
+
+[ext_resource type="Texture2D" uid="uid://bj8osu0ehonyi" path="res://textures/spritesheets/props/tallbutton.png" id="1_edync"]
+[ext_resource type="Script" uid="uid://dr0lvnnk3wqcl" path="res://items/collision_props/tall_button.gd" id="2_lkmgf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lkmgf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lkmgf"]
+size = Vector2(6, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkmgf"]
+atlas = ExtResource("1_edync")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rd23u"]
+atlas = ExtResource("1_edync")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d3xv2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkmgf")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.1,
+"texture": SubResource("AtlasTexture_lkmgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rd23u")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_lkmgf")
+}],
+"loop": false,
+"name": &"push",
+"speed": 5.0
+}]
+
+[node name="TallButton" type="Area2D" unique_id=952456853 groups=["buttons", "npcs"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("2_lkmgf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=818355397]
+position = Vector2(0, 14)
+shape = SubResource("CircleShape2D_lkmgf")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=134116442]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1014849718]
+position = Vector2(0, 14.5)
+shape = SubResource("RectangleShape2D_lkmgf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=556339380]
+position = Vector2(0, 14)
+sprite_frames = SubResource("SpriteFrames_d3xv2")
+animation = &"push"
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+offset = Vector2(0.1, -14)
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=1129079513]
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

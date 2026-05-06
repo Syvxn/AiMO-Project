@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://fw6yn83qxa3k"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_wpraq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywii3"]
+atlas = ExtResource("1_wpraq")
+region = Rect2(129, 65, 64, 64)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_4ofkf"]
+points = PackedVector2Array(24, -1, -4, 13, -22, 5, 6, -8)
+
+[node name="Table" type="Sprite2D" unique_id=573156054]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_ywii3")
+offset = Vector2(0, -11)
+flip_h = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1146220939]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1393761753]
+shape = SubResource("ConvexPolygonShape2D_4ofkf")

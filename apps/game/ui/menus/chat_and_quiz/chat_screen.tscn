@@ -1,0 +1,210 @@
+[gd_scene format=3 uid="uid://c8x34nugd04c8"]
+
+[ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_and_quiz/chat_screen.gd" id="1_ldjw3"]
+[ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tanbp"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.3019608, 0.3019608, 0.3019608, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="ChatScreen" type="CanvasLayer" unique_id=916964389 groups=["menus"]]
+layer = 2
+script = ExtResource("1_ldjw3")
+
+[node name="Control" type="Control" parent="." unique_id=1024478060]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=564910708]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/MarginContainer" unique_id=1262480437]
+layout_mode = 2
+ratio = 0.8
+
+[node name="ChatPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=940803565]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_ywf3k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel" unique_id=1493294553]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer" unique_id=1181069298]
+custom_minimum_size = Vector2(0, 528.855)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ChatScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer2" unique_id=797728545]
+unique_name_in_owner = true
+layout_mode = 2
+follow_focus = true
+
+[node name="ChatContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer2/ChatScrollContainer" unique_id=532373280]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer" unique_id=1268693992]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer" unique_id=1891246671]
+layout_mode = 2
+theme = ExtResource("2_ywf3k")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ywf3k")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel" unique_id=1696599969]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer" unique_id=1463605355]
+layout_mode = 2
+
+[node name="ChatInputField" type="LineEdit" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=549342335]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ywf3k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tanbp")
+placeholder_text = "Say something"
+keep_editing_on_text_submit = true
+
+[node name="ChatSubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=1581675107]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = ">"
+
+[node name="QuizPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=475803253]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme = ExtResource("2_ywf3k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel" unique_id=1190304992]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="QuizTitle" type="Label" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer" unique_id=567562370]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 19
+text = "[Quiz title should display here]"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 4
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer" unique_id=1781376330]
+custom_minimum_size = Vector2(0, 470)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="QuizScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2" unique_id=1646867412]
+layout_mode = 2
+follow_focus = true
+
+[node name="QuizContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer2/QuizScrollContainer" unique_id=611882034]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer" unique_id=2086709548]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer" unique_id=349814682]
+layout_mode = 2
+theme = ExtResource("2_ywf3k")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ywf3k")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel" unique_id=1966372623]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer" unique_id=1911409843]
+layout_mode = 2
+
+[node name="QuizCloseButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=943818700]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ywf3k")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tanbp")
+text = "Close"
+
+[node name="QuizSubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=504919708]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Submit"
+
+[connection signal="text_submitted" from="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/ChatInputField" to="." method="_on_chat_input_field_text_submitted"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/ChatSubmitButton" to="." method="_on_chat_submit_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizCloseButton" to="." method="_on_quiz_close_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/AspectRatioContainer/QuizPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer/QuizSubmitButton" to="." method="_on_quiz_submit_button_pressed"]

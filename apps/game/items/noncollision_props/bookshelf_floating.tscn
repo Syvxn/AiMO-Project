@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b64654j1fnohy"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_n25ce"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57krh"]
+atlas = ExtResource("1_n25ce")
+region = Rect2(138, 34, 44, 29)
+
+[node name="BookShelfFloating" type="Sprite2D" unique_id=815231254]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_57krh")
+offset = Vector2(0, 9)

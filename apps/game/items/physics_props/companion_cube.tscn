@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://fcjif3xqw2o4"]
+
+[ext_resource type="Texture2D" uid="uid://cw1w4p5pig0dt" path="res://textures/static_textures/companion_cube.png" id="1_qtbqk"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qtbqk"]
+points = PackedVector2Array(-16, 11, -2, 16, 2, 16, 16, 11, 16, 7, 2, 2, -2, 2, -16, 7)
+
+[node name="CompanionCube" type="RigidBody2D" unique_id=1013754895 groups=["movables"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+mass = 50.0
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1570555660]
+z_index = 1
+position = Vector2(0, -9)
+shape = SubResource("ConvexPolygonShape2D_qtbqk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1069940731]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = ExtResource("1_qtbqk")
+offset = Vector2(0, -9)

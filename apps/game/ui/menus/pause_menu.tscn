@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d4fefj4hwgbg7"]
+
+[ext_resource type="Script" uid="uid://b5juyq36wkm5w" path="res://ui/menus/pause_menu.gd" id="1_hv7dm"]
+[ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_w225i"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=1705228437 groups=["menus"]]
+layer = 10
+script = ExtResource("1_hv7dm")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=599760265]
+offset_top = 20.0
+offset_right = 1152.0
+offset_bottom = 628.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 0.5968
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer" unique_id=1011824873]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Panel" type="Panel" parent="AspectRatioContainer/MarginContainer" unique_id=1348833272]
+layout_mode = 2
+theme = ExtResource("2_w225i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer/MarginContainer/Panel" unique_id=639581616]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer" unique_id=887355599]
+layout_mode = 2
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="LaunchActivityButton" type="Button" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer/MarginContainer" unique_id=718229174]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Launch Activity"
+
+[node name="MarginContainer2" type="MarginContainer" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer" unique_id=1691465374]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = 32
+
+[node name="PanelContainer" type="PanelContainer" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer/MarginContainer2" unique_id=554634984]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer/MarginContainer2/PanelContainer" unique_id=1275230927]
+layout_mode = 2
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer" unique_id=452633542]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+
+[node name="JoinList" type="VBoxContainer" parent="AspectRatioContainer/MarginContainer/Panel/VBoxContainer/MarginContainer2/PanelContainer/MarginContainer/ScrollContainer" unique_id=56585542]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="AspectRatioContainer/MarginContainer/Panel/VBoxContainer/MarginContainer/LaunchActivityButton" to="." method="_on_launch_activity_button_pressed"]

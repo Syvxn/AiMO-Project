@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://duwucti54s2o5"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_tw5vl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00mjd"]
+atlas = ExtResource("1_tw5vl")
+region = Rect2(128, 0, 32, 32)
+
+[node name="PaintingWaves" type="Sprite2D" unique_id=1972470628]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_00mjd")

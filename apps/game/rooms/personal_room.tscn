@@ -1,0 +1,81 @@
+[gd_scene format=4 uid="uid://d35eol5p808ek"]
+
+[ext_resource type="TileSet" uid="uid://8t2h13jjtxag" path="res://textures/tilesets/floors_test.tres" id="1_dp1jf"]
+[ext_resource type="Script" uid="uid://bapn8fjpgf1g2" path="res://rooms/personal_room.gd" id="1_m0cm6"]
+[ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="2_w8a5v"]
+[ext_resource type="PackedScene" uid="uid://fcjif3xqw2o4" path="res://items/physics_props/companion_cube.tscn" id="3_pdwsy"]
+[ext_resource type="PackedScene" uid="uid://cy46wgn8xkpbb" path="res://items/noncollision_props/surveillance_camera.tscn" id="4_3epd3"]
+[ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="6_m0cm6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m0cm6"]
+size = Vector2(842, 571)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_m0cm6"]
+vertices = PackedVector2Array(600, 704.77344, 512.2578, 660.1094, 632.9219, 600.2031, 665.1094, 671.72656, 798.3125, 685.1094, 744.0078, 713.6797)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(490, 660, 633, 589, 820, 685, 744, 725, 665, 683, 600, 716)])
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:owner_username")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:owner_peer_id")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="PersonalRoom" type="Node2D" unique_id=576984484 groups=["personal_rooms", "rooms"]]
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_m0cm6")
+
+[node name="EjectionArea" type="Area2D" parent="." unique_id=54168172]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1083387165]
+position = Vector2(652, 620.5)
+shape = SubResource("RectangleShape2D_m0cm6")
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=892723032]
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAD9////AQABAAAAAAD+/wAAAQABAAAAAAD+/wEAAQABAAAAAAD//wIAAQABAAAAAAD//wMAAQABAAAAAAAAAAIAAQABAAAAAAAAAAEAAQABAAAAAAABAAAAAQABAAAAAAABAP//AQABAAAAAAABAP7/AQABAAAAAAACAP7/AQABAAAAAAACAP3/AQABAAAAAAACAPz/AQABAAAAAAACAPv/AQAEAAAAAAACAPr/AQABAAAAAAABAPn/AQABAAAAAAABAPj/AQABAAAAAAAAAPf/AQACAAAAAAAAAPj/AQABAAAAAAAAAPn/AQABAAAAAAD///n/AQABAAAAAAD///r/AQABAAAAAAD///v/AQABAAAAAAD///z/AQABAAAAAAD+//3/AQABAAAAAAD+//7/AQABAAAAAAD9//3/AQABAAAAAAD+//z/AQAEAAAAAAD+//v/AQABAAAAAAD9//7/AQABAAAAAAD+////AQABAAAAAAD///7/AQABAAAAAAD/////AQABAAAAAAAAAAAAAQABAAAAAAD//wEAAQABAAAAAAD//wAAAQABAAAAAAD///3/AQADAAAAAAAAAP7/AQABAAAAAAAAAP//AQABAAAAAAAAAPz/AQABAAAAAAAAAPr/AQABAAAAAAAAAPv/AQABAAAAAAABAPz/AQACAAAAAAABAP3/AQABAAAAAAABAPv/AQABAAAAAAABAPr/AQABAAAAAAAAAP3/AQABAAAAAAADAPz/AQABAAAAAAACAAAAAQABAAEAAAACAAEAAQABAAEAAAADAAIAAQABAAEAAAADAAMAAQABAAEAAAAEAAQAAQABAAAAAAAEAAMAAQABAAAAAAAFAAIAAQABAAAAAAAEAAEAAQABAAEAAAAFAAAAAQABAAEAAAAFAAEAAQABAAAAAAAEAP//AQABAAEAAAAEAP7/AQABAAEAAAADAP3/AQABAAEAAAADAP7/AQABAAEAAAACAP//AQABAAEAAAADAAAAAQABAAEAAAADAAEAAQADAAEAAAAEAAIAAQABAAEAAAAEAAAAAQABAAEAAAADAP//AQABAAEAAAAGAAAAAQABAAAAAAAFAP//AQABAAEAAAAFAP7/AQABAAEAAAAEAP3/AQABAAEAAAAEAPz/AQABAAEAAAADAPv/AQABAAAAAAADAPr/AQABAAAAAAABAPf/AQABAAAAAAACAPj/AQABAAAAAAACAPn/AQABAAAAAAABAPb/AQABAAAAAAAAAPX/AQABAAAAAAAAAPb/AQABAAAAAAD///f/AQABAAAAAAD///j/AQABAAAAAAD+//n/AQABAAAAAAD+//r/AQABAAAAAAD9//v/AQABAAAAAAD9//z/AQABAAAAAAD8//3/AQABAAAAAAA=")
+tile_set = ExtResource("1_dp1jf")
+
+[node name="Walls" type="TileMapLayer" parent="." unique_id=123381295]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//v/AAABAAAAAAD9//r/AAABAAAAAAD9//n/AAABAAAAAAD+//j/AAABAAAAAAD+//f/AAABAAAAAAD///b/AAABAAAAAAD///X/AAABAAAAAAAAAPT/AAABAAAAAAABAPT/AAABAAEAAAABAPX/AAABAAEAAAACAPb/AAABAAEAAAACAPf/AAABAAEAAAADAPj/AAABAAEAAAADAPn/AAABAAEAAAAEAPr/AAABAAEAAAAEAPv/AAACAAEAAAAFAPz/AAACAAEAAAAFAP3/AAACAAEAAAAGAP7/AAACAAEAAAAGAP//AAABAAEAAAD8//7/AAAJAAAAAAD8////AAAJAAAAAAD9/wAAAAAJAAAAAAD9/wEAAAAJAAAAAAD+/wIAAAAJAAAAAAD+/wMAAAAJAAAAAAD//wQAAAAJAAAAAAD//wUAAAAJAAAAAAAAAAQAAAAJAAAAAAAAAAMAAAAJAAAAAAABAAIAAAAJAAAAAAABAAEAAAAJAAAAAAACAAIAAAAJAAAAAAACAAMAAAAJAAAAAAADAAQAAAAJAAAAAAADAAUAAAAJAAAAAAAEAAYAAAAJAAAAAAAEAAUAAAAJAAAAAAAFAAQAAAAJAAAAAAAFAAMAAAAJAAAAAAAGAAIAAAAJAAAAAAAGAAEAAAAJAAAAAAA=")
+tile_set = ExtResource("2_w8a5v")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1937242360]
+navigation_polygon = SubResource("NavigationPolygon_m0cm6")
+
+[node name="Decorations" type="Node2D" parent="NavigationRegion2D" unique_id=767305767]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(600.00006, 677)
+
+[node name="CompanionCube" parent="NavigationRegion2D/Decorations" unique_id=1069940731 instance=ExtResource("3_pdwsy")]
+position = Vector2(48, -33)
+
+[node name="SurveillanceCamera" parent="NavigationRegion2D/Decorations" unique_id=1952480078 instance=ExtResource("4_3epd3")]
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(18, -146)
+
+[node name="Background" type="Sprite2D" parent="." unique_id=536427304]
+z_index = -999
+position = Vector2(641, 640)
+scale = Vector2(20, 20)
+texture = ExtResource("6_m0cm6")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=660103265]
+replication_config = SubResource("SceneReplicationConfig_m0cm6")
+
+[node name="SpawnPoint" type="Node2D" parent="." unique_id=1025427760]
+position = Vector2(586, 662)

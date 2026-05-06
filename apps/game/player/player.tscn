@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://gph3bj8xbyva"]
+
+[ext_resource type="Script" uid="uid://cwd8t77hdie00" path="res://player/player.gd" id="1_1xjf6"]
+[ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
+[ext_resource type="PackedScene" uid="uid://cphgt42vxsuwq" path="res://ui/menus/customize_char_menu.tscn" id="3_g1dw6"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
+properties/0/path = NodePath(".:walk_direction")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:auto_move")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:auto_move_target")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[sub_resource type="GDScript" id="GDScript_x0jl3"]
+script/source = "extends MultiplayerSynchronizer
+
+# the resulting direction is replicated accross all peers
+var walk_direction := Vector2.ZERO
+var auto_move := false
+var auto_move_target : Vector2
+
+func _physics_process(_delta: float) -> void:
+	# inputs are only processed for the client's player instance
+	if not (is_multiplayer_authority() or get_parent().debug):
+		return
+	if not get_parent().controllable:
+		return
+	
+	if Input.is_action_just_pressed(\"move_to\"):
+		#this sucks, but is also way more direct than trying to signal
+		auto_move_target = get_parent().get_node(\"Camera2D\").get_global_mouse_position()
+		auto_move = true
+	walk_direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
+	if walk_direction:
+		auto_move = false
+	
+	if Input.is_action_just_pressed(\"interact\"):
+		var areas = get_parent().get_node(\"InteractionArea\").get_overlapping_areas()
+		for area in areas:
+			if area.is_in_group(\"npcs\") and \"interact\" in area:
+				area.interact()
+	
+	if Input.is_action_just_pressed(\"inventory\"):
+		#get_parent().get_node(\"CharacterSprites\").randomize_colors()
+		get_parent().toggle_customize_menu()
+	
+	if Input.is_action_just_pressed(\"oops\"):
+		SignalBus.oops_pressed.emit()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
+radius = 20.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3eadt"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:username")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:z_index")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:z_as_relative")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath(".:y_sort_enabled")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:velocity")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="GDScript" id="GDScript_3eadt"]
+script/source = "extends Camera2D
+
+var view := \"normal\"
+
+func enable_if_authority():
+	if (is_multiplayer_authority() or get_parent().debug):
+		enabled = true
+
+
+func toggle_view():
+	if view == \"normal\":
+		view = \"customize\"
+		offset.x = 60
+		zoom = Vector2(5.0, 5.0)
+	else:
+		view = \"normal\"
+		offset = Vector2.ZERO
+		zoom = Vector2(2.0, 2.0)
+"
+
+[node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+collision_layer = 259
+motion_mode = 1
+script = ExtResource("1_1xjf6")
+
+[node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
+root_path = NodePath(".")
+replication_config = SubResource("SceneReplicationConfig_tory2")
+script = SubResource("GDScript_x0jl3")
+
+[node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=854725048]
+shape = SubResource("CircleShape2D_54qew")
+
+[node name="CharacterSprites" parent="." unique_id=1455427902 instance=ExtResource("2_emfdr")]
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=1252570051]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1101434725]
+shape = SubResource("CircleShape2D_3eadt")
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=25996146]
+replication_config = SubResource("SceneReplicationConfig_3eadt")
+visibility_update_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1918190193]
+position = Vector2(0, -23)
+enabled = false
+zoom = Vector2(2, 2)
+script = SubResource("GDScript_3eadt")
+
+[node name="NavAgent" type="NavigationAgent2D" parent="." unique_id=866101287]
+avoidance_enabled = true
+radius = 20.0
+debug_enabled = true
+
+[node name="CustomizeCharMenu" parent="." unique_id=830664804 instance=ExtResource("3_g1dw6")]
+visible = false
+
+[connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

@@ -1,0 +1,475 @@
+[gd_scene format=3 uid="uid://cphgt42vxsuwq"]
+
+[ext_resource type="Script" uid="uid://dylrobxcglp07" path="res://ui/menus/customize_char_menu.gd" id="1_rubk2"]
+[ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="1_w5nsy"]
+
+[node name="CustomizeCharMenu" type="CanvasLayer" unique_id=830664804 groups=["menus"]]
+script = ExtResource("1_rubk2")
+
+[node name="Control" type="Control" parent="." unique_id=784891581]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1689337816]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/MarginContainer" unique_id=16996998]
+layout_mode = 2
+ratio = 0.8
+alignment_horizontal = 2
+
+[node name="Panel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=259540]
+layout_mode = 2
+theme = ExtResource("1_w5nsy")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel" unique_id=129554696]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer" unique_id=682495763]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=84382774]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/MarginContainer" unique_id=1612818495]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Customization"
+horizontal_alignment = 1
+
+[node name="Hair" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=1547636025]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair" unique_id=1905125688]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair/MarginContainer3" unique_id=896324023]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Hair"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair" unique_id=1837735887]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="HairOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair/MarginContainer" unique_id=1816876611]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair" unique_id=1705434826]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HairColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair/MarginContainer2" unique_id=572921267]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Eyes" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=976782864]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes" unique_id=1597578515]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes/MarginContainer3" unique_id=1552356768]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Eyes"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes" unique_id=347676460]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="EyesOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes/MarginContainer" unique_id=132120828]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes" unique_id=854718106]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="EyesColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes/MarginContainer2" unique_id=426226039]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Body" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=771456996]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body" unique_id=1209677120]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body/MarginContainer3" unique_id=675324575]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Body"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body" unique_id=1578259916]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="BodyOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body/MarginContainer" unique_id=758983392]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body" unique_id=1007400507]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="BodyColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body/MarginContainer2" unique_id=1285354103]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Shirt" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=1591596281]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt" unique_id=283530803]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt/MarginContainer3" unique_id=1471187060]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Shirt"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt" unique_id=1293074862]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="ShirtOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt/MarginContainer" unique_id=243084595]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt" unique_id=604508654]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ShirtColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt/MarginContainer2" unique_id=230291816]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Jacket" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=363195705]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket" unique_id=507817665]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket/MarginContainer3" unique_id=1869322288]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Jacket"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket" unique_id=328571259]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="JacketOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket/MarginContainer" unique_id=1778843395]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket" unique_id=744723252]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="JacketColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket/MarginContainer2" unique_id=1610818716]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Pants" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=1480147500]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants" unique_id=857958822]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants/MarginContainer3" unique_id=1061604918]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Pants"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants" unique_id=179516708]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="PantsOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants/MarginContainer" unique_id=147271742]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants" unique_id=958398958]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="PantsColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants/MarginContainer2" unique_id=955953919]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Shoes" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=440110498]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes" unique_id=680262884]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes/MarginContainer3" unique_id=1250573511]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Shoes"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes" unique_id=609114352]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="ShoesOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes/MarginContainer" unique_id=1046843160]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes" unique_id=1895879093]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ShoesColor" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes/MarginContainer2" unique_id=1973261243]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Accessory1" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=127564860]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1" unique_id=402187215]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1/MarginContainer3" unique_id=1462405694]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Accessory 1"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1" unique_id=1513612999]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Accessory1Options" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1/MarginContainer" unique_id=1823461416]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1" unique_id=1480566591]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Accessory1Color" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1/MarginContainer2" unique_id=1840816116]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Accessory2" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=263366177]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2" unique_id=17168242]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2/MarginContainer3" unique_id=328006389]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Accessory 2"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2" unique_id=883388124]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Accessory2Options" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2/MarginContainer" unique_id=229308352]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2" unique_id=377692005]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Accessory2Color" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2/MarginContainer2" unique_id=365662471]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Accessory3" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=989243212]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3" unique_id=972565792]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3/MarginContainer3" unique_id=1364277932]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Accessory 3"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3" unique_id=58844123]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Accessory3Options" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3/MarginContainer" unique_id=1182560412]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3" unique_id=732724941]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Accessory3Color" type="ColorPickerButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3/MarginContainer2" unique_id=748377881]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[node name="Costume" type="HBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer" unique_id=1865595645]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume" unique_id=95342934]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer3" unique_id=1960835651]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Costume"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume" unique_id=965028638]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+
+[node name="CostumeOptions" type="OptionButton" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer" unique_id=1360762151]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume" unique_id=1363709851]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Control" type="Control" parent="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer2" unique_id=78561865]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair/MarginContainer/HairOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Hair/MarginContainer2/HairColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes/MarginContainer/EyesOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Eyes/MarginContainer2/EyesColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body/MarginContainer/BodyOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Body/MarginContainer2/BodyColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt/MarginContainer/ShirtOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shirt/MarginContainer2/ShirtColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket/MarginContainer/JacketOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Jacket/MarginContainer2/JacketColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants/MarginContainer/PantsOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Pants/MarginContainer2/PantsColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes/MarginContainer/ShoesOptions" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Shoes/MarginContainer2/ShoesColor" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1/MarginContainer/Accessory1Options" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory1/MarginContainer2/Accessory1Color" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2/MarginContainer/Accessory2Options" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory2/MarginContainer2/Accessory2Color" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3/MarginContainer/Accessory3Options" to="." method="_on_options_item_selected" flags=18]
+[connection signal="popup_closed" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Accessory3/MarginContainer2/Accessory3Color" to="." method="_on_color_popup_closed" flags=18]
+[connection signal="item_selected" from="Control/MarginContainer/AspectRatioContainer/Panel/ScrollContainer/VBoxContainer/Costume/MarginContainer/CostumeOptions" to="." method="_on_options_item_selected" flags=18]

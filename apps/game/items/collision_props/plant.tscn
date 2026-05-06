@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bjfj7ipcrpg4s"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_5312d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmrui"]
+atlas = ExtResource("1_5312d")
+region = Rect2(103, 3, 18, 29)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5312d"]
+radius = 3.0
+height = 11.9998255
+
+[node name="Plant" type="Sprite2D" unique_id=1433253236]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_jmrui")
+offset = Vector2(0, -10)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1631856059]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=111624073]
+position = Vector2(0, 1)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_5312d")

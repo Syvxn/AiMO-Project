@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b1gubgdr00rs5"]
+
+[ext_resource type="Texture2D" uid="uid://c57vh8nmdj3bx" path="res://textures/static_textures/buncha_props.png" id="1_lsjxi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dh1d0"]
+atlas = ExtResource("1_lsjxi")
+region = Rect2(199, 37, 19, 21)
+
+[node name="Clock" type="Sprite2D" unique_id=1236786011]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+texture = SubResource("AtlasTexture_dh1d0")
