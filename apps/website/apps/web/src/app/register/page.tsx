@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { registerUser } from "@/lib/api";
 
-type Role = "student" | "teacher" | "admin";
+type Role = "student" | "teacher";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -94,7 +94,6 @@ export default function RegisterPage() {
           >
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
-            <option value="admin">Admin</option>
           </select>
         </div>
         <button className="btn-primary w-full" type="submit" disabled={isLoading}>

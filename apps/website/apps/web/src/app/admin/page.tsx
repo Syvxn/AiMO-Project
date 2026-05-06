@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ProtectedRoute } from "@/components/protected-route";
 import {
   AdminStats,
   AdminUser,
+  createAdminUser,
+  deleteAdminUser,
   getAdminStats,
   getAdminUsers,
   updateAdminUserRole,
@@ -20,16 +22,24 @@ function AdminContent() {
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [savingUserId, setSavingUserId] = useState<number | null>(null);
+  const [deletingUserId, setDeletingUserId] = useState<number | null>(null);
+  const [isCreating, setIsCreating] = useState(false);
 
-  useEffect(() => {
-    async function loadAdminData() {
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newRole, setNewRole] = useState<UserRole>("student");
+
+  const loadAdminData = useCallback(
+    async (showLoading: boolean = true) => {
       if (!token) {
         return;
       }
 
-      setIsLoading(true);
-      setError("");
+      if (showLoading) {
+        setIsLoading(true);
+      }
 
       try {
         const [usersResponse, statsResponse] = await Promise.all([
@@ -41,12 +51,22 @@ function AdminContent() {
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load admin data");
       } finally {
-        setIsLoading(false);
+        if (showLoading) {
+          setIsLoading(false);
+        }
       }
+    },
+    [token],
+  );
+
+  useEffect(() => {
+    async function load() {
+      setError("");
+      await loadAdminData(true);
     }
 
-    loadAdminData();
-  }, [token]);
+    load();
+  }, [loadAdminData]);
 
   const sortedUsers = useMemo(
     () => [...users].sort((a, b) => a.email.localeCompare(b.email)),
@@ -60,19 +80,68 @@ function AdminContent() {
 
     setSavingUserId(userId);
     setError("");
+    setNotice("");
 
     try {
       const updatedUser = await updateAdminUserRole(token, userId, role);
       setUsers((previous) =>
         previous.map((user) => (user.id === updatedUser.id ? updatedUser : user)),
       );
-
-      const refreshedStats = await getAdminStats(token);
-      setStats(refreshedStats);
+      await loadAdminData(false);
+      setNotice(`Updated role for ${updatedUser.email}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to update user role");
     } finally {
       setSavingUserId(null);
+    }
+  }
+
+  async function handleCreateUser(event: React.FormEvent) {
+    event.preventDefault();
+    if (!token) {
+      return;
+    }
+
+    setIsCreating(true);
+    setError("");
+    setNotice("");
+
+    try {
+      const created = await createAdminUser(token, newEmail, newPassword, newRole);
+      setNewEmail("");
+      setNewPassword("");
+      setNewRole("student");
+      await loadAdminData(false);
+      setNotice(`Created ${created.role} account: ${created.email}`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to create user");
+    } finally {
+      setIsCreating(false);
+    }
+  }
+
+  async function handleDeleteUser(user: AdminUser) {
+    if (!token) {
+      return;
+    }
+
+    const confirmed = window.confirm(`Delete user ${user.email}? This cannot be undone.`);
+    if (!confirmed) {
+      return;
+    }
+
+    setDeletingUserId(user.id);
+    setError("");
+    setNotice("");
+
+    try {
+      const response = await deleteAdminUser(token, user.id);
+      await loadAdminData(false);
+      setNotice(response.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to delete user");
+    } finally {
+      setDeletingUserId(null);
     }
   }
 
@@ -85,6 +154,47 @@ function AdminContent() {
       <h1 className="font-display text-4xl text-text-natural">Admin Console</h1>
 
       {error && <div className="card border-accent-orange/40 text-accent-yellow">{error}</div>}
+      {notice && <div className="card border-accent-teal/40 text-accent-green">{notice}</div>}
+
+      <form className="card space-y-4" onSubmit={handleCreateUser}>
+        <h2 className="font-display text-2xl text-text-natural">Add User</h2>
+        <p className="text-sm text-text-beige">
+          Admin-only account creation. Admin accounts can only be created from this console.
+        </p>
+        <div className="grid gap-4 md:grid-cols-3">
+          <input
+            type="email"
+            placeholder="Email"
+            value={newEmail}
+            onChange={(event) => setNewEmail(event.target.value)}
+            className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password (min 8)"
+            value={newPassword}
+            onChange={(event) => setNewPassword(event.target.value)}
+            className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
+            minLength={8}
+            required
+          />
+          <select
+            value={newRole}
+            onChange={(event) => setNewRole(event.target.value as UserRole)}
+            className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
+          >
+            {ROLE_OPTIONS.map((roleOption) => (
+              <option key={roleOption} value={roleOption}>
+                {roleOption}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button className="btn-primary" type="submit" disabled={isCreating}>
+          {isCreating ? "Creating..." : "Create User"}
+        </button>
+      </form>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <article className="card">
@@ -114,6 +224,7 @@ function AdminContent() {
               <th className="px-3 py-2">Role</th>
               <th className="px-3 py-2">Created</th>
               <th className="px-3 py-2">Update</th>
+              <th className="px-3 py-2">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -139,6 +250,16 @@ function AdminContent() {
                 </td>
                 <td className="px-3 py-2 text-text-beige">
                   {savingUserId === user.id ? "Saving..." : "Ready"}
+                </td>
+                <td className="px-3 py-2">
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteUser(user)}
+                    disabled={deletingUserId === user.id}
+                    className="rounded-md border border-accent-orange/40 px-3 py-1 text-xs text-accent-yellow hover:bg-accent-orange/20 disabled:opacity-50"
+                  >
+                    {deletingUserId === user.id ? "Deleting..." : "Delete"}
+                  </button>
                 </td>
               </tr>
             ))}
