@@ -39,6 +39,32 @@ Monorepo for the AiMO web platform.
 - API via Nginx: http://localhost/api
 - API health: http://localhost/api/health
 
+## Game Launcher Integration (Website Side)
+
+The Play page now launches a Godot web export from:
+
+- `/game/index.html`
+
+Place exported game files in this folder inside the website app:
+
+- `apps/web/public/game/`
+
+Expected result after placing files:
+
+- `http://localhost/game/index.html` loads directly
+- `http://localhost/play` shows `Game export detected` and allows launch
+
+Typical Godot web export artifacts include:
+
+- `index.html`
+- one or more `.js` files
+- one or more `.wasm` files
+- one or more `.pck` files
+
+If Play says no export was found, verify the file path is exactly:
+
+- `apps/web/public/game/index.html`
+
 ## Notes
 
 - Current auth endpoints are stubs to accelerate initial frontend and integration work.
