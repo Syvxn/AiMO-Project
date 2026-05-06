@@ -1,4 +1,8 @@
-export default function AdminPage() {
+'use client';
+
+import { ProtectedRoute } from '@/components/protected-route';
+
+function AdminContent() {
   return (
     <section className="space-y-6">
       <h1 className="font-display text-4xl">Admin Console</h1>
@@ -17,5 +21,13 @@ export default function AdminPage() {
         </article>
       </div>
     </section>
+  );
+}
+
+export default function AdminPage() {
+  return (
+    <ProtectedRoute requiredRole="admin">
+      <AdminContent />
+    </ProtectedRoute>
   );
 }
