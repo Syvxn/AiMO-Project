@@ -65,6 +65,27 @@ If Play says no export was found, verify the file path is exactly:
 
 - `apps/web/public/game/index.html`
 
+## Game WebSocket Proxy (Client <-> Dedicated Server)
+
+Nginx now proxies game websocket traffic through:
+
+- `ws://localhost/game-ws`
+
+This route forwards to a dedicated game server process running on the host machine at:
+
+- `host.docker.internal:8910`
+
+Recommended game-side env values:
+
+- `GAME_SERVER_URL`: `ws://localhost/game-ws`
+- `GAME_SERVER_PORT`: `8910`
+
+Notes:
+
+- Keep website docker stack on port 80 as-is.
+- Run the dedicated game server separately so it listens on host port `8910`.
+- If you change the dedicated server port, update both nginx `default.conf` and game env values.
+
 ## Notes
 
 - Current auth endpoints are stubs to accelerate initial frontend and integration work.

@@ -110,13 +110,6 @@ function PlayContent() {
         </div>
       )}
 
-      <div className="card">
-        <h3 className="font-display text-xl text-text-natural">Next Integration Step</h3>
-        <p className="mt-2 text-text-beige">
-          Once the game export loads reliably, we can add a token/session bridge so the game can
-          receive the logged-in user context from the website.
-        </p>
-      </div>
     </section>
   );
 }

@@ -17,6 +17,19 @@ func _ready() -> void:
 	if OS.has_feature("dedicated_server"):
 		NetworkHandler.start_server()
 	elif OS.has_feature("web"):
+		var configured_url = Env.GAME_SERVER_URL.strip_edges()
+		if configured_url == "" or configured_url.find("://") == -1:
+			var host = str(JavaScriptBridge.eval("window.location.hostname"))
+			var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
+			var ws_scheme = "wss" if protocol == "https:" else "ws"
+			Env.GAME_SERVER_URL = "%s://%s:%d" % [ws_scheme, host, Env.GAME_SERVER_PORT]
+		elif configured_url.find("localhost") != -1:
+			# In browser, align localhost target with the current host while keeping configured port.
+			var host = str(JavaScriptBridge.eval("window.location.hostname"))
+			var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
+			var ws_scheme = "wss" if protocol == "https:" else "ws"
+			Env.GAME_SERVER_URL = "%s://%s:%d" % [ws_scheme, host, Env.GAME_SERVER_PORT]
+		print("Web client target:", Env.GAME_SERVER_URL)
 		NetworkHandler.start_client()
 		# put some screen here to shor "Connecting..." or smth
 		await multiplayer.connected_to_server
