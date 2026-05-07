@@ -19,11 +19,11 @@ This project, built in Godot, includes client and server functionality in the sa
 
 ## Running Locally
 
-Either clone the repo with ``git clone <repo-url>`` or download the contents as a zip file.
+Either clone the repo with ``git clone https://github.com/Syvxn/AiMO-Project.git`` or download the contents as a zip file.
 
-Open **Godot**, click **Import**, and select the `project.godot` file from the cloned folder.
+Open **Godot**, click **Import**, and select the `project.godot` file in ``apps/game/``.
 
-Rename ```.env_example.json``` to ```.env.json``` before attempting to run the game.
+Rename ```.env_example.json``` to ```.env.json``` and check if anything needs changing before attempting to run the game.
 If you want the NPC to reply in chat, ```CHAT_SERVER_URL``` must point to the agent server chat endpoint.
 
 Once you've opened the project in the Godot editor, set the number of run instances to at least 2 from **Debug -> Customize Run Instances...**
@@ -32,14 +32,18 @@ This will allow you to set one instance as the server, and the rest as clients a
 
 (Alternatively, you can export a dedicated server build, run it as an executable, and then run the client either from the editor or as a web export. Web exports must be served through an HTTP(S) server, for example with ```python3 -m http.server 8080```.)
 
+### Exporting
+
+Creating an export with **Project -> Export** requires export templates, which the Godot editor will prompt you to download. You should only have to do this once per export type.
+
 ---
 
 ## Project Structure
 
 Files ending in ``.tscn`` are **scenes**, files ending in ``.gd`` are GDScript **scripts**.
 **Most scripts are attached to scenes of the same name.**
-Autoload scripts are made globally available at runtime.
-Some nodes/scenes might have small built-in scripts that aren't saved separately.
+- Autoload scripts are made globally available at runtime.
+- Some nodes/scenes might have small built-in scripts that aren't saved separately.
 
 The most important files/directories are:
 - ``main.tscn`` & ``main.gd`` - first thing loaded by the game, contains a lot of core funcionality. other scenes end up inside this one
@@ -58,25 +62,27 @@ The most important files/directories are:
 
 ## Good to Know
 
-### Client/Server
+### Client / Server
 
 The game decides whether it runs as a server or a client based on how the game has been exported. Web exports are automatically clients, dedicated server builds are servers, and anything else launches into a debug menu. 
 
-**NOTE:** The web client is still missing the functionality that fetches/receives player info and actually spawns the player. Until this is implemented, run the client from the debug menu.
+**NOTE:** The web client currently attempts to read player information from cookies on the site. If the information is not (fully) available, the debug menu becomes visible and prompts the player for username and role.
 
 
 ### Multiplayer Logic
 
 Most things are done on the server and then propagated to clients using **MultiplayerSpawner** and **MultiplayerSynchronizer** nodes. When a player joins, for example, the client uses a **remote procedure call** to request a spawn from the server, which then spawns the player and automatically replicates this on clients. **Exceptions include handling of player inputs and character customization**, which happen on that player's client.
 
+The main scene (``main.tscn``) contains a **MultiplayerSpawner** node that replicates rooms and players from the server to the clients. Anything you wish to replicate must be placed in the scene tree under the assigned **Spawn Path**  and added to the **Auto Spawn List**, both attributes of the **MultiplayerSpawner** node.
+
 ### Talking to Faraway Nodes
 
 If Node A needs Node B to do something, and they're not in the same scene, you can declare a new globally available signal in ``autoloads/signal_bus.gd``, then have one node emit the signal and the other node connect to it with a callback. For example: 
-- ``signal car_broke_down(cause: String)`` <-- signal_bus.gd
-- ``SignalBus.car_broke_down.emit("tire blew out")`` <-- node_a.gd
-- ``SignalBus.car_broke_down.connect(callback_method)`` <-- node_b.gd
+- ``signal car_broke_down(cause: String)`` <-- in signal_bus.gd
+- ``SignalBus.car_broke_down.emit("tire blew out")`` <-- in node_a.gd
+- ``SignalBus.car_broke_down.connect(callback_method)`` <-- in node_b.gd
 
-If you need all nodes of a type and you don't know where they're going to be, add the nodes to an appropriate global group and fetch them with ``get_tree().get_nodes_in_group("group_name")``.
+If you need all nodes of a type and you don't know where they're going to be, add the nodes to an appropriate **global group** and fetch them with ``get_tree().get_nodes_in_group("group_name")``.
 
 
 ### Making New Rooms
@@ -86,21 +92,28 @@ Rooms are scenes with a bunch of different nodes, but not really any mandatory c
 **NOTE:** Personal rooms are an exception, they have some state attached.
 
 
-### Networking
+### Networks
 
 *"Uh, yeah, I sure hope it does.""*
 
-- If running the [multi-agent server](https://github.com/Syvxn/AiMO-Agents) locally, keep the ``GAME_SERVER_URL`` domain name as ``localhost`` in ``env.json``. Otherwise Godot implements a mysterious 30s wait time for HTTP requests.
+- If running the [multi-agent server](https://github.com/Syvxn/AiMO-Agents) locally, keep the ``CHAT_SERVER_URL`` and ``SCORE_SERVER_URL`` domain names as ``127.0.0.1`` in ``env.json``. Otherwise Godot implements a mysterious 30s wait time for every HTTP request, for reasons unknown to man or spirit.
+- In the future, the game will also have to communicate with a database storing user information, probably in the web backend.
+- Multiplayer uses a built-in WebSockets API on port 8910 by default, no SSL/TLS.
+
+### Security
+
+- Does not exist. Lmao.
 
 ### Debugging
 
 You can change stuff in the Godot editor while the game is running in debug mode, and see the effects live, but only if that function/whatever isn't currently being called.
 
 
-
 ## TODO
 
-- **Role enforcement** - Nothing in the game actually stores or checks for teacher/student status.
-- **Room gameplay** - Rooms are mostly stubs; the room logic is the main area waiting to be built out.
+
+- **Game rooms** - Rooms are mostly stubs; the room logic is the main area waiting to be built out.
+- **Saving player information** - Customization choices are not saved anywhere.
 - **Adding/removing public rooms** - `main.gd` has stubbed `add_public_room` / `remove_public_room` functions ready to be implemented. Currently rooms other than players' personal rooms are simply placed by the developers.
+- **Role implementation** - Nothing in the game actually uses teacher/student status.
 - **Everything else** - This would include sound.
