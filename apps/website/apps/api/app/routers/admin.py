@@ -17,6 +17,7 @@ Role = Literal["admin", "teacher", "student"]
 
 class AdminUserResponse(BaseModel):
     id: int
+    user_id: str
     email: EmailStr
     role: Role
     created_at: datetime
@@ -69,6 +70,7 @@ def create_user(
 
     return AdminUserResponse(
         id=new_user.id,
+        user_id=new_user.public_user_id,
         email=new_user.email,
         role=user_role_to_str(new_user.role),
         created_at=new_user.created_at,
@@ -84,6 +86,7 @@ def list_users(
     return [
         AdminUserResponse(
             id=user.id,
+            user_id=user.public_user_id,
             email=user.email,
             role=user_role_to_str(user.role),
             created_at=user.created_at,
@@ -127,6 +130,7 @@ def update_user_role(
 
     return AdminUserResponse(
         id=user.id,
+        user_id=user.public_user_id,
         email=user.email,
         role=user_role_to_str(user.role),
         created_at=user.created_at,
