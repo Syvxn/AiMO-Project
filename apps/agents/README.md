@@ -2,6 +2,8 @@
 
 A multi-agent system that generates multiple-choice quizzes from plain-text study material using a lightweight RAG (Retrieval-Augmented Generation) pipeline and open-source HuggingFace models.
 
+> New contributors should start with `CONTRIBUTING.md`.
+
 > **For a hands-on walkthrough see [`notebooks/contributor_guide.ipynb`](notebooks/contributor_guide.ipynb).**
 
 ---

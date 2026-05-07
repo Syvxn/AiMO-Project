@@ -2,6 +2,12 @@
 
 Monorepo for the AiMO web platform.
 
+## Contributor quick start
+
+If you are new to this app, start with:
+
+- `CONTRIBUTING.md`
+
 ## Stack
 
 - Frontend: Next.js (apps/web)
