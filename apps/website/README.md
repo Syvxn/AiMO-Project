@@ -39,6 +39,8 @@ If you are new to this app, start with:
 2. Run docker compose up --build
 3. Open http://localhost
 
+The API container runs Alembic migrations on startup (`upgrade head`) before launching FastAPI.
+
 ## Service URLs
 
 - Web via Nginx: http://localhost

@@ -37,6 +37,7 @@ Backend paths you will edit most often:
 - `apps/api/app/routers`: API endpoints
 - `apps/api/app/core`: config, password hashing, JWT
 - `apps/api/app/models.py`: SQLAlchemy models
+- `apps/api/alembic/versions`: schema migrations
 
 ## Local setup
 
@@ -66,6 +67,26 @@ Stop services:
 docker compose down
 ```
 
+## Database migrations (required workflow)
+
+This app is migration-driven. Do not rely on `Base.metadata.create_all` for schema updates.
+
+With Docker Compose, migrations are applied automatically when the API container starts.
+
+Manual commands (from `apps/website/apps/api`):
+
+```bash
+alembic -c alembic/alembic.ini upgrade head
+```
+
+Create a new migration after model changes:
+
+```bash
+alembic -c alembic/alembic.ini revision -m "describe_change"
+```
+
+Then implement the migration in `apps/api/alembic/versions/` and run upgrade again.
+
 ## First frontend change (example)
 
 Goal: change text on the Play page.
@@ -86,7 +107,7 @@ Why this works quickly: `next dev` runs in the web container with hot reload.
 ## Common backend tasks
 
 - Add endpoint: create/update router in `apps/api/app/routers`, then include it in `apps/api/app/main.py`.
-- Add model fields/tables: update `apps/api/app/models.py`.
+- Add model fields/tables: update `apps/api/app/models.py` and add an Alembic migration.
 - Update auth behavior: edit `apps/api/app/core/security.py` and `apps/api/app/routers/auth.py`.
 
 ## Game integration notes

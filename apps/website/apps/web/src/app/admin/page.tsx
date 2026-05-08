@@ -217,10 +217,11 @@ function AdminContent() {
 
       <div className="card overflow-x-auto">
         <h2 className="mb-4 font-display text-2xl text-text-natural">User Management</h2>
-        <table className="w-full min-w-[680px] text-left text-sm">
+        <table className="w-full min-w-[880px] text-left text-sm">
           <thead>
             <tr className="border-b border-accent-orange/30 text-text-beige">
               <th className="px-3 py-2">Email</th>
+              <th className="px-3 py-2">Account ID</th>
               <th className="px-3 py-2">Role</th>
               <th className="px-3 py-2">Created</th>
               <th className="px-3 py-2">Update</th>
@@ -231,6 +232,7 @@ function AdminContent() {
             {sortedUsers.map((user) => (
               <tr key={user.id} className="border-b border-accent-orange/15">
                 <td className="px-3 py-2 text-text-natural">{user.email}</td>
+                <td className="px-3 py-2 font-mono text-xs text-text-beige">{user.user_id}</td>
                 <td className="px-3 py-2">
                   <select
                     value={user.role}

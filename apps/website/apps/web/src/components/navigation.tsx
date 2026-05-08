@@ -31,6 +31,11 @@ export function Navigation() {
         <Link href="/contact" className="transition-colors hover:text-accent-orange">
           Contact
         </Link>
+        {(role === "teacher" || role === "admin") && (
+          <Link href="/teacher" className="transition-colors hover:text-accent-orange">
+            Teacher
+          </Link>
+        )}
         {role === "admin" && (
           <Link href="/admin" className="transition-colors hover:text-accent-orange">
             Admin

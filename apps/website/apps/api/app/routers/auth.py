@@ -28,6 +28,7 @@ class LoginRequest(BaseModel):
 
 
 class AuthResponse(BaseModel):
+    user_id: str
     access_token: str
     token_type: str
     role: str
@@ -59,6 +60,14 @@ def require_admin(current_user: User = Depends(get_current_user)) -> User:
     return current_user
 
 
+def require_teacher_or_admin(current_user: User = Depends(get_current_user)) -> User:
+    """Dependency that ensures the current user is a teacher or admin."""
+    role = user_role_to_str(current_user.role)
+    if role not in {"teacher", "admin"}:
+        raise HTTPException(status_code=403, detail="Teacher or admin access required")
+    return current_user
+
+
 def user_role_to_str(role_value: str | object) -> str:
     """Normalize role enum/value to plain string for comparisons and responses."""
     return role_value.value if hasattr(role_value, "value") else str(role_value)
@@ -81,7 +90,12 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)) -> AuthRes
 
     role_value = user_role_to_str(user.role)
     token = create_access_token(email=user.email, role=role_value)
-    return AuthResponse(access_token=token, token_type="bearer", role=role_value)
+    return AuthResponse(
+        user_id=user.public_user_id,
+        access_token=token,
+        token_type="bearer",
+        role=role_value,
+    )
 
 
 @router.post("/login", response_model=AuthResponse)
@@ -92,4 +106,9 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)) -> AuthResponse:
 
     role_value = user_role_to_str(user.role)
     token = create_access_token(email=user.email, role=role_value)
-    return AuthResponse(access_token=token, token_type="bearer", role=role_value)
+    return AuthResponse(
+        user_id=user.public_user_id,
+        access_token=token,
+        token_type="bearer",
+        role=role_value,
+    )

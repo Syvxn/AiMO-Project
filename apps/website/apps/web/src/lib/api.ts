@@ -1,6 +1,7 @@
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "/api";
 
 export interface AuthResponse {
+  user_id: string;
   access_token: string;
   token_type: string;
   role: string;
@@ -10,6 +11,7 @@ export type UserRole = "admin" | "teacher" | "student";
 
 export interface AdminUser {
   id: number;
+  user_id: string;
   email: string;
   role: UserRole;
   created_at: string;
@@ -27,11 +29,63 @@ export interface DeleteUserResponse {
   message: string;
 }
 
+export interface TeacherChatResponse {
+  reply: string;
+  status: string;
+}
+
+export interface TeacherMaterial {
+  id: number;
+  original_filename: string;
+  description: string;
+  content_type: string;
+  size_bytes: number;
+  uploaded_by_user_id: number;
+  created_at: string;
+}
+
+export interface TeacherDeleteMaterialResponse {
+  status: string;
+  message: string;
+}
+
 function authHeaders(token: string): HeadersInit {
   return {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   };
+}
+
+function authOnlyHeaders(token: string): HeadersInit {
+  return {
+    Authorization: `Bearer ${token}`,
+  };
+}
+
+async function readErrorMessage(response: Response, fallbackMessage: string): Promise<string> {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (contentType.includes("application/json")) {
+    const error = await response.json();
+    return error.detail || fallbackMessage;
+  }
+
+  const text = await response.text();
+  return text.trim() || fallbackMessage;
+}
+
+async function readJsonResponse<T>(response: Response, fallbackMessage: string): Promise<T> {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (!response.ok) {
+    throw new Error(await readErrorMessage(response, fallbackMessage));
+  }
+
+  if (!contentType.includes("application/json")) {
+    throw new Error(fallbackMessage);
+  }
+
+  return response.json() as Promise<T>;
 }
 
 export async function registerUser(
@@ -45,12 +99,7 @@ export async function registerUser(
     body: JSON.stringify({ email, password, role }),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Registration failed");
-  }
-
-  return res.json();
+  return readJsonResponse<AuthResponse>(res, "Registration failed");
 }
 
 export async function loginUser(email: string, password: string): Promise<AuthResponse> {
@@ -60,12 +109,7 @@ export async function loginUser(email: string, password: string): Promise<AuthRe
     body: JSON.stringify({ email, password }),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Login failed");
-  }
-
-  return res.json();
+  return readJsonResponse<AuthResponse>(res, "Login failed");
 }
 
 export async function getAdminUsers(token: string): Promise<AdminUser[]> {
@@ -74,12 +118,7 @@ export async function getAdminUsers(token: string): Promise<AdminUser[]> {
     headers: authHeaders(token),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Failed to load users");
-  }
-
-  return res.json();
+  return readJsonResponse<AdminUser[]>(res, "Failed to load users");
 }
 
 export async function getAdminStats(token: string): Promise<AdminStats> {
@@ -88,12 +127,7 @@ export async function getAdminStats(token: string): Promise<AdminStats> {
     headers: authHeaders(token),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Failed to load admin stats");
-  }
-
-  return res.json();
+  return readJsonResponse<AdminStats>(res, "Failed to load admin stats");
 }
 
 export async function updateAdminUserRole(
@@ -107,12 +141,7 @@ export async function updateAdminUserRole(
     body: JSON.stringify({ role }),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Failed to update user role");
-  }
-
-  return res.json();
+  return readJsonResponse<AdminUser>(res, "Failed to update user role");
 }
 
 export async function createAdminUser(
@@ -127,12 +156,7 @@ export async function createAdminUser(
     body: JSON.stringify({ email, password, role }),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Failed to create user");
-  }
-
-  return res.json();
+  return readJsonResponse<AdminUser>(res, "Failed to create user");
 }
 
 export async function deleteAdminUser(token: string, userId: number): Promise<DeleteUserResponse> {
@@ -141,10 +165,54 @@ export async function deleteAdminUser(token: string, userId: number): Promise<De
     headers: authHeaders(token),
   });
 
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.detail || "Failed to delete user");
-  }
+  return readJsonResponse<DeleteUserResponse>(res, "Failed to delete user");
+}
 
-  return res.json();
+export async function teacherChat(token: string, message: string): Promise<TeacherChatResponse> {
+  const res = await fetch(`${API_BASE}/teacher/chat`, {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify({ message }),
+  });
+
+  return readJsonResponse<TeacherChatResponse>(res, "Teacher chat failed");
+}
+
+export async function uploadTeacherMaterial(
+  token: string,
+  file: File,
+  description: string,
+): Promise<TeacherMaterial> {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("description", description);
+
+  const res = await fetch(`${API_BASE}/teacher/materials/upload`, {
+    method: "POST",
+    headers: authOnlyHeaders(token),
+    body: formData,
+  });
+
+  return readJsonResponse<TeacherMaterial>(res, "Upload failed");
+}
+
+export async function getTeacherMaterials(token: string): Promise<TeacherMaterial[]> {
+  const res = await fetch(`${API_BASE}/teacher/materials`, {
+    method: "GET",
+    headers: authOnlyHeaders(token),
+  });
+
+  return readJsonResponse<TeacherMaterial[]>(res, "Failed to load materials");
+}
+
+export async function deleteTeacherMaterial(
+  token: string,
+  materialId: number,
+): Promise<TeacherDeleteMaterialResponse> {
+  const res = await fetch(`${API_BASE}/teacher/materials/${materialId}`, {
+    method: "DELETE",
+    headers: authOnlyHeaders(token),
+  });
+
+  return readJsonResponse<TeacherDeleteMaterialResponse>(res, "Failed to delete material");
 }
