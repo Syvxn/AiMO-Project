@@ -72,7 +72,6 @@ func _physics_process(_delta: float) -> void:
 				highest_visible_menu.close_menu()
 
 
-
 # called only on clients, requesting that server add their player to the game
 func request_spawn_from_server(username: String, role: String):
 	assert(not multiplayer.is_server(), "spawn requested by server somehow what the hell")
@@ -217,5 +216,9 @@ func move_player_to_room(move_info):
 	var spawn_location = room_to_join.get_node("SpawnPoint").get_global_position()
 	for player in get_tree().get_nodes_in_group("players"):
 		if int(player.name) == joiner_peer_id:
+			player.beam_up.rpc()
+			await get_tree().create_timer(0.5).timeout
 			player.set_global_position(spawn_location)
+			await get_tree().create_timer(0.1).timeout
+			player.beam_down.rpc()
 			break

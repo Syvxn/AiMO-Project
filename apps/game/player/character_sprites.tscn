@@ -14,61 +14,72 @@
 script = ExtResource("1_mmihj")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=1949395942]
+use_parent_material = true
 sprite_frames = ExtResource("2_o4kvf")
 animation = &"walk_down"
 offset = Vector2(0, -32)
 
 [node name="EyesSprite" type="AnimatedSprite2D" parent="." unique_id=50802771]
+use_parent_material = true
 sprite_frames = ExtResource("3_dbxr4")
 animation = &"walk_up"
 offset = Vector2(0, -32)
 
 [node name="HairSprite" type="AnimatedSprite2D" parent="." unique_id=1569101490]
+use_parent_material = true
 sprite_frames = ExtResource("4_66ets")
 animation = &"walk_right"
 offset = Vector2(0, -32)
 
 [node name="ShirtSprite" type="AnimatedSprite2D" parent="." unique_id=266557850]
+use_parent_material = true
 sprite_frames = ExtResource("4_am34g")
 animation = &"stand_down"
 offset = Vector2(0, -32)
 
 [node name="PantsSprite" type="AnimatedSprite2D" parent="." unique_id=55396609]
+use_parent_material = true
 sprite_frames = ExtResource("5_fh5oi")
 animation = &"walk_left"
 offset = Vector2(0, -32)
 
 [node name="JacketSprite" type="AnimatedSprite2D" parent="." unique_id=1691760886]
 visible = false
+use_parent_material = true
 sprite_frames = ExtResource("7_ncmru")
 animation = &"walk_left"
 offset = Vector2(0, -32)
 
 [node name="ShoesSprite" type="AnimatedSprite2D" parent="." unique_id=1381485821]
+use_parent_material = true
 sprite_frames = ExtResource("6_dbxr4")
 animation = &"walk_left"
 offset = Vector2(0, -32)
 
 [node name="AccessorySprite1" type="AnimatedSprite2D" parent="." unique_id=1553998065]
 visible = false
+use_parent_material = true
 sprite_frames = ExtResource("7_ncmru")
 animation = &"stand_down"
 offset = Vector2(0, -32)
 
 [node name="AccessorySprite2" type="AnimatedSprite2D" parent="." unique_id=1887796874]
 visible = false
+use_parent_material = true
 sprite_frames = ExtResource("7_ncmru")
 animation = &"stand_down"
 offset = Vector2(0, -32)
 
 [node name="AccessorySprite3" type="AnimatedSprite2D" parent="." unique_id=771129102]
 visible = false
+use_parent_material = true
 sprite_frames = ExtResource("7_ncmru")
 animation = &"stand_down"
 offset = Vector2(0, -32)
 
 [node name="CostumeSprite" type="AnimatedSprite2D" parent="." unique_id=1732151002]
 visible = false
+use_parent_material = true
 sprite_frames = ExtResource("8_66ets")
 animation = &"walk_left"
 offset = Vector2(0, -32)

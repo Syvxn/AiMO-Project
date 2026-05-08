@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://8no2eov3vxc3"]
+
+[ext_resource type="Shader" uid="uid://b84mb73cje2ec" path="res://textures/shaders/mask.gdshader" id="1_05v13"]
+[ext_resource type="Texture2D" uid="uid://carlvfnofm2ph" path="res://textures/shaders/beam_mask.png" id="2_uueon"]
+
+[resource]
+shader = ExtResource("1_05v13")
+shader_parameter/mask_texture = ExtResource("2_uueon")
+shader_parameter/mask_y_delta = 0.07

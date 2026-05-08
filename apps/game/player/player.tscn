@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://gph3bj8xbyva"]
 
 [ext_resource type="Script" uid="uid://cwd8t77hdie00" path="res://player/player.gd" id="1_1xjf6"]
+[ext_resource type="Material" uid="uid://8no2eov3vxc3" path="res://textures/shaders/beam_mask.tres" id="1_yw30f"]
 [ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
 [ext_resource type="PackedScene" uid="uid://cphgt42vxsuwq" path="res://ui/menus/customize_char_menu.tscn" id="3_g1dw6"]
 
@@ -106,6 +107,7 @@ func toggle_view():
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
+material = ExtResource("1_yw30f")
 collision_layer = 259
 motion_mode = 1
 script = ExtResource("1_1xjf6")

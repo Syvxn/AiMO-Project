@@ -103,7 +103,6 @@ func apply_visuals(data):
 func get_applied_visuals_data() -> Dictionary:
 	return $CharacterSprites.current_data
 
-
 # this kinda sucks but it's fine for now
 func toggle_customize_menu():
 	$Camera2D.toggle_view()
@@ -112,3 +111,21 @@ func toggle_customize_menu():
 		$CustomizeCharMenu.select_current_options()
 	else:
 		$CustomizeCharMenu.hide()
+
+
+@rpc("authority", "call_local")
+func beam_up():
+	$CharacterSprites.use_parent_material = true
+	get_material().set_shader_parameter("mask_y_delta", 0.0)
+	for i in range(1, 6):
+		await get_tree().create_timer(0.1).timeout
+		get_material().set_shader_parameter("mask_y_delta", i*0.1)
+
+
+@rpc("authority", "call_local")
+func beam_down():
+	get_material().set_shader_parameter("mask_y_delta", 0.5)
+	for i in range(4, -1, -1):
+		await get_tree().create_timer(0.1).timeout
+		get_material().set_shader_parameter("mask_y_delta", i*0.1)
+	$CharacterSprites.use_parent_material = false
