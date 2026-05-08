@@ -187,7 +187,7 @@ func launch_activity():
 	# this would be more complicated, check role/permissions,
 	# and apply to whichever room is relevant
 	for player in get_tree().get_nodes_in_group("players"):
-		move_player_to_room([int(player.name), "Lobby"])
+		move_player_to_room([int(player.name), "QuizGameTest"])
 		# with only one spawnpoint, this is necessary to prevent glitching
 		await get_tree().create_timer(.2).timeout
 

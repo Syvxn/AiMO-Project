@@ -36,3 +36,4 @@ func update_room_list():
 
 func _on_launch_activity_button_pressed() -> void:
 	SignalBus.activity_launched.emit()
+	hide()
