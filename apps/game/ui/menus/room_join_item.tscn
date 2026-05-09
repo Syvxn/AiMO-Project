@@ -10,9 +10,9 @@ var room_name : String
 
 func set_room_label_text(text: String):
 	# here's where we might render player inputted text,
-	# for example \"[USERNAME]'s Room\".
-	# this should be sanitized either here or upstream
-	$HBoxContainer/RoomLabel.text = text
+	# for example \"[USERNAME]'s Room\",
+	# so this should be sanitized either here or upstream
+	%RoomLabel.text = text
 
 
 func _on_join_button_pressed() -> void:
@@ -31,7 +31,13 @@ script = SubResource("GDScript_h0wsf")
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=853827725]
 layout_mode = 2
 
-[node name="RoomLabel" type="Label" parent="HBoxContainer" unique_id=61698636]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1664544561]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 3
+
+[node name="RoomLabel" type="Label" parent="HBoxContainer/MarginContainer" unique_id=61698636]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "[PLAYER]'s Room"

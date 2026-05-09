@@ -99,9 +99,6 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bkuoy"]
-content_margin_left = 3.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_mav60"]
 atlas = ExtResource("2_bkuoy")
 region = Rect2(0, 0, 10, 7)
@@ -200,7 +197,6 @@ Label/constants/shadow_offset_x = -2
 Label/constants/shadow_offset_y = 2
 Label/font_sizes/font_size = 16
 Label/fonts/font = ExtResource("1_qwuhx")
-Label/styles/normal = SubResource("StyleBoxEmpty_bkuoy")
 OptionButton/colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
 OptionButton/colors/font_focus_color = Color(1, 0.9882353, 0.91764706, 1)
 OptionButton/colors/font_hover_color = Color(1, 0.9882353, 0.91764706, 1)

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://n4rg6xd52qax" path="res://ui/loading/loading_screen.gd" id="1_butmh"]
 [ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen.tres" id="2_butmh"]
+[ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="2_s7f4n"]
 [ext_resource type="SpriteFrames" uid="uid://blf3kqutjls86" path="res://textures/sprite_frames/loading_elizabeth.tres" id="3_xen5b"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kfex"]
@@ -37,6 +38,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="Control/MarginContainer" unique_id=1635558082]
 layout_mode = 2
+theme = ExtResource("2_s7f4n")
 text = "this is a cool loading screen..."
 label_settings = SubResource("LabelSettings_1kfex")
 horizontal_alignment = 1
