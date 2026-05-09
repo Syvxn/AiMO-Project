@@ -1,7 +1,17 @@
 [gd_scene format=3 uid="uid://c8x34nugd04c8"]
 
 [ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_and_quiz/chat_screen.gd" id="1_ldjw3"]
+[ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="2_spejf"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spejf"]
+bg_color = Color(0.58431375, 0.26666668, 0.18039216, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.93333334, 0.48235294, 0.32156864, 1)
+shadow_offset = Vector2(-12, 14)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
 corner_radius_top_left = 20
@@ -29,6 +39,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_spejf")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=564910708]
 layout_mode = 1
@@ -38,7 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 34
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/MarginContainer" unique_id=1262480437]
 layout_mode = 2
@@ -47,7 +58,6 @@ ratio = 0.8
 [node name="ChatPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=940803565]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("2_ywf3k")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel" unique_id=1493294553]
 layout_mode = 1
@@ -86,8 +96,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Panel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer" unique_id=1891246671]
 layout_mode = 2
-theme = ExtResource("2_ywf3k")
-theme_override_styles/panel = SubResource("StyleBoxFlat_ywf3k")
+theme_override_styles/panel = SubResource("StyleBoxFlat_spejf")
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel" unique_id=1696599969]
 layout_mode = 1
@@ -108,8 +117,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("2_ywf3k")
-theme_override_styles/normal = SubResource("StyleBoxFlat_tanbp")
 placeholder_text = "Say something"
 keep_editing_on_text_submit = true
 
@@ -122,7 +129,6 @@ text = ">"
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme = ExtResource("2_ywf3k")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/AspectRatioContainer/QuizPanel" unique_id=1190304992]
 layout_mode = 1
