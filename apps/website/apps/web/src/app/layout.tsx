@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Source_Serif_4 } from "next/font/google";
+import { Space_Grotesk, Source_Serif_4, Goblin_One } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/auth-context";
 import { Navigation } from "@/components/navigation";
@@ -14,6 +14,12 @@ const bodyFont = Source_Serif_4({
   subsets: ["latin"],
 });
 
+const goblinFont = Goblin_One({
+  variable: "--font-goblin",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "AiMO Website",
   description: "AiMO learning platform website and game launcher",
@@ -25,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} h-full antialiased`}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${goblinFont.variable} h-full antialiased`}>
       <body className="app-bg text-text-light">
         <AuthProvider>
           <div className="flex min-h-screen flex-col">

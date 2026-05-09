@@ -30,8 +30,9 @@
   --color-text-light: var(--text-light);
   --color-text-natural: var(--text-natural);
   --color-text-beige: var(--text-beige);
-  --font-display: var(--font-display);
+  --font-display: var(--font-goblin);
   --font-sans: var(--font-body);
+  --font-goblin: var(--font-goblin);
 }
 
 html,
@@ -54,12 +55,20 @@ body {
   font-family: var(--font-body), serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-goblin), sans-serif;
+}
+
 .app-bg {
   background: transparent;
 }
 
 .font-display {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-goblin), sans-serif;
+}
+
+.font-goblin {
+  font-family: var(--font-goblin), sans-serif;
 }
 
 .btn-primary {
