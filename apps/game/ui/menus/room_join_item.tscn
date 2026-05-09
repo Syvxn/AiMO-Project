@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://c6w7aikde6xt5"]
 
+[ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="1_3h6pp"]
+
 [sub_resource type="GDScript" id="GDScript_h0wsf"]
 script/source = "extends MarginContainer
 
@@ -19,6 +21,7 @@ func _on_join_button_pressed() -> void:
 "
 
 [node name="RoomJoinItem" type="MarginContainer" unique_id=2052026462]
+theme = ExtResource("1_3h6pp")
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 10
