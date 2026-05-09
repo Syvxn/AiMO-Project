@@ -1,0 +1,28 @@
+{
+    "items": {
+        "body_item": "basic",
+        "eyes_item": "basic",
+        "hair_item": "mohawk",
+        "shirt_item": "tshirt_basic",
+        "pants_item": "pants_faith",
+        "jacket_item": "",
+        "shoes_item": "shoes_faith",
+        "accessory1_item": "",
+        "accessory2_item": "",
+        "accessory3_item": "",
+        "costume_item": "faith"
+    },
+    "colors": {
+        "body_color": "F2DBD3",
+        "eyes_color": "2B210C",
+        "hair_color": "211D1D",
+        "shirt_color": "8c8867ff",
+        "pants_color": "2e569dff",
+        "jacket_color": "FFFFFF",
+        "shoes_color": "d67807ff",
+        "accessory1_color": "FFFFFF",
+        "accessory2_color": "FFFFFF",
+        "accessory3_color": "FFFFFF"
+    },
+    "use_costume": false
+}

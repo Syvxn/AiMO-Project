@@ -68,7 +68,15 @@ func _on_options_item_selected(index: int, source: OptionButton) -> void:
 	get_parent().apply_visuals.rpc(current_data)
 
 
+func _on_color_picker_created(source: ColorPickerButton) -> void:
+	source.get_picker().set_sliders_visible(false)
+	source.get_picker().set_modes_visible(false)
+
+
 func _on_color_popup_closed(source: ColorPickerButton) -> void:
+	# this menu should be the child of the Player scene root
+	if not get_parent().is_in_group("players"):
+		return
 	var current_data = get_parent().get_applied_visuals_data()
 	for key in colors_lookup:
 		if source.name == key:
