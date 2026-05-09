@@ -11,7 +11,6 @@ var room_name : String
 func set_room_label_text(text: String):
 	# here's where we might render player inputted text,
 	# for example \"[USERNAME]'s Room\",
-	# so this should be sanitized either here or upstream
 	%RoomLabel.text = text
 
 
