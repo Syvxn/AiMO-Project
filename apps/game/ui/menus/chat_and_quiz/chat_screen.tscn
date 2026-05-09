@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://3s3fpclydpo8" path="res://ui/menus/chat_and_quiz/chat_screen.gd" id="1_ldjw3"]
 [ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="2_spejf"]
 [ext_resource type="Theme" uid="uid://b2og7tin2mfav" path="res://ui/themes/chat_test.tres" id="2_ywf3k"]
+[ext_resource type="Texture2D" uid="uid://vptsqmfjxpu" path="res://ui/icons.png" id="3_x3gp3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spejf"]
 bg_color = Color(0.58431375, 0.26666668, 0.18039216, 1)
@@ -12,6 +13,10 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_color = Color(0.93333334, 0.48235294, 0.32156864, 1)
 shadow_offset = Vector2(-12, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_prny2"]
+atlas = ExtResource("3_x3gp3")
+region = Rect2(20, 0, 7, 10)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywf3k"]
 corner_radius_top_left = 20
@@ -123,7 +128,8 @@ keep_editing_on_text_submit = true
 [node name="ChatSubmitButton" type="Button" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer/Panel/MarginContainer/HBoxContainer" unique_id=1581675107]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-text = ">"
+icon = SubResource("AtlasTexture_prny2")
+icon_alignment = 1
 
 [node name="QuizPanel" type="Panel" parent="Control/MarginContainer/AspectRatioContainer" unique_id=475803253]
 unique_name_in_owner = true
