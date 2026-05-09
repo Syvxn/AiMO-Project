@@ -6,4 +6,4 @@
 [resource]
 shader = ExtResource("1_05v13")
 shader_parameter/mask_texture = ExtResource("2_uueon")
-shader_parameter/mask_y_delta = 0.07
+shader_parameter/mask_y_delta = 0.0
