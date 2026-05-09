@@ -58,6 +58,7 @@ personal_rooms=""
 npcs=""
 menus=""
 buttons=""
+walkers=""
 
 [input]
 

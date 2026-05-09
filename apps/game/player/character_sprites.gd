@@ -44,6 +44,7 @@ func apply_visuals(data) -> void:
 			child.show()
 		$CostumeSprite.hide()
 	current_data = data
+	print(current_data) #debug
 
 
 #func randomize_colors():
@@ -91,5 +92,9 @@ func apply_visuals(data) -> void:
 	#data["colors"]["hair_color"] = colors.pick_random()
 	#data["colors"]["shirt_color"] = colors.pick_random()
 	#data["colors"]["pants_color"] = colors.pick_random()
+	#data["colors"]["jacket_color"] = colors.pick_random()
 	#data["colors"]["shoes_color"] = colors.pick_random()
+	#data["colors"]["accessory1_color"] = colors.pick_random()
+	#data["colors"]["accessory2_color"] = colors.pick_random()
+	#data["colors"]["accessory3_color"] = colors.pick_random()
 	#apply_visuals.rpc(data)

@@ -218,7 +218,9 @@ func move_player_to_room(move_info):
 		if int(player.name) == joiner_peer_id:
 			player.beam_up.rpc()
 			await get_tree().create_timer(0.5).timeout
-			player.set_global_position(spawn_location)
+			if player:
+				player.set_global_position(spawn_location)
 			await get_tree().create_timer(0.1).timeout
-			player.beam_down.rpc()
+			if player:
+				player.beam_down.rpc()
 			break

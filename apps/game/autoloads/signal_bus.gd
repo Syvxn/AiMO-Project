@@ -6,7 +6,7 @@ extends Node
 @warning_ignore("unused_signal")
 signal started_loading
 @warning_ignore("unused_signal")
-signal finished_loading
+signal finished_loading()
 @warning_ignore("unused_signal")
 signal new_player_info_received(username: String, role: String)
 @warning_ignore("unused_signal")

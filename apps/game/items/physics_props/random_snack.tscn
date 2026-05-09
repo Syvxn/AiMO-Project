@@ -100,3 +100,5 @@ texture = SubResource("AtlasTexture_xbeh2")
 [node name="Sprite2D10" type="Sprite2D" parent="Sprites" unique_id=769088951]
 visible = false
 texture = SubResource("AtlasTexture_s4svg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

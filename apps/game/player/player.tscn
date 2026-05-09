@@ -142,7 +142,6 @@ script = SubResource("GDScript_3eadt")
 [node name="NavAgent" type="NavigationAgent2D" parent="." unique_id=866101287]
 avoidance_enabled = true
 radius = 20.0
-debug_enabled = true
 
 [node name="CustomizeCharMenu" parent="." unique_id=830664804 instance=ExtResource("3_g1dw6")]
 visible = false

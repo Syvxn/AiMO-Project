@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 var original_height
+var collectable := false
 
 
 func _ready() -> void:
@@ -11,3 +12,9 @@ func _ready() -> void:
 	sprites.pick_random().show()
 	
 	
+
+
+func _on_body_entered(body: Node) -> void:
+	if collectable and body.is_in_group("players"):
+		# +1 to player.something
+		queue_free()
