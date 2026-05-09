@@ -43,9 +43,14 @@ class Settings:
 def load_settings() -> Settings:
     """Load runtime settings from environment variables (with .env support)."""
     from dotenv import load_dotenv
-    load_dotenv()
 
     _root = Path(__file__).resolve().parents[3]  # AiMO-Agents/
+
+    # Team-friendly loading order:
+    # 1) .env provides shared defaults tracked in docs
+    # 2) .env.local is optional, gitignored, and overrides per-developer machine
+    load_dotenv(_root / ".env")
+    load_dotenv(_root / ".env.local", override=True)
 
     return Settings(
         orchestrator_model_id=os.getenv(

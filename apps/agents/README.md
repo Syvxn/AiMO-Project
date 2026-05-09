@@ -2,7 +2,8 @@
 
 A multi-agent system that generates multiple-choice quizzes from plain-text study material using a lightweight RAG (Retrieval-Augmented Generation) pipeline and open-source HuggingFace models.
 
-> New contributors should start with `CONTRIBUTING.md`.
+> New contributors should start with [CONTRIBUTING.md](CONTRIBUTING.md).
+> For mixed hardware teams, see [Team GPU/CPU setup](CONTRIBUTING.md#team-gpucpu-setup).
 
 > **For a hands-on walkthrough see [`notebooks/contributor_guide.ipynb`](notebooks/contributor_guide.ipynb).**
 
@@ -95,7 +96,13 @@ pip install -e .
 # 3. Configure environment
 cp .env.example .env
 # Edit .env – at minimum set MATERIAL_DIR if your materials are not in data/materials/chapters/
+# Optional per-developer overrides (recommended for hardware-specific values):
+# cp .env.example .env.local
 ```
+
+The loader reads `.env` first, then `.env.local` (if present). This keeps shared
+defaults in versioned docs while allowing each developer to set local GPU/CPU
+preferences without affecting others.
 
 ### Key `.env` settings
 
@@ -108,6 +115,24 @@ cp .env.example .env
 | `RAG_SCORE_THRESHOLD` | `0.30` | Min cosine similarity to accept a chunk |
 | `RAG_CHUNK_SIZE` | `200` | Words per chunk |
 | `DEFAULT_QUESTION_COUNT` | `5` | Questions per quiz |
+
+### Team GPU/CPU workflow
+
+- Keep `.env` values portable for everyone (for example `DEVICE_MAP=auto`).
+- Put machine-specific overrides in `.env.local` (gitignored).
+- Example for a developer who wants to force GPU:
+
+```bash
+DEVICE_MAP=cuda:0
+TEACHER_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct
+ORCHESTRATOR_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct
+```
+
+- Example for a CPU-only developer:
+
+```bash
+DEVICE_MAP=cpu
+```
 
 ---
 

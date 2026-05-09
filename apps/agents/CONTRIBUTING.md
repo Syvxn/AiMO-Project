@@ -40,6 +40,32 @@ PowerShell copy command:
 Copy-Item .env.example .env
 ```
 
+## Team GPU/CPU setup
+
+Keep shared defaults in `.env`, then use `.env.local` for machine-specific
+overrides. The app loads `.env` first and `.env.local` second, so local values
+take precedence.
+
+PowerShell example:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+GPU developer example (`.env.local`):
+
+```bash
+DEVICE_MAP=cuda:0
+TEACHER_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct
+ORCHESTRATOR_MODEL_ID=Qwen/Qwen2.5-1.5B-Instruct
+```
+
+CPU-only developer example (`.env.local`):
+
+```bash
+DEVICE_MAP=cpu
+```
+
 ## First change (example)
 
 Goal: adjust number of retrieved chunks.
