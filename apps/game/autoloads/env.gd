@@ -5,7 +5,9 @@ var GAME_SERVER_URL : String = "ws://localhost:8910"
 var GAME_SERVER_PORT : int = 8910
 #var MAX_GAME_CLIENTS : int  # not used yet
 var CHAT_SERVER_URL : String = "http://127.0.0.1:8000/chat"
+var CHAT_STREAM_URL : String = "ws://127.0.0.1:80/api/ws/npc-chat"
 var SCORE_SERVER_URL : String = "http://127.0.0.1:8000/score"
+var CURRENT_CHAT_NPC_ID : String = "quiz_llehc"
 
 
 
@@ -25,6 +27,8 @@ func _ready() -> void:
 		#MAX_GAME_CLIENTS = json.data["MAX_GAME_CLIENTS"]
 		if json.data.has("CHAT_SERVER_URL"):
 			CHAT_SERVER_URL = json.data["CHAT_SERVER_URL"]
+		if json.data.has("CHAT_STREAM_URL"):
+			CHAT_STREAM_URL = json.data["CHAT_STREAM_URL"]
 		if json.data.has("SCORE_SERVER_URL"):
 			SCORE_SERVER_URL = json.data["SCORE_SERVER_URL"]
 		

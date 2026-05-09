@@ -2,82 +2,32 @@
     "quiz_title": "English Quiz: colors",
     "questions": [
         {
-            "question": "What is the colour of the sky and the sea?",
+            "question": "What is the colour of the Finnish flag?",
             "options": [
-                "A: Green",
-                "B: Yellow",
-                "C: Blue",
-                "D: Red"
-            ],
-            "answer": "C"
-        },
-        {
-            "question": "What is the colour of the sun and bananas?",
-            "options": [
-                "A: Orange",
-                "B: Yellow",
-                "C: Green",
-                "D: Blue"
-            ],
-            "answer": "B"
-        },
-        {
-            "question": "Complete the sentence from the colors material: Black is the ____ colour.?",
-            "options": [
-                "A: called",
-                "B: very",
-                "C: darkest",
-                "D: cool"
-            ],
-            "answer": "C"
-        },
-        {
-            "question": "Choose the best word to fill the blank: White is the ____ colour.?",
-            "options": [
-                "A: leaves",
-                "B: lightest",
-                "C: light",
-                "D: basic"
-            ],
-            "answer": "B"
-        },
-        {
-            "question": "From the colors lesson text, which word fits the blank: Neon ____ are very bright.?",
-            "options": [
-                "A: colours",
-                "B: english",
-                "C: forest",
-                "D: naming"
-            ],
-            "answer": "A"
-        },
-        {
-            "question": "Complete the sentence from the colors material: Pink is a ____ red colour.?",
-            "options": [
-                "A: purple",
+                "A: yellow and blue",
                 "B: green",
-                "C: people",
-                "D: light"
+                "C: red and black",
+                "D: blue and white"
             ],
             "answer": "D"
         },
         {
-            "question": "Choose the best word to fill the blank: Grey is ____ black and white.?",
+            "question": "What is the colour of the sun and bananas?",
             "options": [
-                "A: forest",
-                "B: between",
-                "C: bananas",
-                "D: important"
+                "A: Brown",
+                "B: Yellow",
+                "C: White",
+                "D: Orange"
             ],
             "answer": "B"
         },
         {
-            "question": "From the colors lesson text, which word fits the blank: Dark ____ is called navy blue.?",
+            "question": "What is the colour of a tree?",
             "options": [
-                "A: t-shirt",
-                "B: blue",
-                "C: part",
-                "D: such"
+                "A: Orange",
+                "B: Green",
+                "C: Blue",
+                "D: Yellow"
             ],
             "answer": "B"
         }

@@ -1,4 +1,19 @@
 services:
+  agents:
+    build:
+      context: ../agents
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ../agents/src:/app/src
+      - ../agents/data:/app/data
+      - hf_cache:/root/.cache/huggingface
+    environment:
+      DEVICE_MAP: cpu
+      MAX_NEW_TOKENS: "128"
+    expose:
+      - "8001"
+
   web:
     image: node:22-alpine
     working_dir: /app
@@ -24,6 +39,7 @@ services:
       APP_ENV: development
       SECRET_KEY: ${API_SECRET_KEY:-change-me}
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      AGENTS_SERVICE_URL: http://host.docker.internal:8001
     expose:
       - "8000"
     depends_on:
@@ -52,3 +68,4 @@ services:
 
 volumes:
   pgdata:
+  hf_cache:
