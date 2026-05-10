@@ -15,7 +15,7 @@ func close_menu():
 	
 
 
-@rpc
+@rpc("authority", "call_remote")
 func update_room_list():
 	for child in join_list.get_children():
 		child.queue_free()

@@ -15,6 +15,7 @@ func _ready() -> void:
 	if OS.has_feature("dedicated_server"):
 		NetworkHandler.start_server()
 	elif OS.has_feature("web"):
+		$LoadingScreen.show()
 		var configured_url = Env.GAME_SERVER_URL.strip_edges()
 		if not "://localhost:" in configured_url:
 			var host = str(JavaScriptBridge.eval("window.location.hostname"))
@@ -25,6 +26,7 @@ func _ready() -> void:
 		NetworkHandler.start_client()
 		# put some screen here to show "Connecting..." or smth
 		await multiplayer.connected_to_server
+		$LoadingScreen.hide_after_a_moment()
 		var player_info = {"playername" : "", "playerrole" : ""}
 		#region the better way except it doesn't work lmao
 		#var _on_cookie = func(args):

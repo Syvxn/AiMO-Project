@@ -30,7 +30,7 @@ func _ready() -> void:
 	SignalBus.chat_opened.connect(quiz_panel.hide)
 	SignalBus.chat_opened.connect(chat_input_field.grab_focus)
 	SignalBus.chat_closed.connect(hide)
-	set_process(true)
+	set_process(true) # does nothing?
 	_reset_chat_session()
 
 
@@ -40,11 +40,11 @@ func _process(_delta: float) -> void:
 			if not waiting_notice_sent:
 				waiting_notice_sent = true
 				response_deadline_msec = Time.get_ticks_msec() + EXTENDED_RESPONSE_WAIT_MSEC
-				add_bubble("NPC is still thinking... this can take a bit on first reply.", "left")
+				add_bubble("Hold on, let me think for a moment...", "left")
 			else:
 				awaiting_response = false
 				waiting_notice_sent = false
-				add_bubble("NPC did not respond in time. Please try again.", "left")
+				add_bubble("Sorry, I zoned out. Can you say that again?", "left")
 		return
 
 	chat_socket.poll()
@@ -55,18 +55,18 @@ func _process(_delta: float) -> void:
 	elif state == WebSocketPeer.STATE_CLOSED:
 		if awaiting_response:
 			awaiting_response = false
-			add_bubble("NPC connection closed unexpectedly.", "left")
+			add_bubble("[NPC connection closed unexpectedly.]", "left")
 		socket_started = false
 
 	if awaiting_response and Time.get_ticks_msec() > response_deadline_msec:
 		if not waiting_notice_sent:
 			waiting_notice_sent = true
 			response_deadline_msec = Time.get_ticks_msec() + EXTENDED_RESPONSE_WAIT_MSEC
-			add_bubble("NPC is still thinking... this can take a bit on first reply.", "left")
+			add_bubble("Hold on, let me think for a moment...", "left")
 		else:
 			awaiting_response = false
 			waiting_notice_sent = false
-			add_bubble("NPC did not respond in time. Please try again.", "left")
+			add_bubble("Sorry, I zoned out. Can you say that again?", "left")
 	
 	
 func close_menu():
@@ -89,7 +89,7 @@ func _connect_chat_socket() -> void:
 	if connection_error != OK:
 		socket_started = false
 		print("WebSocket connection error: ", connection_error)
-		add_bubble("Could not reach NPC chat server.", "left")
+		add_bubble("[Could not reach NPC chat server.]", "left")
 		return
 
 	socket_started = true

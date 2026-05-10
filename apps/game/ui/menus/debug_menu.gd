@@ -35,10 +35,10 @@ func _on_client_button_pressed() -> void:
 
 func _on_teacher_button_pressed() -> void:
 	SignalBus.new_player_info_received.emit(username_field.text, "TEACHER")
-	SignalBus.started_loading.emit()
+	SignalBus.started_loading.emit() # loading finished by Player _ready()
 	hide()
 
 func _on_student_button_pressed() -> void:
 	SignalBus.new_player_info_received.emit(username_field.text, "STUDENT")
-	SignalBus.started_loading.emit()
+	SignalBus.started_loading.emit() # loading finished by Player _ready()
 	hide()

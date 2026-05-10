@@ -11,20 +11,22 @@ func _ready() -> void:
 
 
 func interact():
-	buy()
+	buy.rpc()
 
+
+@rpc("any_peer", "call_local")
 func buy():
 	if turned_on:
 		$AnimatedSprite2D.play("yes")
 		print("You bought something! I think.")
-		await get_tree().create_timer(1).timeout
-		%SnackPoint.add_child(random_snack.instantiate())
-		if randi_range(1,1000) == 777:
-			%SnackPoint.add_child(random_snack.instantiate())
-			%SnackPoint.add_child(random_snack.instantiate())
-			%SnackPoint.add_child(random_snack.instantiate())
-			%SnackPoint.add_child(random_snack.instantiate())
-			%SnackPoint.add_child(random_snack.instantiate())
+	if not multiplayer.is_server():
+		return
+	await get_tree().create_timer(1).timeout
+	%SnackPoint.call_deferred("add_child", random_snack.instantiate(), true)
+	if randi_range(1,1000) == 777:
+		for i in range(10):
+			%SnackPoint.call_deferred("add_child", random_snack.instantiate(), true)
+
 
 
 func _on_body_entered(body: Node2D) -> void:

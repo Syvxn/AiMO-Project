@@ -37,6 +37,10 @@ shape = SubResource("ConvexPolygonShape2D_qfs16")
 wait_time = 10.0
 one_shot = true
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1312841360]
+_spawnable_scenes = PackedStringArray("uid://06480w80xjvk")
+spawn_path = NodePath("../SnackPoint")
+
 [node name="SnackPoint" type="Node2D" parent="." unique_id=403652711]
 unique_name_in_owner = true
 z_index = 1

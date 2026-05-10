@@ -34,6 +34,11 @@ theme_override_fonts/bold_italics_font = ExtResource("2_u1dvv")
 theme_override_fonts/italics_font = ExtResource("2_u1dvv")
 theme_override_fonts/mono_font = SubResource("SystemFont_nauna")
 theme_override_styles/normal = SubResource("StyleBoxFlat_b0slb")
-text = "dassdasdsa"
+text = "Like Medusa's magic mien,
+or a polished turd's sheen,
+these words of test
+show it best:
+Some things should not be seen!
+"
 fit_content = true
 scroll_active = false

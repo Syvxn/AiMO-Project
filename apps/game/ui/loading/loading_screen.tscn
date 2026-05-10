@@ -2,11 +2,8 @@
 
 [ext_resource type="Script" uid="uid://n4rg6xd52qax" path="res://ui/loading/loading_screen.gd" id="1_butmh"]
 [ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen.tres" id="2_butmh"]
-[ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="2_s7f4n"]
+[ext_resource type="Texture2D" uid="uid://bb0by5k8tfv1s" path="res://ui/loading/grass.png" id="2_dy5tn"]
 [ext_resource type="SpriteFrames" uid="uid://blf3kqutjls86" path="res://textures/sprite_frames/loading_elizabeth.tres" id="3_xen5b"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_1kfex"]
-font_size = 28
 
 [node name="LoadingScreen" type="CanvasLayer" unique_id=1452673750]
 script = ExtResource("1_butmh")
@@ -19,30 +16,59 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1702148710]
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=678606267]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -167.30347
+offset_bottom = 167.30347
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dy5tn")
+expand_mode = 5
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control" unique_id=1394124611]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+ratio = 5.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/AspectRatioContainer" unique_id=1702148710]
+layout_mode = 2
 color = Color(0.0878545, 0.119425, 0.206815, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1191569351]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1864480765]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="Control/MarginContainer" unique_id=1635558082]
-layout_mode = 2
-theme = ExtResource("2_s7f4n")
-text = "this is a cool loading screen..."
-label_settings = SubResource("LabelSettings_1kfex")
+[node name="Label" type="RichTextLabel" parent="Control" unique_id=1334335693]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -18.0
+offset_right = 931.0
+offset_bottom = 18.0
+grow_vertical = 2
+theme_override_font_sizes/bold_font_size = 31
+bbcode_enabled = true
+text = "[b]this is a cool loading screen..."
+fit_content = true
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Control" unique_id=766065477]
+position = Vector2(859, 313)
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("3_xen5b")
+autoplay = "default"
+frame_progress = 0.7721303
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=26065665]
 visible = false
@@ -52,10 +78,3 @@ sprite_frames = ExtResource("2_butmh")
 animation = &"walk"
 autoplay = "walk"
 frame_progress = 0.1255059
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Control" unique_id=766065477]
-position = Vector2(1056, 554)
-scale = Vector2(4, 4)
-sprite_frames = ExtResource("3_xen5b")
-autoplay = "default"
-frame_progress = 0.7721303
