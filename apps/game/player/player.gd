@@ -16,6 +16,8 @@ var controllable := true
 func _ready() -> void:
 	SignalBus.chat_opened.connect(lock_controls)
 	SignalBus.chat_closed.connect(release_controls)
+	# necessary when adjusting shader variable values for each player
+	material = load("res://textures/shaders/beam_mask.tres").duplicate()
 	apply_visuals(fetch_visuals())
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
