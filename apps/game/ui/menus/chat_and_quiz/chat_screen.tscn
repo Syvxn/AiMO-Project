@@ -76,7 +76,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(0, 528.855)
 layout_mode = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 10
 
 [node name="ChatScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/AspectRatioContainer/ChatPanel/VBoxContainer/MarginContainer2" unique_id=797728545]

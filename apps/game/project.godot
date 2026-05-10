@@ -59,6 +59,7 @@ npcs=""
 menus=""
 buttons=""
 walkers=""
+lootables=""
 
 [input]
 

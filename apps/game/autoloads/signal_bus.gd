@@ -21,3 +21,5 @@ signal chat_opened
 signal chat_closed
 @warning_ignore("unused_signal")
 signal oops_pressed
+@warning_ignore("unused_signal")
+signal item_autolooted(id: String, type: String, looter: Node)

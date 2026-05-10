@@ -279,12 +279,22 @@ position = Vector2(384, 668)
 unique_name_in_owner = true
 position = Vector2(925, 668)
 
+[node name="SnacksSpawner" type="MultiplayerSpawner" parent="." unique_id=2119331831]
+_spawnable_scenes = PackedStringArray("uid://06480w80xjvk")
+spawn_path = NodePath(".")
+
 [node name="RewardPointA" type="Node2D" parent="." unique_id=285392321]
 unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(545, 557)
 
 [node name="RewardPointB" type="Node2D" parent="." unique_id=859564890]
 unique_name_in_owner = true
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
 position = Vector2(763, 556)
 
 [node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]

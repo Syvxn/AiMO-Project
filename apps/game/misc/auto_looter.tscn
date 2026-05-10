@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bm2wueqw3t6aa"]
+
+[ext_resource type="Script" uid="uid://njptf1ns4oei" path="res://misc/auto_looter.gd" id="1_q8yuf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ootn4"]
+radius = 20.0
+
+[node name="AutoLooter" type="Area2D" unique_id=1808037444]
+collision_mask = 65
+script = ExtResource("1_q8yuf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=841633608]
+shape = SubResource("CircleShape2D_ootn4")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

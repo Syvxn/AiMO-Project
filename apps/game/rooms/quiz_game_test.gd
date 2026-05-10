@@ -2,9 +2,12 @@ extends Node2D
 
 var display_name := "Quiz Game"
 var game_state := "inactive"
+var points_per_question := 10
+var points_per_snack := 1
 var players : Array[CharacterBody2D]
 var team_a_players : Array[CharacterBody2D]
 var team_b_players : Array[CharacterBody2D]
+var id_for_autolooters = "quizgametest"
 var total_points = {"team_a" : 0, "team_b" : 0}
 var current_question_points = {"team_a" : 0, "team_b" : 0}
 var current_question_players_answered_count = 0
@@ -17,6 +20,7 @@ var current_question_index := 0
 
 func _ready() -> void:
 	%QuizMenu.hide()
+	SignalBus.item_autolooted.connect(_on_item_autlooted)
 
 
 #region client functionality
@@ -49,23 +53,6 @@ func on_answer_first_selected(_index: int):
 func show_correct_answer():
 	%QuizQuestion.show_correct_answer()
 
-# also called on server for debugging purposes
-@rpc("authority", "call_local")
-func spew_stuff(args: Array):
-	var reward_point_node = get_node(args[0])
-	var target_position = args[1]
-	var type = args[2]
-	var types = {
-		"snacks" : "res://items/physics_props/random_snack.tscn",
-	}
-	for i in range(20):
-		var stuff_instance = load(types[type]).instantiate()
-		reward_point_node.add_child(stuff_instance)
-		target_position.x += randi_range(-10, 10)
-		target_position.y += randi_range(-10, 10)
-		var impulse = stuff_instance.global_position.direction_to(target_position) * 500
-		stuff_instance.apply_central_impulse(impulse)
-		await get_tree().create_timer(0.1).timeout
 
 # also called on server for debugging purposes
 @rpc("authority", "call_local")
@@ -91,6 +78,11 @@ func start_game():
 	#endregion
 	clear_rewards.rpc()
 	players = get_players_present() # no state like real estate
+	for player in players:
+		var quiz_auto_looter_instance = load("res://misc/auto_looter.tscn").instantiate()
+		quiz_auto_looter_instance.name = "QuizAutoLooter"
+		player.add_child(quiz_auto_looter_instance)
+		player.get_node("QuizAutoLooter").configure(20.0, id_for_autolooters, "snack", player)
 	make_teams()
 	for player in team_a_players:
 		player.global_position = %SpawnPointA.global_position
@@ -138,16 +130,7 @@ func run_next_question():
 		current_question_points[key] = 0
 	current_question_players_answered_count = 0
 	if current_question_index == len(quiz["questions"]):
-		print("end of quiz, yay")
-		%ApparatusScreen.text = ""
-		for player in players:
-			player.global_position = %SpawnPoint.global_position
-			await get_tree().create_timer(0.1).timeout
-		team_a_players.clear()
-		team_b_players.clear()
-		for key in total_points:
-			total_points[key] = 0
-		game_state = "inactive"
+		end_game()
 		return
 	%ApparatusScreen.text = "?"
 	var question = quiz["questions"][current_question_index]
@@ -158,11 +141,32 @@ func run_next_question():
 	show_correct_answer.rpc()
 	await get_tree().create_timer(1.5).timeout
 	%QuizMenu.hide()
-	print("here's where stuff would fly out at the teams")
 	check_and_reward_winners()
 	await get_tree().create_timer(reward_time_in_s).timeout
 	current_question_index += 1
 	run_next_question()
+
+
+func end_game():
+		assert(multiplayer.is_server())
+		print("end of quiz, yay")
+		print("Team A points: ", str(total_points["team_a"]))
+		print("Team B points: ", str(total_points["team_b"]))
+		%ApparatusScreen.text = ""
+		for child in $SnacksSpawner.get_children():
+			child.call_deferred("queue_free")
+		for player in players:
+			var qal = player.get_node_or_null("QuizAutoLooter")
+			if qal:
+				qal.queue_free()
+			player.global_position = %SpawnPoint.global_position
+			await get_tree().create_timer(0.1).timeout
+		team_a_players.clear()
+		team_b_players.clear()
+		for key in total_points:
+			total_points[key] = 0
+		game_state = "inactive"
+		print("game ended successfully")
 
 
 func check_and_reward_winners():
@@ -173,10 +177,29 @@ func check_and_reward_winners():
 	elif current_question_points["team_b"] > current_question_points["team_a"]:
 		reward_a = false
 	if reward_a:
-		spew_stuff.rpc(["%RewardPointA", %SpawnPointA.global_position, "snacks"])
+		spew_stuff(%RewardPointA, %SpawnPointA.global_position, "snacks")
 	if reward_b:
-		spew_stuff.rpc(["%RewardPointB", %SpawnPointB.global_position, "snacks"])
+		spew_stuff(%RewardPointB, %SpawnPointB.global_position, "snacks")
 	%ApparatusScreen.text = "GO"
+
+
+func spew_stuff(reward_point_node, target_position, type):
+	assert(multiplayer.is_server())
+	var types = {
+		"snacks" : "res://items/physics_props/random_snack.tscn",
+	}
+	var stuff = load(types[type])
+	for i in range(20):
+		var stuff_instance = stuff.instantiate()
+		stuff_instance.global_position = reward_point_node.global_position
+		if "lootable" in stuff_instance:
+			stuff_instance.lootable = true
+		$SnacksSpawner.add_child(stuff_instance, true)
+		target_position.x += randi_range(-10, 10)
+		target_position.y += randi_range(-10, 10)
+		var impulse = stuff_instance.global_position.direction_to(target_position) * 500
+		stuff_instance.apply_central_impulse(impulse)
+		await get_tree().create_timer(0.1).timeout
 
 
 @rpc("any_peer", "call_remote")
@@ -185,11 +208,11 @@ func give_team_point_by_player(args: Array):
 	var id = args[0]
 	# no need to store anything in player
 	if team_a_players.any(func(player): return int(player.name) == id):
-		current_question_points["team_a"] += 1
-		total_points["team_a"] += 1
+		current_question_points["team_a"] += points_per_question
+		total_points["team_a"] += points_per_question
 	elif team_b_players.any(func(player): return int(player.name) == id):
-		current_question_points["team_b"] += 1
-		total_points["team_b"] += 1
+		current_question_points["team_b"] += points_per_question
+		total_points["team_b"] += points_per_question
 
 
 @rpc("any_peer", "call_remote")
@@ -199,4 +222,13 @@ func count_answer() -> void:
 	if current_question_players_answered_count == len(team_a_players) + len(team_b_players):
 		print("Everybody answered")
 		$QuestionTimer.start(1)
+
+
+func _on_item_autlooted(autolooter_id: String, type: String, looter: Node):
+	assert(multiplayer.is_server())
+	if autolooter_id == id_for_autolooters and type == "snack":
+		if team_a_players.any(func(player): return player.name == looter.name):
+			total_points["team_a"] += points_per_snack
+		if team_b_players.any(func(player): return player.name == looter.name):
+			total_points["team_b"] += points_per_snack
 #endregion
