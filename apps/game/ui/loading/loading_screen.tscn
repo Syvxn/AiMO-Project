@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://n4rg6xd52qax" path="res://ui/loading/loading_screen.gd" id="1_butmh"]
 [ext_resource type="SpriteFrames" uid="uid://drwj4gnyovy7n" path="res://textures/sprite_frames/loading_screen.tres" id="2_butmh"]
 [ext_resource type="Texture2D" uid="uid://bb0by5k8tfv1s" path="res://ui/loading/grass.png" id="2_dy5tn"]
+[ext_resource type="FontFile" uid="uid://bgh32klroc5m1" path="res://ui/fonts/GFS_Didot/GFSDidot-Regular.ttf" id="3_dy5tn"]
 [ext_resource type="SpriteFrames" uid="uid://blf3kqutjls86" path="res://textures/sprite_frames/loading_elizabeth.tres" id="3_xen5b"]
 
 [node name="LoadingScreen" type="CanvasLayer" unique_id=1452673750]
@@ -35,7 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-ratio = 5.0
+ratio = 4.0
 
 [node name="ColorRect" type="ColorRect" parent="Control/AspectRatioContainer" unique_id=1702148710]
 layout_mode = 2
@@ -55,9 +56,10 @@ offset_top = -18.0
 offset_right = 931.0
 offset_bottom = 18.0
 grow_vertical = 2
-theme_override_font_sizes/bold_font_size = 31
+theme_override_fonts/normal_font = ExtResource("3_dy5tn")
+theme_override_font_sizes/normal_font_size = 42
 bbcode_enabled = true
-text = "[b]this is a cool loading screen..."
+text = "This is a cool loading screen..."
 fit_content = true
 scroll_active = false
 horizontal_alignment = 1
