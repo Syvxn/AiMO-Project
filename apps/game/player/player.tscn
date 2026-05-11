@@ -151,7 +151,7 @@ visibility_update_mode = 1
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1918190193]
 position = Vector2(0, -23)
 enabled = false
-zoom = Vector2(2, 2)
+zoom = Vector2(3, 3)
 script = SubResource("GDScript_3eadt")
 
 [node name="NavAgent" type="NavigationAgent2D" parent="." unique_id=866101287]
