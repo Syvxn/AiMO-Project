@@ -103,6 +103,21 @@ func toggle_view():
 		zoom = Vector2(2.0, 2.0)
 "
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yw30f"]
+lifetime_randomness = 0.4
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -28, 0)
+emission_shape = 3
+emission_box_extents = Vector3(10, 28, 1)
+direction = Vector3(0, -1, 0)
+flatness = 1.0
+initial_velocity_min = 12.0199995
+initial_velocity_max = 35.1
+gravity = Vector3(0, 20, 0)
+color = Color(0.85430586, 0.9309246, 0.9776916, 1)
+hue_variation_min = -0.030000022
+hue_variation_max = 0.029999977
+
 [node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
 z_index = 1
 z_as_relative = false
@@ -145,5 +160,16 @@ radius = 20.0
 
 [node name="CustomizeCharMenu" parent="." unique_id=830664804 instance=ExtResource("3_g1dw6")]
 visible = false
+
+[node name="BeamUpParticles" type="GPUParticles2D" parent="." unique_id=1860318114]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+emitting = false
+amount = 10
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_yw30f")
 
 [connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

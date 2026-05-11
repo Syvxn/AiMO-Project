@@ -119,6 +119,7 @@ func toggle_customize_menu():
 func beam_up():
 	$CharacterSprites.use_parent_material = true
 	get_material().set_shader_parameter("mask_y_delta", 0.0)
+	$BeamUpParticles.restart()
 	for i in range(1, 6):
 		await get_tree().create_timer(0.1).timeout
 		get_material().set_shader_parameter("mask_y_delta", i*0.1)
@@ -127,6 +128,7 @@ func beam_up():
 @rpc("authority", "call_local")
 func beam_down():
 	get_material().set_shader_parameter("mask_y_delta", 0.5)
+	$BeamUpParticles.restart()
 	for i in range(4, -1, -1):
 		await get_tree().create_timer(0.1).timeout
 		get_material().set_shader_parameter("mask_y_delta", i*0.1)
