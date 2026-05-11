@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://ckoj0hyptpgie"]
+
+[ext_resource type="Script" uid="uid://bsphtajkypke5" path="res://misc/conveyor.gd" id="1_nusij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_drcba"]
+
+[node name="Conveyor" type="Area2D" unique_id=880755788]
+script = ExtResource("1_nusij")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1524752128]
+shape = SubResource("RectangleShape2D_drcba")
