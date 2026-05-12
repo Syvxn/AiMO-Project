@@ -14,6 +14,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
 size = Vector2(1189, 1032)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hd2i4"]
+size = Vector2(260.5, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbg7c"]
+size = Vector2(20, 172)
+
 [sub_resource type="Gradient" id="Gradient_5br6e"]
 offsets = PackedFloat32Array(0.7972028)
 colors = PackedColorArray(1, 1, 1, 1)
@@ -158,7 +164,13 @@ properties/5/spawn = true
 properties/5/replication_mode = 2
 properties/6/path = NodePath("NavigationRegion2D/Decorations/ApparatusScreen:text")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
+properties/7/path = NodePath("NavigationRegion2D/Decorations/APoints:text")
+properties/7/spawn = true
+properties/7/replication_mode = 2
+properties/8/path = NodePath("NavigationRegion2D/Decorations/BPoints:text")
+properties/8/spawn = true
+properties/8/replication_mode = 2
 
 [node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
 z_as_relative = false
@@ -174,6 +186,99 @@ position = Vector2(683.5, 664)
 shape = SubResource("RectangleShape2D_5p5hp")
 
 [node name="Invisible walls" type="Node2D" parent="." unique_id=1745184679]
+
+[node name="OhBoy" type="StaticBody2D" parent="Invisible walls" unique_id=1502462833]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1517128872]
+position = Vector2(656, 754)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=239246271]
+position = Vector2(657, 795)
+scale = Vector2(1.3515419, 1)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=828474345]
+position = Vector2(439, 912)
+scale = Vector2(0.41330627, 1.1127063)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1603332933]
+position = Vector2(872, 910.00006)
+scale = Vector2(0.41330627, 1.1127063)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D14" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1664531413]
+position = Vector2(878, 512.0001)
+scale = Vector2(0.41330627, 1.1127063)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D15" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1259489962]
+position = Vector2(431.99994, 511.00006)
+scale = Vector2(0.41330627, 1.1127063)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D16" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1903201780]
+position = Vector2(554, 1116)
+scale = Vector2(0.41330627, 1.1127063)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D17" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1017176603]
+position = Vector2(756.99994, 1118)
+scale = Vector2(0.41330627, 1.1127063)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1339346211]
+position = Vector2(655, 599)
+shape = SubResource("RectangleShape2D_hd2i4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=740671578]
+position = Vector2(535, 676)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=557231938]
+position = Vector2(491, 656.00006)
+scale = Vector2(1, 1.5999951)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D18" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=185673645]
+position = Vector2(610, 960)
+scale = Vector2(1, 1.7599976)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D19" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1418679619]
+position = Vector2(703, 959.99994)
+scale = Vector2(1, 1.7599976)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D20" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=189484011]
+position = Vector2(495, 1015.00006)
+scale = Vector2(-1.0508512, 1.3225673)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D21" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=2022376013]
+position = Vector2(816, 1013)
+scale = Vector2(-1.0508512, 1.3225673)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1421073379]
+position = Vector2(823, 653.00006)
+scale = Vector2(1, 1.5999976)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=700477661]
+position = Vector2(936, 730)
+scale = Vector2(1, 2.3599975)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D13" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=979519467]
+position = Vector2(373, 726)
+scale = Vector2(1, 2.3599975)
+shape = SubResource("RectangleShape2D_gbg7c")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=116282299]
+position = Vector2(775, 677)
+shape = SubResource("RectangleShape2D_gbg7c")
 
 [node name="CannonsA" type="Node2D" parent="." unique_id=198854098]
 unique_name_in_owner = true
@@ -373,7 +478,7 @@ scale = Vector2(1.2500005, 3.1164057)
 texture = SubResource("GradientTexture2D_aphrj")
 
 [node name="Conveyor" parent="Conveyors/ConveyorA2PH" unique_id=1338162639 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.0106773, 3.0106773)
+scale = Vector2(3.2303662, 3.2186635)
 groups_to_move = Array[String](["players"])
 direction_to_move = Vector2(1, 0)
 
@@ -383,7 +488,7 @@ scale = Vector2(1.2500005, 2.8749998)
 texture = SubResource("GradientTexture2D_aphrj")
 
 [node name="Conveyor" parent="Conveyors/ConveyorA3PH" unique_id=1923428562 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.1286242, 3.1286242)
+scale = Vector2(3.1286242, 3.5207634)
 groups_to_move = Array[String](["players"])
 
 [node name="ConveyorB1PH" type="Sprite2D" parent="Conveyors" unique_id=1492258211]
@@ -392,7 +497,7 @@ scale = Vector2(1.2500005, 4.15625)
 texture = SubResource("GradientTexture2D_aphrj")
 
 [node name="Conveyor" parent="Conveyors/ConveyorB1PH" unique_id=998033450 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.0443623, 3.0443623)
+scale = Vector2(3.1702645, 3.3552558)
 groups_to_move = Array[String](["players"])
 
 [node name="ConveyorB2PH" type="Sprite2D" parent="Conveyors" unique_id=1434363796]
@@ -412,7 +517,7 @@ scale = Vector2(1.25, 2.875)
 texture = SubResource("GradientTexture2D_aphrj")
 
 [node name="Conveyor" parent="Conveyors/ConveyorB3PH" unique_id=514216858 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.0745096, 3.0745096)
+scale = Vector2(3.0745096, 3.5677075)
 groups_to_move = Array[String](["players"])
 
 [node name="Hoppers" type="Node2D" parent="." unique_id=914765833]
@@ -461,7 +566,7 @@ groups_to_make_go_away = Array[String](["lootables"])
 self_modulate = Color(0.5137255, 0.41568628, 0.42745098, 1)
 z_as_relative = false
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAARAFgAAAAHAAEAAAARAFYAAAAHAAEAAAARAFUAAAAHAAEAAAARAFQAAAAHAAEAAAARAFMAAAAHAAEAAAASAFIAAAAHAAEAAAASAFEAAAAHAAEAAAATAFAAAAAHAAEAAAASAE8AAAAHAAEAAAATAE4AAAAHAAEAAAATAE0AAAAHAAEAAAAUAEwAAAAHAAEAAAATAEsAAAAHAAEAAAAUAEsAAAAHAAEAAAAUAE0AAAAHAAEAAAAVAE4AAAAHAAEAAAAVAE8AAAAHAAEAAAAVAFAAAAAHAAEAAAAVAFEAAAAHAAEAAAAVAFIAAAAHAAEAAAAVAFMAAAAHAAEAAAAVAFQAAAAHAAEAAAAVAFUAAAAHAAEAAAAVAFYAAAAHAAEAAAAUAFcAAAAHAAEAAAAUAFgAAAAHAAEAAAATAFcAAAAHAAEAAAASAFcAAAAHAAEAAAASAFgAAAAHAAEAAAASAFYAAAAHAAEAAAASAFUAAAAHAAEAAAATAFQAAAAHAAEAAAATAFMAAAAHAAEAAAATAFIAAAAHAAEAAAATAFEAAAAHAAEAAAAUAFAAAAAHAAEAAAAUAFEAAAAHAAEAAAAUAFIAAAAHAAEAAAATAFUAAAAHAAEAAAAUAFQAAAAHAAEAAAAUAFMAAAAHAAEAAAAUAE8AAAAHAAEAAAASAFQAAAAHAAEAAAASAFMAAAAHAAEAAAATAEwAAAAHAAEAAAASAE0AAAAHAAEAAAASAE4AAAAHAAEAAAARAE8AAAAHAAEAAAARAFEAAAAHAAEAAAASAFAAAAAHAAEAAAARAFIAAAAHAAEAAAARAFkAAAAHAAEAAAASAFoAAAAHAAEAAAARAFcAAAAHAAEAAAASAFkAAAAHAAEAAAATAFoAAAAHAAEAAAATAFkAAAAHAAEAAAAUAFoAAAAHAAEAAAAUAFkAAAAHAAEAAAAVAFgAAAAHAAEAAAAWAFQAAAAHAAEAAAAWAFMAAAAHAAEAAAAWAFIAAAAHAAEAAAAWAFAAAAAHAAEAAAAUAE4AAAAHAAEAAAAUAFUAAAAHAAEAAAAUAFYAAAAHAAEAAAATAE8AAAAHAAEAAAATAFsAAAAHAAEAAAAVAFcAAAAHAAEAAAAWAFYAAAAHAAEAAAAWAFUAAAAHAAEAAAAXAFQAAAAHAAEAAAAXAFIAAAAHAAEAAAAWAFEAAAAHAAEAAAAWAE4AAAAHAAEAAAAVAE0AAAAHAAEAAAAVAEwAAAAHAAEAAAAWAE8AAAAHAAEAAAAXAFAAAAAHAAEAAAAUAFsAAAAHAAEAAAAVAFoAAAAHAAEAAAAVAFkAAAAHAAEAAAAWAFcAAAAHAAEAAAAXAFYAAAAHAAEAAAAWAFgAAAAHAAEAAAAWAFoAAAAHAAEAAAAWAFkAAAAHAAEAAAAXAFgAAAAHAAEAAAARAE4AAAAHAAEAAAARAE0AAAAHAAEAAAASAEwAAAAHAAEAAAAXAE4AAAAHAAEAAAAWAE0AAAAHAAEAAAAWAEwAAAAHAAEAAAATAFgAAAAHAAEAAAATAFYAAAAHAAEAAAARAFAAAAAHAAEAAAASAFsAAAAHAAEAAAARAFoAAAAHAAEAAAARAFsAAAAHAAEAAAARAFwAAAAHAAEAAAASAFwAAAAHAAEAAAATAFwAAAAHAAEAAAAUAFwAAAAHAAEAAAAVAFwAAAAHAAEAAAAVAFsAAAAHAAEAAAAWAFwAAAAHAAEAAAAXAFwAAAAHAAEAAAAWAFsAAAAHAAEAAAAXAFoAAAAHAAEAAAAXAEwAAAAHAAEAAAAWAEsAAAAHAAEAAAAXAEoAAAAHAAEAAAAWAEoAAAAHAAEAAAAVAEsAAAAHAAEAAAAVAEoAAAAHAAEAAAAUAEoAAAAHAAEAAAATAEoAAAAHAAEAAAASAEsAAAAHAAEAAAASAEoAAAAHAAEAAAARAEsAAAAHAAEAAAARAEoAAAAHAAEAAAARAEwAAAAHAAEAAAAQAEsAAAAHAAEAAAAQAE0AAAAHAAEAAAAQAE8AAAAHAAEAAAAQAFEAAAAHAAEAAAAQAFMAAAAHAAEAAAAQAFUAAAAHAAEAAAAQAFcAAAAHAAEAAAAQAFkAAAAHAAEAAAAQAFsAAAAHAAEAAAAXAFsAAAAHAAEAAAAXAFkAAAAHAAEAAAAXAFcAAAAHAAEAAAAXAFUAAAAHAAEAAAAXAFMAAAAHAAEAAAAXAFEAAAAHAAEAAAAXAE8AAAAHAAEAAAAXAE0AAAAHAAEAAAAXAEsAAAAHAAEAAAA=")
+tile_map_data = PackedByteArray("AAARAFgAAAAHAAEAAAARAFYAAAAHAAEAAAARAFUAAAAHAAEAAAARAFQAAAAHAAEAAAARAFMAAAAHAAEAAAASAFIAAAAHAAEAAAASAFEAAAAHAAEAAAATAFAAAAAHAAEAAAASAE8AAAAHAAEAAAATAE4AAAAHAAEAAAATAE0AAAAHAAEAAAAUAEwAAAAHAAEAAAATAEsAAAAHAAEAAAAUAEsAAAAHAAEAAAAUAE0AAAAHAAEAAAAVAE4AAAAHAAEAAAAVAE8AAAAHAAEAAAAVAFAAAAAHAAEAAAAVAFEAAAAHAAEAAAAVAFIAAAAHAAEAAAAVAFMAAAAHAAEAAAAVAFQAAAAHAAEAAAAVAFUAAAAHAAEAAAAVAFYAAAAHAAEAAAAUAFcAAAAHAAEAAAAUAFgAAAAHAAEAAAATAFcAAAAHAAEAAAASAFcAAAAHAAEAAAASAFgAAAAHAAEAAAASAFYAAAAHAAEAAAASAFUAAAAHAAEAAAATAFQAAAAHAAEAAAATAFMAAAAHAAEAAAATAFIAAAAHAAEAAAATAFEAAAAHAAEAAAAUAFAAAAAHAAEAAAAUAFEAAAAHAAEAAAAUAFIAAAAHAAEAAAATAFUAAAAHAAEAAAAUAFQAAAAHAAEAAAAUAFMAAAAHAAEAAAAUAE8AAAAHAAEAAAASAFQAAAAHAAEAAAASAFMAAAAHAAEAAAATAEwAAAAHAAEAAAASAE0AAAAHAAEAAAASAE4AAAAHAAEAAAARAE8AAAAHAAEAAAARAFEAAAAHAAEAAAASAFAAAAAHAAEAAAARAFIAAAAHAAEAAAARAFkAAAAHAAEAAAASAFoAAAAHAAEAAAARAFcAAAAHAAEAAAASAFkAAAAHAAEAAAATAFoAAAAHAAEAAAATAFkAAAAHAAEAAAAUAFoAAAAHAAEAAAAUAFkAAAAHAAEAAAAVAFgAAAAHAAEAAAAWAFQAAAAHAAEAAAAWAFMAAAAHAAEAAAAWAFIAAAAHAAEAAAAWAFAAAAAHAAEAAAAUAE4AAAAHAAEAAAAUAFUAAAAHAAEAAAAUAFYAAAAHAAEAAAATAE8AAAAHAAEAAAATAFsAAAAHAAEAAAAVAFcAAAAHAAEAAAAWAFYAAAAHAAEAAAAWAFUAAAAHAAEAAAAXAFQAAAAHAAEAAAAWAFEAAAAHAAEAAAAWAE4AAAAHAAEAAAAVAE0AAAAHAAEAAAAVAEwAAAAHAAEAAAAWAE8AAAAHAAEAAAAUAFsAAAAHAAEAAAAVAFoAAAAHAAEAAAAVAFkAAAAHAAEAAAAWAFcAAAAHAAEAAAAXAFYAAAAHAAEAAAAWAFgAAAAHAAEAAAAWAFoAAAAHAAEAAAAWAFkAAAAHAAEAAAAXAFgAAAAHAAEAAAARAE4AAAAHAAEAAAARAE0AAAAHAAEAAAASAEwAAAAHAAEAAAAXAE4AAAAHAAEAAAAWAE0AAAAHAAEAAAAWAEwAAAAHAAEAAAATAFgAAAAHAAEAAAATAFYAAAAHAAEAAAARAFAAAAAHAAEAAAASAFsAAAAHAAEAAAARAFoAAAAHAAEAAAARAFsAAAAHAAEAAAARAFwAAAAHAAEAAAASAFwAAAAHAAEAAAATAFwAAAAHAAEAAAAUAFwAAAAHAAEAAAAVAFwAAAAHAAEAAAAVAFsAAAAHAAEAAAAWAFwAAAAHAAEAAAAXAFwAAAAHAAEAAAAWAFsAAAAHAAEAAAAXAFoAAAAHAAEAAAAXAEwAAAAHAAEAAAAWAEsAAAAHAAEAAAAXAEoAAAAHAAEAAAAWAEoAAAAHAAEAAAAVAEsAAAAHAAEAAAAVAEoAAAAHAAEAAAAUAEoAAAAHAAEAAAATAEoAAAAHAAEAAAASAEsAAAAHAAEAAAASAEoAAAAHAAEAAAARAEsAAAAHAAEAAAARAEoAAAAHAAEAAAARAEwAAAAHAAEAAAAQAEsAAAAHAAEAAAAQAE0AAAAHAAEAAAAQAE8AAAAHAAEAAAAQAFEAAAAHAAEAAAAQAFMAAAAHAAEAAAAQAFUAAAAHAAEAAAAQAFcAAAAHAAEAAAAQAFkAAAAHAAEAAAAQAFsAAAAHAAEAAAAXAFsAAAAHAAEAAAAXAFkAAAAHAAEAAAAXAFcAAAAHAAEAAAAXAFUAAAAHAAEAAAAXAFMAAAAHAAEAAAAXAE8AAAAHAAEAAAAXAE0AAAAHAAEAAAAXAEsAAAAHAAEAAAAXAFIAAAAHAAEAAAAXAFAAAAAHAAEAAAAXAFEAAAAHAAEAAAA=")
 tile_set = ExtResource("2_o6s05")
 
 [node name="BasementWallsCenter" type="TileMapLayer" parent="CenterFloor" unique_id=1417153113]
@@ -471,6 +576,7 @@ z_as_relative = false
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAATAGYAAAAAAAIAAAARAGYAAAAAAAIAAAASAGYAAAAAAAIAAAAUAGYAAAAAAAIAAAAVAGYAAAAAAAIAAAAWAGYAAAAAAAIAAAAXAGYAAAAAAAIAAAAQAGUAAAAAAAEAAAAQAGMAAAAAAAEAAAAQAGEAAAAAAAEAAAAQAF8AAAAAAAEAAAAQAF0AAAAAAAEAAAAQAFsAAAAAAAEAAAAQAFkAAAAAAAEAAAAQAFcAAAAAAAEAAAAQAFUAAAAAAAEAAAAXAGUAAAAAAAAAAAAXAGMAAAAAAAAAAAAXAGEAAAAAAAAAAAAXAF8AAAAAAAAAAAAXAF0AAAAAAAAAAAAXAFsAAAAAAAAAAAAXAFkAAAAAAAAAAAAXAFcAAAAAAAAAAAAXAFUAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_5p5hp")
+collision_enabled = false
 
 [node name="Walls" type="TileMapLayer" parent="." unique_id=843311408]
 z_index = 1
@@ -499,7 +605,7 @@ position = Vector2(654, 632)
 
 [node name="ApparatusScreen" type="Label" parent="NavigationRegion2D/Decorations" unique_id=552613590]
 unique_name_in_owner = true
-z_index = 2
+z_index = -1
 z_as_relative = false
 y_sort_enabled = true
 custom_minimum_size = Vector2(130, 130)
@@ -508,10 +614,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -45.787476
-offset_top = -81.244995
-offset_right = 98.212524
-offset_bottom = 48.755005
+offset_left = -137.0
+offset_top = -219.0
+offset_right = 136.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 70
@@ -522,6 +628,24 @@ vertical_alignment = 1
 unique_name_in_owner = true
 position = Vector2(0, 103)
 button_id = "quiz_activate_button"
+
+[node name="APoints" type="RichTextLabel" parent="NavigationRegion2D/Decorations" unique_id=1990372958]
+unique_name_in_owner = true
+offset_left = -359.0
+offset_top = 348.0
+offset_right = -234.0
+offset_bottom = 405.0
+theme_override_font_sizes/normal_font_size = 36
+fit_content = true
+
+[node name="BPoints" type="RichTextLabel" parent="NavigationRegion2D/Decorations" unique_id=1056715102]
+unique_name_in_owner = true
+offset_left = 240.0
+offset_top = 344.0
+offset_right = 365.0
+offset_bottom = 401.0
+theme_override_font_sizes/normal_font_size = 36
+fit_content = true
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999

@@ -2,7 +2,7 @@ extends Node2D
 
 var display_name := "Quiz Game"
 var game_state := "inactive"
-var points_per_question := 10
+var points_per_question := 1
 var points_per_snack := 1
 var players : Array[CharacterBody2D]
 var team_a_players : Array[CharacterBody2D]
@@ -14,6 +14,8 @@ var current_question_players_answered_count = 0
 var quiz : Dictionary
 var current_question_index := 0
 
+@export var conveyor_base_speed := 40.0
+@export var conveyor_speed_increment := 10.0
 @export var question_time_in_s := 10
 @export var reward_time_in_s := 5
 
@@ -21,6 +23,12 @@ var current_question_index := 0
 func _ready() -> void:
 	%QuizMenu.hide()
 	SignalBus.item_autolooted.connect(_on_item_autlooted)
+
+
+func _physics_process(_delta: float) -> void:
+	if multiplayer.is_server():
+		%APoints.text = "A: " + str(total_points["team_a"])
+		%BPoints.text = "B: " + str(total_points["team_b"])
 
 
 #region client functionality
@@ -67,6 +75,7 @@ func clear_rewards():
 func start_game():
 	assert(multiplayer.is_server())
 	game_state = "preparing"
+	%ApparatusScreen.text = ""
 	#region quiz generation
 	# cheating with JSON file for testing
 	var file = FileAccess.open("res://misc/test_quiz.json", FileAccess.READ)
@@ -130,6 +139,7 @@ func run_next_question():
 	if current_question_index == len(quiz["questions"]):
 		end_game()
 		return
+	set_conveyor_speeds(0.0)
 	%ApparatusScreen.text = "?"
 	var question = quiz["questions"][current_question_index]
 	fill_and_activate_question.rpc([question])
@@ -139,6 +149,8 @@ func run_next_question():
 	show_correct_answer.rpc()
 	await get_tree().create_timer(1.5).timeout
 	%QuizMenu.hide()
+	var c_speed = conveyor_base_speed + (conveyor_speed_increment * current_question_index)
+	set_conveyor_speeds(c_speed, true)
 	check_and_reward_winners()
 	await get_tree().create_timer(reward_time_in_s).timeout
 	current_question_index += 1
@@ -150,7 +162,7 @@ func end_game():
 		print("end of quiz, yay")
 		print("Team A points: ", str(total_points["team_a"]))
 		print("Team B points: ", str(total_points["team_b"]))
-		%ApparatusScreen.text = ""
+		%ApparatusScreen.text = "A: %s\nB: %s" % [total_points["team_a"], total_points["team_b"]]
 		for child in %SnacksSpawner.get_children():
 			child.call_deferred("queue_free")
 		for player in players:
@@ -167,6 +179,15 @@ func end_game():
 			total_points[key] = 0
 		game_state = "inactive"
 		print("game ended successfully")
+
+
+func set_conveyor_speeds(speed: float, randomize_direction=false):
+	var dir_mod = 1.0
+	if randomize_direction:
+		dir_mod = [-1.0, 1.0].pick_random()
+	for child in %Conveyors.get_children():
+		# i guess this would also set conveyor animation speed (+/-)
+		child.get_child(0).speed = speed * dir_mod
 
 
 func check_and_reward_winners():
@@ -221,10 +242,10 @@ func give_team_point_by_player(args: Array):
 	# no need to store anything in player
 	if team_a_players.any(func(player): return int(player.name) == id):
 		current_question_points["team_a"] += points_per_question
-		total_points["team_a"] += points_per_question
+		#total_points["team_a"] += points_per_question
 	elif team_b_players.any(func(player): return int(player.name) == id):
 		current_question_points["team_b"] += points_per_question
-		total_points["team_b"] += points_per_question
+		#total_points["team_b"] += points_per_question
 
 
 @rpc("any_peer", "call_remote")

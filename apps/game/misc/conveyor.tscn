@@ -4,8 +4,25 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_drcba"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nusij"]
+properties/0/path = NodePath(".:turned_on")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:groups_to_move")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:direction_to_move")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:speed")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+
 [node name="Conveyor" type="Area2D" unique_id=880755788]
 script = ExtResource("1_nusij")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1524752128]
 shape = SubResource("RectangleShape2D_drcba")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=778686311]
+replication_config = SubResource("SceneReplicationConfig_nusij")
