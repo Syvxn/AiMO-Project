@@ -38,19 +38,22 @@ func _physics_process(_delta: float) -> void:
 	walk_direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
 	if walk_direction:
 		auto_move = false
-	
 	if Input.is_action_just_pressed(\"interact\"):
 		var areas = get_parent().get_node(\"InteractionArea\").get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group(\"npcs\") and \"interact\" in area:
 				area.interact()
-	
 	if Input.is_action_just_pressed(\"inventory\"):
 		#get_parent().get_node(\"CharacterSprites\").randomize_colors()
 		get_parent().toggle_customize_menu()
-	
 	if Input.is_action_just_pressed(\"oops\"):
 		SignalBus.oops_pressed.emit()
+	if Input.is_action_pressed(\"shift\"):
+		if Input.is_action_just_pressed(\"scroll_up\"):
+			get_parent().get_node(\"Camera2D\").zoom_in()
+		if Input.is_action_just_pressed(\"scroll_down\"):
+			get_parent().get_node(\"Camera2D\").zoom_out()
+	
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]
@@ -87,9 +90,21 @@ script/source = "extends Camera2D
 
 var view := \"normal\"
 
+@export var zoom_min := 0.5
+@export var zoom_max := 5.0
+
 func enable_if_authority():
 	if (is_multiplayer_authority() or get_parent().debug):
 		enabled = true
+
+
+func zoom_in():
+	zoom.x = clamp(zoom.x+1.0, zoom_min, zoom_max)
+	zoom.y = clamp(zoom.y+1.0, zoom_min, zoom_max)
+
+func zoom_out():
+	zoom.x = clamp(zoom.x-1.0, zoom_min, zoom_max)
+	zoom.y = clamp(zoom.y-1.0, zoom_min, zoom_max)
 
 
 func toggle_view():
@@ -126,6 +141,7 @@ material = ExtResource("1_yw30f")
 collision_layer = 259
 motion_mode = 1
 script = ExtResource("1_1xjf6")
+debug = true
 
 [node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
 root_path = NodePath(".")
