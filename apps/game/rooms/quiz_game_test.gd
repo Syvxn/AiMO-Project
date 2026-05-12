@@ -57,9 +57,7 @@ func show_correct_answer():
 # also called on server for debugging purposes
 @rpc("authority", "call_local")
 func clear_rewards():
-	for child in %RewardPointA.get_children():
-		child.queue_free()
-	for child in %RewardPointB.get_children():
+	for child in %SnacksSpawner.get_children():
 		child.queue_free()
 #endregion
 
@@ -153,7 +151,7 @@ func end_game():
 		print("Team A points: ", str(total_points["team_a"]))
 		print("Team B points: ", str(total_points["team_b"]))
 		%ApparatusScreen.text = ""
-		for child in $SnacksSpawner.get_children():
+		for child in %SnacksSpawner.get_children():
 			child.call_deferred("queue_free")
 		for player in players:
 			if not player:
@@ -178,11 +176,23 @@ func check_and_reward_winners():
 		reward_b = false
 	elif current_question_points["team_b"] > current_question_points["team_a"]:
 		reward_a = false
-	if reward_a:
-		spew_stuff(%RewardPointA, %SpawnPointA.global_position, "snacks")
-	if reward_b:
-		spew_stuff(%RewardPointB, %SpawnPointB.global_position, "snacks")
 	%ApparatusScreen.text = "GO"
+	var cannons_a = %CannonsA.get_children()
+	var cannons_b = %CannonsB.get_children()
+	if reward_a:
+		for i in range(4):
+			var cannon = cannons_a.pick_random()
+			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
+		for i in range(2):
+			var cannon = cannons_b.pick_random()
+			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
+	if reward_b:
+		for i in range(4):
+			var cannon = cannons_b.pick_random()
+			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
+		for i in range(2):
+			var cannon = cannons_a.pick_random()
+			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
 
 
 func spew_stuff(reward_point_node, target_position, type):
@@ -196,7 +206,7 @@ func spew_stuff(reward_point_node, target_position, type):
 		stuff_instance.global_position = reward_point_node.global_position
 		if "lootable" in stuff_instance:
 			stuff_instance.lootable = true
-		$SnacksSpawner.add_child(stuff_instance, true)
+		%SnacksSpawner.add_child(stuff_instance, true)
 		target_position.x += randi_range(-10, 10)
 		target_position.y += randi_range(-10, 10)
 		var impulse = stuff_instance.global_position.direction_to(target_position) * 500

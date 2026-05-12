@@ -173,7 +173,10 @@ visible = false
 position = Vector2(683.5, 664)
 shape = SubResource("RectangleShape2D_5p5hp")
 
+[node name="Invisible walls" type="Node2D" parent="." unique_id=1745184679]
+
 [node name="CannonsA" type="Node2D" parent="." unique_id=198854098]
+unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="CannonsA" unique_id=1118275950]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
@@ -184,6 +187,9 @@ position = Vector2(499, 642)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D" unique_id=665458151]
+position = Vector2(-88.97559, 7.111111)
+
 [node name="Sprite2D2" type="Sprite2D" parent="CannonsA" unique_id=922030871]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
 z_index = 1
@@ -192,6 +198,9 @@ y_sort_enabled = true
 position = Vector2(500, 690)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
+
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D2" unique_id=1043959495]
+position = Vector2(-84.29266, 3.5555556)
 
 [node name="Sprite2D3" type="Sprite2D" parent="CannonsA" unique_id=2118614497]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
@@ -202,6 +211,9 @@ position = Vector2(501, 748)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D3" unique_id=1988707928]
+position = Vector2(-81.170715, 7.111111)
+
 [node name="Sprite2D4" type="Sprite2D" parent="CannonsA" unique_id=1137468771]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
 z_index = 1
@@ -210,6 +222,9 @@ y_sort_enabled = true
 position = Vector2(623, 861)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
+
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D4" unique_id=1765685747]
+position = Vector2(-109.26827, -3.5555556)
 
 [node name="Sprite2D5" type="Sprite2D" parent="CannonsA" unique_id=1345227569]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
@@ -220,6 +235,9 @@ position = Vector2(461, 954)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D5" unique_id=2139597536]
+position = Vector2(126.439, 3.5555556)
+
 [node name="Sprite2D6" type="Sprite2D" parent="CannonsA" unique_id=1693418256]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
 z_index = 1
@@ -228,6 +246,9 @@ y_sort_enabled = true
 position = Vector2(459, 996)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
+
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D6" unique_id=127030616]
+position = Vector2(124.87802, 7.111111)
 
 [node name="Sprite2D7" type="Sprite2D" parent="CannonsA" unique_id=1046797407]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
@@ -238,7 +259,11 @@ position = Vector2(462, 1051)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsA/Sprite2D7" unique_id=1030697620]
+position = Vector2(134.24388, -3.5555556)
+
 [node name="CannonsB" type="Node2D" parent="." unique_id=1401920597]
+unique_name_in_owner = true
 
 [node name="Sprite2D" type="Sprite2D" parent="CannonsB" unique_id=1655799500]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
@@ -249,6 +274,9 @@ position = Vector2(813.5, 637)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsB/Sprite2D" unique_id=1995820010]
+position = Vector2(102.24388, 0)
+
 [node name="Sprite2D2" type="Sprite2D" parent="CannonsB" unique_id=1301002184]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
 z_index = 1
@@ -257,6 +285,9 @@ y_sort_enabled = true
 position = Vector2(814.5, 685)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
+
+[node name="Node2D2" type="Node2D" parent="CannonsB/Sprite2D2" unique_id=662409005]
+position = Vector2(106.926765, -7.6293945e-05)
 
 [node name="Sprite2D3" type="Sprite2D" parent="CannonsB" unique_id=684122925]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
@@ -267,6 +298,9 @@ position = Vector2(815.5, 743)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsB/Sprite2D3" unique_id=941870221]
+position = Vector2(86.63413, 3.5555556)
+
 [node name="Sprite2D4" type="Sprite2D" parent="CannonsB" unique_id=1104817216]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
 z_index = 1
@@ -275,6 +309,9 @@ y_sort_enabled = true
 position = Vector2(687, 859)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
+
+[node name="Node2D" type="Node2D" parent="CannonsB/Sprite2D4" unique_id=1908550479]
+position = Vector2(127.99998, -10.666667)
 
 [node name="Sprite2D5" type="Sprite2D" parent="CannonsB" unique_id=129395136]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
@@ -285,6 +322,9 @@ position = Vector2(843.5, 956)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsB/Sprite2D5" unique_id=1955176290]
+position = Vector2(-116.29266, 10.666667)
+
 [node name="Sprite2D6" type="Sprite2D" parent="CannonsB" unique_id=610443924]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
 z_index = 1
@@ -294,6 +334,9 @@ position = Vector2(841.5, 998)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
+[node name="Node2D" type="Node2D" parent="CannonsB/Sprite2D6" unique_id=812430603]
+position = Vector2(-97.56096, 0)
+
 [node name="Sprite2D7" type="Sprite2D" parent="CannonsB" unique_id=1094477017]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
 z_index = 1
@@ -302,6 +345,9 @@ y_sort_enabled = true
 position = Vector2(844.5, 1053)
 scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
+
+[node name="Node2D" type="Node2D" parent="CannonsB/Sprite2D7" unique_id=1428226375]
+position = Vector2(-116.29266, 3.5555556)
 
 [node name="Conveyors" type="Node2D" parent="." unique_id=372117664]
 unique_name_in_owner = true
@@ -411,14 +457,6 @@ texture = SubResource("GradientTexture2D_5br6e")
 scale = Vector2(3.185, 3.185)
 groups_to_make_go_away = Array[String](["lootables"])
 
-[node name="RewardPointA" type="Node2D" parent="." unique_id=39246119]
-unique_name_in_owner = true
-position = Vector2(499, 688)
-
-[node name="RewardPointB" type="Node2D" parent="." unique_id=593948806]
-unique_name_in_owner = true
-position = Vector2(815, 686)
-
 [node name="CenterFloor" type="TileMapLayer" parent="." unique_id=2099331044]
 self_modulate = Color(0.5137255, 0.41568628, 0.42745098, 1)
 z_as_relative = false
@@ -440,7 +478,7 @@ z_as_relative = false
 y_sort_enabled = true
 tile_set = SubResource("TileSet_5p5hp")
 
-[node name="InvisibleWalls" type="TileMapLayer" parent="." unique_id=1445664044]
+[node name="InvisibleTileWalls" type="TileMapLayer" parent="." unique_id=1445664044]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
@@ -509,6 +547,7 @@ unique_name_in_owner = true
 position = Vector2(877, 687)
 
 [node name="SnacksSpawner" type="MultiplayerSpawner" parent="." unique_id=2119331831]
+unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://06480w80xjvk")
 spawn_path = NodePath(".")
 
