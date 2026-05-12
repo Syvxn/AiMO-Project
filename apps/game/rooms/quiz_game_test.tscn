@@ -304,6 +304,7 @@ scale = Vector2(0.6406251, 0.28125)
 texture = SubResource("GradientTexture2D_hd2i4")
 
 [node name="Conveyors" type="Node2D" parent="." unique_id=372117664]
+unique_name_in_owner = true
 position = Vector2(656, 713)
 
 [node name="ConveyorA1PH" type="Sprite2D" parent="Conveyors" unique_id=2062677913]
@@ -317,7 +318,7 @@ z_as_relative = false
 y_sort_enabled = true
 scale = Vector2(3.375, 3.375)
 collision_mask = 65
-groups_to_move = Array[String](["players", "lootables"])
+groups_to_move = Array[String](["players"])
 
 [node name="ConveyorA2PH" type="Sprite2D" parent="Conveyors" unique_id=105766412]
 position = Vector2(-164, 139)
@@ -325,15 +326,28 @@ rotation = -1.5707964
 scale = Vector2(1.2500005, 3.1164057)
 texture = SubResource("GradientTexture2D_aphrj")
 
+[node name="Conveyor" parent="Conveyors/ConveyorA2PH" unique_id=1338162639 instance=ExtResource("2_hd2i4")]
+scale = Vector2(3.0106773, 3.0106773)
+groups_to_move = Array[String](["players"])
+direction_to_move = Vector2(1, 0)
+
 [node name="ConveyorA3PH" type="Sprite2D" parent="Conveyors" unique_id=1374575334]
 position = Vector2(-103, 284)
 scale = Vector2(1.2500005, 2.8749998)
 texture = SubResource("GradientTexture2D_aphrj")
 
+[node name="Conveyor" parent="Conveyors/ConveyorA3PH" unique_id=1923428562 instance=ExtResource("2_hd2i4")]
+scale = Vector2(3.1286242, 3.1286242)
+groups_to_move = Array[String](["players"])
+
 [node name="ConveyorB1PH" type="Sprite2D" parent="Conveyors" unique_id=1492258211]
 position = Vector2(223, -44)
 scale = Vector2(1.2500005, 4.15625)
 texture = SubResource("GradientTexture2D_aphrj")
+
+[node name="Conveyor" parent="Conveyors/ConveyorB1PH" unique_id=998033450 instance=ExtResource("2_hd2i4")]
+scale = Vector2(3.0443623, 3.0443623)
+groups_to_move = Array[String](["players"])
 
 [node name="ConveyorB2PH" type="Sprite2D" parent="Conveyors" unique_id=1434363796]
 position = Vector2(164, 139)
@@ -341,10 +355,19 @@ rotation = -1.5707964
 scale = Vector2(1.2500005, 3.1164057)
 texture = SubResource("GradientTexture2D_aphrj")
 
+[node name="Conveyor" parent="Conveyors/ConveyorB2PH" unique_id=638884024 instance=ExtResource("2_hd2i4")]
+scale = Vector2(3.204114, 3.204114)
+groups_to_move = Array[String](["players"])
+direction_to_move = Vector2(-1, 0)
+
 [node name="ConveyorB3PH" type="Sprite2D" parent="Conveyors" unique_id=755250747]
 position = Vector2(103, 284)
 scale = Vector2(1.25, 2.875)
 texture = SubResource("GradientTexture2D_aphrj")
+
+[node name="Conveyor" parent="Conveyors/ConveyorB3PH" unique_id=514216858 instance=ExtResource("2_hd2i4")]
+scale = Vector2(3.0745096, 3.0745096)
+groups_to_move = Array[String](["players"])
 
 [node name="Hoppers" type="Node2D" parent="." unique_id=914765833]
 z_index = 1

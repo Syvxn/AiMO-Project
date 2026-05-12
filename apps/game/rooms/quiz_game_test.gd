@@ -156,6 +156,8 @@ func end_game():
 		for child in $SnacksSpawner.get_children():
 			child.call_deferred("queue_free")
 		for player in players:
+			if not player:
+				continue
 			var qal = player.get_node_or_null("QuizAutoLooter")
 			if qal:
 				qal.queue_free()

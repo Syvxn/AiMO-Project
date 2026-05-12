@@ -5,8 +5,6 @@ extends Area2D
 @export var direction_to_move := Vector2.DOWN
 @export var speed := 50.0
 
-func _ready() -> void:
-	print(groups_to_move)
 
 func _physics_process(_delta: float) -> void:
 	if not turned_on:
