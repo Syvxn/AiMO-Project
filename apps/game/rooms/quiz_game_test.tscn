@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_5br6e"]
 [ext_resource type="PackedScene" uid="uid://i155sn4fkbml" path="res://ui/menus/chat_and_quiz/quiz_question.tscn" id="6_o6s05"]
 [ext_resource type="PackedScene" uid="uid://dhrd5quifpl4k" path="res://npcs/walker.tscn" id="8_aphrj"]
+[ext_resource type="Texture2D" uid="uid://dqpj58vyp32yh" path="res://textures/static_textures/vending_wall_16x8_regular.png" id="8_gbg7c"]
+[ext_resource type="Texture2D" uid="uid://c0yi411yxofx6" path="res://textures/static_textures/vending_wall_16x8_flip.png" id="9_3ixvm"]
+[ext_resource type="Texture2D" uid="uid://2o1iyxxb73vf" path="res://textures/static_textures/vending_machine_face.png" id="9_rh5xy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
 size = Vector2(1189, 1032)
@@ -142,6 +145,10 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_nxk6l")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5p5hp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05akp"]
+atlas = ExtResource("9_rh5xy")
+region = Rect2(13, 14, 44, 78)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xe5ka"]
 properties/0/path = NodePath("QuizMenu:visible")
@@ -646,6 +653,71 @@ offset_right = 365.0
 offset_bottom = 401.0
 theme_override_font_sizes/normal_font_size = 36
 fit_content = true
+
+[node name="BackgroundVisuals" type="Node2D" parent="." unique_id=404073198]
+z_index = -10
+position = Vector2(656, 708)
+
+[node name="right" type="Sprite2D" parent="BackgroundVisuals" unique_id=648678629]
+
+[node name="wall_right3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=2134668613]
+position = Vector2(387, -325)
+texture = ExtResource("8_gbg7c")
+
+[node name="wall_right2" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=276972677]
+position = Vector2(364, 133)
+texture = ExtResource("8_gbg7c")
+
+[node name="wall_right" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1847113559]
+position = Vector2(341, 590)
+texture = ExtResource("8_gbg7c")
+
+[node name="reg_bright3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=104810772 groups=["vmw_exceptions"]]
+position = Vector2(451, 216)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="wall_right1point5" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=693035569]
+position = Vector2(780, 362)
+texture = ExtResource("8_gbg7c")
+region_rect = Rect2(113, 48, 462.08, 683)
+
+[node name="reg_bright" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1443177560 groups=["vmw_exceptions"]]
+position = Vector2(411, 28)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="reg_bright2" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1705687237 groups=["vmw_exceptions"]]
+position = Vector2(331, 268)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="reg_bright4" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=603756659 groups=["vmw_exceptions"]]
+position = Vector2(388, 485)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="left" type="Node2D" parent="BackgroundVisuals" unique_id=772333580]
+
+[node name="wall_left4" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1720977361]
+position = Vector2(-393, -361)
+texture = ExtResource("9_3ixvm")
+
+[node name="wall_left3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=2079123219]
+position = Vector2(-369, -182)
+texture = ExtResource("9_3ixvm")
+
+[node name="wall_left2" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1291143230]
+position = Vector2(-347, 277)
+texture = ExtResource("9_3ixvm")
+
+[node name="wall_left" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=383867216]
+position = Vector2(-324, 735)
+texture = ExtResource("9_3ixvm")
+
+[node name="wall_left5" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1882168964]
+position = Vector2(-379, 787)
+texture = ExtResource("9_3ixvm")
+
+[node name="wall_left6" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1841758960]
+position = Vector2(-396, 820)
+texture = ExtResource("9_3ixvm")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999

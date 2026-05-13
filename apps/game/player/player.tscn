@@ -141,7 +141,6 @@ material = ExtResource("1_yw30f")
 collision_layer = 259
 motion_mode = 1
 script = ExtResource("1_1xjf6")
-debug = true
 
 [node name="InputHandler" type="MultiplayerSynchronizer" parent="." unique_id=1930543305]
 root_path = NodePath(".")

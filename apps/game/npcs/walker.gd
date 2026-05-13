@@ -6,6 +6,7 @@ var current_stand_animation := "stand_down"
 var walk_vec : Vector2
 var auto_move := false
 var auto_move_target : Vector2
+var stopped := false
 
 @onready var character_sprites = $CharacterSprites
 @onready var nav_agent = $NavAgent
@@ -23,9 +24,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void: 
 	#region movement
 	if multiplayer.is_server():
-		if  walk_vec: # manual walk
+		if walk_vec and not stopped: # manual walk
 			velocity = walk_speed * walk_vec
-		elif auto_move == true: # click-to-move or external
+		elif auto_move and not stopped: # click-to-move or external
 			if not nav_agent.target_position == auto_move_target:
 				nav_agent.target_position = auto_move_target
 			if not nav_agent.is_target_reachable():
