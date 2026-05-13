@@ -1,0 +1,70 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bv0yl2onv2b5n"]
+
+[ext_resource type="Texture2D" uid="uid://cfwecrg6rc0ur" path="res://textures/spritesheets/props/conveyor_segment.png" id="1_nmusr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmusr"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 0, 80, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r36ho"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 0, 80, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2h6d"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 30, 80, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hygaf"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 60, 80, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0n4id"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 0, 80, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qknnx"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 60, 80, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpqlu"]
+atlas = ExtResource("1_nmusr")
+region = Rect2(0, 30, 80, 30)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmusr")
+}],
+"loop": true,
+"name": &"halt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r36ho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2h6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hygaf")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0n4id")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qknnx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpqlu")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]

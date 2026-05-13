@@ -90,7 +90,7 @@ script/source = "extends Camera2D
 
 var view := \"normal\"
 
-@export var zoom_min := 0.5
+@export var zoom_min := 1
 @export var zoom_max := 5.0
 
 func enable_if_authority():

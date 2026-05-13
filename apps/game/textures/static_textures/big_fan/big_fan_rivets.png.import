@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b48ort5pkba7o"
-path="res://.godot/imported/big_fan_centre.png-bcab8b21f874e377575d687e0f0c567f.ctex"
+uid="uid://ygy17ulhepqr"
+path="res://.godot/imported/big_fan_rivets.png-2326609a5d44a05388ff67c88e92e8f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/static_textures/big_fan_centre.png"
-dest_files=["res://.godot/imported/big_fan_centre.png-bcab8b21f874e377575d687e0f0c567f.ctex"]
+source_file="res://textures/static_textures/big_fan/big_fan_rivets.png"
+dest_files=["res://.godot/imported/big_fan_rivets.png-2326609a5d44a05388ff67c88e92e8f5.ctex"]
 
 [params]
 

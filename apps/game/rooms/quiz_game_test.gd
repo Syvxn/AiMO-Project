@@ -188,7 +188,7 @@ func set_conveyor_speeds(speed: float, randomize_direction=false):
 		dir_mod = [-1.0, 1.0].pick_random()
 	for child in %Conveyors.get_children():
 		# i guess this would also set conveyor animation speed (+/-)
-		child.get_child(0).speed = speed * dir_mod
+		child.get_node("Area").speed = speed * dir_mod
 
 
 func check_and_reward_winners():

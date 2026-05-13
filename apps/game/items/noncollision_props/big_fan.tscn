@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bl2kjjkdm332n"]
 
-[ext_resource type="Texture2D" uid="uid://djxvt37os5b21" path="res://textures/static_textures/big_fan_frame-hole-centre.png" id="1_q4jxr"]
+[ext_resource type="Texture2D" uid="uid://djxvt37os5b21" path="res://textures/static_textures/big_fan/big_fan_frame-hole-centre.png" id="1_q4jxr"]
 [ext_resource type="SpriteFrames" uid="uid://dn81idajm4q30" path="res://textures/sprite_frames/big_fan_propellor.tres" id="2_ke3cl"]
-[ext_resource type="Texture2D" uid="uid://b48ort5pkba7o" path="res://textures/static_textures/big_fan_centre.png" id="3_hqim2"]
+[ext_resource type="Texture2D" uid="uid://b48ort5pkba7o" path="res://textures/static_textures/big_fan/big_fan_centre.png" id="3_hqim2"]
+[ext_resource type="Texture2D" uid="uid://boa1q0hgdqqpa" path="res://textures/static_textures/big_fan/big_fan_seams.png" id="4_6hfx1"]
+[ext_resource type="Texture2D" uid="uid://ygy17ulhepqr" path="res://textures/static_textures/big_fan/big_fan_rivets.png" id="5_nlucw"]
 
 [node name="BigFan" type="Sprite2D" unique_id=1517000806]
 texture = ExtResource("1_q4jxr")
@@ -14,3 +16,9 @@ autoplay = "spin_clockwise"
 
 [node name="Centre" type="Sprite2D" parent="." unique_id=1809773153]
 texture = ExtResource("3_hqim2")
+
+[node name="Seams" type="Sprite2D" parent="." unique_id=981597993]
+texture = ExtResource("4_6hfx1")
+
+[node name="Rivets" type="Sprite2D" parent="." unique_id=1171813291]
+texture = ExtResource("5_nlucw")

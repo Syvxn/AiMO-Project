@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0yi411yxofx6"
-path="res://.godot/imported/vending_wall_16x8_flip.png-bb939092a31c0b61806dc6b5bfce6989.ctex"
+uid="uid://djxvt37os5b21"
+path="res://.godot/imported/big_fan_frame-hole-centre.png-e5aa90c61a107b7f96ec08f3d2cac5a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/static_textures/vending_wall_16x8_flip.png"
-dest_files=["res://.godot/imported/vending_wall_16x8_flip.png-bb939092a31c0b61806dc6b5bfce6989.ctex"]
+source_file="res://textures/static_textures/big_fan/big_fan_frame-hole-centre.png"
+dest_files=["res://.godot/imported/big_fan_frame-hole-centre.png-e5aa90c61a107b7f96ec08f3d2cac5a9.ctex"]
 
 [params]
 

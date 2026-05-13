@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxrxu6w1266cn"
-path="res://.godot/imported/big_fan_frame.png-23fb97216aab0bb15ef4ff439c53b897.ctex"
+uid="uid://b48ort5pkba7o"
+path="res://.godot/imported/big_fan_centre.png-43dec39aae9cc9f12b9a62e3f8b2e15b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/static_textures/big_fan_frame.png"
-dest_files=["res://.godot/imported/big_fan_frame.png-23fb97216aab0bb15ef4ff439c53b897.ctex"]
+source_file="res://textures/static_textures/big_fan/big_fan_centre.png"
+dest_files=["res://.godot/imported/big_fan_centre.png-43dec39aae9cc9f12b9a62e3f8b2e15b.ctex"]
 
 [params]
 

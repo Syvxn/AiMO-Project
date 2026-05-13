@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dmw01hrgrpl2a"]
+
+[ext_resource type="SpriteFrames" uid="uid://bv0yl2onv2b5n" path="res://textures/sprite_frames/conveyor_segment.tres" id="1_qs4r4"]
+
+[node name="ConveyorSegment" type="AnimatedSprite2D" unique_id=511393861]
+z_as_relative = false
+y_sort_enabled = true
+sprite_frames = ExtResource("1_qs4r4")
+animation = &"move_down"
+autoplay = "move_down"

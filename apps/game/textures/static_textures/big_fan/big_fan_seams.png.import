@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vklftcokaxo8"
-path="res://.godot/imported/big_fan_hole.png-b3bfb57380accda067ab71207c7f201e.ctex"
+uid="uid://boa1q0hgdqqpa"
+path="res://.godot/imported/big_fan_seams.png-8256284dfe5c47f1330c8fc5d5c70dc1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/static_textures/big_fan_hole.png"
-dest_files=["res://.godot/imported/big_fan_hole.png-b3bfb57380accda067ab71207c7f201e.ctex"]
+source_file="res://textures/static_textures/big_fan/big_fan_seams.png"
+dest_files=["res://.godot/imported/big_fan_seams.png-8256284dfe5c47f1330c8fc5d5c70dc1.ctex"]
 
 [params]
 

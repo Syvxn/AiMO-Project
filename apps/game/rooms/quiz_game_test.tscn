@@ -4,15 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://bda06ta6vn8t2" path="res://misc/hopper.tscn" id="2_5br6e"]
 [ext_resource type="PackedScene" uid="uid://ckoj0hyptpgie" path="res://misc/conveyor.tscn" id="2_hd2i4"]
 [ext_resource type="TileSet" uid="uid://c0yngvvqacnc1" path="res://textures/tilesets/floor_mono_test.tres" id="2_o6s05"]
+[ext_resource type="PackedScene" uid="uid://dmw01hrgrpl2a" path="res://items/noncollision_props/conveyor_segment.tscn" id="2_uxowu"]
 [ext_resource type="Texture2D" uid="uid://c85evq6oy356h" path="res://textures/tilesheets/walls_mono_.png" id="3_1t1q7"]
 [ext_resource type="TileSet" uid="uid://bg38fuc0vxvb4" path="res://textures/tilesets/walls_test.tres" id="4_aphrj"]
 [ext_resource type="PackedScene" uid="uid://dheevgi1fsmup" path="res://items/collision_props/tall_button.tscn" id="5_1t1q7"]
 [ext_resource type="Texture2D" uid="uid://3hm541ci0flm" path="res://textures/static_textures/darkbluesquare.png" id="5_5br6e"]
 [ext_resource type="PackedScene" uid="uid://i155sn4fkbml" path="res://ui/menus/chat_and_quiz/quiz_question.tscn" id="6_o6s05"]
 [ext_resource type="PackedScene" uid="uid://dhrd5quifpl4k" path="res://npcs/walker.tscn" id="8_aphrj"]
-[ext_resource type="Texture2D" uid="uid://dqpj58vyp32yh" path="res://textures/static_textures/vending_wall_16x8_regular.png" id="8_gbg7c"]
-[ext_resource type="Texture2D" uid="uid://c0yi411yxofx6" path="res://textures/static_textures/vending_wall_16x8_flip.png" id="9_3ixvm"]
-[ext_resource type="Texture2D" uid="uid://2o1iyxxb73vf" path="res://textures/static_textures/vending_machine_face.png" id="9_rh5xy"]
+[ext_resource type="Texture2D" uid="uid://dqpj58vyp32yh" path="res://textures/static_textures/vending_wall/vending_wall_16x8_regular.png" id="8_gbg7c"]
+[ext_resource type="Texture2D" uid="uid://c0yi411yxofx6" path="res://textures/static_textures/vending_wall/vending_wall_16x8_flip.png" id="9_3ixvm"]
+[ext_resource type="Texture2D" uid="uid://2o1iyxxb73vf" path="res://textures/static_textures/vending_wall/vending_machine_face.png" id="9_rh5xy"]
 [ext_resource type="PackedScene" uid="uid://bl2kjjkdm332n" path="res://items/noncollision_props/big_fan.tscn" id="11_05akp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
@@ -30,13 +31,6 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hd2i4"]
 gradient = SubResource("Gradient_5br6e")
-
-[sub_resource type="Gradient" id="Gradient_1t1q7"]
-offsets = PackedFloat32Array(0.67832166)
-colors = PackedColorArray(0.62628835, 0.6262883, 0.6262882, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_aphrj"]
-gradient = SubResource("Gradient_1t1q7")
 
 [sub_resource type="Gradient" id="Gradient_aphrj"]
 offsets = PackedFloat32Array(1)
@@ -162,6 +156,15 @@ region = Rect2(34.5, 110.5, 49, 75)
 [sub_resource type="AtlasTexture" id="AtlasTexture_fwlan"]
 atlas = ExtResource("9_rh5xy")
 region = Rect2(78, 50.5, 10, 7)
+
+[sub_resource type="Gradient" id="Gradient_05akp"]
+offsets = PackedFloat32Array(0.16083916, 1)
+colors = PackedColorArray(0, 0.007843138, 0.08235294, 1, 0, 0.012920001, 0.07846785, 0.273)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uxowu"]
+gradient = SubResource("Gradient_05akp")
+width = 640
+height = 640
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xe5ka"]
 properties/0/path = NodePath("QuizMenu:visible")
@@ -480,66 +483,136 @@ unique_name_in_owner = true
 modulate = Color(0.5975452, 0.5975452, 0.59754515, 1)
 position = Vector2(656, 713)
 
-[node name="ConveyorA1PH" type="Sprite2D" parent="Conveyors" unique_id=2062677913]
-position = Vector2(-222.99997, -43.99994)
-scale = Vector2(1.2500005, 4.15625)
-texture = SubResource("GradientTexture2D_aphrj")
+[node name="Conveyor" type="Node2D" parent="Conveyors" unique_id=1587928575]
 
-[node name="Conveyor" parent="Conveyors/ConveyorA1PH" unique_id=880755788 instance=ExtResource("2_hd2i4")]
+[node name="Area" parent="Conveyors/Conveyor" unique_id=880755788 instance=ExtResource("2_hd2i4")]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
-scale = Vector2(3.375, 3.375)
+position = Vector2(-222.99997, -43.99994)
+scale = Vector2(4.2187514, 14.027344)
 collision_mask = 65
 groups_to_move = Array[String](["players"])
 
-[node name="ConveyorA2PH" type="Sprite2D" parent="Conveyors" unique_id=105766412]
-position = Vector2(-164, 139)
-rotation = -1.5707964
-scale = Vector2(1.2500005, 3.1164057)
-texture = SubResource("GradientTexture2D_aphrj")
+[node name="Segments" type="Node2D" parent="Conveyors/Conveyor" unique_id=1585003203]
 
-[node name="Conveyor" parent="Conveyors/ConveyorA2PH" unique_id=1338162639 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.2303662, 3.2186635)
+[node name="ConveyorSegment" parent="Conveyors/Conveyor/Segments" unique_id=511393861 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, -160)
+
+[node name="ConveyorSegment2" parent="Conveyors/Conveyor/Segments" unique_id=859120380 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, -130)
+
+[node name="ConveyorSegment3" parent="Conveyors/Conveyor/Segments" unique_id=735659091 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, -100)
+
+[node name="ConveyorSegment4" parent="Conveyors/Conveyor/Segments" unique_id=2086061573 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, -70)
+
+[node name="ConveyorSegment5" parent="Conveyors/Conveyor/Segments" unique_id=1477844912 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, -40)
+
+[node name="ConveyorSegment6" parent="Conveyors/Conveyor/Segments" unique_id=11793155 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, -10)
+
+[node name="ConveyorSegment7" parent="Conveyors/Conveyor/Segments" unique_id=2142454204 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, 20)
+
+[node name="ConveyorSegment8" parent="Conveyors/Conveyor/Segments" unique_id=1078451147 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, 50)
+
+[node name="ConveyorSegment9" parent="Conveyors/Conveyor/Segments" unique_id=2009405300 instance=ExtResource("2_uxowu")]
+position = Vector2(-223, 80)
+
+[node name="Conveyor2" type="Node2D" parent="Conveyors" unique_id=997449163]
+
+[node name="Area" parent="Conveyors/Conveyor2" unique_id=1338162639 instance=ExtResource("2_hd2i4")]
+position = Vector2(-161, 139)
+rotation = -1.5707964
+scale = Vector2(4.037959, 10.390661)
 groups_to_move = Array[String](["players"])
 direction_to_move = Vector2(1, 0)
 
-[node name="ConveyorA3PH" type="Sprite2D" parent="Conveyors" unique_id=1374575334]
-position = Vector2(-103, 284)
-scale = Vector2(1.2500005, 2.8749998)
-texture = SubResource("GradientTexture2D_aphrj")
+[node name="Segments" type="Node2D" parent="Conveyors/Conveyor2" unique_id=879845021]
 
-[node name="Conveyor" parent="Conveyors/ConveyorA3PH" unique_id=1923428562 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.1286242, 3.5207634)
+[node name="ConveyorSegment" parent="Conveyors/Conveyor2/Segments" unique_id=1268441364 instance=ExtResource("2_uxowu")]
+position = Vector2(-249, 138)
+rotation = -1.5707964
+
+[node name="ConveyorSegment2" parent="Conveyors/Conveyor2/Segments" unique_id=601095069 instance=ExtResource("2_uxowu")]
+position = Vector2(-219, 138)
+rotation = -1.5707964
+
+[node name="ConveyorSegment3" parent="Conveyors/Conveyor2/Segments" unique_id=174505547 instance=ExtResource("2_uxowu")]
+position = Vector2(-189, 138)
+rotation = -1.5707964
+
+[node name="ConveyorSegment4" parent="Conveyors/Conveyor2/Segments" unique_id=1200520666 instance=ExtResource("2_uxowu")]
+position = Vector2(-159, 138)
+rotation = -1.5707964
+
+[node name="ConveyorSegment5" parent="Conveyors/Conveyor2/Segments" unique_id=1978386614 instance=ExtResource("2_uxowu")]
+position = Vector2(-129, 138)
+rotation = -1.5707964
+
+[node name="ConveyorSegment6" parent="Conveyors/Conveyor2/Segments" unique_id=1691223489 instance=ExtResource("2_uxowu")]
+position = Vector2(-99, 138)
+rotation = -1.5707964
+
+[node name="ConveyorSegment7" parent="Conveyors/Conveyor2/Segments" unique_id=51963383 instance=ExtResource("2_uxowu")]
+position = Vector2(-69, 138)
+rotation = -1.5707964
+
+[node name="Conveyor3" type="Node2D" parent="Conveyors" unique_id=1122497383]
+
+[node name="Area" parent="Conveyors/Conveyor3" unique_id=1923428562 instance=ExtResource("2_hd2i4")]
+position = Vector2(-103, 287)
+scale = Vector2(3.9107819, 10.442194)
 groups_to_move = Array[String](["players"])
 
-[node name="ConveyorB1PH" type="Sprite2D" parent="Conveyors" unique_id=1492258211]
+[node name="Segments" type="Node2D" parent="Conveyors/Conveyor3" unique_id=119333573]
+
+[node name="ConveyorSegment" parent="Conveyors/Conveyor3/Segments" unique_id=2007153524 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 196)
+
+[node name="ConveyorSegment2" parent="Conveyors/Conveyor3/Segments" unique_id=252603447 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 226)
+
+[node name="ConveyorSegment3" parent="Conveyors/Conveyor3/Segments" unique_id=2138150436 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 256)
+
+[node name="ConveyorSegment4" parent="Conveyors/Conveyor3/Segments" unique_id=319255030 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 286)
+
+[node name="ConveyorSegment5" parent="Conveyors/Conveyor3/Segments" unique_id=1204714143 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 316)
+
+[node name="ConveyorSegment6" parent="Conveyors/Conveyor3/Segments" unique_id=544007118 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 346)
+
+[node name="ConveyorSegment7" parent="Conveyors/Conveyor3/Segments" unique_id=1701868553 instance=ExtResource("2_uxowu")]
+position = Vector2(-101, 376)
+
+[node name="Conveyor4" type="Node2D" parent="Conveyors" unique_id=481871933]
+
+[node name="Area" parent="Conveyors/Conveyor4" unique_id=998033450 instance=ExtResource("2_hd2i4")]
 position = Vector2(223, -44)
-scale = Vector2(1.2500005, 4.15625)
-texture = SubResource("GradientTexture2D_aphrj")
-
-[node name="Conveyor" parent="Conveyors/ConveyorB1PH" unique_id=998033450 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.1702645, 3.3552558)
+scale = Vector2(3.9628322, 13.945282)
 groups_to_move = Array[String](["players"])
 
-[node name="ConveyorB2PH" type="Sprite2D" parent="Conveyors" unique_id=1434363796]
+[node name="Conveyor5" type="Node2D" parent="Conveyors" unique_id=1491009188]
+
+[node name="Area" parent="Conveyors/Conveyor5" unique_id=638884024 instance=ExtResource("2_hd2i4")]
 position = Vector2(164, 139)
 rotation = -1.5707964
-scale = Vector2(1.2500005, 3.1164057)
-texture = SubResource("GradientTexture2D_aphrj")
-
-[node name="Conveyor" parent="Conveyors/ConveyorB2PH" unique_id=638884024 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.204114, 3.204114)
+scale = Vector2(4.005144, 9.985319)
 groups_to_move = Array[String](["players"])
 direction_to_move = Vector2(-1, 0)
 
-[node name="ConveyorB3PH" type="Sprite2D" parent="Conveyors" unique_id=755250747]
-position = Vector2(103, 284)
-scale = Vector2(1.25, 2.875)
-texture = SubResource("GradientTexture2D_aphrj")
+[node name="Conveyor6" type="Node2D" parent="Conveyors" unique_id=1411471046]
 
-[node name="Conveyor" parent="Conveyors/ConveyorB3PH" unique_id=514216858 instance=ExtResource("2_hd2i4")]
-scale = Vector2(3.0745096, 3.5677075)
+[node name="Area" parent="Conveyors/Conveyor6" unique_id=514216858 instance=ExtResource("2_hd2i4")]
+position = Vector2(103, 284)
+scale = Vector2(3.843137, 10.257159)
 groups_to_move = Array[String](["players"])
 
 [node name="Hoppers" type="Node2D" parent="." unique_id=914765833]
@@ -674,153 +747,160 @@ fit_content = true
 z_index = -10
 position = Vector2(656, 708)
 
-[node name="right" type="Node2D" parent="BackgroundVisuals" unique_id=857470578]
+[node name="VendingRight" type="Node2D" parent="BackgroundVisuals" unique_id=857470578]
 z_index = -10
 
-[node name="wall_right3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=2134668613]
+[node name="wall_right3" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=2134668613]
 position = Vector2(387, -325)
 texture = ExtResource("8_gbg7c")
 
-[node name="wall_right2" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=276972677]
+[node name="wall_right2" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=276972677]
 position = Vector2(364, 133)
 texture = ExtResource("8_gbg7c")
 
-[node name="wall_right" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1847113559]
+[node name="wall_right" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1847113559]
 position = Vector2(341, 590)
 texture = ExtResource("8_gbg7c")
 
-[node name="reg_bright3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=104810772 groups=["vmw_exceptions"]]
+[node name="reg_bright3" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=104810772 groups=["vmw_exceptions"]]
 position = Vector2(451, 216)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="wall_right1point5" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=693035569]
-position = Vector2(780, 362)
+[node name="wall_right1point5" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=693035569]
+position = Vector2(780, 365)
 texture = ExtResource("8_gbg7c")
 region_rect = Rect2(113, 48, 462.08, 683)
 
-[node name="reg_bright" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1443177560 groups=["vmw_exceptions"]]
+[node name="reg_bright" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1443177560 groups=["vmw_exceptions"]]
 position = Vector2(411, 28)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="reg_bright2" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1705687237 groups=["vmw_exceptions"]]
+[node name="reg_bright2" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1705687237 groups=["vmw_exceptions"]]
 position = Vector2(331, 268)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="reg_bright4" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=603756659 groups=["vmw_exceptions"]]
+[node name="reg_bright4" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=603756659 groups=["vmw_exceptions"]]
 position = Vector2(388, 485)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="reg_bright5" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1159792411 groups=["vmw_exceptions"]]
+[node name="reg_bright5" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1159792411 groups=["vmw_exceptions"]]
 position = Vector2(274, -286)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="reg_bright6" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=457433660 groups=["vmw_exceptions"]]
+[node name="reg_bright6" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=457433660 groups=["vmw_exceptions"]]
 position = Vector2(634, -274)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="reg_bright7" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=972314854 groups=["vmw_exceptions"]]
+[node name="reg_bright7" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=972314854 groups=["vmw_exceptions"]]
 position = Vector2(667, 345)
 texture = SubResource("AtlasTexture_05akp")
 
-[node name="reg_red" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=2102411649 groups=["vmw_exceptions"]]
+[node name="reg_red" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=2102411649 groups=["vmw_exceptions"]]
 position = Vector2(385, 119)
 texture = SubResource("AtlasTexture_uxowu")
 
-[node name="reg_red2" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1654467001 groups=["vmw_exceptions"]]
+[node name="reg_red2" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1654467001 groups=["vmw_exceptions"]]
 position = Vector2(242, 348)
 texture = SubResource("AtlasTexture_uxowu")
 
-[node name="reg_red3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1139842949 groups=["vmw_exceptions"]]
+[node name="reg_red3" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1139842949 groups=["vmw_exceptions"]]
 position = Vector2(481, 300)
 texture = SubResource("AtlasTexture_uxowu")
 
-[node name="reg_red4" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1472004342 groups=["vmw_exceptions"]]
+[node name="reg_red4" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1472004342 groups=["vmw_exceptions"]]
 position = Vector2(408, -115)
 texture = SubResource("AtlasTexture_uxowu")
 
-[node name="reg_red5" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1449915341 groups=["vmw_exceptions"]]
+[node name="reg_red5" type="Sprite2D" parent="BackgroundVisuals/VendingRight" unique_id=1449915341 groups=["vmw_exceptions"]]
 position = Vector2(242, 460)
 texture = SubResource("AtlasTexture_uxowu")
 
-[node name="left" type="Node2D" parent="BackgroundVisuals" unique_id=772333580]
+[node name="VendingLeft" type="Node2D" parent="BackgroundVisuals" unique_id=772333580]
 z_index = -10
 
-[node name="wall_left4" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1720977361]
+[node name="wall_left4" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=1720977361]
 position = Vector2(-393, -361)
 texture = ExtResource("9_3ixvm")
 
-[node name="wall_left3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=2079123219]
+[node name="wall_left3" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=2079123219]
 position = Vector2(-369, -182)
 texture = ExtResource("9_3ixvm")
 
-[node name="wall_left2" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1291143230]
+[node name="wall_left2" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=1291143230]
 position = Vector2(-347, 277)
 texture = ExtResource("9_3ixvm")
 
-[node name="wall_left" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=383867216]
+[node name="wall_left" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=383867216]
 position = Vector2(-324, 735)
 texture = ExtResource("9_3ixvm")
 
-[node name="wall_left5" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1882168964]
+[node name="wall_left5" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=1882168964]
 position = Vector2(-379, 787)
 texture = ExtResource("9_3ixvm")
 
-[node name="wall_left6" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1841758960]
+[node name="wall_left6" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=1841758960]
 position = Vector2(-396, 820)
 texture = ExtResource("9_3ixvm")
 
-[node name="flip_bright" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1441038919 groups=["vmw_exceptions"]]
+[node name="flip_bright" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=1441038919 groups=["vmw_exceptions"]]
 position = Vector2(-418, 47)
 texture = SubResource("AtlasTexture_rh5xy")
 
-[node name="flip_bright2" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1629758355 groups=["vmw_exceptions"]]
+[node name="flip_bright2" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=1629758355 groups=["vmw_exceptions"]]
 position = Vector2(-418, -177)
 texture = SubResource("AtlasTexture_rh5xy")
 
-[node name="flip_bright3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=373554827 groups=["vmw_exceptions"]]
+[node name="flip_bright3" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=373554827 groups=["vmw_exceptions"]]
 position = Vector2(-276, 334)
 texture = SubResource("AtlasTexture_rh5xy")
 
-[node name="flip_bright4" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=808907879 groups=["vmw_exceptions"]]
+[node name="flip_bright4" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=808907879 groups=["vmw_exceptions"]]
 position = Vector2(-436, 302)
 texture = SubResource("AtlasTexture_rh5xy")
 
-[node name="flip_bright5" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=582751716 groups=["vmw_exceptions"]]
+[node name="flip_bright5" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=582751716 groups=["vmw_exceptions"]]
 position = Vector2(-245, 613)
 texture = SubResource("AtlasTexture_rh5xy")
 
-[node name="flip_red" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=659831237 groups=["vmw_exceptions"]]
+[node name="flip_red" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=659831237 groups=["vmw_exceptions"]]
 position = Vector2(-525, 101)
 texture = SubResource("AtlasTexture_fwlan")
 
-[node name="flip_red2" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=120861032 groups=["vmw_exceptions"]]
+[node name="flip_red2" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=120861032 groups=["vmw_exceptions"]]
 position = Vector2(-303, 236)
 texture = SubResource("AtlasTexture_fwlan")
 
-[node name="flip_red3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=488308520 groups=["vmw_exceptions"]]
+[node name="flip_red3" type="Sprite2D" parent="BackgroundVisuals/VendingLeft" unique_id=488308520 groups=["vmw_exceptions"]]
 position = Vector2(-223, 420)
 texture = SubResource("AtlasTexture_fwlan")
 
-[node name="fans" type="Node2D" parent="BackgroundVisuals" unique_id=674919206]
+[node name="Fans" type="Node2D" parent="BackgroundVisuals" unique_id=674919206]
 z_index = -5
 z_as_relative = false
 
-[node name="Background2" type="Sprite2D" parent="BackgroundVisuals/fans" unique_id=163445776]
+[node name="Background2" type="Sprite2D" parent="BackgroundVisuals/Fans" unique_id=163445776]
 position = Vector2(7, -333.49997)
 scale = Vector2(3.3437507, 12.640624)
 texture = ExtResource("5_5br6e")
 
-[node name="BigFan4" parent="BackgroundVisuals/fans" unique_id=1230014385 instance=ExtResource("11_05akp")]
+[node name="BigFan4" parent="BackgroundVisuals/Fans" unique_id=1230014385 instance=ExtResource("11_05akp")]
 modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
 position = Vector2(0, -149)
 
-[node name="BigFan5" parent="BackgroundVisuals/fans" unique_id=455410156 instance=ExtResource("11_05akp")]
+[node name="BigFan5" parent="BackgroundVisuals/Fans" unique_id=455410156 instance=ExtResource("11_05akp")]
 modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
 position = Vector2(0, -389)
 
-[node name="BigFan6" parent="BackgroundVisuals/fans" unique_id=1910042480 instance=ExtResource("11_05akp")]
+[node name="BigFan6" parent="BackgroundVisuals/Fans" unique_id=1910042480 instance=ExtResource("11_05akp")]
 modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
 position = Vector2(0, -629)
+
+[node name="Sprite2D" type="Sprite2D" parent="BackgroundVisuals" unique_id=310750613]
+z_as_relative = false
+position = Vector2(16, 515)
+rotation = -1.5707964
+scale = Vector2(1.161567, -3.6724977)
+texture = SubResource("GradientTexture2D_uxowu")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999

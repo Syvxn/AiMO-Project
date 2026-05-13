@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djxvt37os5b21"
-path="res://.godot/imported/big_fan_frame-hole-centre.png-00af5cfecfd208991a4ceae22599306c.ctex"
+uid="uid://2o1iyxxb73vf"
+path="res://.godot/imported/vending_machine_face.png-f06ab0eaaefcef048a23e38645cbf381.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/static_textures/big_fan_frame-hole-centre.png"
-dest_files=["res://.godot/imported/big_fan_frame-hole-centre.png-00af5cfecfd208991a4ceae22599306c.ctex"]
+source_file="res://textures/static_textures/vending_wall/vending_machine_face.png"
+dest_files=["res://.godot/imported/vending_machine_face.png-f06ab0eaaefcef048a23e38645cbf381.ctex"]
 
 [params]
 

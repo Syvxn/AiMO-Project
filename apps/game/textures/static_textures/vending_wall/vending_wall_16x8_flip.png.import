@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2o1iyxxb73vf"
-path="res://.godot/imported/vending_machine_face.png-970aec6426a41ba40ba15c10bf0c6a32.ctex"
+uid="uid://c0yi411yxofx6"
+path="res://.godot/imported/vending_wall_16x8_flip.png-7d33f5d99f2f915e5e073eea1307f463.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/static_textures/vending_machine_face.png"
-dest_files=["res://.godot/imported/vending_machine_face.png-970aec6426a41ba40ba15c10bf0c6a32.ctex"]
+source_file="res://textures/static_textures/vending_wall/vending_wall_16x8_flip.png"
+dest_files=["res://.godot/imported/vending_wall_16x8_flip.png-7d33f5d99f2f915e5e073eea1307f463.ctex"]
 
 [params]
 

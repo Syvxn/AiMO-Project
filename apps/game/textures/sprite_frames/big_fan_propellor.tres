@@ -2,6 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://syt6s0rn7v6j" path="res://textures/spritesheets/props/big_fan_propellor.png" id="1_qxulc"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_x82gf"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(0, 0, 240, 240)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_is41u"]
 atlas = ExtResource("1_qxulc")
 region = Rect2(0, 0, 240, 240)
@@ -26,12 +30,16 @@ region = Rect2(240, 0, 240, 240)
 atlas = ExtResource("1_qxulc")
 region = Rect2(480, 0, 240, 240)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x82gf"]
-atlas = ExtResource("1_qxulc")
-region = Rect2(0, 0, 240, 240)
-
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x82gf")
+}],
+"loop": true,
+"name": &"halt",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_is41u")
@@ -58,13 +66,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"spin_counter",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x82gf")
-}],
-"loop": true,
-"name": &"stay",
 "speed": 5.0
 }]
