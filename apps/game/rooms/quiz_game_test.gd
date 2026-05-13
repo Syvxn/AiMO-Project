@@ -160,6 +160,7 @@ func run_next_question():
 func end_game():
 		assert(multiplayer.is_server())
 		print("end of quiz, yay")
+		current_question_index = 0
 		print("Team A points: ", str(total_points["team_a"]))
 		print("Team B points: ", str(total_points["team_b"]))
 		%ApparatusScreen.text = "A: %s\nB: %s" % [total_points["team_a"], total_points["team_b"]]

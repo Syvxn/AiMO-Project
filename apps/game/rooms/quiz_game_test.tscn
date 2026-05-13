@@ -150,6 +150,18 @@ sources/0 = SubResource("TileSetAtlasSource_nxk6l")
 atlas = ExtResource("9_rh5xy")
 region = Rect2(13, 14, 44, 78)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxowu"]
+atlas = ExtResource("9_rh5xy")
+region = Rect2(69.5, 41.5, 7, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rh5xy"]
+atlas = ExtResource("9_rh5xy")
+region = Rect2(34.5, 110.5, 49, 75)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fwlan"]
+atlas = ExtResource("9_rh5xy")
+region = Rect2(78, 50.5, 10, 7)
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xe5ka"]
 properties/0/path = NodePath("QuizMenu:visible")
 properties/0/spawn = true
@@ -658,7 +670,7 @@ fit_content = true
 z_index = -10
 position = Vector2(656, 708)
 
-[node name="right" type="Sprite2D" parent="BackgroundVisuals" unique_id=648678629]
+[node name="right" type="Node2D" parent="BackgroundVisuals" unique_id=857470578]
 
 [node name="wall_right3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=2134668613]
 position = Vector2(387, -325)
@@ -693,6 +705,38 @@ texture = SubResource("AtlasTexture_05akp")
 position = Vector2(388, 485)
 texture = SubResource("AtlasTexture_05akp")
 
+[node name="reg_bright5" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1159792411 groups=["vmw_exceptions"]]
+position = Vector2(274, -286)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="reg_bright6" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=457433660 groups=["vmw_exceptions"]]
+position = Vector2(634, -274)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="reg_bright7" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=972314854 groups=["vmw_exceptions"]]
+position = Vector2(667, 345)
+texture = SubResource("AtlasTexture_05akp")
+
+[node name="reg_red" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=2102411649 groups=["vmw_exceptions"]]
+position = Vector2(385, 119)
+texture = SubResource("AtlasTexture_uxowu")
+
+[node name="reg_red2" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1654467001 groups=["vmw_exceptions"]]
+position = Vector2(242, 348)
+texture = SubResource("AtlasTexture_uxowu")
+
+[node name="reg_red3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1139842949 groups=["vmw_exceptions"]]
+position = Vector2(481, 300)
+texture = SubResource("AtlasTexture_uxowu")
+
+[node name="reg_red4" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1472004342 groups=["vmw_exceptions"]]
+position = Vector2(408, -115)
+texture = SubResource("AtlasTexture_uxowu")
+
+[node name="reg_red5" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=1449915341 groups=["vmw_exceptions"]]
+position = Vector2(242, 460)
+texture = SubResource("AtlasTexture_uxowu")
+
 [node name="left" type="Node2D" parent="BackgroundVisuals" unique_id=772333580]
 
 [node name="wall_left4" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1720977361]
@@ -718,6 +762,38 @@ texture = ExtResource("9_3ixvm")
 [node name="wall_left6" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1841758960]
 position = Vector2(-396, 820)
 texture = ExtResource("9_3ixvm")
+
+[node name="flip_bright" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1441038919 groups=["vmw_exceptions"]]
+position = Vector2(-418, 47)
+texture = SubResource("AtlasTexture_rh5xy")
+
+[node name="flip_bright2" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1629758355 groups=["vmw_exceptions"]]
+position = Vector2(-418, -177)
+texture = SubResource("AtlasTexture_rh5xy")
+
+[node name="flip_bright3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=373554827 groups=["vmw_exceptions"]]
+position = Vector2(-276, 334)
+texture = SubResource("AtlasTexture_rh5xy")
+
+[node name="flip_bright4" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=808907879 groups=["vmw_exceptions"]]
+position = Vector2(-436, 302)
+texture = SubResource("AtlasTexture_rh5xy")
+
+[node name="flip_bright5" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=582751716 groups=["vmw_exceptions"]]
+position = Vector2(-245, 613)
+texture = SubResource("AtlasTexture_rh5xy")
+
+[node name="flip_red" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=659831237 groups=["vmw_exceptions"]]
+position = Vector2(-525, 101)
+texture = SubResource("AtlasTexture_fwlan")
+
+[node name="flip_red2" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=120861032 groups=["vmw_exceptions"]]
+position = Vector2(-303, 236)
+texture = SubResource("AtlasTexture_fwlan")
+
+[node name="flip_red3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=488308520 groups=["vmw_exceptions"]]
+position = Vector2(-223, 420)
+texture = SubResource("AtlasTexture_fwlan")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999
