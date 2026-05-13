@@ -17,9 +17,8 @@ properties/2/replication_mode = 1
 z_as_relative = false
 y_sort_enabled = true
 sprite_frames = ExtResource("1_qs4r4")
-animation = &"move_down"
-autoplay = "move_down"
-frame_progress = 0.766527
+animation = &"halt"
+autoplay = "halt"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1626891322]
 replication_config = SubResource("SceneReplicationConfig_6idgp")

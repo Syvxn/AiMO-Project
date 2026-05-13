@@ -271,3 +271,13 @@ func _on_item_autlooted(autolooter_id: String, type: String, looter: Node):
 		if team_b_players.any(func(player): return player.name == looter.name):
 			total_points["team_b"] += points_per_snack
 #endregion
+
+
+func _on_exception_timer_timeout() -> void:
+	var exceptions = get_tree().get_nodes_in_group("vmw_exceptions")
+	var exception = exceptions.pick_random()
+	for i in range(randi_range(1, 3)):
+		exception.hide()
+		await get_tree().create_timer(randf_range(0.2, 0.9)).timeout
+		exception.show()
+	%ExceptionTimer.start(randf_range(1.0, 5.0))

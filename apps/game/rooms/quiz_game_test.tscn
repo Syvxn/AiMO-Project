@@ -194,6 +194,9 @@ properties/7/replication_mode = 2
 properties/8/path = NodePath("NavigationRegion2D/Decorations/BPoints:text")
 properties/8/spawn = true
 properties/8/replication_mode = 2
+properties/9/path = NodePath("Timer:wait_time")
+properties/9/spawn = true
+properties/9/replication_mode = 1
 
 [node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
 z_as_relative = false
@@ -978,11 +981,23 @@ modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
 position = Vector2(0, -629)
 
 [node name="BottomHaze" type="Sprite2D" parent="BackgroundVisuals" unique_id=310750613]
+modulate = Color(1, 1, 1, 0.5)
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(-1.0000018, 42)
 rotation = -1.5707964
 scale = Vector2(1.2870786, 4.1164865)
+texture = SubResource("GradientTexture2D_uxowu")
+offset = Vector2(-350, 0)
+
+[node name="BottomHaze2" type="Sprite2D" parent="BackgroundVisuals" unique_id=1027129677]
+modulate = Color(1, 1, 1, 0.3)
+z_index = -8
+z_as_relative = false
+y_sort_enabled = true
+position = Vector2(0, -950.0001)
+rotation = -1.5707964
+scale = Vector2(2.7670786, 4.1164865)
 texture = SubResource("GradientTexture2D_uxowu")
 offset = Vector2(-350, 0)
 
@@ -1058,6 +1073,12 @@ one_shot = true
 [node name="jackie" parent="." unique_id=685008524 instance=ExtResource("8_aphrj")]
 position = Vector2(601, 666)
 
+[node name="ExceptionTimer" type="Timer" parent="." unique_id=644799326]
+unique_name_in_owner = true
+one_shot = true
+autostart = true
+
 [connection signal="pushed" from="NavigationRegion2D/Decorations/ActivateButton" to="." method="_on_activate_button_pushed"]
+[connection signal="timeout" from="ExceptionTimer" to="." method="_on_exception_timer_timeout"]
 
 [editable path="QuizMenu/Panel/QuestionContainer/QuizQuestion"]
