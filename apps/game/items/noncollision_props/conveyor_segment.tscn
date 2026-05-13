@@ -2,9 +2,24 @@
 
 [ext_resource type="SpriteFrames" uid="uid://bv0yl2onv2b5n" path="res://textures/sprite_frames/conveyor_segment.tres" id="1_qs4r4"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6idgp"]
+properties/0/path = NodePath(".:animation")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath(".:speed_scale")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:frame")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="ConveyorSegment" type="AnimatedSprite2D" unique_id=511393861]
 z_as_relative = false
 y_sort_enabled = true
 sprite_frames = ExtResource("1_qs4r4")
 animation = &"move_down"
 autoplay = "move_down"
+frame_progress = 0.26559606
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1626891322]
+replication_config = SubResource("SceneReplicationConfig_6idgp")

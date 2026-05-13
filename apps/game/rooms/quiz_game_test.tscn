@@ -599,6 +599,35 @@ position = Vector2(223, -44)
 scale = Vector2(3.9628322, 13.945282)
 groups_to_move = Array[String](["players"])
 
+[node name="Segments" type="Node2D" parent="Conveyors/Conveyor4" unique_id=620522475]
+
+[node name="ConveyorSegment" parent="Conveyors/Conveyor4/Segments" unique_id=331853567 instance=ExtResource("2_uxowu")]
+position = Vector2(225, -160)
+
+[node name="ConveyorSegment2" parent="Conveyors/Conveyor4/Segments" unique_id=1019280229 instance=ExtResource("2_uxowu")]
+position = Vector2(225, -130)
+
+[node name="ConveyorSegment3" parent="Conveyors/Conveyor4/Segments" unique_id=262374436 instance=ExtResource("2_uxowu")]
+position = Vector2(225, -100)
+
+[node name="ConveyorSegment4" parent="Conveyors/Conveyor4/Segments" unique_id=1180740040 instance=ExtResource("2_uxowu")]
+position = Vector2(225, -70)
+
+[node name="ConveyorSegment5" parent="Conveyors/Conveyor4/Segments" unique_id=2057127518 instance=ExtResource("2_uxowu")]
+position = Vector2(225, -40)
+
+[node name="ConveyorSegment6" parent="Conveyors/Conveyor4/Segments" unique_id=1654339629 instance=ExtResource("2_uxowu")]
+position = Vector2(225, -10)
+
+[node name="ConveyorSegment7" parent="Conveyors/Conveyor4/Segments" unique_id=2130539464 instance=ExtResource("2_uxowu")]
+position = Vector2(225, 20)
+
+[node name="ConveyorSegment8" parent="Conveyors/Conveyor4/Segments" unique_id=2033854174 instance=ExtResource("2_uxowu")]
+position = Vector2(225, 50)
+
+[node name="ConveyorSegment9" parent="Conveyors/Conveyor4/Segments" unique_id=220677350 instance=ExtResource("2_uxowu")]
+position = Vector2(225, 80)
+
 [node name="Conveyor5" type="Node2D" parent="Conveyors" unique_id=1491009188]
 
 [node name="Area" parent="Conveyors/Conveyor5" unique_id=638884024 instance=ExtResource("2_hd2i4")]
@@ -608,12 +637,65 @@ scale = Vector2(4.005144, 9.985319)
 groups_to_move = Array[String](["players"])
 direction_to_move = Vector2(-1, 0)
 
+[node name="Segments" type="Node2D" parent="Conveyors/Conveyor5" unique_id=2097138037]
+
+[node name="ConveyorSegment" parent="Conveyors/Conveyor5/Segments" unique_id=1422862038 instance=ExtResource("2_uxowu")]
+position = Vector2(70, 138)
+rotation = 1.5707964
+
+[node name="ConveyorSegment2" parent="Conveyors/Conveyor5/Segments" unique_id=1289452019 instance=ExtResource("2_uxowu")]
+position = Vector2(100, 138)
+rotation = 1.5707964
+
+[node name="ConveyorSegment3" parent="Conveyors/Conveyor5/Segments" unique_id=804875548 instance=ExtResource("2_uxowu")]
+position = Vector2(130, 138)
+rotation = 1.5707964
+
+[node name="ConveyorSegment4" parent="Conveyors/Conveyor5/Segments" unique_id=1223086459 instance=ExtResource("2_uxowu")]
+position = Vector2(160, 138)
+rotation = 1.5707964
+
+[node name="ConveyorSegment5" parent="Conveyors/Conveyor5/Segments" unique_id=1104892939 instance=ExtResource("2_uxowu")]
+position = Vector2(190, 138)
+rotation = 1.5707964
+
+[node name="ConveyorSegment6" parent="Conveyors/Conveyor5/Segments" unique_id=1511905194 instance=ExtResource("2_uxowu")]
+position = Vector2(220, 138)
+rotation = 1.5707964
+
+[node name="ConveyorSegment7" parent="Conveyors/Conveyor5/Segments" unique_id=1559534465 instance=ExtResource("2_uxowu")]
+position = Vector2(250, 138)
+rotation = 1.5707964
+
 [node name="Conveyor6" type="Node2D" parent="Conveyors" unique_id=1411471046]
 
 [node name="Area" parent="Conveyors/Conveyor6" unique_id=514216858 instance=ExtResource("2_hd2i4")]
 position = Vector2(103, 284)
 scale = Vector2(3.843137, 10.257159)
 groups_to_move = Array[String](["players"])
+
+[node name="Segments" type="Node2D" parent="Conveyors/Conveyor6" unique_id=1763893187]
+
+[node name="ConveyorSegment" parent="Conveyors/Conveyor6/Segments" unique_id=505140951 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 196)
+
+[node name="ConveyorSegment2" parent="Conveyors/Conveyor6/Segments" unique_id=1643055320 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 226)
+
+[node name="ConveyorSegment3" parent="Conveyors/Conveyor6/Segments" unique_id=1690649941 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 256)
+
+[node name="ConveyorSegment4" parent="Conveyors/Conveyor6/Segments" unique_id=1629887730 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 286)
+
+[node name="ConveyorSegment5" parent="Conveyors/Conveyor6/Segments" unique_id=198335681 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 316)
+
+[node name="ConveyorSegment6" parent="Conveyors/Conveyor6/Segments" unique_id=645912568 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 346)
+
+[node name="ConveyorSegment7" parent="Conveyors/Conveyor6/Segments" unique_id=1161694847 instance=ExtResource("2_uxowu")]
+position = Vector2(101, 376)
 
 [node name="Hoppers" type="Node2D" parent="." unique_id=914765833]
 modulate = Color(0.72365713, 0.7236571, 0.7236571, 1)

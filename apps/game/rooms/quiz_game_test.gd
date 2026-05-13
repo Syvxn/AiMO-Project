@@ -160,6 +160,7 @@ func run_next_question():
 func end_game():
 		assert(multiplayer.is_server())
 		print("end of quiz, yay")
+		set_conveyor_speeds(0.0)
 		current_question_index = 0
 		print("Team A points: ", str(total_points["team_a"]))
 		print("Team B points: ", str(total_points["team_b"]))
@@ -183,12 +184,16 @@ func end_game():
 
 
 func set_conveyor_speeds(speed: float, randomize_direction=false):
-	var dir_mod = 1.0
-	if randomize_direction:
-		dir_mod = [-1.0, 1.0].pick_random()
 	for child in %Conveyors.get_children():
-		# i guess this would also set conveyor animation speed (+/-)
+		var dir_mod = 1.0
+		if randomize_direction:
+			dir_mod = [-1.0, 1.0].pick_random()
 		child.get_node("Area").speed = speed * dir_mod
+		for segment in child.get_node("Segments").get_children():
+			if dir_mod < 0.0:
+				segment.play("move_up", (speed / conveyor_base_speed))
+			else:
+				segment.play("move_down", (speed / conveyor_base_speed))
 
 
 func check_and_reward_winners():
