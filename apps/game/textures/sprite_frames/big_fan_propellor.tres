@@ -1,0 +1,70 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dn81idajm4q30"]
+
+[ext_resource type="Texture2D" uid="uid://syt6s0rn7v6j" path="res://textures/spritesheets/props/big_fan_propellor.png" id="1_qxulc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_is41u"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(0, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvcar"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(480, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wh18"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(240, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqv0q"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(0, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biy2q"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(240, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4rco"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(480, 0, 240, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x82gf"]
+atlas = ExtResource("1_qxulc")
+region = Rect2(0, 0, 240, 240)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_is41u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvcar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wh18")
+}],
+"loop": true,
+"name": &"spin_clockwise",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqv0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biy2q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4rco")
+}],
+"loop": true,
+"name": &"spin_counter",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x82gf")
+}],
+"loop": true,
+"name": &"stay",
+"speed": 5.0
+}]

@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dqpj58vyp32yh" path="res://textures/static_textures/vending_wall_16x8_regular.png" id="8_gbg7c"]
 [ext_resource type="Texture2D" uid="uid://c0yi411yxofx6" path="res://textures/static_textures/vending_wall_16x8_flip.png" id="9_3ixvm"]
 [ext_resource type="Texture2D" uid="uid://2o1iyxxb73vf" path="res://textures/static_textures/vending_machine_face.png" id="9_rh5xy"]
+[ext_resource type="PackedScene" uid="uid://bl2kjjkdm332n" path="res://items/noncollision_props/big_fan.tscn" id="11_05akp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
 size = Vector2(1189, 1032)
@@ -198,7 +199,6 @@ script = ExtResource("1_p4v5p")
 
 [node name="EjectionArea" type="Area2D" parent="." unique_id=489091015]
 unique_name_in_owner = true
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1257454407]
 position = Vector2(683.5, 664)
@@ -301,6 +301,7 @@ shape = SubResource("RectangleShape2D_gbg7c")
 
 [node name="CannonsA" type="Node2D" parent="." unique_id=198854098]
 unique_name_in_owner = true
+modulate = Color(0.7384635, 0.7384635, 0.7384634, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="CannonsA" unique_id=1118275950]
 self_modulate = Color(0.9597916, 0.66138214, 0.34470192, 1)
@@ -388,6 +389,7 @@ position = Vector2(134.24388, -3.5555556)
 
 [node name="CannonsB" type="Node2D" parent="." unique_id=1401920597]
 unique_name_in_owner = true
+modulate = Color(0.7384635, 0.7384635, 0.7384634, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="CannonsB" unique_id=1655799500]
 self_modulate = Color(0.9607843, 0.6627451, 0.34509805, 1)
@@ -475,6 +477,7 @@ position = Vector2(-116.29266, 3.5555556)
 
 [node name="Conveyors" type="Node2D" parent="." unique_id=372117664]
 unique_name_in_owner = true
+modulate = Color(0.5975452, 0.5975452, 0.59754515, 1)
 position = Vector2(656, 713)
 
 [node name="ConveyorA1PH" type="Sprite2D" parent="Conveyors" unique_id=2062677913]
@@ -540,6 +543,7 @@ scale = Vector2(3.0745096, 3.5677075)
 groups_to_move = Array[String](["players"])
 
 [node name="Hoppers" type="Node2D" parent="." unique_id=914765833]
+modulate = Color(0.72365713, 0.7236571, 0.7236571, 1)
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true
@@ -589,11 +593,11 @@ tile_map_data = PackedByteArray("AAARAFgAAAAHAAEAAAARAFYAAAAHAAEAAAARAFUAAAAHAAE
 tile_set = ExtResource("2_o6s05")
 
 [node name="BasementWallsCenter" type="TileMapLayer" parent="CenterFloor" unique_id=1417153113]
-modulate = Color(0.4969228, 0.68233126, 0.43135816, 1)
+modulate = Color(0.3764706, 0.4392157, 0.29411766, 1)
 z_index = -1
 z_as_relative = false
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAATAGYAAAAAAAIAAAARAGYAAAAAAAIAAAASAGYAAAAAAAIAAAAUAGYAAAAAAAIAAAAVAGYAAAAAAAIAAAAWAGYAAAAAAAIAAAAXAGYAAAAAAAIAAAAQAGUAAAAAAAEAAAAQAGMAAAAAAAEAAAAQAGEAAAAAAAEAAAAQAF8AAAAAAAEAAAAQAF0AAAAAAAEAAAAQAFsAAAAAAAEAAAAQAFkAAAAAAAEAAAAQAFcAAAAAAAEAAAAQAFUAAAAAAAEAAAAXAGUAAAAAAAAAAAAXAGMAAAAAAAAAAAAXAGEAAAAAAAAAAAAXAF8AAAAAAAAAAAAXAF0AAAAAAAAAAAAXAFsAAAAAAAAAAAAXAFkAAAAAAAAAAAAXAFcAAAAAAAAAAAAXAFUAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAATAGYAAAAAAAIAAAARAGYAAAAAAAIAAAASAGYAAAAAAAIAAAAUAGYAAAAAAAIAAAAVAGYAAAAAAAIAAAAWAGYAAAAAAAIAAAAXAGYAAAAAAAIAAAAQAGUAAAAAAAEAAAAQAGMAAAAAAAEAAAAQAGEAAAAAAAEAAAAQAF8AAAAAAAEAAAAQAF0AAAAAAAEAAAAQAFsAAAAAAAEAAAAQAFkAAAAAAAEAAAAQAFcAAAAAAAEAAAAQAFUAAAAAAAEAAAAXAGUAAAAAAAAAAAAXAGMAAAAAAAAAAAAXAGEAAAAAAAAAAAAXAF8AAAAAAAAAAAAXAF0AAAAAAAAAAAAXAFsAAAAAAAAAAAAXAFkAAAAAAAAAAAAXAFcAAAAAAAAAAAAXAFUAAAAAAAAAAAARAHAAAAAAAAIAAAARAHoAAAAAAAIAAAARAIQAAAAAAAIAAAARAI4AAAAAAAIAAAARAJgAAAAAAAIAAAARAKIAAAAAAAIAAAARAKwAAAAAAAIAAAASAHAAAAAAAAIAAAATAHAAAAAAAAIAAAAUAHAAAAAAAAIAAAAVAHAAAAAAAAIAAAAWAHAAAAAAAAIAAAAXAHAAAAAAAAIAAAAXAHoAAAAAAAIAAAAWAHoAAAAAAAIAAAAVAHoAAAAAAAIAAAAUAHoAAAAAAAIAAAATAHoAAAAAAAIAAAASAHoAAAAAAAIAAAASAIQAAAAAAAIAAAATAIQAAAAAAAIAAAAUAIQAAAAAAAIAAAAVAIQAAAAAAAIAAAAWAIQAAAAAAAIAAAAXAIQAAAAAAAIAAAAXAI4AAAAAAAIAAAAWAI4AAAAAAAIAAAAVAI4AAAAAAAIAAAAUAI4AAAAAAAIAAAATAI4AAAAAAAIAAAASAI4AAAAAAAIAAAASAJgAAAAAAAIAAAATAJgAAAAAAAIAAAAUAJgAAAAAAAIAAAAVAJgAAAAAAAIAAAAWAJgAAAAAAAIAAAAXAJgAAAAAAAIAAAAXAKIAAAAAAAIAAAAWAKIAAAAAAAIAAAAVAKIAAAAAAAIAAAAUAKIAAAAAAAIAAAATAKIAAAAAAAIAAAASAKIAAAAAAAIAAAASAKwAAAAAAAIAAAATAKwAAAAAAAIAAAAUAKwAAAAAAAIAAAAVAKwAAAAAAAIAAAAWAKwAAAAAAAIAAAAXAKwAAAAAAAIAAAARALYAAAAAAAIAAAASALYAAAAAAAIAAAATALYAAAAAAAIAAAAUALYAAAAAAAIAAAAVALYAAAAAAAIAAAAWALYAAAAAAAIAAAAXALYAAAAAAAIAAAAQALUAAAAAAAEAAAAQAKsAAAAAAAEAAAAQAKEAAAAAAAEAAAAQAJcAAAAAAAEAAAAQAI0AAAAAAAEAAAAQAIMAAAAAAAEAAAAQAHkAAAAAAAEAAAAQAG8AAAAAAAEAAAAXAG8AAAAAAAAAAAAXAHkAAAAAAAAAAAAXAIMAAAAAAAAAAAAXAI0AAAAAAAAAAAAXAJcAAAAAAAAAAAAXAKEAAAAAAAAAAAAXAKsAAAAAAAAAAAAXALUAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_5p5hp")
 collision_enabled = false
 
@@ -671,6 +675,7 @@ z_index = -10
 position = Vector2(656, 708)
 
 [node name="right" type="Node2D" parent="BackgroundVisuals" unique_id=857470578]
+z_index = -10
 
 [node name="wall_right3" type="Sprite2D" parent="BackgroundVisuals/right" unique_id=2134668613]
 position = Vector2(387, -325)
@@ -738,6 +743,7 @@ position = Vector2(242, 460)
 texture = SubResource("AtlasTexture_uxowu")
 
 [node name="left" type="Node2D" parent="BackgroundVisuals" unique_id=772333580]
+z_index = -10
 
 [node name="wall_left4" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=1720977361]
 position = Vector2(-393, -361)
@@ -794,6 +800,27 @@ texture = SubResource("AtlasTexture_fwlan")
 [node name="flip_red3" type="Sprite2D" parent="BackgroundVisuals/left" unique_id=488308520 groups=["vmw_exceptions"]]
 position = Vector2(-223, 420)
 texture = SubResource("AtlasTexture_fwlan")
+
+[node name="fans" type="Node2D" parent="BackgroundVisuals" unique_id=674919206]
+z_index = -5
+z_as_relative = false
+
+[node name="Background2" type="Sprite2D" parent="BackgroundVisuals/fans" unique_id=163445776]
+position = Vector2(7, -333.49997)
+scale = Vector2(3.3437507, 12.640624)
+texture = ExtResource("5_5br6e")
+
+[node name="BigFan4" parent="BackgroundVisuals/fans" unique_id=1230014385 instance=ExtResource("11_05akp")]
+modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
+position = Vector2(0, -149)
+
+[node name="BigFan5" parent="BackgroundVisuals/fans" unique_id=455410156 instance=ExtResource("11_05akp")]
+modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
+position = Vector2(0, -389)
+
+[node name="BigFan6" parent="BackgroundVisuals/fans" unique_id=1910042480 instance=ExtResource("11_05akp")]
+modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
+position = Vector2(0, -629)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999
