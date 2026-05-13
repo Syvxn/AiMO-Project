@@ -159,7 +159,7 @@ region = Rect2(78, 50.5, 10, 7)
 
 [sub_resource type="Gradient" id="Gradient_05akp"]
 offsets = PackedFloat32Array(0.16083916, 1)
-colors = PackedColorArray(0, 0.007843138, 0.08235294, 1, 0, 0.012920001, 0.07846785, 0.273)
+colors = PackedColorArray(0, 0.007843138, 0.08235294, 1, 0, 0.012920001, 0.07846785, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_uxowu"]
 gradient = SubResource("Gradient_05akp")
@@ -231,12 +231,12 @@ scale = Vector2(0.41330627, 1.1127063)
 shape = SubResource("RectangleShape2D_hd2i4")
 
 [node name="CollisionShape2D14" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1664531413]
-position = Vector2(878, 512.0001)
+position = Vector2(879.00006, 574.00006)
 scale = Vector2(0.41330627, 1.1127063)
 shape = SubResource("RectangleShape2D_hd2i4")
 
 [node name="CollisionShape2D15" type="CollisionShape2D" parent="Invisible walls/OhBoy" unique_id=1259489962]
-position = Vector2(431.99994, 511.00006)
+position = Vector2(433, 573)
 scale = Vector2(0.41330627, 1.1127063)
 shape = SubResource("RectangleShape2D_hd2i4")
 
@@ -977,12 +977,14 @@ position = Vector2(0, -389)
 modulate = Color(0.3745118, 0.4382728, 0.29563192, 1)
 position = Vector2(0, -629)
 
-[node name="Sprite2D" type="Sprite2D" parent="BackgroundVisuals" unique_id=310750613]
+[node name="BottomHaze" type="Sprite2D" parent="BackgroundVisuals" unique_id=310750613]
 z_as_relative = false
-position = Vector2(16, 515)
+y_sort_enabled = true
+position = Vector2(-1.0000018, 42)
 rotation = -1.5707964
-scale = Vector2(1.161567, -3.6724977)
+scale = Vector2(1.2870786, 4.1164865)
 texture = SubResource("GradientTexture2D_uxowu")
+offset = Vector2(-350, 0)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999
@@ -1053,7 +1055,7 @@ text = "[Question text should appear hdsadasd asa da as das sad as da dasdere]
 [node name="QuestionTimer" type="Timer" parent="." unique_id=123614519]
 one_shot = true
 
-[node name="Walker" parent="." unique_id=685008524 instance=ExtResource("8_aphrj")]
+[node name="jackie" parent="." unique_id=685008524 instance=ExtResource("8_aphrj")]
 position = Vector2(601, 666)
 
 [connection signal="pushed" from="NavigationRegion2D/Decorations/ActivateButton" to="." method="_on_activate_button_pushed"]
