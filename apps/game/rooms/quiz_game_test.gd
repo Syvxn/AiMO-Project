@@ -23,6 +23,8 @@ var current_question_index := 0
 func _ready() -> void:
 	%QuizMenu.hide()
 	SignalBus.item_autolooted.connect(_on_item_autlooted)
+	set_conveyor_speeds(0.0)
+
 
 
 func _physics_process(_delta: float) -> void:
@@ -143,18 +145,28 @@ func run_next_question():
 	%ApparatusScreen.text = "?"
 	var question = quiz["questions"][current_question_index]
 	fill_and_activate_question.rpc([question])
-	%QuizMenu.show()
+	for player in players:
+		show_quiz.rpc_id(int(player.name))
 	$QuestionTimer.start(question_time_in_s)
 	await $QuestionTimer.timeout
 	show_correct_answer.rpc()
 	await get_tree().create_timer(1.5).timeout
-	%QuizMenu.hide()
+	for player in players:
+		hide_quiz.rpc_id(int(player.name))
 	var c_speed = conveyor_base_speed + (conveyor_speed_increment * current_question_index)
 	set_conveyor_speeds(c_speed, true)
 	check_and_reward_winners()
 	await get_tree().create_timer(reward_time_in_s).timeout
 	current_question_index += 1
 	run_next_question()
+
+
+@rpc("authority", "call_remote")
+func show_quiz():
+	%QuizMenu.show()
+@rpc("authority", "call_remote")
+func hide_quiz():
+	%QuizMenu.hide()
 
 
 func end_game():
@@ -206,24 +218,35 @@ func check_and_reward_winners():
 	%ApparatusScreen.text = "GO"
 	var cannons_a = %CannonsA.get_children()
 	var cannons_b = %CannonsB.get_children()
-	if reward_a:
+	# TODO: replace this conditional with something a little more elegant
+	if reward_a and reward_b:
 		for i in range(4):
-			var cannon = cannons_a.pick_random()
-			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
-		for i in range(2):
-			var cannon = cannons_b.pick_random()
-			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
-	if reward_b:
+			var cannon_a = cannons_a.pick_random()
+			var cannon_b = cannons_b.pick_random()
+			spew_stuff(cannon_a, cannon_a.get_node("Target").global_position, "snacks")
+			spew_stuff(cannon_b, cannon_b.get_node("Target").global_position, "snacks")
+	else:
+		var cannon_w
+		var cannon_l
 		for i in range(4):
-			var cannon = cannons_b.pick_random()
-			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
-		for i in range(2):
-			var cannon = cannons_a.pick_random()
-			spew_stuff(cannon, cannon.get_child(0).global_position, "snacks")
+			if reward_a:
+				cannon_w = cannons_a.pick_random()
+				cannon_l = cannons_b.pick_random()
+			else:
+				cannon_w = cannons_b.pick_random()
+				cannon_l = cannons_a.pick_random()
+			if i % 2 == 0:
+				spew_stuff(cannon_l, cannon_l.get_node("Target").global_position, "snacks")
+			spew_stuff(cannon_w, cannon_w.get_node("Target").global_position, "snacks")
 
 
 func spew_stuff(reward_point_node, target_position, type):
 	assert(multiplayer.is_server())
+	var light = reward_point_node.get_node_or_null("SyncLight")
+	if light:
+		light.show()
+		await get_tree().create_timer(2.0).timeout
+		light.hide()
 	var types = {
 		"snacks" : "res://items/physics_props/random_snack.tscn",
 	}
