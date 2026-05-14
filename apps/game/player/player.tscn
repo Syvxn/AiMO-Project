@@ -30,7 +30,16 @@ func _physics_process(_delta: float) -> void:
 		return
 	if not get_parent().controllable:
 		return
-	
+	#region fake player movement for demo
+	if get_parent().username in [\"Miles\", \"Lucilla\", \"Duncan\", \"Odrade\", \"Taraza\", \"Burzmali\"]:
+		if get_parent().get_node(\"%DemoWalkTimer\").is_stopped():
+			if walk_direction == Vector2.ZERO:
+				walk_direction = Vector2(float(randi_range(-1,1)), float(randi_range(-1,1)))
+			else:
+				walk_direction = Vector2.ZERO
+			get_parent().get_node(\"%DemoWalkTimer\").start(randf_range(1.0, 3.0))
+		return
+	#endregion
 	if Input.is_action_just_pressed(\"move_to\"):
 		#this sucks, but is also way more direct than trying to signal
 		auto_move_target = get_parent().get_node(\"Camera2D\").get_global_mouse_position()
@@ -146,6 +155,11 @@ script = ExtResource("1_1xjf6")
 root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_tory2")
 script = SubResource("GDScript_x0jl3")
+
+[node name="DemoWalkTimer" type="Timer" parent="InputHandler" unique_id=1547225633]
+unique_name_in_owner = true
+wait_time = 4.0
+one_shot = true
 
 [node name="BodyCollision" type="CollisionShape2D" parent="." unique_id=854725048]
 shape = SubResource("CircleShape2D_54qew")

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var username := ""
 var walk_speed := 100
+var walk_vec
 var push_force := 70
 var current_stand_animation := "stand_down"
 var controllable := true
@@ -28,7 +29,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void: 
 	#region movement
-	var walk_vec = input_handler.walk_direction
+	walk_vec = input_handler.walk_direction
 	if  walk_vec: # manual walk
 		velocity = walk_speed * walk_vec
 	elif $InputHandler.auto_move == true: # click-to-move or external

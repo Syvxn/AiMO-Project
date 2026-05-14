@@ -134,10 +134,10 @@ func _on_hide_barks_timer_timeout() -> void:
 func _on_wait_timer_timeout() -> void:
 	# replace with nav_agent autowalk
 	walk_vec = Vector2(float(randi_range(-1,1)), float(randi_range(-1,1)))
-	$WalkTimer.start(randf_range(2.0, 4.0))
+	$WalkTimer.start(randf_range(1.0, 3.0))
 
 
 func _on_walk_timer_timeout() -> void:
 	# replace with nav_agent autowalk
 	walk_vec = Vector2.ZERO
-	$WaitTimer.start(randf_range(8.0, 14.0))
+	$WaitTimer.start(randf_range(6.0, 12.0))
