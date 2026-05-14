@@ -216,18 +216,20 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:current_question_points")
 properties/4/spawn = true
 properties/4/replication_mode = 2
-properties/5/path = NodePath("NavigationRegion2D/Decorations/ApparatusScreen:text")
+properties/5/path = NodePath("ExceptionTimer:wait_time")
 properties/5/spawn = true
-properties/5/replication_mode = 2
-properties/6/path = NodePath("NavigationRegion2D/Decorations/APoints:text")
-properties/6/spawn = true
-properties/6/replication_mode = 2
-properties/7/path = NodePath("NavigationRegion2D/Decorations/BPoints:text")
-properties/7/spawn = true
-properties/7/replication_mode = 2
-properties/8/path = NodePath("ExceptionTimer:wait_time")
-properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/5/replication_mode = 1
+
+[sub_resource type="GDScript" id="GDScript_i6wb1"]
+script/source = "extends Label
+
+
+@rpc(\"authority\", \"call_remote\")
+func say_for_secs(args: Array):
+	text = args[0]
+	await get_tree().create_timer(args[1]).timeout
+	text = \"\"
+"
 
 [node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
 z_as_relative = false
@@ -1417,7 +1419,7 @@ offset_top = 30.0
 offset_right = 99.0
 offset_bottom = 97.0
 theme_override_font_sizes/font_size = 25
-text = "123
+text = "0
 "
 
 [node name="CenterLabel" type="Label" parent="GameHUD/Control" unique_id=429455512]
@@ -1435,9 +1437,9 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 130
-text = "GO!"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = SubResource("GDScript_i6wb1")
 
 [node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
 unique_name_in_owner = true

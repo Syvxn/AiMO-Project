@@ -7,6 +7,7 @@ var points_per_snack := 1
 var players : Array[CharacterBody2D]
 var team_a_players : Array[CharacterBody2D]
 var team_b_players : Array[CharacterBody2D]
+var client_team = ""
 var id_for_autolooters = "quizgametest"
 var total_points = {"team_a" : 0, "team_b" : 0}
 var current_question_points = {"team_a" : 0, "team_b" : 0}
@@ -22,15 +23,14 @@ var current_question_index := 0
 
 func _ready() -> void:
 	%QuizMenu.hide()
+	%GameHUD.hide()
 	SignalBus.item_autolooted.connect(_on_item_autlooted)
 	set_conveyor_speeds(0.0)
 
 
-
 func _physics_process(_delta: float) -> void:
-	if multiplayer.is_server():
-		%APoints.text = "A: " + str(total_points["team_a"])
-		%BPoints.text = "B: " + str(total_points["team_b"])
+	if not client_team == "":
+		%PointsLabel.text = str(total_points[client_team])
 
 
 #region client functionality
@@ -77,7 +77,7 @@ func clear_rewards():
 func start_game():
 	assert(multiplayer.is_server())
 	game_state = "preparing"
-	%ApparatusScreen.text = ""
+	%CenterLabel.text = ""
 	#region quiz generation
 	# cheating with JSON file for testing
 	var file = FileAccess.open("res://misc/test_quiz.json", FileAccess.READ)
@@ -92,13 +92,17 @@ func start_game():
 		quiz_auto_looter_instance.name = "QuizAutoLooter"
 		player.add_child(quiz_auto_looter_instance)
 		player.get_node("QuizAutoLooter").configure(20.0, id_for_autolooters, "snack", player)
+		show_hud.rpc_id(int(player.name))
 	make_teams()
 	for player in team_a_players:
+		tell_client_team.rpc_id(int(player.name), ["team_a"])
 		player.global_position = %SpawnPointA.global_position
 	for player in team_b_players:
+		tell_client_team.rpc_id(int(player.name), ["team_b"])
 		player.global_position = %SpawnPointB.global_position
 	game_state = "active"
-	await show_countdown()
+	show_countdown.rpc()
+	await get_tree().create_timer(3).timeout
 	run_next_question()
 
 
@@ -124,13 +128,20 @@ func make_teams() -> void:
 	print("Team B: ", team_b_players)
 
 
+@rpc("authority", "call_remote")
+func tell_client_team(args: Array):
+	client_team = args[0]
+
+
+@rpc("authority", "call_local")
 func show_countdown():
-	%ApparatusScreen.text = "3"
+	%CenterLabel.text = "3"
 	await get_tree().create_timer(1).timeout
-	%ApparatusScreen.text = "2"
+	%CenterLabel.text = "2"
 	await get_tree().create_timer(1).timeout
-	%ApparatusScreen.text = "1"
+	%CenterLabel.text = "1"
 	await get_tree().create_timer(1).timeout
+	%CenterLabel.text = ""
 
 
 func run_next_question():
@@ -142,7 +153,6 @@ func run_next_question():
 		end_game()
 		return
 	set_conveyor_speeds(0.0)
-	%ApparatusScreen.text = "?"
 	var question = quiz["questions"][current_question_index]
 	fill_and_activate_question.rpc([question])
 	for player in players:
@@ -167,21 +177,44 @@ func show_quiz():
 @rpc("authority", "call_remote")
 func hide_quiz():
 	%QuizMenu.hide()
+@rpc("authority", "call_remote")
+func show_hud():
+	%GameHUD.show()
+@rpc("authority", "call_remote")
+func hide_hud():
+	%GameHUD.hide()
+
 
 
 func end_game():
 		assert(multiplayer.is_server())
 		print("end of quiz, yay")
+		await get_tree().create_timer(1.5).timeout
 		set_conveyor_speeds(0.0)
 		current_question_index = 0
 		print("Team A points: ", str(total_points["team_a"]))
 		print("Team B points: ", str(total_points["team_b"]))
-		%ApparatusScreen.text = "A: %s\nB: %s" % [total_points["team_a"], total_points["team_b"]]
+		if total_points["team_a"] == total_points["team_b"]:
+			%CenterLabel.say_for_secs.rpc(["Draw", 2.0])
+		else:
+			var winners
+			var losers
+			if total_points["team_a"] > total_points["team_b"]:
+				winners = team_a_players
+				losers = team_b_players
+			else:
+				winners = team_b_players
+				losers = team_a_players
+			for player in winners:
+				%CenterLabel.say_for_secs.rpc_id(int(player.name), ["You Win!", 2.0])
+			for player in losers:
+				%CenterLabel.say_for_secs.rpc_id(int(player.name), ["You Lose!", 2.0])
 		for child in %SnacksSpawner.get_children():
 			child.call_deferred("queue_free")
 		for player in players:
 			if not player:
 				continue
+			tell_client_team.rpc_id(int(player.name), [""])
 			var qal = player.get_node_or_null("QuizAutoLooter")
 			if qal:
 				qal.queue_free()
@@ -192,6 +225,9 @@ func end_game():
 		for key in total_points:
 			total_points[key] = 0
 		game_state = "inactive"
+		await get_tree().create_timer(2.5).timeout
+		for player in players:
+			hide_hud.rpc_id(int(player.name))
 		print("game ended successfully")
 
 
@@ -215,7 +251,7 @@ func check_and_reward_winners():
 		reward_b = false
 	elif current_question_points["team_b"] > current_question_points["team_a"]:
 		reward_a = false
-	%ApparatusScreen.text = "GO"
+	%CenterLabel.say_for_secs.rpc(["Go!", 1.0])
 	var cannons_a = %CannonsA.get_children()
 	var cannons_b = %CannonsB.get_children()
 	# TODO: replace this conditional with something a little more elegant
