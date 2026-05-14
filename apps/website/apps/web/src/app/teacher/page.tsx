@@ -201,7 +201,7 @@ function TeacherPanelContent() {
           <form className="space-y-3" onSubmit={handleUpload}>
             <input
               type="file"
-              accept=".txt,text/plain"
+              accept=".pdf,application/pdf,.txt,text/plain"
               onChange={(event) => setSelectedFile(event.target.files?.[0] ?? null)}
               className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
             />

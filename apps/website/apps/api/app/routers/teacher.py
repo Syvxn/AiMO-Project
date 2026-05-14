@@ -1,9 +1,11 @@
 from datetime import datetime
+from io import BytesIO
 from pathlib import Path
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
+from pypdf import PdfReader
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -65,15 +67,27 @@ async def upload_study_material(
         raise HTTPException(status_code=400, detail="Missing filename")
 
     suffix = Path(file.filename).suffix.lower()
-    if suffix != ".txt":
-        raise HTTPException(status_code=400, detail="Only .txt files are allowed")
+    if suffix not in {".txt", ".pdf"}:
+        raise HTTPException(status_code=400, detail="Only .txt and .pdf files are allowed")
 
-    content = await file.read()
-    if not content:
+    raw = await file.read()
+    if not raw:
         raise HTTPException(status_code=400, detail="Uploaded file is empty")
 
+    if suffix == ".pdf":
+        try:
+            reader = PdfReader(BytesIO(raw))
+            text = "\n\n".join(page.extract_text() or "" for page in reader.pages).strip()
+        except Exception:
+            raise HTTPException(status_code=400, detail="Could not read PDF — file may be corrupted or scanned-only")
+        if not text:
+            raise HTTPException(status_code=400, detail="No extractable text found in PDF (scanned-only PDFs are not supported)")
+        content = text.encode("utf-8")
+    else:
+        content = raw
+
     ensure_upload_dir()
-    storage_filename = f"{uuid4().hex}{suffix}"
+    storage_filename = f"{uuid4().hex}.txt"
     destination = UPLOAD_DIR / storage_filename
     destination.write_bytes(content)
 
@@ -81,7 +95,7 @@ async def upload_study_material(
         original_filename=file.filename,
         description=description.strip(),
         storage_filename=storage_filename,
-        content_type=file.content_type or "text/plain",
+        content_type="text/plain",
         size_bytes=len(content),
         uploaded_by_user_id=current_user.id,
     )
