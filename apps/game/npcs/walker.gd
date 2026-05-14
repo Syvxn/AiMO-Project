@@ -8,6 +8,8 @@ var auto_move := false
 var auto_move_target : Vector2
 var stopped := false
 
+@export var barks : Array[String]
+@export var current_bark_index := 0
 @onready var character_sprites = $CharacterSprites
 @onready var nav_agent = $NavAgent
 
@@ -109,6 +111,24 @@ func beam_down():
 		await get_tree().create_timer(0.1).timeout
 		get_material().set_shader_parameter("mask_y_delta", i*0.1)
 	$CharacterSprites.use_parent_material = false
+
+
+func bark():
+	print("woof")
+	stopped = true
+	%BarkLabel.show()
+	%BarkLabel.text = barks[current_bark_index]
+	current_bark_index += 1
+	if current_bark_index >= len(barks):
+		current_bark_index = 0
+		%BarkLabel.hide()
+	else:
+		%HideBarksTimer.start()
+
+
+func _on_hide_barks_timer_timeout() -> void:
+	%BarkLabel.hide()
+	stopped = false
 
 
 func _on_wait_timer_timeout() -> void:

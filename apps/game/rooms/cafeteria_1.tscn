@@ -129,8 +129,14 @@ position = Vector2(2009, 1217)
 [node name="Llehc" parent="." unique_id=1888177192 instance=ExtResource("11_0iroj")]
 position = Vector2(1878, 1081)
 
-[node name="Walker" parent="." unique_id=685008524 instance=ExtResource("13_yhjtf")]
+[node name="jackie" parent="." unique_id=685008524 instance=ExtResource("13_yhjtf")]
 position = Vector2(1938, 1241)
+
+[node name="liza" parent="." unique_id=871788406 instance=ExtResource("13_yhjtf")]
+position = Vector2(1730, 1214)
+
+[node name="michael" parent="." unique_id=1501021439 instance=ExtResource("13_yhjtf")]
+position = Vector2(2110, 1206)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=2080546290]
 z_index = -999

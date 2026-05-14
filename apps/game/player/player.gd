@@ -100,6 +100,8 @@ func fetch_visuals() -> Variant:
 @rpc("any_peer", "call_local")
 func apply_visuals(data):
 	character_sprites.apply_visuals(data)
+	if debug:
+		print(data)
 
 
 func get_applied_visuals_data() -> Dictionary:

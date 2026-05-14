@@ -3,12 +3,22 @@
 [ext_resource type="Material" uid="uid://8no2eov3vxc3" path="res://textures/shaders/beam_mask.tres" id="1_endm6"]
 [ext_resource type="Script" uid="uid://dfk2633mb20ts" path="res://npcs/walker.gd" id="2_a6hju"]
 [ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="3_cuh5m"]
+[ext_resource type="FontFile" uid="uid://bgh32klroc5m1" path="res://ui/fonts/GFS_Didot/GFSDidot-Regular.ttf" id="4_a6hju"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_54qew"]
 radius = 7.0
 
+[sub_resource type="GDScript" id="GDScript_tgod3"]
+script/source = "extends Area2D
+
+
+
+func interact():
+	get_parent().bark()
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_3eadt"]
-radius = 20.0
+radius = 42.047592
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3eadt"]
 properties/0/path = NodePath(".:position")
@@ -30,6 +40,19 @@ properties/5/path = NodePath(".:velocity")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6hju"]
+bg_color = Color(0, 0, 0, 0.49300003)
+border_width_left = 6
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.47500002)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [node name="Walker" type="CharacterBody2D" unique_id=685008524 groups=["npcs", "walkers"]]
 z_index = 1
 z_as_relative = false
@@ -44,11 +67,10 @@ shape = SubResource("CircleShape2D_54qew")
 
 [node name="CharacterSprites" parent="." unique_id=1455427902 instance=ExtResource("3_cuh5m")]
 
-[node name="InteractionArea" type="Area2D" parent="." unique_id=1252570051]
-collision_layer = 0
-collision_mask = 3
+[node name="BarkArea" type="Area2D" parent="." unique_id=1252570051 groups=["npcs"]]
+script = SubResource("GDScript_tgod3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=1101434725]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BarkArea" unique_id=1101434725]
 shape = SubResource("CircleShape2D_3eadt")
 
 [node name="WalkerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=25996146]
@@ -66,3 +88,50 @@ one_shot = true
 [node name="WalkTimer" type="Timer" parent="." unique_id=27271441]
 wait_time = 4.0
 one_shot = true
+
+[node name="HideBarksTimer" type="Timer" parent="." unique_id=101752864]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[node name="Control" type="Control" parent="." unique_id=980665692]
+z_index = 2
+z_as_relative = false
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -115.99999
+offset_right = 183.0
+offset_bottom = -45.999992
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+
+[node name="BarkLabel" type="RichTextLabel" parent="Control" unique_id=1757418191]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+custom_minimum_size = Vector2(400, 85)
+layout_mode = 0
+offset_left = 11.250004
+offset_top = 6.2499924
+offset_right = 411.25
+offset_bottom = 91.24999
+scale = Vector2(0.7, 0.7)
+theme_override_colors/default_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_fonts/normal_font = ExtResource("4_a6hju")
+theme_override_fonts/bold_font = ExtResource("4_a6hju")
+theme_override_fonts/bold_italics_font = ExtResource("4_a6hju")
+theme_override_fonts/italics_font = ExtResource("4_a6hju")
+theme_override_fonts/mono_font = ExtResource("4_a6hju")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_a6hju")
+bbcode_enabled = true
+
+[connection signal="timeout" from="HideBarksTimer" to="BarkArea" method="_on_hide_barks_timer_timeout"]

@@ -78,6 +78,11 @@ func start_game():
 	assert(multiplayer.is_server())
 	game_state = "preparing"
 	%CenterLabel.text = ""
+	# do this kind of stuff with signals?
+	for cannon in %CannonsA.get_children():
+		cannon.get_node("SyncLight").show()
+	for cannon in %CannonsB.get_children():
+		cannon.get_node("SyncLight").show()
 	#region quiz generation
 	# cheating with JSON file for testing
 	var file = FileAccess.open("res://misc/test_quiz.json", FileAccess.READ)
@@ -103,6 +108,10 @@ func start_game():
 	game_state = "active"
 	show_countdown.rpc()
 	await get_tree().create_timer(3).timeout
+	for cannon in %CannonsA.get_children():
+		cannon.get_node("SyncLight").hide()
+	for cannon in %CannonsB.get_children():
+		cannon.get_node("SyncLight").hide()
 	run_next_question()
 
 
@@ -189,7 +198,7 @@ func hide_hud():
 func end_game():
 		assert(multiplayer.is_server())
 		print("end of quiz, yay")
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(2.0).timeout
 		set_conveyor_speeds(0.0)
 		current_question_index = 0
 		print("Team A points: ", str(total_points["team_a"]))
@@ -225,7 +234,7 @@ func end_game():
 		for key in total_points:
 			total_points[key] = 0
 		game_state = "inactive"
-		await get_tree().create_timer(2.5).timeout
+		await get_tree().create_timer(2.0).timeout
 		for player in players:
 			hide_hud.rpc_id(int(player.name))
 		print("game ended successfully")
