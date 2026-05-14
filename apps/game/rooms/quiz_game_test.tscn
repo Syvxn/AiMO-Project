@@ -24,6 +24,10 @@
 [ext_resource type="Texture2D" uid="uid://wwffno4edstm" path="res://textures/static_textures/conveyor_end_back.png" id="17_mi4v2"]
 [ext_resource type="Texture2D" uid="uid://cv5eon7ethfv0" path="res://textures/static_textures/crossbeam_sw.png" id="18_jdatc"]
 [ext_resource type="Texture2D" uid="uid://csvte22bo1rql" path="res://textures/static_textures/crossbeam_nw.png" id="19_4b2t3"]
+[ext_resource type="Texture2D" uid="uid://dsbken6l2r1in" path="res://textures/static_textures/fixture_light.png" id="21_83ic2"]
+[ext_resource type="Theme" uid="uid://ci15jognxecvj" path="res://ui/themes/menu1_dark.tres" id="24_3o2em"]
+[ext_resource type="Texture2D" uid="uid://d2bpf28i5ny2e" path="res://ui/Clouds2-1.png" id="24_bf4fy"]
+[ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="24_i6wb1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
 size = Vector2(1189, 1032)
@@ -232,6 +236,7 @@ script = ExtResource("1_p4v5p")
 
 [node name="EjectionArea" type="Area2D" parent="." unique_id=489091015]
 unique_name_in_owner = true
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1257454407]
 position = Vector2(683.5, 664)
@@ -955,49 +960,10 @@ z_as_relative = false
 y_sort_enabled = true
 position = Vector2(654, 632)
 
-[node name="ApparatusScreen" type="Label" parent="NavigationRegion2D/Decorations" unique_id=552613590]
-unique_name_in_owner = true
-z_index = -1
-z_as_relative = false
-y_sort_enabled = true
-custom_minimum_size = Vector2(130, 130)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -137.0
-offset_top = -219.0
-offset_right = 136.0
-offset_bottom = -24.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 70
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="ActivateButton" parent="NavigationRegion2D/Decorations" unique_id=952456853 instance=ExtResource("5_1t1q7")]
 unique_name_in_owner = true
 position = Vector2(0, 103)
 button_id = "quiz_activate_button"
-
-[node name="APoints" type="RichTextLabel" parent="NavigationRegion2D/Decorations" unique_id=1990372958]
-unique_name_in_owner = true
-offset_left = -359.0
-offset_top = 348.0
-offset_right = -234.0
-offset_bottom = 405.0
-theme_override_font_sizes/normal_font_size = 36
-fit_content = true
-
-[node name="BPoints" type="RichTextLabel" parent="NavigationRegion2D/Decorations" unique_id=1056715102]
-unique_name_in_owner = true
-offset_left = 240.0
-offset_top = 344.0
-offset_right = 365.0
-offset_bottom = 401.0
-theme_override_font_sizes/normal_font_size = 36
-fit_content = true
 
 [node name="AssortedVisuals" type="Node2D" parent="." unique_id=404073198]
 z_index = -10
@@ -1315,6 +1281,39 @@ y_sort_enabled = true
 position = Vector2(-114, -361)
 texture = ExtResource("18_jdatc")
 
+[node name="Light" type="Sprite2D" parent="AssortedVisuals/Crossbeam" unique_id=1755422329]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+position = Vector2(-121, 56)
+texture = ExtResource("21_83ic2")
+
+[node name="Light2" type="Sprite2D" parent="AssortedVisuals/Crossbeam" unique_id=949581364]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+position = Vector2(-142, 64)
+texture = ExtResource("21_83ic2")
+
+[node name="Light3" type="Sprite2D" parent="AssortedVisuals/Crossbeam" unique_id=602144925]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+position = Vector2(-162, 75)
+texture = ExtResource("21_83ic2")
+
+[node name="Light4" type="Sprite2D" parent="AssortedVisuals/Crossbeam" unique_id=1826072652]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+z_index = -1
+position = Vector2(-140, 45)
+texture = ExtResource("21_83ic2")
+
+[node name="Light5" type="Sprite2D" parent="AssortedVisuals/Crossbeam" unique_id=473774500]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+z_index = -1
+position = Vector2(-161, 53)
+texture = ExtResource("21_83ic2")
+
+[node name="Light6" type="Sprite2D" parent="AssortedVisuals/Crossbeam" unique_id=1537104154]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+z_index = -1
+position = Vector2(-181, 64)
+texture = ExtResource("21_83ic2")
+
 [node name="Crossbeam2" type="Sprite2D" parent="AssortedVisuals" unique_id=1658592854]
 self_modulate = Color(0.35368472, 0.35368487, 0.35368478, 1)
 z_index = 1
@@ -1322,6 +1321,39 @@ z_as_relative = false
 y_sort_enabled = true
 position = Vector2(113, -361)
 texture = ExtResource("19_4b2t3")
+
+[node name="Light" type="Sprite2D" parent="AssortedVisuals/Crossbeam2" unique_id=142817554]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+position = Vector2(123, 55)
+texture = ExtResource("21_83ic2")
+
+[node name="Light2" type="Sprite2D" parent="AssortedVisuals/Crossbeam2" unique_id=1518939518]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+position = Vector2(142, 64)
+texture = ExtResource("21_83ic2")
+
+[node name="Light3" type="Sprite2D" parent="AssortedVisuals/Crossbeam2" unique_id=1854256270]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+position = Vector2(162, 73)
+texture = ExtResource("21_83ic2")
+
+[node name="Light4" type="Sprite2D" parent="AssortedVisuals/Crossbeam2" unique_id=1190462464]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+z_index = -1
+position = Vector2(144, 45)
+texture = ExtResource("21_83ic2")
+
+[node name="Light5" type="Sprite2D" parent="AssortedVisuals/Crossbeam2" unique_id=677003580]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+z_index = -1
+position = Vector2(163, 54)
+texture = ExtResource("21_83ic2")
+
+[node name="Light6" type="Sprite2D" parent="AssortedVisuals/Crossbeam2" unique_id=1890396683]
+modulate = Color(0.30105504, 0.30105504, 0.30105504, 1)
+z_index = -1
+position = Vector2(183, 63)
+texture = ExtResource("21_83ic2")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1552379989]
 z_index = -999
@@ -1351,6 +1383,62 @@ unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://06480w80xjvk")
 spawn_path = NodePath(".")
 
+[node name="GameHUD" type="CanvasLayer" parent="." unique_id=1864945899]
+unique_name_in_owner = true
+
+[node name="Control" type="Control" parent="GameHUD" unique_id=1203043211]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_i6wb1")
+
+[node name="Sprite2D" type="Sprite2D" parent="GameHUD/Control" unique_id=726188726]
+position = Vector2(412, 267.5)
+scale = Vector2(0.545, 0.545)
+texture = ExtResource("24_bf4fy")
+
+[node name="Label" type="Label" parent="GameHUD/Control" unique_id=1207173653]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 5.0
+offset_right = 183.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 18
+text = "Team Points:"
+
+[node name="PointsLabel" type="Label" parent="GameHUD/Control" unique_id=1062081986]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 11.0
+offset_top = 30.0
+offset_right = 99.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 25
+text = "123
+"
+
+[node name="CenterLabel" type="Label" parent="GameHUD/Control" unique_id=429455512]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.0
+offset_right = 20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 130
+text = "GO!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
 unique_name_in_owner = true
 layer = 2
@@ -1368,6 +1456,7 @@ offset_right = 350.0
 offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("24_3o2em")
 
 [node name="QuestionContainer" type="MarginContainer" parent="QuizMenu/Panel" unique_id=2125678175]
 layout_mode = 1
