@@ -2,12 +2,28 @@ extends Area2D
 
 
 var turned_on := false
+var ejecting_player := false
+
+@export var rigged := false
 
 @onready var random_snack = load("res://items/physics_props/random_snack.tscn")
 
 
 func _ready() -> void:
 	$AnimatedSprite2D.play("dark")
+
+
+func _physics_process(_delta: float) -> void:
+	if ejecting_player:
+		var players_near = []
+		for body in $EjectionArea.get_overlapping_bodies():
+			if body.is_in_group("players"):
+				players_near.append(body)
+		for player in players_near:
+			player.velocity =  Vector2(-1.0, 0.5)*1000.0
+			player.move_and_slide()
+		if len(players_near) == 0:
+			ejecting_player = false
 
 
 func interact():
@@ -23,9 +39,10 @@ func buy():
 		return
 	await get_tree().create_timer(1).timeout
 	%SnackPoint.call_deferred("add_child", random_snack.instantiate(), true)
-	if randi_range(1,1000) == 777:
-		for i in range(10):
+	if randi_range(1,1000) == 777 or rigged:
+		for i in range(100):
 			%SnackPoint.call_deferred("add_child", random_snack.instantiate(), true)
+		ejecting_player = true
 
 
 

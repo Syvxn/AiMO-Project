@@ -103,9 +103,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -117.0
+offset_left = -116.0
 offset_top = -115.99999
-offset_right = 183.0
+offset_right = 184.0
 offset_bottom = -45.999992
 grow_horizontal = 2
 grow_vertical = 2
@@ -115,12 +115,9 @@ scale = Vector2(0.8, 0.8)
 unique_name_in_owner = true
 visible = false
 texture_filter = 1
-custom_minimum_size = Vector2(400, 85)
 layout_mode = 0
-offset_left = 11.250004
-offset_top = 6.2499924
-offset_right = 411.25
-offset_bottom = 91.24999
+offset_right = 420.0
+offset_bottom = 80.0
 scale = Vector2(0.7, 0.7)
 theme_override_colors/default_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_fonts/normal_font = ExtResource("4_a6hju")
@@ -132,5 +129,6 @@ theme_override_font_sizes/normal_font_size = 20
 theme_override_font_sizes/bold_font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_a6hju")
 bbcode_enabled = true
+fit_content = true
 
-[connection signal="timeout" from="HideBarksTimer" to="BarkArea" method="_on_hide_barks_timer_timeout"]
+[connection signal="timeout" from="HideBarksTimer" to="." method="_on_hide_barks_timer_timeout"]

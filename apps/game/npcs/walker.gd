@@ -8,13 +8,14 @@ var auto_move := false
 var auto_move_target : Vector2
 var stopped := false
 
-@export var barks : Array[String]
+@export var barks := [""]
 @export var current_bark_index := 0
 @onready var character_sprites = $CharacterSprites
 @onready var nav_agent = $NavAgent
 
 
 func _ready() -> void:
+	%BarkLabel.hide()
 	apply_visuals(fetch_visuals())
 	if multiplayer.is_server():
 		$NavAgent.target_reached.connect(_on_nav_agent_target_reached)

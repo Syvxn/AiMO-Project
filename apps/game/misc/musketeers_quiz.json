@@ -1,0 +1,44 @@
+{
+	"quiz_title": "English Quiz: The Three Musketeer",
+	"questions": [
+		{
+			"question": "Which word means 'to run away'?",
+			"options": [
+				"A: Supper",
+				"B: Scupper",
+				"C: Scamper",
+				"D: Scuttle"
+			],
+			"answer": "C"
+		},
+		{
+			"question": "Complete the sentence: 'An old word for illness is ___.'",
+			"options": [
+				"A: Malady",
+				"B: Milady",
+				"C: Malarkey"
+			],
+			"answer": "A"
+		},
+		{
+			"question": "What is the meaning of 'hitherto'?",
+			"options": [
+				"A: Secretely",
+				"B: Quickly",
+				"C: Until now",
+                "D: From here"
+			],
+			"answer": "C"
+		},
+		{
+			"question": "A fight can be described as a ___?",
+			"options": [
+				"A: quarrel",
+				"B: quarter",
+				"C: quota",
+                "D: quart"
+			],
+			"answer": "A"
+		}
+	]
+}

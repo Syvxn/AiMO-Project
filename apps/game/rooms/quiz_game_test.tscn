@@ -1530,7 +1530,7 @@ autostart = true
 
 [node name="iggy" parent="." unique_id=685008524 instance=ExtResource("8_aphrj")]
 position = Vector2(601, 666)
-barks = Array[String](["I thought it'd be a good idea, you know? Make a factory that eats snacks and turns questions into answers.", "Unfortunately, I built it wrong. Now it [b]uses answers to generate snacks[/b].", "I use it to fill vending machines, but you can try it too. Just press the red button.", ""])
+barks = ["I thought it'd be a good idea, you know? Make a factory that eats snacks and turns questions into answers.", "Unfortunately, I built it wrong. Now it [b]uses answers to generate snacks[/b].", "I use it to fill vending machines, but you can try it too. Just press the red button.", ""]
 
 [connection signal="pushed" from="NavigationRegion2D/Decorations/ActivateButton" to="." method="_on_activate_button_pushed"]
 [connection signal="timeout" from="ExceptionTimer" to="." method="_on_exception_timer_timeout"]

@@ -85,7 +85,7 @@ func start_game():
 		cannon.get_node("SyncLight").show()
 	#region quiz generation
 	# cheating with JSON file for testing
-	var file = FileAccess.open("res://misc/test_quiz.json", FileAccess.READ)
+	var file = FileAccess.open("res://misc/musketeers_quiz.json", FileAccess.READ)
 	var json = JSON.new()
 	json.parse(file.get_as_text())
 	quiz = json.data

@@ -63,6 +63,7 @@ position = Vector2(1954, 1048)
 
 [node name="VendingMachine" parent="NavigationRegion2D/Decorations" unique_id=1943679091 instance=ExtResource("4_yhjtf")]
 position = Vector2(2004, 1071)
+rigged = true
 
 [node name="Clock" parent="NavigationRegion2D/Decorations" unique_id=1236786011 instance=ExtResource("5_llval")]
 position = Vector2(2075, 1032)
@@ -131,12 +132,15 @@ position = Vector2(1878, 1081)
 
 [node name="jackie" parent="." unique_id=685008524 instance=ExtResource("13_yhjtf")]
 position = Vector2(1938, 1241)
+barks = ["Yo.", ""]
 
 [node name="liza" parent="." unique_id=871788406 instance=ExtResource("13_yhjtf")]
 position = Vector2(1730, 1214)
+barks = ["Hey.", ""]
 
 [node name="michael" parent="." unique_id=1501021439 instance=ExtResource("13_yhjtf")]
 position = Vector2(2110, 1206)
+barks = ["Do you think there's something wrong with that vending machine?", ""]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=2080546290]
 z_index = -999
