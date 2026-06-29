@@ -102,9 +102,11 @@ func start_game():
 	for player in team_a_players:
 		tell_client_team.rpc_id(int(player.name), ["team_a"])
 		player.global_position = %SpawnPointA.global_position
+		await get_tree().create_timer(0.1).timeout
 	for player in team_b_players:
 		tell_client_team.rpc_id(int(player.name), ["team_b"])
 		player.global_position = %SpawnPointB.global_position
+		await get_tree().create_timer(0.1).timeout
 	game_state = "active"
 	show_countdown.rpc()
 	await get_tree().create_timer(3).timeout
@@ -166,7 +168,8 @@ func run_next_question():
 	fill_and_activate_question.rpc([question])
 	for player in players:
 		show_quiz.rpc_id(int(player.name))
-	$QuestionTimer.start(question_time_in_s)
+	#$QuestionTimer.start(question_time_in_s)
+	$QuestionTimer.start(randf_range(4.0, 7.0))
 	await $QuestionTimer.timeout
 	show_correct_answer.rpc()
 	await get_tree().create_timer(1.5).timeout
@@ -234,7 +237,7 @@ func end_game():
 		for key in total_points:
 			total_points[key] = 0
 		game_state = "inactive"
-		await get_tree().create_timer(2.0).timeout
+		await get_tree().create_timer(4.0).timeout
 		for player in players:
 			hide_hud.rpc_id(int(player.name))
 		print("game ended successfully")

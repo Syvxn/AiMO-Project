@@ -9,8 +9,8 @@ radius = 14.0
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_qfs16"]
 points = PackedVector2Array(-17, -9, 21, 10, -4, 22, -42, 3)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1xjtc"]
-radius = 105.01904
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_1xjtc"]
+points = PackedVector2Array(-20, -9, 18, 10, -34, 36, -72, 17)
 
 [node name="VendingMachine" type="Area2D" unique_id=1943679091 groups=["npcs"]]
 z_index = 1
@@ -55,7 +55,7 @@ position = Vector2(-25, 9)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EjectionArea" unique_id=1531742979]
 position = Vector2(-11, 6)
-shape = SubResource("CircleShape2D_1xjtc")
+shape = SubResource("ConvexPolygonShape2D_1xjtc")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -245,6 +245,9 @@ func say_for_secs(args: Array):
 	text = args[0]
 	await get_tree().create_timer(args[1]).timeout
 	text = \"\"
+	# feedback example
+	if args[0] == \"You Win!\":
+		say_for_secs([\"New Best!\", 2.0])
 "
 
 [node name="QuizGameTest" type="Node2D" unique_id=1093253189 groups=["rooms"]]
@@ -560,7 +563,7 @@ offset = Vector2(10, 391)
 flip_h = true
 
 [node name="Target" type="Node2D" parent="CannonsB/Sprite2D10" unique_id=944679213]
-position = Vector2(-88.97559, 7.111111)
+position = Vector2(83.99999, 7.000027)
 
 [node name="SyncLight" parent="CannonsB/Sprite2D10" unique_id=1530413818 instance=ExtResource("2_fwlan")]
 visible = false

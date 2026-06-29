@@ -31,7 +31,7 @@ func _physics_process(_delta: float) -> void:
 	if not get_parent().controllable:
 		return
 	#region fake player movement for demo
-	if get_parent().username in [\"Miles\", \"Lucilla\", \"Duncan\", \"Odrade\", \"Taraza\", \"Burzmali\"]:
+	if get_parent().username.to_lower() in [\"miles\", \"lucilla\", \"duncan\", \"odrade\", \"taraza\", \"burzmali\"]:
 		if get_parent().get_node(\"%DemoWalkTimer\").is_stopped():
 			if walk_direction == Vector2.ZERO:
 				walk_direction = Vector2(float(randi_range(-1,1)), float(randi_range(-1,1)))
