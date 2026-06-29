@@ -17,6 +17,20 @@ git clone https://github.com/Syvxn/AiMO-Project.git
 cd AiMO-Project
 ```
 
+Build the project and start services with docker compose:
+
+```bash
+cd apps/website
+cp .env.example .env
+docker compose up --build
+```
+
+Stop services:
+
+```bash
+docker compose down
+```
+
 ## New Contributor Entry Points
 
 Start with these docs first:
