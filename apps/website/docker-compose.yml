@@ -7,10 +7,12 @@ services:
     volumes:
       - ../agents/src:/app/src
       - ../agents/data:/app/data
+      - material_uploads:/app/data/materials/uploads
       - hf_cache:/root/.cache/huggingface
     environment:
       DEVICE_MAP: cpu
       MAX_NEW_TOKENS: "128"
+      MATERIAL_DIR: /app/data/materials
     expose:
       - "8001"
 
@@ -35,15 +37,17 @@ services:
     working_dir: /app
     volumes:
       - ./apps/api:/app
+      - material_uploads:/app/uploaded_materials
     environment:
       APP_ENV: development
       SECRET_KEY: ${API_SECRET_KEY:-change-me}
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      AGENTS_SERVICE_URL: http://host.docker.internal:8001
+      AGENTS_SERVICE_URL: http://agents:8001
     expose:
       - "8000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
     image: postgres:17-alpine
@@ -51,6 +55,12 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     volumes:
       - pgdata:/var/lib/postgresql/data
     expose:
@@ -69,3 +79,4 @@ services:
 volumes:
   pgdata:
   hf_cache:
+  material_uploads:

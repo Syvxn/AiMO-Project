@@ -4,7 +4,7 @@ export interface AuthResponse {
   user_id: string;
   access_token: string;
   token_type: string;
-  role: string;
+  role: UserRole;
 }
 
 export type UserRole = "admin" | "teacher" | "student";
@@ -47,6 +47,23 @@ export interface TeacherMaterial {
 export interface TeacherDeleteMaterialResponse {
   status: string;
   message: string;
+}
+
+export interface TeacherMaterialPreview {
+  id: number;
+  original_filename: string;
+  content: string;
+}
+
+export interface TeacherQuizQuestion {
+  question: string;
+  options: string[];
+  answer: string;
+}
+
+export interface TeacherQuiz {
+  quiz_title: string;
+  questions: TeacherQuizQuestion[];
 }
 
 function authHeaders(token: string): HeadersInit {
@@ -187,13 +204,26 @@ export async function uploadTeacherMaterial(
   formData.append("file", file);
   formData.append("description", description);
 
-  const res = await fetch(`${API_BASE}/teacher/materials/upload`, {
-    method: "POST",
-    headers: authOnlyHeaders(token),
-    body: formData,
-  });
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 120_000);
 
-  return readJsonResponse<TeacherMaterial>(res, "Upload failed");
+  try {
+    const res = await fetch(`${API_BASE}/teacher/materials/upload`, {
+      method: "POST",
+      headers: authOnlyHeaders(token),
+      body: formData,
+      signal: controller.signal,
+    });
+
+    return await readJsonResponse<TeacherMaterial>(res, "Upload failed");
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new Error("Upload timed out. The file may have been saved; refresh the material list before retrying.");
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 }
 
 export async function getTeacherMaterials(token: string): Promise<TeacherMaterial[]> {
@@ -215,4 +245,42 @@ export async function deleteTeacherMaterial(
   });
 
   return readJsonResponse<TeacherDeleteMaterialResponse>(res, "Failed to delete material");
+}
+
+export async function previewTeacherMaterial(
+  token: string,
+  materialId: number,
+): Promise<TeacherMaterialPreview> {
+  const res = await fetch(`${API_BASE}/teacher/materials/${materialId}/preview`, {
+    method: "GET",
+    headers: authOnlyHeaders(token),
+  });
+
+  return readJsonResponse<TeacherMaterialPreview>(res, "Failed to preview material");
+}
+
+export async function getTeacherMaterialFile(token: string, materialId: number): Promise<Blob> {
+  const res = await fetch(`${API_BASE}/teacher/materials/${materialId}/file`, {
+    method: "GET",
+    headers: authOnlyHeaders(token),
+  });
+
+  if (!res.ok) {
+    throw new Error(await readErrorMessage(res, "Failed to open material"));
+  }
+  return res.blob();
+}
+
+export async function generateTeacherQuiz(
+  token: string,
+  topic: string,
+  questionCount: number,
+): Promise<{ quiz: TeacherQuiz }> {
+  const res = await fetch(`${API_BASE}/teacher/quiz/generate`, {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify({ topic, question_count: questionCount }),
+  });
+
+  return readJsonResponse<{ quiz: TeacherQuiz }>(res, "Quiz generation failed");
 }

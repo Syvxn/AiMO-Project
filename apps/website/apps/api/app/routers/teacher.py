@@ -1,8 +1,11 @@
 from datetime import datetime
+import os
 from pathlib import Path
 from uuid import uuid4
 
+import httpx
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
@@ -34,8 +37,32 @@ class TeacherMaterialResponse(BaseModel):
     created_at: datetime
 
 
+class TeacherMaterialPreviewResponse(BaseModel):
+    id: int
+    original_filename: str
+    content: str
+
+
+class TeacherQuizRequest(BaseModel):
+    topic: str
+    question_count: int = 5
+
+
 def ensure_upload_dir() -> None:
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def get_material_for_user(material_id: int, current_user: User, db: Session) -> StudyMaterial:
+    material = db.query(StudyMaterial).filter(StudyMaterial.id == material_id).first()
+    if material is None:
+        raise HTTPException(status_code=404, detail="Material not found")
+
+    if (
+        user_role_to_str(current_user.role) == "teacher"
+        and material.uploaded_by_user_id != current_user.id
+    ):
+        raise HTTPException(status_code=403, detail="You can only access your own materials")
+    return material
 
 
 @router.post("/chat", response_model=TeacherChatResponse)
@@ -65,8 +92,11 @@ async def upload_study_material(
         raise HTTPException(status_code=400, detail="Missing filename")
 
     suffix = Path(file.filename).suffix.lower()
-    if suffix != ".txt":
-        raise HTTPException(status_code=400, detail="Only .txt files are allowed")
+    if suffix not in {".txt", ".md", ".pdf"}:
+        raise HTTPException(
+            status_code=400,
+            detail="Only .txt, .md, and .pdf files are allowed",
+        )
 
     content = await file.read()
     if not content:
@@ -100,6 +130,83 @@ async def upload_study_material(
     )
 
 
+@router.get("/materials/{material_id}/preview", response_model=TeacherMaterialPreviewResponse)
+def preview_study_material(
+    material_id: int,
+    current_user: User = Depends(require_teacher_or_admin),
+    db: Session = Depends(get_db),
+) -> TeacherMaterialPreviewResponse:
+    material = get_material_for_user(material_id, current_user, db)
+    file_path = UPLOAD_DIR / material.storage_filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Stored material file not found")
+
+    if file_path.suffix.lower() in {".txt", ".md"}:
+        content = file_path.read_text(encoding="utf-8", errors="replace")
+    else:
+        from pypdf import PdfReader
+
+        content = "\n\n".join(
+            page.extract_text() or "" for page in PdfReader(str(file_path)).pages
+        )
+
+    return TeacherMaterialPreviewResponse(
+        id=material.id,
+        original_filename=material.original_filename,
+        content=content[:20000],
+    )
+
+
+@router.get("/materials/{material_id}/file")
+def open_study_material(
+    material_id: int,
+    current_user: User = Depends(require_teacher_or_admin),
+    db: Session = Depends(get_db),
+) -> FileResponse:
+    """Serve the original material inline for browser-native previewing."""
+    material = get_material_for_user(material_id, current_user, db)
+    file_path = UPLOAD_DIR / material.storage_filename
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Stored material file not found")
+
+    return FileResponse(
+        path=file_path,
+        media_type=material.content_type,
+        filename=material.original_filename,
+        content_disposition_type="inline",
+    )
+
+
+@router.post("/quiz/generate")
+async def generate_teacher_quiz(
+    payload: TeacherQuizRequest,
+    current_user: User = Depends(require_teacher_or_admin),
+) -> dict:
+    _ = current_user
+    topic = payload.topic.strip()
+    if not topic:
+        raise HTTPException(status_code=400, detail="Topic is required")
+    if not 1 <= payload.question_count <= 20:
+        raise HTTPException(status_code=400, detail="Question count must be between 1 and 20")
+
+    agents_url = os.getenv("AGENTS_SERVICE_URL", "http://agents:8001")
+    try:
+        async with httpx.AsyncClient(timeout=180.0) as client:
+            response = await client.post(
+                f"{agents_url}/quiz/generate",
+                json={"topic": topic, "question_count": payload.question_count},
+            )
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=503, detail="Quiz agent is unavailable") from exc
+
+    if response.status_code != 200:
+        raise HTTPException(status_code=502, detail="Quiz agent failed to generate a quiz")
+    result = response.json()
+    if result.get("error"):
+        raise HTTPException(status_code=422, detail=result["error"])
+    return result
+
+
 @router.get("/materials", response_model=list[TeacherMaterialResponse])
 def list_study_materials(
     current_user: User = Depends(require_teacher_or_admin),
@@ -130,13 +237,7 @@ def delete_study_material(
     current_user: User = Depends(require_teacher_or_admin),
     db: Session = Depends(get_db),
 ) -> dict[str, str]:
-    material = db.query(StudyMaterial).filter(StudyMaterial.id == material_id).first()
-    if material is None:
-        raise HTTPException(status_code=404, detail="Material not found")
-
-    user_role = user_role_to_str(current_user.role)
-    if user_role == "teacher" and material.uploaded_by_user_id != current_user.id:
-        raise HTTPException(status_code=403, detail="You can only delete your own materials")
+    material = get_material_for_user(material_id, current_user, db)
 
     file_path = UPLOAD_DIR / material.storage_filename
     if file_path.exists():
