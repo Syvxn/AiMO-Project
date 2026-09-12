@@ -99,14 +99,28 @@ func start_game():
 		player.get_node("QuizAutoLooter").configure(20.0, id_for_autolooters, "snack", player)
 		show_hud.rpc_id(int(player.name))
 	make_teams()
-	for player in team_a_players:
-		tell_client_team.rpc_id(int(player.name), ["team_a"])
-		player.global_position = %SpawnPointA.global_position
+	for player in players:
+		var team_name : String
+		var spawn_side : Vector2
+		if player in team_a_players:
+			team_name = "team_a"
+			spawn_side = %SpawnPointA.global_position
+		elif player in team_b_players:
+			team_name = "team_b"
+			spawn_side = %SpawnPointB.global_position
+		else:
+			continue
+		tell_client_team.rpc_id(int(player.name), [team_name])
+		# lambda so the 0.5 sec beam up wait happens async hopefully
+		var lambda = func():
+			player.beam_up.rpc()
+			player.global_position = spawn_side
+			await get_tree().create_timer(0.5).timeout
+			player.beam_down.rpc()
+		lambda.call()
+		# to avoid glitching when players moved to exact same coords
 		await get_tree().create_timer(0.1).timeout
-	for player in team_b_players:
-		tell_client_team.rpc_id(int(player.name), ["team_b"])
-		player.global_position = %SpawnPointB.global_position
-		await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(1).timeout
 	game_state = "active"
 	show_countdown.rpc()
 	await get_tree().create_timer(3).timeout
