@@ -1,3 +1,7 @@
+TODO: 
+	- Agentin feedback yhdistäminen verkkosivulle -> Aleksi 
+	- Karkeille aikaraja, ettei sekota peliä kokonaan -> Robin 
+
 # AiMO-Project
 
 Monorepo containing independent applications:
