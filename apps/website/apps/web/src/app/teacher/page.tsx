@@ -7,6 +7,7 @@ import {
   deleteTeacherMaterial,
   generateTeacherQuiz,
   getTeacherMaterialFile,
+  getTeacherClassInfo,
   getTeacherMaterials,
   TeacherQuiz,
   TeacherMaterial,
@@ -27,7 +28,7 @@ function formatBytes(size: number): string {
 }
 
 function TeacherPanelContent() {
-  const { token } = useAuth();
+  const { token, role } = useAuth();
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -40,6 +41,8 @@ function TeacherPanelContent() {
   const [isSending, setIsSending] = useState(false);
 
   const [materials, setMaterials] = useState<TeacherMaterial[]>([]);
+  const [classCode, setClassCode] = useState("");
+  const [joinedStudents, setJoinedStudents] = useState(0);
   const [description, setDescription] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -59,13 +62,18 @@ function TeacherPanelContent() {
       try {
         const response = await getTeacherMaterials(token);
         setMaterials(response);
+        if (role === "teacher") {
+          const classInfo = await getTeacherClassInfo(token);
+          setClassCode(classInfo.class_code);
+          setJoinedStudents(classInfo.joined_students);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load study materials");
       }
     }
 
     load();
-  }, [token]);
+  }, [token, role]);
 
   const sortedMaterials = useMemo(
     () => [...materials].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()),
@@ -213,6 +221,20 @@ function TeacherPanelContent() {
       {notice && <div className="card border-accent-teal/40 text-accent-green">{notice}</div>}
 
       <div className="grid gap-6 lg:grid-cols-2">
+        {classCode && (
+          <article className="card space-y-3">
+            <h2 className="font-display text-2xl text-text-natural">Your Class</h2>
+            <p className="text-sm text-text-beige">
+              Share this code with your students so their game quizzes use your uploaded materials.
+            </p>
+            <div className="flex items-center gap-4">
+              <p className="font-display text-3xl text-accent-yellow" aria-label="Class code">
+                {classCode}
+              </p>
+              <p className="text-sm text-text-beige">{joinedStudents} students joined</p>
+            </div>
+          </article>
+        )}
         <article className="card space-y-4">
           <h2 className="font-display text-2xl text-text-natural">Analytics Assistant</h2>
           <p className="text-sm text-text-beige">

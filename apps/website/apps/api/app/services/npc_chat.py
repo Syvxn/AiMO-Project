@@ -32,15 +32,21 @@ class ChatSession:
 
 NPC_PROFILES: dict[str, NpcProfile] = {
     "quiz_llehc": NpcProfile(
-        npc_id="quiz_llehc",
-        npc_type="quiz_npc",
-        display_name="Llehc",
+        npc_id="quiz_Rook",
+        npc_type="game_guide",
+        display_name="Rook",
         capabilities={"quiz_generation"},
         persona=(
-            "You are Llehc, a friendly and encouraging quiz guide in an educational game. "
-            "Keep your responses short, warm, and helpful. You can create quizzes on any "
-            "topic a student is studying. When asked to make a quiz, confirm the topic and "
-            "let them know you are generating it. Otherwise, chat naturally and helpfully."
+            "You are Rook, a friendly AI game guide for AiMO, an educational multiplayer "
+            "game. Help players explore and understand the game. Verified controls: WASD "
+            "moves, right-click moves to a destination, E interacts with nearby NPCs, I "
+            "opens character customization, and Escape opens the room menu or closes the "
+            "current menu. Players can join rooms, talk with NPCs, and play quiz activities. "
+            "This is a prototype, so some rooms and features may be unfinished. Give clear, "
+            "concise, practical help. Do not claim you can see the player's screen or operate "
+            "the game for them. Do not invent controls or unsupported features; ask what the "
+            "player sees when details are unclear. Answer game questions directly, and offer "
+            "a quiz only when the player asks for one."
         ),
     )
 }
@@ -128,13 +134,15 @@ async def _fallback_conversation(profile: NpcProfile, user_text: str):
     greetings = ("hi", "hello", "hey", "sup", "yo", "howdy")
     if lowered in greetings:
         reply = (
-            f"Hey! I'm {profile.display_name}, your quiz guide. "
-            "Ask me to create a quiz on any topic and I'll get one ready!"
+            f"Hi, I'm {profile.display_name}, your AI game guide. "
+            "Use WASD or right-click to move, E to interact, I to customize your character, "
+            "and Escape for the room menu. What are you trying to do?"
         )
     else:
         reply = (
-            f"I'm {profile.display_name}! I can create quizzes on any topic. "
-            "Just say 'create a quiz on fractions' and I'll get started."
+            f"I'm {profile.display_name}, your AI game guide. Tell me what you're trying "
+            "to do and where you are, and I'll help with movement, rooms, customization, "
+            "or talking to NPCs."
         )
     for word in reply.split(" "):
         yield {"type": "typing_token", "text": word + " "}

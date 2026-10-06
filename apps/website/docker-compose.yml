@@ -10,7 +10,7 @@ services:
       - material_uploads:/app/data/materials/uploads
       - hf_cache:/root/.cache/huggingface
     environment:
-      DEVICE_MAP: cpu
+      DEVICE_MAP: ${DEVICE_MAP:-auto}
       MAX_NEW_TOKENS: "128"
       MATERIAL_DIR: /app/data/materials
     expose:

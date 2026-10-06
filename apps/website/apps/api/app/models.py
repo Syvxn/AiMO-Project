@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Enum as SQLEnum, DateTime
+from sqlalchemy import Column, DateTime, Enum as SQLEnum, ForeignKey, Integer, String
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
 from uuid import uuid4
@@ -21,6 +21,8 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     role = Column(SQLEnum(RoleEnum), default=RoleEnum.student, nullable=False)
+    class_code = Column(String(8), unique=True, index=True, nullable=True)
+    teacher_user_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 

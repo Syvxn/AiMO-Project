@@ -1,9 +1,8 @@
 from datetime import datetime
-import os
 from pathlib import Path
+import secrets
 from uuid import uuid4
 
-import httpx
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
@@ -12,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import StudyMaterial, User
 from app.routers.auth import require_teacher_or_admin, user_role_to_str
+from app.services.materials import generate_teacher_quiz as generate_quiz_from_teacher_materials
 
 router = APIRouter(prefix="/teacher", tags=["teacher"])
 
@@ -48,8 +48,44 @@ class TeacherQuizRequest(BaseModel):
     question_count: int = 5
 
 
+class TeacherClassCodeResponse(BaseModel):
+    class_code: str
+    joined_students: int
+
+
 def ensure_upload_dir() -> None:
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+
+@router.get("/class-code", response_model=TeacherClassCodeResponse)
+def get_teacher_class_code(
+    current_user: User = Depends(require_teacher_or_admin),
+    db: Session = Depends(get_db),
+) -> TeacherClassCodeResponse:
+    if user_role_to_str(current_user.role) != "teacher":
+        raise HTTPException(status_code=403, detail="Only teachers can manage a class")
+
+    if not current_user.class_code:
+        alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+        for _ in range(10):
+            class_code = "".join(secrets.choice(alphabet) for _ in range(8))
+            if not db.query(User).filter(User.class_code == class_code).first():
+                current_user.class_code = class_code
+                db.commit()
+                db.refresh(current_user)
+                break
+        else:
+            raise HTTPException(status_code=503, detail="Could not create a class code")
+
+    joined_students = (
+        db.query(User)
+        .filter(User.teacher_user_id == current_user.id)
+        .count()
+    )
+    return TeacherClassCodeResponse(
+        class_code=current_user.class_code,
+        joined_students=joined_students,
+    )
 
 
 def get_material_for_user(material_id: int, current_user: User, db: Session) -> StudyMaterial:
@@ -181,30 +217,19 @@ def open_study_material(
 async def generate_teacher_quiz(
     payload: TeacherQuizRequest,
     current_user: User = Depends(require_teacher_or_admin),
+    db: Session = Depends(get_db),
 ) -> dict:
-    _ = current_user
     topic = payload.topic.strip()
     if not topic:
         raise HTTPException(status_code=400, detail="Topic is required")
     if not 1 <= payload.question_count <= 20:
         raise HTTPException(status_code=400, detail="Question count must be between 1 and 20")
-
-    agents_url = os.getenv("AGENTS_SERVICE_URL", "http://agents:8001")
-    try:
-        async with httpx.AsyncClient(timeout=180.0) as client:
-            response = await client.post(
-                f"{agents_url}/quiz/generate",
-                json={"topic": topic, "question_count": payload.question_count},
-            )
-    except httpx.HTTPError as exc:
-        raise HTTPException(status_code=503, detail="Quiz agent is unavailable") from exc
-
-    if response.status_code != 200:
-        raise HTTPException(status_code=502, detail="Quiz agent failed to generate a quiz")
-    result = response.json()
-    if result.get("error"):
-        raise HTTPException(status_code=422, detail=result["error"])
-    return result
+    return await generate_quiz_from_teacher_materials(
+        db,
+        teacher_user_id=current_user.id,
+        topic=topic,
+        question_count=payload.question_count,
+    )
 
 
 @router.get("/materials", response_model=list[TeacherMaterialResponse])

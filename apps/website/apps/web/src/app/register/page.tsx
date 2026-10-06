@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import { registerUser } from "@/lib/api";
+import { joinTeacherClass, registerUser } from "@/lib/api";
 
 type Role = "student" | "teacher";
 
@@ -11,6 +11,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [classCode, setClassCode] = useState("");
   const [role, setRole] = useState<Role>("student");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,15 @@ export default function RegisterPage() {
       }
       const response = await registerUser(email, password, role);
       login(response.access_token, email, response.role);
+      if (role === "student" && classCode.trim()) {
+        try {
+          await joinTeacherClass(response.access_token, classCode.trim());
+        } catch (err) {
+          setError(
+            `${err instanceof Error ? err.message : "Could not join that class"} You can join later from Play.`,
+          );
+        }
+      }
       router.push("/play");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
@@ -96,6 +106,23 @@ export default function RegisterPage() {
             <option value="teacher">Teacher</option>
           </select>
         </div>
+        {role === "student" && (
+          <div className="space-y-1">
+            <label htmlFor="classCode" className="text-sm text-text-beige">
+              Teacher Class Code
+            </label>
+            <input
+              id="classCode"
+              type="text"
+              value={classCode}
+              onChange={(event) => setClassCode(event.target.value.toUpperCase())}
+              maxLength={8}
+              autoCapitalize="characters"
+              placeholder="Optional, 8 characters"
+              className="w-full rounded-md border border-accent-orange/30 px-3 py-2"
+            />
+          </div>
+        )}
         <button className="btn-primary w-full" type="submit" disabled={isLoading}>
           {isLoading ? "Creating Account..." : "Create Account"}
         </button>

@@ -3,15 +3,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useAuth } from "@/lib/auth-context";
+import { joinTeacherClass } from "@/lib/api";
 
 const GAME_ENTRY_PATH = "/game/index.html";
 
 type AssetStatus = "checking" | "available" | "missing" | "error";
 
 function PlayContent() {
-  const { email, role } = useAuth();
+  const { email, role, token } = useAuth();
   const [assetStatus, setAssetStatus] = useState<AssetStatus>("checking");
   const [hasLaunched, setHasLaunched] = useState(false);
+  const [classCode, setClassCode] = useState("");
+  const [classMessage, setClassMessage] = useState("");
+  const [isJoiningClass, setIsJoiningClass] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,7 +62,33 @@ function PlayContent() {
 
   const canLaunch = assetStatus === "available";
 
+  function prepareGameIdentity() {
+    if (!token || !email || !role) return;
+    const playerName = email.split("@")[0].replace(/[^a-zA-Z0-9_-]/g, "_");
+    const secure = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = `playername=${playerName}; Path=/; Max-Age=3600; SameSite=Strict${secure}`;
+    document.cookie = `playerrole=${role}; Path=/; Max-Age=3600; SameSite=Strict${secure}`;
+    document.cookie = `aimo_token=${token}; Path=/; Max-Age=3600; SameSite=Strict${secure}`;
+  }
+
+  async function handleJoinClass(event: React.FormEvent) {
+    event.preventDefault();
+    if (!token || role !== "student") return;
+    setIsJoiningClass(true);
+    setClassMessage("");
+    try {
+      await joinTeacherClass(token, classCode.trim());
+      setClassMessage("Joined your teacher's class. The game will use their uploaded study material.");
+      setClassCode("");
+    } catch (error) {
+      setClassMessage(error instanceof Error ? error.message : "Could not join the class.");
+    } finally {
+      setIsJoiningClass(false);
+    }
+  }
+
   function openInNewTab() {
+    prepareGameIdentity();
     window.open(GAME_ENTRY_PATH, "_blank", "noopener,noreferrer");
   }
 
@@ -78,11 +108,34 @@ function PlayContent() {
         <p className="text-text-beige">Signed in as {email ?? "unknown"} ({role ?? "unknown"})</p>
         <p className="text-text-beige">{statusMessage}</p>
 
+        {role === "student" && (
+          <form className="flex flex-wrap items-end gap-3" onSubmit={handleJoinClass}>
+            <label className="min-w-52 flex-1 text-sm text-text-beige">
+              Teacher class code
+              <input
+                value={classCode}
+                onChange={(event) => setClassCode(event.target.value.toUpperCase())}
+                maxLength={8}
+                autoCapitalize="characters"
+                placeholder="Enter the code from your teacher"
+                className="mt-1 w-full rounded-md border border-accent-orange/30 px-3 py-2"
+              />
+            </label>
+            <button className="btn-secondary" type="submit" disabled={isJoiningClass || classCode.trim().length !== 8}>
+              {isJoiningClass ? "Joining..." : "Join Class"}
+            </button>
+            {classMessage && <p className="w-full text-sm text-text-beige">{classMessage}</p>}
+          </form>
+        )}
+
         <div className="flex flex-wrap gap-3">
           <button
             className="btn-primary"
             type="button"
-            onClick={() => setHasLaunched(true)}
+            onClick={() => {
+              prepareGameIdentity();
+              setHasLaunched(true);
+            }}
             disabled={!canLaunch}
           >
             Launch In Page

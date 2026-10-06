@@ -102,7 +102,9 @@ async def npc_chat_socket(websocket: WebSocket) -> None:
             )
 
             assistant_buffer = ""
-            async for event in stream_conversation_events(profile, user_text, session.memory):
+            async for event in stream_conversation_events(
+                profile, user_text, session.memory[:-1]
+            ):
                 if event.get("type") == "typing_token":
                     assistant_buffer += str(event.get("text") or "")
                 await websocket.send_json(event)

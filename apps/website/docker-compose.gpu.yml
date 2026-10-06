@@ -1,0 +1,5 @@
+services:
+  agents:
+    gpus: all
+    environment:
+      DEVICE_MAP: auto

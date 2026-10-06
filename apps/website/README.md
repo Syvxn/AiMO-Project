@@ -41,6 +41,22 @@ If you are new to this app, start with:
 
 The API container runs Alembic migrations on startup (`upgrade head`) before launching FastAPI.
 
+### Run the agents service with an NVIDIA GPU
+
+The default Compose setup remains compatible with CPU-only machines. On a host with NVIDIA GPU support in Docker Desktop, start the stack with the GPU override:
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build -d
+```
+
+The agents container uses `DEVICE_MAP=auto` and loads quiz models in FP16 when CUDA is available. Verify access with:
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml exec agents python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU fallback')"
+```
+
+For CPU-only development, continue using `docker compose up --build`.
+
 ## Service URLs
 
 - Web via Nginx: http://localhost

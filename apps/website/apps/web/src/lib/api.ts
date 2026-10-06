@@ -55,6 +55,11 @@ export interface TeacherMaterialPreview {
   content: string;
 }
 
+export interface TeacherClassInfo {
+  class_code: string;
+  joined_students: number;
+}
+
 export interface TeacherQuizQuestion {
   question: string;
   options: string[];
@@ -283,4 +288,37 @@ export async function generateTeacherQuiz(
   });
 
   return readJsonResponse<{ quiz: TeacherQuiz }>(res, "Quiz generation failed");
+}
+
+export async function getTeacherClassInfo(token: string): Promise<TeacherClassInfo> {
+  const res = await fetch(`${API_BASE}/teacher/class-code`, {
+    method: "GET",
+    headers: authOnlyHeaders(token),
+  });
+
+  return readJsonResponse<TeacherClassInfo>(res, "Failed to load class code");
+}
+
+export async function joinTeacherClass(token: string, classCode: string): Promise<{ status: string }> {
+  const res = await fetch(`${API_BASE}/quiz/join-class`, {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify({ class_code: classCode }),
+  });
+
+  return readJsonResponse<{ status: string }>(res, "Failed to join class");
+}
+
+export async function generateStudentQuiz(
+  token: string,
+  topic: string,
+  questionCount: number,
+): Promise<{ quiz: TeacherQuiz }> {
+  const res = await fetch(`${API_BASE}/quiz/game/generate`, {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify({ topic, question_count: questionCount }),
+  });
+
+  return readJsonResponse<{ quiz: TeacherQuiz }>(res, "Could not generate quiz from your teacher's materials");
 }
