@@ -72,6 +72,12 @@ func _physics_process(_delta: float) -> void:
 					if menu.layer > highest_visible_menu.layer:
 						highest_visible_menu = menu
 				highest_visible_menu.close_menu()
+	if Input.is_action_just_pressed("global_chat"):
+		if %GlobalChatOverlay.visible:
+			if not %GlobalChatOverlay.input_field_focused:
+				%GlobalChatOverlay.hide()
+		elif not ($LoadingScreen.visible or $DebugMenu.visible):
+			%GlobalChatOverlay.show()
 
 
 # called only on clients, requesting that server add their player to the game
@@ -80,7 +86,7 @@ func request_spawn_from_server(username: String, role: String):
 	print("Requesting spawn as: ", username, ", ", role)
 	add_player_and_personal_room.rpc_id(1, [username, role, multiplayer.get_unique_id()])
 
-
+ 
 # called only on server, by clients.
 # also i apologize -robin.
 @rpc("any_peer")

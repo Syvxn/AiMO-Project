@@ -20,6 +20,10 @@ signal chat_opened
 @warning_ignore("unused_signal")
 signal chat_closed
 @warning_ignore("unused_signal")
+signal global_chat_input_focused
+@warning_ignore("unused_signal")
+signal global_chat_input_unfocused
+@warning_ignore("unused_signal")
 signal oops_pressed
 @warning_ignore("unused_signal")
 signal item_autolooted(id: String, type: String, looter: Node)

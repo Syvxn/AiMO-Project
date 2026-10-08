@@ -4,19 +4,29 @@
 script/source = "extends Camera2D
 
 var direction := Vector2.ZERO
+var controllable := true
 
 @export var vert_pan_speed := 30.0
 @export var hori_pan_speed := 30.0
 
 
+func _ready() -> void:
+	SignalBus.global_chat_input_focused.connect(lock_controls)
+	SignalBus.global_chat_input_unfocused.connect(unlock_controls)
+
 
 func _physics_process(_delta: float) -> void:
-	direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
-	move_local_x(direction.x * vert_pan_speed)
-	move_local_y(direction.y * hori_pan_speed)
+	if controllable:
+		direction = Input.get_vector(\"move_left\", \"move_right\", \"move_up\", \"move_down\")
+		move_local_x(direction.x * vert_pan_speed)
+		move_local_y(direction.y * hori_pan_speed)
+		if Input.is_action_just_pressed(\"interact\"):
+			position = Vector2.ZERO
 
-	if Input.is_action_just_pressed(\"interact\"):
-		position = Vector2.ZERO
+func lock_controls() -> void:
+	controllable = false
+func unlock_controls() -> void:
+	controllable = true
 "
 
 [node name="ServerCamera" type="Camera2D" unique_id=518778710]

@@ -117,3 +117,7 @@ texture = SubResource("AtlasTexture_s4svg")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=521851344]
 replication_config = SubResource("SceneReplicationConfig_dx28n")
+
+[node name="DespawnTimer" type="Timer" parent="." unique_id=331916730]
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

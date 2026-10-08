@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cd2q5da8mqxlu"]
+
+[ext_resource type="Script" uid="uid://bx522ieydfhea" path="res://ui/menus/global_chat/global_chat_overlay.gd" id="1_tlje0"]
+
+[node name="GlobalChatOverlay" type="CanvasLayer" unique_id=619979215 groups=["menus"]]
+layer = 3
+script = ExtResource("1_tlje0")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=113005265]
+_spawnable_scenes = PackedStringArray("uid://ckkkeekisi3s2")
+spawn_path = NodePath("../MarginContainer/VBoxContainer/Panel/MarginContainer/ScrollContainer/MessagesContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2138001093]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 755
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2107398383]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer" unique_id=863318387]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Panel" unique_id=497139295]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer" unique_id=1833736037]
+layout_mode = 2
+draw_focus_border = true
+
+[node name="MessagesContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ScrollContainer" unique_id=1147609339]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_next = NodePath("../../../../HBoxContainer/LineEdit")
+focus_previous = NodePath("../../../../HBoxContainer/LineEdit")
+focus_mode = 2
+mouse_filter = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2115073425]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1749645093]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="ChannelLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Panel" unique_id=685754048]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "[ALL]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1105480343]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_next = NodePath("../../Panel/MarginContainer/ScrollContainer/MessagesContainer")
+focus_previous = NodePath("../../Panel/MarginContainer/ScrollContainer/MessagesContainer")
+placeholder_text = "Type here..."
+keep_editing_on_text_submit = true
+clear_button_enabled = true
+
+[connection signal="focus_entered" from="MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_focus_exited"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
