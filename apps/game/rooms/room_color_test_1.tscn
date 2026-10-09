@@ -30,6 +30,22 @@ vertices = PackedVector2Array(599.09375, 703.8672, 523.0625, 665.85156, 530.25, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 8, 7, 14, 15, 9, 16), PackedInt32Array(17, 18, 19, 16), PackedInt32Array(0, 4, 20, 14), PackedInt32Array(14, 20, 21, 15), PackedInt32Array(16, 19, 13), PackedInt32Array(9, 12, 16)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(489, 660, 630, 589, 821, 684, 743, 724, 664, 684, 599, 715)])
 
+[sub_resource type="GDScript" id="GDScript_r46r2"]
+script/source = "extends Area2D
+
+
+
+func interact() -> void:
+	exit()
+
+
+func exit() -> void:
+	SignalBus.player_clicked_join_room.emit(\"Miserable Cafeteria\")
+"
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_hiwxv"]
+points = PackedVector2Array(19, 25, 35, 17, 20, 9, 5, 17)
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_m0cm6"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -148,6 +164,14 @@ z_index = 2
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(18, -146)
+
+[node name="ExitArea" type="Area2D" parent="NavigationRegion2D" unique_id=1645200270 groups=["npcs"]]
+script = SubResource("GDScript_r46r2")
+
+[node name="ExitBox" type="CollisionShape2D" parent="NavigationRegion2D/ExitArea" unique_id=1163875518]
+z_index = 1
+position = Vector2(756, 684)
+shape = SubResource("ConvexPolygonShape2D_hiwxv")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=536427304]
 z_index = -999

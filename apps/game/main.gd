@@ -82,7 +82,7 @@ func _physics_process(_delta: float) -> void:
 
 # called only on clients, requesting that server add their player to the game
 func request_spawn_from_server(username: String, role: String):
-	assert(not multiplayer.is_server(), "spawn requested by server somehow what the hell")
+	assert(not multiplayer.is_server(), "spawn requested by server somehow what the hell?")
 	print("Requesting spawn as: ", username, ", ", role)
 	add_player_and_personal_room.rpc_id(1, [username, role, multiplayer.get_unique_id()])
 
@@ -92,7 +92,7 @@ func request_spawn_from_server(username: String, role: String):
 @rpc("any_peer")
 func add_player_and_personal_room(player_info: Array):
 	players_joined += 1
-	assert(multiplayer.is_server(), "add_player() somehow called from client what the hell")
+	assert(multiplayer.is_server(), "add_player() somehow called from client what the hell?")
 	var username = player_info[0]
 	var role = player_info[1]
 	var player_peer_id = player_info[2]

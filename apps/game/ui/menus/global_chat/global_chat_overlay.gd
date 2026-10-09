@@ -23,8 +23,10 @@ func _ready() -> void:
 	print("Number of bad words in filter: " +  str(len(bad_words)))
 	#print(bad_words)
 
+
 func close_menu() -> void:
 	hide()
+
 
 @rpc("any_peer", "call_local")
 func add_chat_message(msg_info) -> void:
@@ -34,8 +36,17 @@ func add_chat_message(msg_info) -> void:
 		command(msg)
 		return
 	var censored_msg = censor_message(msg)
+	var sender_name = "[UNKOWN]"
+	if msg_info[1] == 1:
+		sender_name = "[SERVER]"
+	else:
+		for player in get_tree().get_nodes_in_group("players"):
+			if player.name == str(msg_info[1]):
+				sender_name = player.username
+				player.show_global_msg_box(censored_msg)
+				break
 	var msg_node_instance = msg_node.instantiate()
-	msg_node_instance.text = str(msg_info[1]) + ": " + censored_msg
+	msg_node_instance.text = sender_name + ": " + censored_msg
 	%MessagesContainer.add_child(msg_node_instance, true)
 
 

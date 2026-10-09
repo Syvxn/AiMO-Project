@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://8no2eov3vxc3" path="res://textures/shaders/beam_mask.tres" id="1_yw30f"]
 [ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
 [ext_resource type="PackedScene" uid="uid://cphgt42vxsuwq" path="res://ui/menus/customize_char_menu.tscn" id="3_g1dw6"]
+[ext_resource type="FontFile" uid="uid://bgh32klroc5m1" path="res://ui/fonts/GFS_Didot/GFSDidot-Regular.ttf" id="5_qjkh3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
 properties/0/path = NodePath(".:walk_direction")
@@ -51,7 +52,11 @@ func _physics_process(_delta: float) -> void:
 		var areas = get_parent().get_node(\"InteractionArea\").get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group(\"npcs\") and \"interact\" in area:
-				area.interact()
+				# unused, should probably make interact always take the player
+				if area.interact.get_argument_count() == 1:
+					area.interact(get_parent())
+				else:
+					area.interact()
 	if Input.is_action_just_pressed(\"inventory\"):
 		get_parent().toggle_customize_menu()
 	if Input.is_action_just_pressed(\"oops\"):
@@ -92,6 +97,12 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:velocity")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath("GlobalChatLabel:text")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("GlobalChatLabel:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [sub_resource type="GDScript" id="GDScript_3eadt"]
 script/source = "extends Camera2D
@@ -140,6 +151,12 @@ gravity = Vector3(0, 20, 0)
 color = Color(0.85430586, 0.9309246, 0.9776916, 1)
 hue_variation_min = -0.030000022
 hue_variation_max = 0.029999977
+
+[sub_resource type="LabelSettings" id="LabelSettings_qjkh3"]
+font = ExtResource("5_qjkh3")
+font_color = Color(1, 0.9882353, 0.91764706, 1)
+shadow_size = 2
+shadow_color = Color(0.41568628, 0.14117648, 0.105882354, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
 z_index = 1
@@ -199,5 +216,19 @@ lifetime = 0.4
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_yw30f")
+
+[node name="GlobalChatLabel" type="Label" parent="." unique_id=131135823]
+visible = false
+z_index = 2
+texture_filter = 1
+offset_left = -100.0
+offset_top = -80.0
+offset_right = 100.0
+offset_bottom = -59.0
+label_settings = SubResource("LabelSettings_qjkh3")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 5
 
 [connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

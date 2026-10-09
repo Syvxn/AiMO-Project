@@ -1,12 +1,19 @@
 [gd_scene format=3 uid="uid://ckkkeekisi3s2"]
 
+[ext_resource type="Script" uid="uid://i0k13lqp2kdf" path="res://ui/menus/global_chat/global_chat_message.gd" id="1_ofl3h"]
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f7ptj"]
 properties/0/path = NodePath(".:text")
 properties/0/spawn = true
 properties/0/replication_mode = 2
 
 [node name="GlobalChatMessage" type="Label" unique_id=1775095687]
+focus_mode = 1
+mouse_filter = 0
 autowrap_mode = 3
+script = ExtResource("1_ofl3h")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=964872817]
 replication_config = SubResource("SceneReplicationConfig_f7ptj")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
