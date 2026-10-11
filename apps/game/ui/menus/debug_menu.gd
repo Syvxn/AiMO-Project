@@ -30,6 +30,7 @@ func _on_server_button_pressed() -> void:
 	
 func _on_client_button_pressed() -> void:
 	NetworkHandler.start_client()
+	await multiplayer.connected_to_server
 	show_sub_menu("TEACHERSTUDENT")
 
 

@@ -61,7 +61,7 @@ func command(msg) -> void:
 
 func censor_message(msg: String) -> String:
 	for bad_word in bad_words:
-		if bad_word in msg:
+		if bad_word.to_lower() in msg.to_lower():
 			return "[INAPPROPRIATE]"
 	return msg
 

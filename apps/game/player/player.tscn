@@ -61,6 +61,8 @@ func _physics_process(_delta: float) -> void:
 		get_parent().toggle_customize_menu()
 	if Input.is_action_just_pressed(\"oops\"):
 		SignalBus.oops_pressed.emit()
+	if Input.is_action_just_pressed(\"global_chat\"):
+		SignalBus.global_chat_toggled.emit()
 	if Input.is_action_pressed(\"shift\"):
 		if Input.is_action_just_pressed(\"scroll_up\"):
 			get_parent().get_node(\"Camera2D\").zoom_in()

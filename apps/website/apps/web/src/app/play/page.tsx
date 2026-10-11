@@ -92,6 +92,11 @@ function PlayContent() {
     window.open(GAME_ENTRY_PATH, "_blank", "noopener,noreferrer");
   }
 
+  function openInNewWindow() {
+    prepareGameIdentity();
+    window.open(GAME_ENTRY_PATH, "_blank", "popup=true,noopener,noreferrer");
+  }
+
   return (
     <section className="space-y-6">
       <h1 className="font-display text-4xl text-text-natural">Play</h1>
@@ -142,6 +147,9 @@ function PlayContent() {
           </button>
           <button className="btn-secondary" type="button" onClick={openInNewTab} disabled={!canLaunch}>
             Open In New Tab
+          </button>
+          <button className="btn-secondary" type="button" onClick={openInNewWindow} disabled={!canLaunch}>
+            Open In New Window
           </button>
         </div>
 

@@ -11,6 +11,7 @@ func _ready() -> void:
 	SignalBus.new_player_info_received.connect(request_spawn_from_server)
 	SignalBus.player_clicked_join_room.connect(request_join_room_from_server)
 	SignalBus.activity_launched.connect(request_activity_launch_from_server)
+	SignalBus.global_chat_toggled.connect(toggle_global_chat)
 	
 	if OS.has_feature("dedicated_server"):
 		NetworkHandler.start_server()
@@ -232,3 +233,12 @@ func move_player_to_room(move_info):
 			if player:
 				player.beam_down.rpc()
 			break
+
+
+func toggle_global_chat() -> void:
+		if %GlobalChatOverlay.visible:
+			#if not %GlobalChatOverlay.input_field_focused:
+			%GlobalChatOverlay.hide()
+		elif not ($LoadingScreen.visible or $DebugMenu.visible):
+			%GlobalChatOverlay.show()
+	

@@ -20,6 +20,8 @@ signal chat_opened
 @warning_ignore("unused_signal")
 signal chat_closed
 @warning_ignore("unused_signal")
+signal global_chat_toggled
+@warning_ignore("unused_signal")
 signal global_chat_input_focused
 @warning_ignore("unused_signal")
 signal global_chat_input_unfocused
