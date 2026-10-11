@@ -73,12 +73,6 @@ func _physics_process(_delta: float) -> void:
 					if menu.layer > highest_visible_menu.layer:
 						highest_visible_menu = menu
 				highest_visible_menu.close_menu()
-	if Input.is_action_just_pressed("global_chat"):
-		if %GlobalChatOverlay.visible:
-			if not %GlobalChatOverlay.input_field_focused:
-				%GlobalChatOverlay.hide()
-		elif not ($LoadingScreen.visible or $DebugMenu.visible):
-			%GlobalChatOverlay.show()
 
 
 # called only on clients, requesting that server add their player to the game
@@ -237,8 +231,8 @@ func move_player_to_room(move_info):
 
 func toggle_global_chat() -> void:
 		if %GlobalChatOverlay.visible:
-			#if not %GlobalChatOverlay.input_field_focused:
 			%GlobalChatOverlay.hide()
 		elif not ($LoadingScreen.visible or $DebugMenu.visible):
 			%GlobalChatOverlay.show()
+			%GlobalChatOverlay.focus_messages()
 	

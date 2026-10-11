@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.34509805, 0.1882353, 0.21176471, 1)
+color = Color(0.41568628, 0.14117648, 0.105882354, 1)
 
 [node name="TopLabel" type="Label" parent="ColorRect" unique_id=257141931]
 layout_mode = 1
@@ -23,6 +23,7 @@ offset_top = 58.0
 offset_right = 174.5
 offset_bottom = 107.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_font_sizes/font_size = 35
 text = "this is a debug menu"
 horizontal_alignment = 1
@@ -40,6 +41,7 @@ offset_right = 386.5
 offset_bottom = -66.244995
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_font_sizes/font_size = 35
 text = "this will be handled automatically / elsewhere"
 horizontal_alignment = 1
@@ -66,11 +68,21 @@ grow_vertical = 2
 
 [node name="ServerButton" type="Button" parent="ColorRect/SubMenus/ServerClientChoice" unique_id=736692431]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_focus_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_font_sizes/font_size = 30
 text = "server"
 
 [node name="ClientButton" type="Button" parent="ColorRect/SubMenus/ServerClientChoice" unique_id=690999631]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_focus_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_font_sizes/font_size = 30
 text = "client"
 
@@ -94,15 +106,28 @@ theme_override_constants/margin_bottom = 64
 
 [node name="UsernameField" type="LineEdit" parent="ColorRect/SubMenus/TeacherStudentChoice/MarginContainer" unique_id=1098538375]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_selected_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
 placeholder_text = "Username"
 
 [node name="TeacherButton" type="Button" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=1871679610]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_focus_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_font_sizes/font_size = 30
 text = "Teacher"
 
 [node name="StudentButton" type="Button" parent="ColorRect/SubMenus/TeacherStudentChoice" unique_id=1632626051]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_focus_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9882353, 0.91764706, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.9882353, 0.91764706, 1)
 theme_override_font_sizes/font_size = 30
 text = "Student"
 

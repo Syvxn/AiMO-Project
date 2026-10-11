@@ -1,6 +1,21 @@
 [gd_scene format=3 uid="uid://cd2q5da8mqxlu"]
 
 [ext_resource type="Script" uid="uid://bx522ieydfhea" path="res://ui/menus/global_chat/global_chat_overlay.gd" id="1_tlje0"]
+[ext_resource type="Theme" uid="uid://c7gvd6517bdql" path="res://ui/themes/global_chat_dark.tres" id="2_ji3p7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ji3p7"]
+bg_color = Color(0.20285092, 0.050708726, 0.03876, 0.6)
+border_width_left = 13
+border_width_top = 13
+border_width_right = 13
+border_width_bottom = 13
+border_color = Color(0.41568628, 0.14117648, 0.105882354, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.95281494, 0.71796554, 0.39151636, 1)
+shadow_offset = Vector2(-12, 14)
 
 [node name="GlobalChatOverlay" type="CanvasLayer" unique_id=619979215 groups=["menus"]]
 layer = 3
@@ -16,10 +31,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_ji3p7")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 755
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 34
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2107398383]
 layout_mode = 2
@@ -27,6 +43,7 @@ layout_mode = 2
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer" unique_id=863318387]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ji3p7")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Panel" unique_id=497139295]
 layout_mode = 1
@@ -35,10 +52,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 17
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 17
+theme_override_constants/margin_bottom = 15
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer" unique_id=1833736037]
 layout_mode = 2
@@ -58,6 +75,7 @@ mouse_filter = 0
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1749645093]
+z_index = 1
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 
@@ -68,6 +86,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 13
 text = "[ALL]"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -82,6 +101,7 @@ focus_previous = NodePath("../../Panel/MarginContainer/ScrollContainer/MessagesC
 placeholder_text = "Type here..."
 keep_editing_on_text_submit = true
 clear_button_enabled = true
+caret_blink = true
 
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_focus_entered"]
 [connection signal="focus_exited" from="MarginContainer/VBoxContainer/HBoxContainer/LineEdit" to="." method="_on_line_edit_focus_exited"]

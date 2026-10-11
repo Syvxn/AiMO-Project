@@ -66,6 +66,10 @@ func censor_message(msg: String) -> String:
 	return msg
 
 
+func focus_messages() -> void:
+	%MessagesContainer.grab_focus()
+
+
 func _on_line_edit_focus_entered() -> void:
 	SignalBus.global_chat_input_focused.emit()
 	input_field_focused = true
@@ -75,5 +79,7 @@ func _on_line_edit_focus_exited() -> void:
 
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
+	if len(new_text) < 1:
+		return
 	add_chat_message.rpc_id(1, [new_text, multiplayer.get_unique_id()])
 	%LineEdit.text = ""
