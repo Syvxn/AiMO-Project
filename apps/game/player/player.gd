@@ -25,7 +25,7 @@ func _ready() -> void:
 	$InputHandler.set_multiplayer_authority(int(name))
 	$Camera2D.set_multiplayer_authority(int(name))
 	$Camera2D.enable_if_authority()
-	$GlobalChatLabel.hide()
+	%GlobalChatLabel.hide()
 	SignalBus.finished_loading.emit()
 
 
@@ -142,8 +142,8 @@ func beam_down():
 
 
 func show_global_msg_box(msg: String):
-	$GlobalChatLabel.text = msg
-	$GlobalChatLabel.show()
+	%GlobalChatLabel.text = msg
+	%GlobalChatLabel.show()
 	await get_tree().create_timer(5).timeout
-	$GlobalChatLabel.hide()
-	$GlobalChatLabel.text = ""
+	%GlobalChatLabel.hide()
+	%GlobalChatLabel.text = ""

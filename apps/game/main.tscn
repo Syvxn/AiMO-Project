@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.8,
 "texture": SubResource("AtlasTexture_272bh")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -118,6 +118,14 @@ position = Vector2(-4500, -9000)
 
 [node name="PlotMarker24" parent="MultiplayerSpawner/GameWorld/PersonalRoomPlotMarkers" unique_id=93127166 instance=ExtResource("2_1bvp3")]
 position = Vector2(-6000, -9000)
+
+[node name="Label" type="Label" parent="MultiplayerSpawner/GameWorld" unique_id=1885435189]
+offset_left = -151.0
+offset_top = -56.0
+offset_right = 152.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 24
+text = "WASD to move server cam"
 
 [node name="SecretServerSkeleton" type="AnimatedSprite2D" parent="MultiplayerSpawner/GameWorld" unique_id=1908527526]
 sprite_frames = SubResource("SpriteFrames_5vw27")

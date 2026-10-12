@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://8no2eov3vxc3" path="res://textures/shaders/beam_mask.tres" id="1_yw30f"]
 [ext_resource type="PackedScene" uid="uid://dnkgxeg8w4xiu" path="res://player/character_sprites.tscn" id="2_emfdr"]
 [ext_resource type="PackedScene" uid="uid://cphgt42vxsuwq" path="res://ui/menus/customize_char_menu.tscn" id="3_g1dw6"]
-[ext_resource type="FontFile" uid="uid://bgh32klroc5m1" path="res://ui/fonts/GFS_Didot/GFSDidot-Regular.ttf" id="5_qjkh3"]
+[ext_resource type="LabelSettings" uid="uid://dh8jbyntbm0fp" path="res://ui/label_settings/start2p_labels.tres" id="5_qjkh3"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tory2"]
 properties/0/path = NodePath(".:walk_direction")
@@ -31,8 +31,15 @@ func _physics_process(_delta: float) -> void:
 		return
 	if not get_parent().controllable:
 		return
-	#region fake player movement for demo
-	if get_parent().username.to_lower() in [\"miles\", \"lucilla\", \"duncan\", \"odrade\", \"taraza\", \"burzmali\"]:
+	#region simulation player movement for demo
+	var sim_char_names = []
+	var file = FileAccess.open(\"res://sim_char_names.txt\", FileAccess.READ)
+	var content = file.get_as_text()
+	for char_name in content.split(\"\\n\"):
+		if len(char_name) > 0:
+			sim_char_names.append(char_name)
+	file.close()
+	if get_parent().username.to_lower() in sim_char_names:
 		if get_parent().get_node(\"%DemoWalkTimer\").is_stopped():
 			if walk_direction == Vector2.ZERO:
 				walk_direction = Vector2(float(randi_range(-1,1)), float(randi_range(-1,1)))
@@ -154,12 +161,6 @@ color = Color(0.85430586, 0.9309246, 0.9776916, 1)
 hue_variation_min = -0.030000022
 hue_variation_max = 0.029999977
 
-[sub_resource type="LabelSettings" id="LabelSettings_qjkh3"]
-font = ExtResource("5_qjkh3")
-font_color = Color(1, 0.9882353, 0.91764706, 1)
-shadow_size = 2
-shadow_color = Color(0.41568628, 0.14117648, 0.105882354, 1)
-
 [node name="Player" type="CharacterBody2D" unique_id=685008524 groups=["players"]]
 z_index = 1
 z_as_relative = false
@@ -220,14 +221,15 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_yw30f")
 
 [node name="GlobalChatLabel" type="Label" parent="." unique_id=131135823]
-visible = false
+unique_name_in_owner = true
 z_index = 2
 texture_filter = 1
 offset_left = -100.0
-offset_top = -80.0
+offset_top = -75.0
 offset_right = 100.0
-offset_bottom = -59.0
-label_settings = SubResource("LabelSettings_qjkh3")
+offset_bottom = -63.0
+text = "Hello"
+label_settings = ExtResource("5_qjkh3")
 horizontal_alignment = 1
 vertical_alignment = 1
 clip_text = true

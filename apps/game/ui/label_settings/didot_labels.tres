@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cku5nfh4wqftg"]
+
+[ext_resource type="FontFile" uid="uid://bgh32klroc5m1" path="res://ui/fonts/GFS_Didot/GFSDidot-Regular.ttf" id="1_1csl4"]
+
+[resource]
+font = ExtResource("1_1csl4")
+font_color = Color(1, 0.9882353, 0.91764706, 1)
+shadow_size = 2
+shadow_color = Color(0.41568628, 0.14117648, 0.105882354, 1)
