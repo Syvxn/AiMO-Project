@@ -1,6 +1,3 @@
-TODO: 
-	- Agentin feedback yhdistäminen verkkosivulle -> Aleksi 
-
 # AiMO-Project
 
 Monorepo containing independent applications:
