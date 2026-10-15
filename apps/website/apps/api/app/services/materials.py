@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import re
 from typing import Iterable
 
 import httpx
@@ -11,6 +12,83 @@ from app.models import StudyMaterial
 
 MATERIAL_UPLOAD_DIR = Path("uploaded_materials")
 MAX_MATERIAL_CHARACTERS = 60_000
+CHAPTER_HEADER = re.compile(
+    r"^\s*((?:chapter|unit|lesson)\s+\d+(?:\s*[:.-]\s*.*)?)\s*$",
+    re.IGNORECASE,
+)
+
+
+def extract_material_chapters(materials: Iterable[StudyMaterial]) -> list[dict[str, str]]:
+    """Split uploaded books on visible chapter/unit headings."""
+    chapters: list[dict[str, str]] = []
+
+    for material in materials:
+        path = MATERIAL_UPLOAD_DIR / material.storage_filename
+        if not path.is_file():
+            continue
+
+        if path.suffix.lower() in {".txt", ".md"}:
+            pages = [path.read_text(encoding="utf-8", errors="replace")]
+        elif path.suffix.lower() == ".pdf":
+            from pypdf import PdfReader
+
+            pages = [page.extract_text() or "" for page in PdfReader(path).pages]
+        else:
+            continue
+
+        book_chapters: list[dict[str, str]] = []
+        current: dict[str, str] | None = None
+        for page in pages:
+            lines = page.splitlines()
+            if any(re.match(r"^\s*(table of )?contents\s*$", line, re.IGNORECASE) for line in lines[:12]):
+                continue
+
+            for line in lines:
+                match = CHAPTER_HEADER.match(line)
+                if match:
+                    title = re.sub(r"\s+", " ", match.group(1)).strip()
+                    current = next((item for item in book_chapters if item["title"] == title), None)
+                    if current is None:
+                        current = {"title": title, "content": ""}
+                        book_chapters.append(current)
+                    continue
+                if current is not None and line.strip():
+                    current["content"] += line.strip() + "\n"
+
+        if not book_chapters:
+            content = "\n\n".join(pages).strip()
+            if content:
+                book_chapters.append({"title": "Whole document", "content": content})
+
+        material_id = str(getattr(material, "id", material.storage_filename))
+        for chapter in book_chapters:
+            content = chapter["content"].strip()
+            if not content:
+                continue
+            slug = re.sub(r"[^a-z0-9]+", "-", chapter["title"].lower()).strip("-")
+            chapters.append(
+                {
+                    "chapter_id": f"{material_id}:{slug}",
+                    "title": chapter["title"],
+                    "material_title": material.original_filename,
+                    "content": content,
+                }
+            )
+
+    return chapters
+
+
+def list_teacher_chapters(db: Session, teacher_user_id: int) -> list[dict[str, str]]:
+    materials = (
+        db.query(StudyMaterial)
+        .filter(StudyMaterial.uploaded_by_user_id == teacher_user_id)
+        .order_by(StudyMaterial.created_at.desc())
+        .all()
+    )
+    return [
+        {key: value for key, value in chapter.items() if key != "content"}
+        for chapter in extract_material_chapters(materials)
+    ]
 
 
 def read_uploaded_materials(materials: Iterable[StudyMaterial]) -> str:
@@ -51,6 +129,7 @@ async def generate_teacher_quiz(
     teacher_user_id: int,
     topic: str,
     question_count: int,
+    chapter_id: str | None = None,
 ) -> dict:
     materials = (
         db.query(StudyMaterial)
@@ -58,7 +137,20 @@ async def generate_teacher_quiz(
         .order_by(StudyMaterial.created_at.desc())
         .all()
     )
-    learning_material = read_uploaded_materials(materials)
+    if chapter_id:
+        chapter = next(
+            (item for item in extract_material_chapters(materials) if item["chapter_id"] == chapter_id),
+            None,
+        )
+        if chapter is None:
+            raise HTTPException(status_code=404, detail="Selected chapter was not found")
+        topic = chapter["title"]
+        learning_material = (
+            f"Source: {chapter['material_title']}\n"
+            f"Chapter: {chapter['title']}\n{chapter['content']}"
+        )
+    else:
+        learning_material = read_uploaded_materials(materials)
     if not learning_material:
         raise HTTPException(
             status_code=422,

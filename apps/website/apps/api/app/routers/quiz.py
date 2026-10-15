@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import RoleEnum, User
 from app.routers.auth import get_current_user, user_role_to_str
-from app.services.materials import generate_teacher_quiz
+from app.services.materials import generate_teacher_quiz, list_teacher_chapters
 
 router = APIRouter(prefix="/quiz", tags=["quiz"])
 
@@ -29,6 +29,7 @@ class JoinClassRequest(BaseModel):
 class StudentQuizRequest(BaseModel):
     topic: str = "general"
     question_count: int = 5
+    chapter_id: str | None = None
 
 
 @router.post("/join-class")
@@ -64,6 +65,8 @@ async def generate_student_quiz(
 ) -> dict:
     if user_role_to_str(current_user.role) != "student":
         raise HTTPException(status_code=403, detail="Only student accounts can request class quizzes")
+    if user_role_to_str(current_user.role) != "student":
+        raise HTTPException(status_code=403, detail="Only student accounts can request class quizzes")
     if current_user.teacher_user_id is None:
         raise HTTPException(status_code=409, detail="Join your teacher's class before starting a quiz")
     topic = payload.topic.strip()
@@ -76,7 +79,23 @@ async def generate_student_quiz(
         teacher_user_id=current_user.teacher_user_id,
         topic=topic,
         question_count=payload.question_count,
+        chapter_id=payload.chapter_id,
     )
+
+
+@router.get("/game/chapters")
+def get_student_quiz_chapters(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> dict[str, list[dict[str, str]]]:
+    if user_role_to_str(current_user.role) != "student":
+        raise HTTPException(status_code=403, detail="Only student accounts can request class quizzes")
+    if current_user.teacher_user_id is None:
+        raise HTTPException(status_code=409, detail="Join your teacher's class before starting a quiz")
+    chapters = list_teacher_chapters(db, teacher_user_id=current_user.teacher_user_id)
+    if not chapters:
+        raise HTTPException(status_code=422, detail="No readable chapters found in your teacher's materials")
+    return {"chapters": chapters}
 
 
 @router.post("/chat")
