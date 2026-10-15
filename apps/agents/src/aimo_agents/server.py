@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import threading
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
@@ -26,19 +27,24 @@ app.add_middleware(
 _settings = None
 _conv_tokenizer = None
 _conv_model = None
+_conv_model_lock = threading.Lock()
 
 
 def get_conv_model():
     global _settings, _conv_tokenizer, _conv_model
     if _conv_model is None:
-        _settings = load_settings()
-        print(f"Loading conversational model: {_settings.orchestrator_model_id}")
-        _conv_tokenizer = AutoTokenizer.from_pretrained(_settings.orchestrator_model_id)
-        _conv_model = AutoModelForCausalLM.from_pretrained(
-            _settings.orchestrator_model_id,
-            device_map=_settings.device_map,
-        )
-        print("Conversational model loaded.")
+        with _conv_model_lock:
+            if _conv_model is None:
+                _settings = load_settings()
+                print(f"Loading conversational model: {_settings.orchestrator_model_id}")
+                _conv_tokenizer = AutoTokenizer.from_pretrained(
+                    _settings.orchestrator_model_id
+                )
+                _conv_model = AutoModelForCausalLM.from_pretrained(
+                    _settings.orchestrator_model_id,
+                    device_map=_settings.device_map,
+                )
+                print("Conversational model loaded.")
     return _conv_tokenizer, _conv_model
 
 
@@ -54,6 +60,7 @@ class ConversationRequest(BaseModel):
 class QuizRequest(BaseModel):
     topic: str
     question_count: int = 3
+    learning_material: str = ""
 
 
 @app.on_event("startup")
@@ -142,7 +149,13 @@ async def quiz_generate(req: QuizRequest):
 
     loop = asyncio.get_event_loop()
     result = await loop.run_in_executor(
-        None, lambda: run_once("", topic=req.topic, question_count=req.question_count)
+        None,
+        lambda: run_once(
+            "",
+            learning_material=req.learning_material,
+            topic=req.topic,
+            question_count=req.question_count,
+        ),
     )
 
     if result.get("error"):

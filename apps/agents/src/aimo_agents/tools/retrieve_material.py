@@ -1,6 +1,9 @@
 """Material retrieval tool — backed by the lightweight TXT RAG module."""
 from __future__ import annotations
 
+import os
+from pathlib import Path
+
 from langchain_core.tools import tool
 
 from ..config import Settings, load_settings
@@ -9,10 +12,24 @@ from ..rag import TxtRetriever
 # Module-level singletons — initialised lazily on first tool call.
 _settings: Settings | None = None
 _retriever: TxtRetriever | None = None
+_material_signature: tuple[tuple[str, int, int], ...] | None = None
+
+
+def _get_material_signature(path: str) -> tuple[tuple[str, int, int], ...]:
+    files: list[tuple[str, int, int]] = []
+    if not os.path.isdir(path):
+        return ()
+    for root, _, filenames in os.walk(path):
+        for filename in filenames:
+            if Path(filename).suffix.lower() in {".txt", ".md", ".pdf"}:
+                file_path = os.path.join(root, filename)
+                stat = os.stat(file_path)
+                files.append((file_path, stat.st_mtime_ns, stat.st_size))
+    return tuple(sorted(files))
 
 
 def _get_retriever() -> TxtRetriever:
-    global _settings, _retriever
+    global _settings, _retriever, _material_signature
     if _retriever is None:
         _settings = load_settings()
         _retriever = TxtRetriever(
@@ -20,10 +37,14 @@ def _get_retriever() -> TxtRetriever:
             chunk_size=_settings.rag_chunk_size,
             overlap=_settings.rag_chunk_overlap,
         )
+    assert _settings is not None
+    signature = _get_material_signature(_settings.material_dir)
+    if _material_signature != signature:
         try:
             _retriever.load_dir(_settings.material_dir)
         except FileNotFoundError:
             pass  # No material directory yet; queries will return empty results.
+        _material_signature = signature
     return _retriever
 
 

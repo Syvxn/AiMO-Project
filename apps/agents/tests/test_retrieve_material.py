@@ -8,6 +8,7 @@ import pytest
 
 from aimo_agents.rag import TxtRetriever
 from aimo_agents.rag.chunker import chunk_text
+from aimo_agents.rag.document_loader import load_document
 
 
 # ---------------------------------------------------------------------------
@@ -32,6 +33,23 @@ def test_chunk_text_smaller_than_chunk_size():
     text = "short text here"
     chunks = chunk_text(text, chunk_size=100, overlap=20)
     assert chunks == ["short text here"]
+
+
+def test_load_document_supports_text_and_markdown():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        txt_path = _write_txt(tmpdir, "lesson.txt", "Plain text lesson")
+        md_path = _write_txt(tmpdir, "lesson.md", "# Markdown lesson")
+
+        assert load_document(txt_path) == "Plain text lesson"
+        assert load_document(md_path) == "# Markdown lesson"
+
+
+def test_load_document_rejects_unsupported_extensions():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        path = _write_txt(tmpdir, "lesson.docx", "unsupported")
+
+        with pytest.raises(ValueError, match="Unsupported material type"):
+            load_document(path)
 
 
 def test_chunk_overlap():

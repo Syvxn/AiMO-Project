@@ -36,7 +36,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x82gf")
 }],
-"loop": 1,
+"loop": true,
 "name": &"halt",
 "speed": 5.0
 }, {
@@ -50,7 +50,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1wh18")
 }],
-"loop": 1,
+"loop": true,
 "name": &"spin_clockwise",
 "speed": 5.0
 }, {
@@ -64,7 +64,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o4rco")
 }],
-"loop": 1,
+"loop": true,
 "name": &"spin_counter",
 "speed": 5.0
 }]

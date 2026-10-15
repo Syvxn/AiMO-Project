@@ -2,9 +2,28 @@
 from __future__ import annotations
 
 import argparse
+import threading
 
 from .agents import build_graph
 from .config import load_settings
+
+
+_graph = None
+_graph_settings = None
+_graph_lock = threading.Lock()
+
+
+def _get_graph(settings):
+    """Build the graph once per process and reuse its loaded models."""
+    global _graph, _graph_settings
+    if _graph is not None and _graph_settings == settings:
+        return _graph
+
+    with _graph_lock:
+        if _graph is None or _graph_settings != settings:
+            _graph = build_graph(settings)
+            _graph_settings = settings
+    return _graph
 
 
 def run_once(
@@ -15,7 +34,7 @@ def run_once(
 ) -> dict:
     """Run the teacher graph once and return the final state."""
     settings = load_settings()
-    graph = build_graph(settings)
+    graph = _get_graph(settings)
     initial_state: dict = {
         "topic": topic,
         "question_count": question_count or settings.default_question_count,

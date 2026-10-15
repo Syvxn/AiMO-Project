@@ -2,8 +2,6 @@ extends Node
 
 var players_joined := 0
 
-
-
 func _ready() -> void:
 	multiplayer.connected_to_server.connect(print.bind("Connected to server as client"))
 	multiplayer.peer_disconnected.connect(remove_personal_room)
@@ -18,11 +16,11 @@ func _ready() -> void:
 	elif OS.has_feature("web"):
 		$LoadingScreen.show()
 		var configured_url = Env.GAME_SERVER_URL.strip_edges()
-		if not "://localhost:" in configured_url:
-			var host = str(JavaScriptBridge.eval("window.location.hostname"))
+		if "://localhost" in configured_url or "://127.0.0.1" in configured_url:
+			var host = str(JavaScriptBridge.eval("window.location.host"))
 			var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
 			var ws_scheme = "wss" if protocol == "https:" else "ws"
-			Env.GAME_SERVER_URL = "%s://%s:%d" % [ws_scheme, host, Env.GAME_SERVER_PORT]
+			Env.GAME_SERVER_URL = "%s://%s/game-ws" % [ws_scheme, host]
 		print("Web client target:", Env.GAME_SERVER_URL)
 		NetworkHandler.start_client()
 		# put some screen here to show "Connecting..." or smth

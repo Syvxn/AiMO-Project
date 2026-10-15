@@ -15,7 +15,7 @@ A multi-agent system that generates multiple-choice quizzes from plain-text stud
 User query (topic)
       │
       ▼
- TxtRetriever          ← indexes .txt files in data/materials/chapters/
+ TxtRetriever          ← indexes .txt, .md, and .pdf files recursively
  (sentence-transformers/all-MiniLM-L6-v2)
       │  top-k chunks filtered by cosine score threshold
       ▼
@@ -159,9 +159,9 @@ The quiz is saved to `study_quiz.json` in the project root.
 
 ### Adding your own study material
 
-1. Place `.txt` files in `data/materials/chapters/`.
+1. Place `.txt`, `.md`, or text-based `.pdf` files in `data/materials/` (or a subdirectory).
 2. Each file should cover a single topic — the RAG score threshold filter works best when files are focused.
-3. No indexing step needed; the retriever builds the index in memory on first call.
+3. No indexing step needed; the retriever builds or refreshes the in-memory index when files change.
 
 ---
 

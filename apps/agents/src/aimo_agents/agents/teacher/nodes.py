@@ -24,12 +24,13 @@ _LOW_QUALITY_PATTERNS = [
     "what is the name of the person",
     "what is the name of the",
     "what is the name of",
+    "what was the name of",
     "what is the person",
 ]
 _FALLBACK_QUESTION_STEMS = [
-    "Complete the sentence from the {topic} material: {cloze}",
-    "Choose the best word to fill the blank: {cloze}",
-    "From the {topic} lesson text, which word fits the blank: {cloze}",
+    "Which word completes this statement: {cloze}",
+    "Choose the word that completes this fact: {cloze}",
+    "Which word belongs in the blank: {cloze}",
 ]
 _FALLBACK_EXCLUDED_TERMS = {
     "question",
@@ -49,9 +50,23 @@ _FALLBACK_EXCLUDED_TERMS = {
     "why",
     "how",
 }
+_FALLBACK_NOISE_LINE = re.compile(
+    r"^(?:source:|chapter:|grade\s+\d+\b|page\s+\d+\b|focus:|"
+    r"reading passage\b|vocabulary\b|language study\b|check your understanding\b|"
+    r"writing workshop\b|unit\s+\d+\s*(?::|review:))",
+    re.IGNORECASE,
+)
+_FALLBACK_INSTRUCTION_LINE = re.compile(
+    r"^(?:write|explain|name|list|describe|choose|complete|answer|discuss|include)\b",
+    re.IGNORECASE,
+)
 
 def teacher_tool_node(state: TeacherState) -> dict:
     """Retrieve learning material via RAG for the requested topic."""
+    supplied_material = state.get("learning_material", "").strip()
+    if supplied_material:
+        return {"learning_material": supplied_material}
+
     topic = state.get("topic", "general")
     # Use "chapter <topic>" as the chapter arg so the query is more specific
     # and avoids drifting into unrelated chapters that mention the word incidentally.
@@ -81,15 +96,18 @@ def teacher_llm_call(
         }
 
     # Limit to ~1 200 words for model context constraints.
-    excerpt = " ".join(material.split()[:1200])
+    excerpt = _limit_material_words(material, 1200)
 
     passages = _split_passages(excerpt)
     if not passages:
-        passages = [excerpt]
+        return {
+            "llm_calls": llm_calls,
+            "error": "No study passages could be extracted from the selected material.",
+        }
 
     drafted_questions: list[dict] = []
     attempts = 0
-    max_attempts = max(n * 8, 40)
+    max_attempts = max(n, 1)
     while len(drafted_questions) < n and attempts < max_attempts:
         context = passages[attempts % len(passages)]
         qa_text = _generate_qa(
@@ -167,12 +185,13 @@ def teacher_llm_call(
 
     quiz_title = f"English Quiz: {topic}"
 
-    save_result = create_quiz_tool.invoke(
-        {"quiz_title": quiz_title, "questions": questions}
-    )
+    quiz_data = {"quiz_title": quiz_title, "questions": questions}
+    save_result = create_quiz_tool.invoke(quiz_data)
+    if isinstance(save_result, str) and save_result.startswith("ERROR:"):
+        return {"llm_calls": llm_calls, "error": save_result}
 
     return {
-        "quiz": save_result,
+        "quiz": quiz_data,
         "llm_calls": llm_calls,
     }
 
@@ -292,12 +311,12 @@ def _shuffle_answer(q: dict) -> dict:
 
 def _split_passages(text: str) -> list[str]:
     """Split retrieved material into passage candidates for QA generation."""
-    parts = [p.strip() for p in text.split("\n\n---\n\n") if p.strip()]
-    if parts:
-        return parts
+    separator = "\n\n---\n\n"
+    if separator in text:
+        return [p.strip() for p in text.split(separator) if p.strip()]
     sentences = _extract_sentences(text)
     if not sentences:
-        return [text] if text.strip() else []
+        return []
 
     chunks: list[str] = []
     step = 3
@@ -307,6 +326,22 @@ def _split_passages(text: str) -> list[str]:
         if chunk:
             chunks.append(chunk)
     return chunks or ([text] if text.strip() else [])
+
+
+def _limit_material_words(material: str, word_limit: int) -> str:
+    """Bound model context while retaining line boundaries for cleanup."""
+    lines: list[str] = []
+    remaining = word_limit
+    for line in material.splitlines():
+        words = line.split()
+        if not words:
+            lines.append("")
+            continue
+        lines.append(" ".join(words[:remaining]))
+        remaining -= min(len(words), remaining)
+        if remaining <= 0:
+            break
+    return "\n".join(lines).strip()
 
 
 def _generate_qa(
@@ -477,6 +512,8 @@ def _extract_sentences(material: str) -> list[str]:
             continue
         if stripped.upper().startswith("CHAPTER "):
             continue
+        if _FALLBACK_NOISE_LINE.match(stripped) or _FALLBACK_INSTRUCTION_LINE.match(stripped):
+            continue
         clean_lines.append(stripped)
 
     normalized = re.sub(r"\s+", " ", " ".join(clean_lines))
@@ -489,7 +526,7 @@ def _extract_sentences(material: str) -> list[str]:
         sentence = re.sub(r"[^A-Za-z0-9,;:'()/\-\s.?]", "", sentence)
         sentence = re.sub(r"\s+", " ", sentence).strip()
         words = sentence.split()
-        if len(words) < 5 or len(words) > 22:
+        if len(words) < 5 or len(words) > 22 or sentence.endswith("?"):
             continue
         if sentence.count(":") > 1:
             continue
@@ -547,9 +584,9 @@ def _build_material_based_questions(
         if token is None:
             continue
         answer = token
-        cloze = re.sub(rf"\b{re.escape(token)}\b", "____", sentence, count=1)
+        cloze = re.sub(rf"\b{re.escape(token)}\b", "____", sentence.rstrip(".!?"), count=1)
         stem = _FALLBACK_QUESTION_STEMS[idx % len(_FALLBACK_QUESTION_STEMS)]
-        question_text = stem.format(topic=topic, cloze=cloze).strip()
+        question_text = stem.format(cloze=cloze).strip()
         if not question_text.endswith("?"):
             question_text = f"{question_text}?"
         variant_key = question_text.lower()
@@ -595,19 +632,17 @@ def _pick_cloze_token(sentence: str) -> str | None:
 def _pick_distractors(answer: str, pool: list[str], sentence: str) -> list[str]:
     """Pick plausible distractors with similar shape and topical vocabulary."""
     answer_lower = answer.lower()
-    sentence_tokens = {
-        t.lower()
-        for t in re.findall(r"[A-Za-z][A-Za-z\-']+", sentence)
-    }
+    sentence_words = [t.lower() for t in re.findall(r"[A-Za-z][A-Za-z\-']+", sentence)]
+    sentence_tokens = set(sentence_words)
 
-    def _collect(max_len_delta: int, exclude_sentence_words: bool) -> list[str]:
+    def _collect(tokens: list[str], max_len_delta: int, exclude_sentence_words: bool) -> list[str]:
         out: list[str] = []
         seen: set[str] = {answer_lower}
-        for token in pool:
+        for token in tokens:
             low = token.lower()
             if low in seen:
                 continue
-            if low in _FALLBACK_EXCLUDED_TERMS:
+            if low in _FALLBACK_EXCLUDED_TERMS or low in _STOP_WORDS or low.endswith("ly"):
                 continue
             if exclude_sentence_words and low in sentence_tokens:
                 continue
@@ -617,9 +652,31 @@ def _pick_distractors(answer: str, pool: list[str], sentence: str) -> list[str]:
             out.append(token)
         return out
 
-    candidates = _collect(max_len_delta=4, exclude_sentence_words=True)
+    enumeration = re.search(
+        r"\b((?:[A-Za-z][A-Za-z'-]*,\s*){2,}(?:or|and)\s+[A-Za-z][A-Za-z'-]*)\b",
+        sentence,
+        re.IGNORECASE,
+    )
+    if enumeration:
+        options = re.findall(r"[A-Za-z][A-Za-z'-]*", enumeration.group(1))
+        candidates = _collect(options, max_len_delta=5, exclude_sentence_words=False)
+        if len(candidates) >= 3:
+            return candidates[:3]
+
+    answer_index = next((i for i, word in enumerate(sentence_words) if word == answer_lower), -1)
+    nearby_words: list[str] = []
+    for distance in range(1, len(sentence_words)):
+        for index in (answer_index + distance, answer_index - distance):
+            if 0 <= index < len(sentence_words):
+                nearby_words.append(sentence_words[index])
+
+    candidates = _collect(nearby_words, max_len_delta=5, exclude_sentence_words=False)
+    if len(candidates) >= 3:
+        return candidates[:3]
+
+    candidates = _collect(pool, max_len_delta=4, exclude_sentence_words=True)
     if len(candidates) < 3:
-        candidates = _collect(max_len_delta=6, exclude_sentence_words=False)
+        candidates = _collect(pool, max_len_delta=6, exclude_sentence_words=False)
     if len(candidates) < 3:
         return []
 

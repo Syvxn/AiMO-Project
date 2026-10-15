@@ -14,6 +14,11 @@ var current_question_points = {"team_a" : 0, "team_b" : 0}
 var current_question_players_answered_count = 0
 var quiz : Dictionary
 var current_question_index := 0
+var quiz_request: HTTPRequest
+var quiz_request_pending := false
+var quiz_request_kind := ""
+var chapter_picker: PanelContainer
+var chapter_option_button: OptionButton
 
 @export var conveyor_base_speed := 40.0
 @export var conveyor_speed_increment := 10.0
@@ -25,6 +30,12 @@ func _ready() -> void:
 	%QuizMenu.hide()
 	%GameHUD.hide()
 	SignalBus.item_autolooted.connect(_on_item_autlooted)
+	quiz_request = HTTPRequest.new()
+	quiz_request.timeout = 240.0
+	quiz_request.request_completed.connect(_on_quiz_request_completed)
+	add_child(quiz_request)
+	_create_chapter_picker()
+	%QuizStatusLabel.hide()
 	set_conveyor_speeds(0.0)
 
 
@@ -36,12 +47,213 @@ func _physics_process(_delta: float) -> void:
 #region client functionality
 # implicitly client-side since no-one to push button on server
 func _on_activate_button_pushed(_id: String) -> void:
-	if game_state == "inactive":
+	if game_state == "inactive" and not quiz_request_pending:
 		request_start_game_from_server()
 
 # rpc_id(1) means we're calling that function on the server
 func request_start_game_from_server():
-	start_game.rpc_id(1)
+	if OS.has_feature("web"):
+		request_class_quiz()
+		return
+	var file = FileAccess.open("res://misc/musketeers_quiz.json", FileAccess.READ)
+	if file == null:
+		_show_quiz_status("Could not load the test quiz.")
+		return
+	var json = JSON.new()
+	if json.parse(file.get_as_text()) != OK or not _is_valid_quiz(json.data):
+		_show_quiz_status("The test quiz is invalid.")
+		return
+	start_game.rpc_id(1, [json.data])
+
+
+func _show_quiz_status(message: String) -> void:
+	%GameHUD.show()
+	%CenterLabel.hide()
+	%QuizStatusLabel.text = message
+	%QuizStatusLabel.show()
+
+
+func request_class_quiz() -> void:
+	quiz_request_pending = true
+	var token := _get_game_access_token()
+	if token.is_empty():
+		quiz_request_pending = false
+		_show_quiz_status("Sign in on the website and reopen the game to start a class quiz.")
+		return
+	var host = str(JavaScriptBridge.eval("window.location.host"))
+	var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
+	var http_scheme = "https" if protocol == "https:" else "http"
+	var url = "%s://%s/api/quiz/game/chapters" % [http_scheme, host]
+	var headers = PackedStringArray([
+		"Content-Type: application/json",
+		"Authorization: Bearer %s" % token,
+	])
+	quiz_request_kind = "chapters"
+	_show_quiz_status("Loading chapters...")
+	var error = quiz_request.request(url, headers, HTTPClient.METHOD_GET)
+	if error != OK:
+		quiz_request_pending = false
+		quiz_request_kind = ""
+		_show_quiz_status("Could not contact the quiz service. Please try again.")
+
+
+func _get_game_access_token() -> String:
+	for cookie_string in JavaScriptBridge.eval("document.cookie").split("; "):
+		var cookie_parts = cookie_string.split("=", true, 1)
+		if cookie_parts.size() == 2 and cookie_parts[0] == "aimo_token":
+			return cookie_parts[1]
+	return ""
+
+
+func _on_quiz_request_completed(
+	_result: int,
+	response_code: int,
+	_headers: PackedStringArray,
+	body: PackedByteArray,
+) -> void:
+	if quiz_request_kind == "chapters":
+		if response_code < 200 or response_code >= 300:
+			quiz_request_pending = false
+			quiz_request_kind = ""
+			_show_quiz_error(body, "Could not load chapters from your teacher's materials.")
+			return
+		var chapters_response = JSON.parse_string(body.get_string_from_utf8())
+		if typeof(chapters_response) != TYPE_DICTIONARY or typeof(chapters_response.get("chapters", [])) != TYPE_ARRAY:
+			quiz_request_pending = false
+			quiz_request_kind = ""
+			_show_quiz_status("The chapter service returned invalid data.")
+			return
+		chapter_option_button.clear()
+		for chapter in chapters_response["chapters"]:
+			if typeof(chapter) != TYPE_DICTIONARY or not chapter.has("chapter_id") or not chapter.has("title"):
+				continue
+			var label = "%s — %s" % [chapter.get("material_title", "Textbook"), chapter["title"]]
+			chapter_option_button.add_item(label)
+			chapter_option_button.set_item_metadata(chapter_option_button.item_count - 1, chapter["chapter_id"])
+		if chapter_option_button.item_count == 0:
+			quiz_request_pending = false
+			quiz_request_kind = ""
+			_show_quiz_status("No readable chapters were found in your teacher's materials.")
+			return
+		%QuizStatusLabel.hide()
+		chapter_picker.show()
+		return
+
+	quiz_request_pending = false
+	quiz_request_kind = ""
+	if response_code < 200 or response_code >= 300:
+		_show_quiz_error(body, "Could not prepare a class quiz. Check your class and teacher materials.")
+		return
+	var response_data = JSON.parse_string(body.get_string_from_utf8())
+	if typeof(response_data) != TYPE_DICTIONARY or not _is_valid_quiz(response_data.get("quiz", {})):
+		_show_quiz_status("The quiz service returned an invalid quiz.")
+		return
+	%QuizStatusLabel.hide()
+	%CenterLabel.show()
+	%CenterLabel.text = ""
+	start_game.rpc_id(1, [response_data["quiz"]])
+
+
+func _show_quiz_error(body: PackedByteArray, fallback: String) -> void:
+	var error_data = JSON.parse_string(body.get_string_from_utf8())
+	var message = fallback
+	if typeof(error_data) == TYPE_DICTIONARY:
+		message = str(error_data.get("detail", message))
+	_show_quiz_status(message)
+
+
+func _create_chapter_picker() -> void:
+	chapter_picker = PanelContainer.new()
+	chapter_picker.name = "ChapterPicker"
+	chapter_picker.visible = false
+	chapter_picker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	chapter_picker.offset_left = -280
+	chapter_picker.offset_top = -110
+	chapter_picker.offset_right = 280
+	chapter_picker.offset_bottom = 110
+	chapter_picker.mouse_filter = Control.MOUSE_FILTER_STOP
+	var layout = VBoxContainer.new()
+	chapter_picker.add_child(layout)
+	var title = Label.new()
+	title.text = "Choose a chapter"
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_font_size_override("font_size", 24)
+	layout.add_child(title)
+	chapter_option_button = OptionButton.new()
+	chapter_option_button.custom_minimum_size.y = 40
+	layout.add_child(chapter_option_button)
+	var buttons = HBoxContainer.new()
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	layout.add_child(buttons)
+	var start_button = Button.new()
+	start_button.text = "Start Quiz"
+	start_button.pressed.connect(_on_chapter_quiz_pressed)
+	buttons.add_child(start_button)
+	var cancel_button = Button.new()
+	cancel_button.text = "Cancel"
+	cancel_button.pressed.connect(_on_chapter_picker_cancelled)
+	buttons.add_child(cancel_button)
+	%GameHUD/Control.add_child(chapter_picker)
+
+
+func _on_chapter_quiz_pressed() -> void:
+	if chapter_option_button.item_count == 0:
+		return
+	var chapter_index = chapter_option_button.selected
+	var chapter_id = str(chapter_option_button.get_item_metadata(chapter_index))
+	if chapter_id.is_empty():
+		_show_quiz_status("Select a chapter to continue.")
+		return
+	var chapter_label = chapter_option_button.get_item_text(chapter_index)
+	chapter_picker.hide()
+	var host = str(JavaScriptBridge.eval("window.location.host"))
+	var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
+	var http_scheme = "https" if protocol == "https:" else "http"
+	var url = "%s://%s/api/quiz/game/generate" % [http_scheme, host]
+	var headers = PackedStringArray([
+		"Content-Type: application/json",
+		"Authorization: Bearer %s" % _get_game_access_token(),
+	])
+	var body = JSON.stringify({
+		"topic": chapter_label,
+		"chapter_id": chapter_id,
+		"question_count": 3,
+	})
+	quiz_request_kind = "quiz"
+	_show_quiz_status("Preparing your quiz from %s..." % chapter_label)
+	var error = quiz_request.request(url, headers, HTTPClient.METHOD_POST, body)
+	if error != OK:
+		quiz_request_pending = false
+		quiz_request_kind = ""
+		_show_quiz_status("Could not contact the quiz service. Please try again.")
+
+
+func _on_chapter_picker_cancelled() -> void:
+	chapter_picker.hide()
+	quiz_request_pending = false
+	quiz_request_kind = ""
+	%GameHUD.hide()
+
+
+func _is_valid_quiz(quiz_data: Variant) -> bool:
+	if typeof(quiz_data) != TYPE_DICTIONARY:
+		return false
+	if not quiz_data.get("quiz_title", "") is String:
+		return false
+	var questions = quiz_data.get("questions", [])
+	if typeof(questions) != TYPE_ARRAY or questions.is_empty():
+		return false
+	for question in questions:
+		if typeof(question) != TYPE_DICTIONARY:
+			return false
+		if not question.get("question", "") is String:
+			return false
+		var options = question.get("options", [])
+		if typeof(options) != TYPE_ARRAY or options.size() < 2 or options.size() > 4:
+			return false
+		if question.get("answer", "") not in ["A", "B", "C", "D"]:
+			return false
+	return true
 
 # also called on server for debugging purposes
 @rpc("authority","call_local")
@@ -74,8 +286,13 @@ func clear_rewards():
 
 #region server functionality
 @rpc("any_peer", "call_remote")
-func start_game():
+func start_game(args: Array):
 	assert(multiplayer.is_server())
+	if game_state != "inactive" or args.is_empty() or not _is_valid_quiz(args[0]):
+		return
+	var sender_id = multiplayer.get_remote_sender_id()
+	if not get_players_present().any(func(player): return int(player.name) == sender_id):
+		return
 	game_state = "preparing"
 	%CenterLabel.text = ""
 	# do this kind of stuff with signals?
@@ -83,13 +300,7 @@ func start_game():
 		cannon.get_node("SyncLight").show()
 	for cannon in %CannonsB.get_children():
 		cannon.get_node("SyncLight").show()
-	#region quiz generation
-	# cheating with JSON file for testing
-	var file = FileAccess.open("res://misc/musketeers_quiz.json", FileAccess.READ)
-	var json = JSON.new()
-	json.parse(file.get_as_text())
-	quiz = json.data
-	#endregion
+	quiz = args[0]
 	clear_rewards.rpc()
 	players = get_players_present() # no state like real estate
 	for player in players:

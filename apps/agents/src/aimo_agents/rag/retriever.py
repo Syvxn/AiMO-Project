@@ -1,23 +1,18 @@
-"""In-memory TXT retriever — the core of the lightweight RAG system."""
+"""In-memory study-material retriever."""
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import numpy as np
 
 from .chunker import chunk_text
+from .document_loader import SUPPORTED_SUFFIXES, load_document
 from .embedder import Embedder
 
 
 class TxtRetriever:
-    """Index .txt files and retrieve the most relevant chunks for a query.
-
-    Usage::
-
-        retriever = TxtRetriever()
-        retriever.load_dir("/path/to/materials")
-        chunks = retriever.query("explain photosynthesis", top_k=3)
-    """
+    """Index supported study documents and retrieve relevant chunks."""
 
     def __init__(
         self,
@@ -31,52 +26,30 @@ class TxtRetriever:
         self._chunks: list[str] = []
         self._embeddings: np.ndarray | None = None
 
-    # ------------------------------------------------------------------
-    # Indexing
-    # ------------------------------------------------------------------
-
     def load_dir(self, path: str) -> int:
-        """Load every ``*.txt`` file found directly inside *path*.
-
-        Returns:
-            Number of chunks indexed.
-
-        Raises:
-            FileNotFoundError: If *path* does not exist.
-        """
+        """Load supported files found recursively inside *path*."""
         if not os.path.isdir(path):
             raise FileNotFoundError(f"Material directory not found: {path}")
 
         texts: list[str] = []
-        for fname in sorted(os.listdir(path)):
-            if fname.lower().endswith(".txt"):
-                fpath = os.path.join(path, fname)
-                with open(fpath, "r", encoding="utf-8") as fh:
-                    texts.append(fh.read())
+        for root, _, filenames in os.walk(path):
+            for filename in sorted(filenames):
+                if Path(filename).suffix.lower() in SUPPORTED_SUFFIXES:
+                    texts.append(load_document(os.path.join(root, filename)))
 
         return self._index(texts)
 
     def load_file(self, path: str) -> int:
-        """Load a single ``*.txt`` file.
-
-        Returns:
-            Number of chunks indexed.
-        """
-        with open(path, "r", encoding="utf-8") as fh:
-            return self._index([fh.read()])
+        """Load a single supported study-material file."""
+        return self._index([load_document(path)])
 
     def _index(self, texts: list[str]) -> int:
         chunks: list[str] = []
         for text in texts:
             chunks.extend(chunk_text(text, self._chunk_size, self._overlap))
         self._chunks = chunks
-        if chunks:
-            self._embeddings = self._embedder.embed(chunks)
+        self._embeddings = self._embedder.embed(chunks) if chunks else None
         return len(chunks)
-
-    # ------------------------------------------------------------------
-    # Retrieval
-    # ------------------------------------------------------------------
 
     def query(
         self,
@@ -84,24 +57,12 @@ class TxtRetriever:
         top_k: int = 3,
         score_threshold: float = 0.0,
     ) -> list[str]:
-        """Return the *top_k* most relevant text chunks for *query*.
-
-        Args:
-            query: Search query string.
-            top_k: Maximum number of chunks to return.
-            score_threshold: Minimum cosine similarity (0–1) a chunk must reach
-                to be included. Chunks below this value are discarded even if
-                they rank in the top-k. Set to 0.0 to disable filtering.
-
-        Returns:
-            List of matching chunks ordered by descending similarity.
-            Empty when the index is empty or no chunk clears the threshold.
-        """
+        """Return the top relevant chunks for *query*."""
         if not self._chunks or self._embeddings is None:
             return []
 
-        q_emb = self._embedder.embed([query])           # (1, D)
-        scores = (self._embeddings @ q_emb.T).squeeze() # (N,) cosine similarities
+        q_emb = self._embedder.embed([query])
+        scores = (self._embeddings @ q_emb.T).squeeze()
 
         k = min(top_k, len(self._chunks))
         if scores.ndim == 0:

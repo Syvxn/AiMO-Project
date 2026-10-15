@@ -4,6 +4,7 @@ from __future__ import annotations
 from functools import partial
 
 from langgraph.graph import END, StateGraph
+import torch
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 from ...config import Settings
@@ -13,11 +14,15 @@ from .state import TeacherState
 
 def build_teacher_graph(settings: Settings):
     """Build and return the compiled teacher subgraph."""
+    model_options = {"device_map": settings.device_map}
+    if settings.device_map != "cpu" and torch.cuda.is_available():
+        model_options["torch_dtype"] = torch.float16
+
     try:
         qa_tokenizer = AutoTokenizer.from_pretrained(settings.teacher_model_id)
         qa_model = AutoModelForSeq2SeqLM.from_pretrained(
             settings.teacher_model_id,
-            device_map=settings.device_map,
+            **model_options,
         )
 
         distractor_tokenizer = AutoTokenizer.from_pretrained(
@@ -25,7 +30,7 @@ def build_teacher_graph(settings: Settings):
         )
         distractor_model = AutoModelForSeq2SeqLM.from_pretrained(
             settings.teacher_distractor_model_id,
-            device_map=settings.device_map,
+            **model_options,
         )
     except ValueError as exc:
         if "upgrade torch to at least v2.6" in str(exc):

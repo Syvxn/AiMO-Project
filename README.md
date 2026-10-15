@@ -180,10 +180,10 @@ In Godot 4.6:
 ### 3. Export web client build
 
 1. Select the `Web` preset.
-2. Choose an export path (default currently points to `apps/game/exports/web_client/index.html`).
-3. Export and verify files include `index.html` plus associated `.js`, `.wasm`, and `.pck` files.
+2. The current preset exports to `apps/website/apps/web/public/game/index.html`, which is the asset path used by `/play`.
+3. Re-export after game source changes, then verify the folder contains `index.html` plus associated `.js`, `.wasm`, and `.pck` files.
 
-If you want the website app to launch the build from `/play`, copy the exported web files to:
+If you change the export path, copy all exported files to:
 
 - `apps/website/apps/web/public/game/`
 

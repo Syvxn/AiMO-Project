@@ -84,8 +84,14 @@ func _connect_chat_socket() -> void:
 		return
 
 	chat_socket = WebSocketPeer.new()
-	print("Attempting WebSocket connection to: ", Env.CHAT_STREAM_URL)
-	var connection_error := chat_socket.connect_to_url(Env.CHAT_STREAM_URL)
+	var chat_url := Env.CHAT_STREAM_URL.strip_edges()
+	if OS.has_feature("web") and ("://127.0.0.1:" in chat_url or "://localhost:" in chat_url):
+		var host = str(JavaScriptBridge.eval("window.location.host"))
+		var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
+		var ws_scheme = "wss" if protocol == "https:" else "ws"
+		chat_url = "%s://%s/api/ws/npc-chat" % [ws_scheme, host]
+	print("Attempting WebSocket connection to: ", chat_url)
+	var connection_error := chat_socket.connect_to_url(chat_url)
 	if connection_error != OK:
 		socket_started = false
 		print("WebSocket connection error: ", connection_error)
@@ -290,7 +296,12 @@ func _on_quiz_submit_button_pressed() -> void:
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(self._quiz_submit_request_completed)
-	var url = Env.SCORE_SERVER_URL
+	var url := Env.SCORE_SERVER_URL.strip_edges()
+	if OS.has_feature("web") and ("://127.0.0.1:" in url or "://localhost:" in url):
+		var host = str(JavaScriptBridge.eval("window.location.host"))
+		var protocol = str(JavaScriptBridge.eval("window.location.protocol"))
+		var http_scheme = "https" if protocol == "https:" else "http"
+		url = "%s://%s/api/quiz/score" % [http_scheme, host]
 	var custom_headers = PackedStringArray(["Content-Type: application/json"])
 	var method = HTTPClient.Method.METHOD_POST
 	# sanitizer? i hardly know 'er
