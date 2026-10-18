@@ -22,6 +22,17 @@ Build the project and start services with docker compose:
 ```bash
 cd apps/website
 cp .env.example .env
+```
+
+On a host with NVIDIA GPU support in Docker Desktop, start the stack with the GPU override:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
+```
+
+On a CPU only machine, start the stack with the following command:
+
+```bash
 docker compose up --build
 ```
 
