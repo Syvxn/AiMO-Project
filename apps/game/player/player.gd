@@ -15,10 +15,14 @@ var controllable := true
 
 
 func _ready() -> void:
+	# technically these apply to every player character at once,
+	# but only your character's InputHandler works it doesn't matter.
 	SignalBus.chat_opened.connect(lock_controls)
 	SignalBus.chat_closed.connect(release_controls)
 	SignalBus.global_chat_input_focused.connect(lock_controls)
 	SignalBus.global_chat_input_unfocused.connect(release_controls)
+	SignalBus.arcade_game_launched.connect(lock_controls)
+	SignalBus.arcade_game_closed.connect(release_controls)
 	# necessary when adjusting shader variable values for each player
 	material = load("res://textures/shaders/beam_mask.tres").duplicate()
 	apply_visuals(fetch_visuals())

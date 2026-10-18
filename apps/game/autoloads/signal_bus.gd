@@ -3,29 +3,19 @@ extends Node
 # these signals can be emitted from anywhere and connected to from anywhere.
 # they're not used in this script tho, so we surpress the warning
 # because i don't wanna hear that shit.
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal started_loading
-@warning_ignore("unused_signal")
 signal finished_loading()
-@warning_ignore("unused_signal")
 signal new_player_info_received(username: String, role: String)
-@warning_ignore("unused_signal")
-signal activity_launched
-@warning_ignore("unused_signal")
-signal activity_ended
-@warning_ignore("unused_signal")
 signal player_clicked_join_room(room_name: String)
-@warning_ignore("unused_signal")
-signal chat_opened
-@warning_ignore("unused_signal")
-signal chat_closed
-@warning_ignore("unused_signal")
-signal global_chat_toggled
-@warning_ignore("unused_signal")
-signal global_chat_input_focused
-@warning_ignore("unused_signal")
-signal global_chat_input_unfocused
-@warning_ignore("unused_signal")
-signal oops_pressed
-@warning_ignore("unused_signal")
+signal activity_launched
+signal activity_ended
 signal item_autolooted(id: String, type: String, looter: Node)
+signal chat_opened
+signal chat_closed
+signal global_chat_toggled
+signal global_chat_input_focused
+signal global_chat_input_unfocused
+signal arcade_game_launched
+signal arcade_game_closed
+signal oops_pressed

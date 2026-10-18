@@ -44,7 +44,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pan67")
 }],
-"loop": false,
+"loop": 0,
 "name": &"dark",
 "speed": 5.0
 }, {
@@ -52,7 +52,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tinh1")
 }],
-"loop": false,
+"loop": 0,
 "name": &"light",
 "speed": 5.0
 }, {
@@ -69,7 +69,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_115ha")
 }],
-"loop": false,
+"loop": 0,
 "name": &"light_up",
 "speed": 5.0
 }, {
@@ -83,7 +83,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6oofh")
 }],
-"loop": false,
+"loop": 0,
 "name": &"no",
 "speed": 5.0
 }, {
@@ -103,7 +103,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6oofh")
 }],
-"loop": false,
+"loop": 0,
 "name": &"yes",
 "speed": 5.0
 }]

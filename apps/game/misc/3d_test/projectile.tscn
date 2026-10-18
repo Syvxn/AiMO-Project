@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://connlfoax6em6"]
+
+[ext_resource type="Script" uid="uid://b5bjy8g64wcjl" path="res://misc/3d_test/projectile.gd" id="1_todfa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ut5ke"]
+radius = 0.3
+height = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_428yf"]
+emission_enabled = true
+emission = Color(0.25490198, 0.46666667, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ut5ke"]
+material = SubResource("StandardMaterial3D_428yf")
+radius = 0.3
+height = 4.0
+
+[node name="Projectile" type="RigidBody3D" unique_id=578679491]
+collision_layer = 8
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_todfa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1065125456]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ut5ke")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1312513620]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_ut5ke")
+
+[node name="DespawnTimer" type="Timer" parent="." unique_id=1831951053]
+wait_time = 4.0
+one_shot = true
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://chqmnmq83eo6v"]
+
+[ext_resource type="Script" uid="uid://bthpgyj5k7as0" path="res://items/collision_props/arcade_cabinet.gd" id="1_46hl8"]
+[ext_resource type="Texture2D" uid="uid://rh2onhwft1rg" path="res://textures/spritesheets/props/arcade_cabinet_greenblack.png" id="1_ku6g6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ku6g6"]
+radius = 12.0
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_ut5ke"]
+points = PackedVector2Array(-23, 30, 0, 40, 20, 30, -3, 20)
+
+[sub_resource type="GDScript" id="GDScript_gtmdk"]
+script/source = "extends CanvasLayer
+
+
+@onready var tunnel_escape = preload(\"res://misc/3d_test/tunnel_escape.tscn\")
+
+
+func launch_arcade_game():
+	SignalBus.arcade_game_launched.emit()
+	%ArcadeViewport.add_child(tunnel_escape.instantiate())
+	show()
+
+
+func close_menu():
+	hide()
+	for child in %ArcadeViewport.get_children():
+		child.queue_free()
+	SignalBus.arcade_game_closed.emit()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ut5ke"]
+bg_color = Color(0.031420894, 0.03142083, 0.03142086, 1)
+border_width_left = 80
+border_width_right = 80
+border_color = Color(0.07846785, 0.07846785, 0.07846785, 0.85800004)
+
+[node name="ArcadeCabinet" type="Area2D" unique_id=1328546657 groups=["npcs"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_46hl8")
+
+[node name="InteractCollision" type="CollisionShape2D" parent="." unique_id=1291331064]
+unique_name_in_owner = true
+position = Vector2(11, 34)
+shape = SubResource("CircleShape2D_ku6g6")
+
+[node name="Screen" type="Sprite2D" parent="." unique_id=2131548083]
+unique_name_in_owner = true
+position = Vector2(0, 30)
+texture = ExtResource("1_ku6g6")
+offset = Vector2(0, -30)
+region_enabled = true
+region_rect = Rect2(64, 96, 64, 96)
+
+[node name="Body" type="Sprite2D" parent="." unique_id=884990229]
+position = Vector2(0, 30)
+texture = ExtResource("1_ku6g6")
+offset = Vector2(0, -30)
+region_enabled = true
+region_rect = Rect2(64, 0, 64, 96)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2067969780]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=172311589]
+shape = SubResource("ConvexPolygonShape2D_ut5ke")
+
+[node name="ScreenTimer" type="Timer" parent="." unique_id=1118003942]
+wait_time = 0.7
+autostart = true
+
+[node name="ArcadeView" type="CanvasLayer" parent="." unique_id=891295322 groups=["menus"]]
+unique_name_in_owner = true
+layer = 2
+visible = false
+script = SubResource("GDScript_gtmdk")
+
+[node name="Panel" type="Panel" parent="ArcadeView" unique_id=1692185299]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ut5ke")
+
+[node name="ArcadeViewportContainer" type="SubViewportContainer" parent="ArcadeView" unique_id=1886638483]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -324.0
+offset_right = 324.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ArcadeViewport" type="SubViewport" parent="ArcadeView/ArcadeViewportContainer" unique_id=912881443]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(864, 648)
+render_target_update_mode = 0
+
+[connection signal="timeout" from="ScreenTimer" to="." method="_on_screen_timer_timeout"]
