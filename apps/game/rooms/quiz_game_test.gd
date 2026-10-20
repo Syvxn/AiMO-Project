@@ -7,8 +7,8 @@ var points_per_snack := 1
 var players : Array[CharacterBody2D]
 var team_a_players : Array[CharacterBody2D]
 var team_b_players : Array[CharacterBody2D]
-var client_team = ""
-var id_for_autolooters = "quizgametest"
+var client_team := ""
+var id_for_autolooters := "quizgametest"
 var total_points = {"team_a" : 0, "team_b" : 0}
 var current_question_points = {"team_a" : 0, "team_b" : 0}
 var current_question_players_answered_count = 0
@@ -17,13 +17,14 @@ var current_question_index := 0
 var quiz_request: HTTPRequest
 var quiz_request_pending := false
 var quiz_request_kind := ""
-var chapter_picker: PanelContainer
-var chapter_option_button: OptionButton
 
 @export var conveyor_base_speed := 40.0
 @export var conveyor_speed_increment := 10.0
 @export var question_time_in_s := 10
 @export var reward_time_in_s := 5
+
+@onready var chapter_picker = %ChapterPicker
+@onready var chapter_option_button = %ChapterOptions
 
 
 func _ready() -> void:
@@ -34,7 +35,7 @@ func _ready() -> void:
 	quiz_request.timeout = 240.0
 	quiz_request.request_completed.connect(_on_quiz_request_completed)
 	add_child(quiz_request)
-	_create_chapter_picker()
+	%ChapterPicker.hide()
 	%QuizStatusLabel.hide()
 	set_conveyor_speeds(0.0)
 
@@ -162,38 +163,38 @@ func _show_quiz_error(body: PackedByteArray, fallback: String) -> void:
 	_show_quiz_status(message)
 
 
-func _create_chapter_picker() -> void:
-	chapter_picker = PanelContainer.new()
-	chapter_picker.name = "ChapterPicker"
-	chapter_picker.visible = false
-	chapter_picker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	chapter_picker.offset_left = -280
-	chapter_picker.offset_top = -110
-	chapter_picker.offset_right = 280
-	chapter_picker.offset_bottom = 110
-	chapter_picker.mouse_filter = Control.MOUSE_FILTER_STOP
-	var layout = VBoxContainer.new()
-	chapter_picker.add_child(layout)
-	var title = Label.new()
-	title.text = "Choose a chapter"
-	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 24)
-	layout.add_child(title)
-	chapter_option_button = OptionButton.new()
-	chapter_option_button.custom_minimum_size.y = 40
-	layout.add_child(chapter_option_button)
-	var buttons = HBoxContainer.new()
-	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
-	layout.add_child(buttons)
-	var start_button = Button.new()
-	start_button.text = "Start Quiz"
-	start_button.pressed.connect(_on_chapter_quiz_pressed)
-	buttons.add_child(start_button)
-	var cancel_button = Button.new()
-	cancel_button.text = "Cancel"
-	cancel_button.pressed.connect(_on_chapter_picker_cancelled)
-	buttons.add_child(cancel_button)
-	%GameHUD/Control.add_child(chapter_picker)
+#func _create_chapter_picker() -> void:
+	#chapter_picker = PanelContainer.new()
+	#chapter_picker.name = "ChapterPicker"
+	#chapter_picker.visible = false
+	#chapter_picker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	#chapter_picker.offset_left = -280
+	#chapter_picker.offset_top = -110
+	#chapter_picker.offset_right = 280
+	#chapter_picker.offset_bottom = 110
+	#chapter_picker.mouse_filter = Control.MOUSE_FILTER_STOP
+	#var layout = VBoxContainer.new()
+	#chapter_picker.add_child(layout)
+	#var title = Label.new()
+	#title.text = "Choose a chapter"
+	#title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	#title.add_theme_font_size_override("font_size", 24)
+	#layout.add_child(title)
+	#chapter_option_button = OptionButton.new()
+	#chapter_option_button.custom_minimum_size.y = 40
+	#layout.add_child(chapter_option_button)
+	#var buttons = HBoxContainer.new()
+	#buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	#layout.add_child(buttons)
+	#var start_button = Button.new()
+	#start_button.text = "Start Quiz"
+	#start_button.pressed.connect(_on_chapter_quiz_pressed)
+	#buttons.add_child(start_button)
+	#var cancel_button = Button.new()
+	#cancel_button.text = "Cancel"
+	#cancel_button.pressed.connect(_on_chapter_picker_cancelled)
+	#buttons.add_child(cancel_button)
+	#%GameHUD/Control.add_child(chapter_picker)
 
 
 func _on_chapter_quiz_pressed() -> void:
@@ -220,7 +221,7 @@ func _on_chapter_quiz_pressed() -> void:
 		"question_count": 3,
 	})
 	quiz_request_kind = "quiz"
-	_show_quiz_status("Preparing your quiz from %s..." % chapter_label)
+	_show_quiz_status("Preparing your quiz from: \n%s" % chapter_label)
 	var error = quiz_request.request(url, headers, HTTPClient.METHOD_POST, body)
 	if error != OK:
 		quiz_request_pending = false

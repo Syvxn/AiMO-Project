@@ -32,6 +32,7 @@
 [ext_resource type="Theme" uid="uid://ci15jognxecvj" path="res://ui/themes/menu1_dark.tres" id="24_3o2em"]
 [ext_resource type="Texture2D" uid="uid://d2bpf28i5ny2e" path="res://ui/Clouds2-1.png" id="24_bf4fy"]
 [ext_resource type="Theme" uid="uid://c0oqp21q1516e" path="res://ui/themes/menu1.tres" id="24_i6wb1"]
+[ext_resource type="FontFile" uid="uid://bgh32klroc5m1" path="res://ui/fonts/GFS_Didot/GFSDidot-Regular.ttf" id="30_ievyx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p5hp"]
 size = Vector2(1189, 1032)
@@ -1429,7 +1430,6 @@ spawn_path = NodePath(".")
 
 [node name="GameHUD" type="CanvasLayer" parent="." unique_id=1864945899]
 unique_name_in_owner = true
-visible = false
 
 [node name="Control" type="Control" parent="GameHUD" unique_id=1203043211]
 layout_mode = 3
@@ -1486,21 +1486,85 @@ script = SubResource("GDScript_i6wb1")
 
 [node name="QuizStatusLabel" type="Label" parent="GameHUD/Control" unique_id=780123451]
 unique_name_in_owner = true
-visible = false
-anchors_preset = 10
-anchor_left = 0.1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.9
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -42.0
-offset_bottom = 42.0
+offset_left = -0.5
+offset_top = -0.5
+offset_right = 0.5
+offset_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 28
-autowrap_mode = 3
+theme_override_fonts/font = ExtResource("30_ievyx")
+theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 vertical_alignment = 1
-text = ""
+
+[node name="ChapterPicker" type="PanelContainer" parent="GameHUD/Control" unique_id=639321671]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -110.0
+offset_right = 280.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_3o2em")
+
+[node name="Panel" type="Panel" parent="GameHUD/Control/ChapterPicker" unique_id=1785499219]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameHUD/Control/ChapterPicker" unique_id=1119961403]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameHUD/Control/ChapterPicker/MarginContainer" unique_id=1998867961]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer" unique_id=1287984090]
+layout_mode = 2
+text = "Choose a chapter"
+horizontal_alignment = 1
+
+[node name="ChapterOptions" type="OptionButton" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer" unique_id=972565361]
+unique_name_in_owner = true
+layout_mode = 2
+text_overrun_behavior = 6
+fit_to_longest_item = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer" unique_id=2117432075]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 10
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer/HBoxContainer" unique_id=285982485]
+layout_mode = 2
+theme_override_constants/margin_right = 5
+
+[node name="StartButton" type="Button" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer" unique_id=812546057]
+layout_mode = 2
+text = "Start Quiz"
+
+[node name="MarginContainer2" type="MarginContainer" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1206144285]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="CancelButton" type="Button" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2" unique_id=1486706253]
+layout_mode = 2
+text = "Cancel"
 
 [node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
 unique_name_in_owner = true
@@ -1551,9 +1615,12 @@ autostart = true
 
 [node name="iggy" parent="." unique_id=685008524 instance=ExtResource("8_aphrj")]
 position = Vector2(601, 666)
+bark_wait_time = 4.0
 barks = ["I thought it'd be a good idea, you know? Make a factory that eats snacks and turns questions into answers.", "Unfortunately, I built it wrong. Now it [b]uses answers to generate snacks[/b].", "I use it to fill vending machines, but you can try it too. Just press the red button.", ""]
 
 [connection signal="pushed" from="NavigationRegion2D/Decorations/ActivateButton" to="." method="_on_activate_button_pushed"]
+[connection signal="pressed" from="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/StartButton" to="." method="_on_chapter_quiz_pressed"]
+[connection signal="pressed" from="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer2/CancelButton" to="." method="_on_chapter_picker_cancelled"]
 [connection signal="timeout" from="ExceptionTimer" to="." method="_on_exception_timer_timeout"]
 
 [editable path="QuizMenu/Panel/QuestionContainer/QuizQuestion"]
