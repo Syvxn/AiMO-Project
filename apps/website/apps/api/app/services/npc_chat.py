@@ -125,6 +125,10 @@ async def stream_conversation_events(
         async for event in _fallback_conversation(profile, user_text):
             yield event
         return
+    except httpx.HTTPError:
+        yield {"type": "typing_token", "text": "[Agent timed out. Please try again.]"}
+        yield {"type": "assistant_message_done"}
+        return
 
     yield {"type": "assistant_message_done"}
 
@@ -168,16 +172,19 @@ async def stream_task_events(profile: NpcProfile, user_text: str):
                 data = response.json()
                 if data.get("error"):
                     yield {"type": "task_progress", "message": f"Quiz error: {data['error']}"}
-                else:
-                    yield {"type": "quiz_ready", "quiz": data["quiz"]}
                     return
-            else:
-                yield {"type": "task_progress", "message": "Quiz generation failed. Try again."}
+                yield {"type": "quiz_ready", "quiz": data["quiz"]}
+                return
+            yield {"type": "task_progress", "message": "Quiz generation failed. Try again."}
+            return
     except httpx.ConnectError:
         # Fall back to placeholder quiz
         yield {"type": "task_progress", "message": "Generating question set..."}
         await asyncio.sleep(0.2)
         yield {"type": "quiz_ready", "quiz": _placeholder_quiz(topic)}
+    except httpx.HTTPError:
+        yield {"type": "task_progress", "message": "Quiz generation timed out. Try again."}
+        return
 
     yield {
         "type": "task_progress",

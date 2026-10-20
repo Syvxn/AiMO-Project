@@ -65,8 +65,6 @@ async def generate_student_quiz(
 ) -> dict:
     if user_role_to_str(current_user.role) != "student":
         raise HTTPException(status_code=403, detail="Only student accounts can request class quizzes")
-    if user_role_to_str(current_user.role) != "student":
-        raise HTTPException(status_code=403, detail="Only student accounts can request class quizzes")
     if current_user.teacher_user_id is None:
         raise HTTPException(status_code=409, detail="Join your teacher's class before starting a quiz")
     topic = payload.topic.strip()
