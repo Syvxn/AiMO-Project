@@ -4,6 +4,7 @@ from __future__ import annotations
 import asyncio
 import json
 import threading
+from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
@@ -11,11 +12,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
-import threading
 
 from .config.settings import load_settings
 
-app = FastAPI(title="AiMO Agents Service")
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Preload the model in a worker thread so the event loop stays responsive.
+    await asyncio.get_running_loop().run_in_executor(None, get_conv_model)
+    yield
+
+
+app = FastAPI(title="AiMO Agents Service", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -61,13 +69,6 @@ class QuizRequest(BaseModel):
     topic: str
     question_count: int = 3
     learning_material: str = ""
-
-
-@app.on_event("startup")
-async def startup():
-    # Load model in background thread so the server starts fast.
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, get_conv_model)
 
 
 @app.get("/health")
@@ -147,7 +148,7 @@ async def quiz_generate(req: QuizRequest):
     """Run the teacher quiz pipeline and return a structured quiz payload."""
     from .runner import run_once
 
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     result = await loop.run_in_executor(
         None,
         lambda: run_once(
