@@ -32,7 +32,9 @@ app.include_router(npc_chat_router)
 @app.on_event("startup")
 def startup():
     """Seed data on app startup after migrations have been applied."""
-    seed_test_users()
+    # The seeded accounts use a known password, so never create them outside development.
+    if settings.app_env == "development":
+        seed_test_users()
 
 
 @app.get("/", summary="Service metadata")
