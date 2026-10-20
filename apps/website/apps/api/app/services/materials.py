@@ -16,6 +16,7 @@ CHAPTER_HEADER = re.compile(
     r"^\s*((?:chapter|unit|lesson)\s+\d+(?:\s*[:.-]\s*.*)?)\s*$",
     re.IGNORECASE,
 )
+CONTENTS_HEADER = re.compile(r"^\s*(table of )?contents\s*$", re.IGNORECASE)
 
 
 def extract_material_chapters(materials: Iterable[StudyMaterial]) -> list[dict[str, str]]:
@@ -29,10 +30,13 @@ def extract_material_chapters(materials: Iterable[StudyMaterial]) -> list[dict[s
 
         if path.suffix.lower() in {".txt", ".md"}:
             pages = [path.read_text(encoding="utf-8", errors="replace")]
+            # A text file is one "page", so only its contents block may be skipped.
+            skip_contents_pages = False
         elif path.suffix.lower() == ".pdf":
             from pypdf import PdfReader
 
             pages = [page.extract_text() or "" for page in PdfReader(path).pages]
+            skip_contents_pages = True
         else:
             continue
 
@@ -40,10 +44,18 @@ def extract_material_chapters(materials: Iterable[StudyMaterial]) -> list[dict[s
         current: dict[str, str] | None = None
         for page in pages:
             lines = page.splitlines()
-            if any(re.match(r"^\s*(table of )?contents\s*$", line, re.IGNORECASE) for line in lines[:12]):
+            if skip_contents_pages and any(CONTENTS_HEADER.match(line) for line in lines[:12]):
                 continue
 
+            in_contents_block = False
             for line in lines:
+                if not skip_contents_pages:
+                    if CONTENTS_HEADER.match(line):
+                        in_contents_block = True
+                        continue
+                    if in_contents_block:
+                        in_contents_block = bool(line.strip())
+                        continue
                 match = CHAPTER_HEADER.match(line)
                 if match:
                     title = re.sub(r"\s+", " ", match.group(1)).strip()
