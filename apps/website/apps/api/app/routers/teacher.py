@@ -16,6 +16,13 @@ from app.services.materials import generate_teacher_quiz as generate_quiz_from_t
 router = APIRouter(prefix="/teacher", tags=["teacher"])
 
 UPLOAD_DIR = Path("uploaded_materials")
+MAX_UPLOAD_BYTES = 20 * 1024 * 1024
+# Never trust the client-supplied content type when serving files back inline.
+SAFE_MEDIA_TYPES = {
+    ".txt": "text/plain; charset=utf-8",
+    ".md": "text/plain; charset=utf-8",
+    ".pdf": "application/pdf",
+}
 
 
 class TeacherChatRequest(BaseModel):
@@ -134,9 +141,11 @@ async def upload_study_material(
             detail="Only .txt, .md, and .pdf files are allowed",
         )
 
-    content = await file.read()
+    content = await file.read(MAX_UPLOAD_BYTES + 1)
     if not content:
         raise HTTPException(status_code=400, detail="Uploaded file is empty")
+    if len(content) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="File is too large (20 MB maximum)")
 
     ensure_upload_dir()
     storage_filename = f"{uuid4().hex}{suffix}"
@@ -207,9 +216,10 @@ def open_study_material(
 
     return FileResponse(
         path=file_path,
-        media_type=material.content_type,
+        media_type=SAFE_MEDIA_TYPES.get(file_path.suffix.lower(), "application/octet-stream"),
         filename=material.original_filename,
         content_disposition_type="inline",
+        headers={"X-Content-Type-Options": "nosniff"},
     )
 
 
