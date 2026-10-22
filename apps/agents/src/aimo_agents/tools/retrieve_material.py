@@ -19,7 +19,8 @@ def _get_material_signature(path: str) -> tuple[tuple[str, int, int], ...]:
     files: list[tuple[str, int, int]] = []
     if not os.path.isdir(path):
         return ()
-    for root, _, filenames in os.walk(path):
+    for root, dirs, filenames in os.walk(path):
+        dirs[:] = [d for d in dirs if d != "uploads"]
         for filename in filenames:
             if Path(filename).suffix.lower() in {".txt", ".md", ".pdf"}:
                 file_path = os.path.join(root, filename)

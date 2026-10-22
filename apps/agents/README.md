@@ -1,6 +1,6 @@
 # AiMO Agents
 
-A multi-agent system that generates multiple-choice quizzes from plain-text study material using a lightweight RAG (Retrieval-Augmented Generation) pipeline and open-source HuggingFace models.
+A multi-agent system that generates multiple-choice quizzes with an open-source instruction-tuned HuggingFace model, running on the GPU when CUDA is available. Quizzes are based on supplied study material (the website's teacher uploads), or on the model's own knowledge when none applies.
 
 > New contributors should start with [CONTRIBUTING.md](CONTRIBUTING.md).
 > For mixed hardware teams, see [Team GPU/CPU setup](CONTRIBUTING.md#team-gpucpu-setup).
@@ -12,21 +12,23 @@ A multi-agent system that generates multiple-choice quizzes from plain-text stud
 ## How it works
 
 ```
-User query (topic)
+Quiz request (topic, count, optional learning material)
       │
       ▼
- TxtRetriever          ← indexes .txt, .md, and .pdf files recursively
- (sentence-transformers/all-MiniLM-L6-v2)
-      │  top-k chunks filtered by cosine score threshold
+ Material excerpt      ← up to ~1200 words, favouring text that matches the topic
+      │                  (no material + use_model_knowledge=false → error)
       ▼
- Teacher LLM           ← Qwen2.5-1.5B-Instruct (or any HF text-generation model)
-      │  structured JSON prompt with few-shot examples
+ Teacher LLM           ← Qwen2.5-1.5B-Instruct (any HF chat model), JSON output
+      │                  grounded in the material, or its own knowledge if allowed
       ▼
- Post-processing       ← deduplication, leakage detection, answer shuffling
-      │
+ Validation            ← answer supported by the source, no duplicates or leaks,
+      │                  answer shuffling, up to 3 generation attempts
       ▼
- study_quiz.json       ← saved to project root
+ generated_quizzes/     ← saved to project root (one file per quiz)
 ```
+
+The NPC chat uses the same model instance, so one copy sits in GPU memory. The `rag/` package and
+`retrieve_material` tool still exist for experiments but the quiz pipeline no longer uses them.
 
 ---
 
@@ -51,15 +53,15 @@ AiMO-Agents/
 │       │   ├── graph.py                ← parent graph wiring
 │       │   ├── orchestrator/           ← routing agent (scaffold)
 │       │   └── teacher/
-│       │       ├── graph.py            ← retrieve → generate → END
-│       │       ├── nodes.py            ← RAG retrieval + LLM call + post-processing
+│       │       ├── graph.py            ← generate → END
+│       │       ├── nodes.py            ← prompt + LLM call + validation
 │       │       └── state.py
 │       ├── rag/
 │       │   ├── chunker.py              ← word-overlap text splitter
 │       │   ├── embedder.py             ← sentence-transformers wrapper
 │       │   └── retriever.py            ← TxtRetriever with score threshold filter
 │       ├── tools/
-│       │   ├── create_quiz.py          ← saves quiz to study_quiz.json
+│       │   ├── create_quiz.py          ← saves quiz to generated_quizzes/
 │       │   ├── retrieve_material.py    ← LangChain tool wrapping TxtRetriever
 │       │   └── send_analytics.py       ← analytics stub
 │       └── config/
@@ -93,33 +95,25 @@ py -3.11 -m venv .venv
 # 2. Install the project and all dependencies
 pip install -e .
 
-# 3. Configure environment
-cp .env.example .env
-# Edit .env – at minimum set MATERIAL_DIR if your materials are not in data/materials/chapters/
-# Optional per-developer overrides (recommended for hardware-specific values):
-# cp .env.example .env.local
+# 3. Run it. No .env is needed: the defaults in settings.py work as they are.
+# To change a setting, copy .env.example to .env (or to .env.local for machine-specific values).
 ```
 
-The loader reads `.env` first, then `.env.local` (if present). This keeps shared
-defaults in versioned docs while allowing each developer to set local GPU/CPU
-preferences without affecting others.
+The loader reads `.env` first, then `.env.local` (if present); local values win.
 
-### Key `.env` settings
+### `.env` settings (all optional)
 
 | Variable | Default | Description |
 |---|---|---|
-| `TEACHER_MODEL_ID` | `Qwen/Qwen2.5-1.5B-Instruct` | HuggingFace model for quiz generation |
-| `MATERIAL_DIR` | `data/materials/chapters` | Directory of `.txt` study files |
-| `RAG_MODEL_ID` | `sentence-transformers/all-MiniLM-L6-v2` | Embedding model |
-| `RAG_TOP_K` | `5` | Max chunks retrieved per query |
-| `RAG_SCORE_THRESHOLD` | `0.30` | Min cosine similarity to accept a chunk |
-| `RAG_CHUNK_SIZE` | `200` | Words per chunk |
+| `TEACHER_MODEL_ID` | `Qwen/Qwen2.5-1.5B-Instruct` | Chat model that writes quizzes |
+| `ORCHESTRATOR_MODEL_ID` | `Qwen/Qwen2.5-1.5B-Instruct` | Chat model for NPC conversations |
+| `DEVICE_MAP` | `auto` | `auto` uses the GPU when available; `cpu` forces the CPU |
+| `TEMPERATURE` | `0.2` | `0` is deterministic; higher is more varied |
 | `DEFAULT_QUESTION_COUNT` | `5` | Questions per quiz |
 
 ### Team GPU/CPU workflow
 
-- Keep `.env` values portable for everyone (for example `DEVICE_MAP=auto`).
-- Put machine-specific overrides in `.env.local` (gitignored).
+- Put machine-specific overrides in `.env.local` (gitignored); leave `.env` for values shared by everyone.
 - Example for a developer who wants to force GPU:
 
 ```bash
@@ -141,9 +135,8 @@ DEVICE_MAP=cpu
 ### CLI
 
 ```bash
-python -m aimo_agents.runner --topic colours --questions 5
-# or
-quiz-run --topic "present simple tense"
+python -m aimo_agents.runner --topic colours --questions 5            # model's own knowledge
+python -m aimo_agents.runner --topic plants --material lesson.pdf     # based on a file
 ```
 
 ### Programmatic
@@ -151,17 +144,18 @@ quiz-run --topic "present simple tense"
 ```python
 from aimo_agents import run_once
 
-result = run_once("", topic="colours", question_count=5)
-print(result.get("quiz"))   # path to saved study_quiz.json
+result = run_once("", topic="colours", question_count=5, use_model_knowledge=True)
+print(result.get("quiz"))   # the quiz dict; a copy is saved under generated_quizzes/
 ```
 
-The quiz is saved to `study_quiz.json` in the project root.
+Pass `learning_material="..."` to base the quiz on text instead. Without it, `use_model_knowledge=True` is required.
 
-### Adding your own study material
+The quiz is saved as a new file in `generated_quizzes/` in the project root.
 
-1. Place `.txt`, `.md`, or text-based `.pdf` files in `data/materials/` (or a subdirectory).
-2. Each file should cover a single topic — the RAG score threshold filter works best when files are focused.
-3. No indexing step needed; the retriever builds or refreshes the in-memory index when files change.
+### Study material
+
+The agents service does not keep its own material. The website API sends the teacher's uploaded text
+with each quiz request, and students without a class get quizzes from the model's own knowledge.
 
 ---
 

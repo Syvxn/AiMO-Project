@@ -11,6 +11,10 @@ class TeacherState(TypedDict, total=False):
     messages: Annotated[list[AnyMessage], operator.add]  # Full conversation history
     llm_calls: int          # Number of LLM calls made this run
     learning_material: str  # Source text to base the quiz on
+    teaching_guidance: str  # Pedagogy/answer keys; never student quiz subject matter
+    language_practice: bool  # Practise the source's English vocabulary and grammar
+    require_full_count: bool  # Minigames must receive the requested number of questions
+    use_model_knowledge: bool  # Allow a quiz from the model's own knowledge when no material is given
     topic: str              # Topic focus for the quiz
     question_count: int     # Number of MCQ questions to generate
     quiz: str               # Final quiz output

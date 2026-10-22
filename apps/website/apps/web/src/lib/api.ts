@@ -89,7 +89,19 @@ async function readErrorMessage(response: Response, fallbackMessage: string): Pr
 
   if (contentType.includes("application/json")) {
     const error = await response.json();
-    return error.detail || fallbackMessage;
+    if (typeof error.detail === "string") return error.detail;
+    if (Array.isArray(error.detail))
+      return error.detail
+        .map((item: { msg?: string; loc?: Array<string | number> }) => {
+          const path = item.loc
+            ?.filter((part) => part !== "body")
+            .map((part) => (typeof part === "number" ? `[${part + 1}]` : part))
+            .join(".")
+            .replace(/\.\[/g, "[");
+          return `${path ? `${path}: ` : ""}${item.msg || fallbackMessage}`;
+        })
+        .join("; ");
+    return fallbackMessage;
   }
 
   const text = await response.text();
@@ -223,7 +235,9 @@ export async function uploadTeacherMaterial(
     return await readJsonResponse<TeacherMaterial>(res, "Upload failed");
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
-      throw new Error("Upload timed out. The file may have been saved; refresh the material list before retrying.");
+      throw new Error(
+        "Upload timed out. The file may have been saved; refresh the material list before retrying.",
+      );
     }
     throw error;
   } finally {
@@ -299,7 +313,10 @@ export async function getTeacherClassInfo(token: string): Promise<TeacherClassIn
   return readJsonResponse<TeacherClassInfo>(res, "Failed to load class code");
 }
 
-export async function joinTeacherClass(token: string, classCode: string): Promise<{ status: string }> {
+export async function joinTeacherClass(
+  token: string,
+  classCode: string,
+): Promise<{ status: string }> {
   const res = await fetch(`${API_BASE}/quiz/join-class`, {
     method: "POST",
     headers: authHeaders(token),
@@ -320,5 +337,104 @@ export async function generateStudentQuiz(
     body: JSON.stringify({ topic, question_count: questionCount }),
   });
 
-  return readJsonResponse<{ quiz: TeacherQuiz }>(res, "Could not generate quiz from your teacher's materials");
+  return readJsonResponse<{ quiz: TeacherQuiz }>(
+    res,
+    "Could not generate quiz from your teacher's materials",
+  );
+}
+
+export interface BankChapter {
+  chapter_id: string;
+  title: string;
+  material_title: string;
+}
+
+export interface BankQuestion {
+  id: number;
+  chapter_id: string;
+  question: string;
+  options: string[];
+  answer: "A" | "B" | "C" | "D";
+  skill: "grammar" | "vocabulary" | "reading";
+  source_quote: string;
+  status: "draft" | "approved";
+  reviewed_at: string | null;
+}
+
+export interface BankJsonResult {
+  questions: BankQuestion[];
+  created: number;
+  updated: number;
+  unchanged: number;
+  approved: number;
+}
+
+export async function saveBankJson(
+  token: string,
+  payload: object,
+  approveAll: boolean,
+): Promise<BankJsonResult> {
+  return readJsonResponse(
+    await fetch(`${API_BASE}/teacher/question-bank/json`, {
+      method: "PUT",
+      headers: authHeaders(token),
+      body: JSON.stringify({ ...payload, approve_all: approveAll }),
+    }),
+    "Could not save bank JSON",
+  );
+}
+
+export async function getBankChapters(token: string): Promise<{ chapters: BankChapter[] }> {
+  return readJsonResponse(
+    await fetch(`${API_BASE}/teacher/question-bank/chapters`, { headers: authHeaders(token) }),
+    "Could not load units",
+  );
+}
+
+export async function getBankQuestions(
+  token: string,
+  chapterId: string,
+): Promise<{ questions: BankQuestion[]; student_text: string; teaching_guidance: string }> {
+  return readJsonResponse(
+    await fetch(`${API_BASE}/teacher/question-bank?chapter_id=${encodeURIComponent(chapterId)}`, {
+      headers: authHeaders(token),
+    }),
+    "Could not load question bank",
+  );
+}
+
+export async function draftBankQuestions(
+  token: string,
+  chapterId: string,
+  questionCount: number,
+): Promise<{ questions: BankQuestion[] }> {
+  return readJsonResponse(
+    await fetch(`${API_BASE}/teacher/question-bank/drafts`, {
+      method: "POST",
+      headers: authHeaders(token),
+      body: JSON.stringify({ chapter_id: chapterId, question_count: questionCount }),
+    }),
+    "Could not prepare drafts. You can add questions manually.",
+  );
+}
+
+export async function saveBankQuestion(token: string, item: BankQuestion): Promise<BankQuestion> {
+  return readJsonResponse(
+    await fetch(`${API_BASE}/teacher/question-bank${item.id ? `/${item.id}` : ""}`, {
+      method: item.id ? "PUT" : "POST",
+      headers: authHeaders(token),
+      body: JSON.stringify(item),
+    }),
+    "Could not save question",
+  );
+}
+
+export async function deleteBankQuestion(token: string, id: number): Promise<{ status: string }> {
+  return readJsonResponse(
+    await fetch(`${API_BASE}/teacher/question-bank/${id}`, {
+      method: "DELETE",
+      headers: authHeaders(token),
+    }),
+    "Could not delete question",
+  );
 }

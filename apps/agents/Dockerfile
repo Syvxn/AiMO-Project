@@ -20,7 +20,7 @@ COPY README.md /app/README.md
 COPY src /app/src
 
 # Install the package and its ML dependencies
-RUN pip install --no-cache-dir -e ".[dev]"
+RUN pip install --no-cache-dir -e ".[dev,quantization]"
 RUN pip install --no-cache-dir fastapi uvicorn[standard] httpx
 
 COPY data /app/data

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useAuth } from "@/lib/auth-context";
+import { QuestionBank } from "@/components/question-bank";
 import {
   deleteTeacherMaterial,
   generateTeacherQuiz,
@@ -219,6 +220,7 @@ function TeacherPanelContent() {
 
       {error && <div className="card border-accent-orange/40 text-accent-yellow">{error}</div>}
       {notice && <div className="card border-accent-teal/40 text-accent-green">{notice}</div>}
+      {token && <QuestionBank token={token} materialsVersion={materials.map(item => item.id).join(",")} />}
 
       <div className="grid gap-6 lg:grid-cols-2">
         {classCode && (
@@ -342,7 +344,7 @@ function TeacherPanelContent() {
         <article className="card space-y-4">
           <h2 className="font-display text-2xl text-text-natural">Quiz Generator</h2>
           <p className="text-sm text-text-beige">
-            Generate a quiz from the teaching materials currently stored above.
+            Preview a quiz from your materials. To save questions for students, use the Minigame Question Bank above.
           </p>
           <form className="flex flex-wrap items-end gap-3" onSubmit={handleGenerateQuiz}>
             <label className="min-w-52 flex-1 text-sm text-text-beige">

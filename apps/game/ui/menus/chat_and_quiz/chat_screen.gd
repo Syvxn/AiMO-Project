@@ -146,6 +146,7 @@ func submit_input(input_text):
 		"session_id": chat_session_id,
 		"npc_id": Env.CURRENT_CHAT_NPC_ID,
 		"player_id": student_name,
+		"token": _get_game_access_token(),
 		"text": input_text,
 	}
 
@@ -153,6 +154,16 @@ func submit_input(input_text):
 	awaiting_response = true
 	waiting_notice_sent = false
 	response_deadline_msec = Time.get_ticks_msec() + FIRST_RESPONSE_WAIT_MSEC
+
+
+func _get_game_access_token() -> String:
+	if not OS.has_feature("web"):
+		return ""
+	for cookie_string in JavaScriptBridge.eval("document.cookie").split("; "):
+		var cookie_parts = cookie_string.split("=", true, 1)
+		if cookie_parts.size() == 2 and cookie_parts[0] == "aimo_token":
+			return cookie_parts[1]
+	return ""
 
 
 func _get_local_student_name() -> String:
@@ -168,7 +179,8 @@ func _flush_pending_messages() -> void:
 		return
 	while pending_messages.size() > 0:
 		var msg = pending_messages.pop_front()
-		print("Sending message: ", msg)
+		# The message carries the login token, so it must not be printed.
+		print("Sending chat message")
 		chat_socket.send_text(msg)
 
 

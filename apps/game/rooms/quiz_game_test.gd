@@ -47,7 +47,7 @@ func _physics_process(_delta: float) -> void:
 #region client functionality
 # implicitly client-side since no-one to push button on server
 func _on_activate_button_pushed(_id: String) -> void:
-	if game_state == "inactive" and not quiz_request_pending:
+	if game_state == "inactive" and not quiz_request_pending and not chapter_picker.is_visible_in_tree():
 		request_start_game_from_server()
 
 # rpc_id(1) means we're calling that function on the server
@@ -136,6 +136,10 @@ func _on_quiz_request_completed(
 			_show_quiz_status("No readable chapters were found in your teacher's materials.")
 			return
 		%QuizStatusLabel.hide()
+		# Waiting for the player to choose is not a pending request; keeping the flag set
+		# would block every later launch if the picker is dismissed any other way.
+		quiz_request_pending = false
+		quiz_request_kind = ""
 		chapter_picker.show()
 		return
 
@@ -219,6 +223,7 @@ func _on_chapter_quiz_pressed() -> void:
 		"chapter_id": chapter_id,
 		"question_count": 3,
 	})
+	quiz_request_pending = true
 	quiz_request_kind = "quiz"
 	_show_quiz_status("Preparing your quiz from %s..." % chapter_label)
 	var error = quiz_request.request(url, headers, HTTPClient.METHOD_POST, body)
@@ -288,10 +293,15 @@ func clear_rewards():
 @rpc("any_peer", "call_remote")
 func start_game(args: Array):
 	assert(multiplayer.is_server())
-	if game_state != "inactive" or args.is_empty() or not _is_valid_quiz(args[0]):
-		return
 	var sender_id = multiplayer.get_remote_sender_id()
+	if game_state != "inactive":
+		_reject_start(sender_id, "A game is already running. Try again in a moment.")
+		return
+	if args.is_empty() or not _is_valid_quiz(args[0]):
+		_reject_start(sender_id, "The quiz could not be started.")
+		return
 	if not get_players_present().any(func(player): return int(player.name) == sender_id):
+		_reject_start(sender_id, "Stand inside the quiz room to start a game.")
 		return
 	game_state = "preparing"
 	%CenterLabel.text = ""
@@ -340,6 +350,19 @@ func start_game(args: Array):
 	for cannon in %CannonsB.get_children():
 		cannon.get_node("SyncLight").hide()
 	run_next_question()
+
+
+func _reject_start(peer_id: int, message: String) -> void:
+	print("Quiz start rejected for ", peer_id, ": ", message)
+	if peer_id > 1:
+		start_rejected.rpc_id(peer_id, message)
+
+
+@rpc("authority", "call_remote")
+func start_rejected(message: String) -> void:
+	# A player already in a game keeps their game HUD.
+	if client_team == "":
+		_show_quiz_status(message)
 
 
 func get_players_present() -> Array[CharacterBody2D]:
@@ -419,6 +442,9 @@ func show_hud():
 	%GameHUD.show()
 @rpc("authority", "call_remote")
 func hide_hud():
+	# A delayed hide from the previous game must not close a new launch in progress.
+	if quiz_request_pending or chapter_picker.is_visible_in_tree():
+		return
 	%GameHUD.hide()
 
 
