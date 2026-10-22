@@ -12,18 +12,21 @@ dependencies = [
   "langgraph>=0.2.50",
   "langchain-core>=0.3.0",
   "langchain-huggingface>=0.1.0",
-  "transformers>=4.45.0",
+  "transformers>=4.51.0",
   "torch>=2.6.0",
   "accelerate>=0.34.0",
   "python-dotenv>=1.0.1",
   "pypdf>=5.0.0",
   "pydantic>=2.9.0",
   "sentence-transformers>=3.0.0",
-  "numpy>=1.26.0"
+  "numpy>=1.26.0",
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.30.0"
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.3.0"]
+quantization = ["bitsandbytes>=0.46.0"]
 
 [project.scripts]
 quiz-run = "aimo_agents.runner:run_cli"

@@ -32,7 +32,9 @@ class TxtRetriever:
             raise FileNotFoundError(f"Material directory not found: {path}")
 
         texts: list[str] = []
-        for root, _, filenames in os.walk(path):
+        for root, dirs, filenames in os.walk(path):
+            # Teacher uploads are private per class and must never enter the shared index.
+            dirs[:] = [d for d in dirs if d != "uploads"]
             for filename in sorted(filenames):
                 if Path(filename).suffix.lower() in SUPPORTED_SUFFIXES:
                     texts.append(load_document(os.path.join(root, filename)))

@@ -31,6 +31,10 @@ def run_once(
     learning_material: str = "",
     topic: str = "general",
     question_count: int | None = None,
+    use_model_knowledge: bool = False,
+    teaching_guidance: str = "",
+    language_practice: bool = False,
+    require_full_count: bool = False,
 ) -> dict:
     """Run the teacher graph once and return the final state."""
     settings = load_settings()
@@ -39,9 +43,16 @@ def run_once(
         "topic": topic,
         "question_count": question_count or settings.default_question_count,
         "llm_calls": 0,
+        "use_model_knowledge": use_model_knowledge,
     }
     if learning_material:
         initial_state["learning_material"] = learning_material
+    if teaching_guidance:
+        initial_state["teaching_guidance"] = teaching_guidance
+    if language_practice:
+        initial_state["language_practice"] = True
+    if require_full_count:
+        initial_state["require_full_count"] = True
     return graph.invoke(initial_state)
 
 
@@ -53,7 +64,12 @@ def run_cli() -> None:
     parser.add_argument(
         "--topic",
         default="colours",
-        help="Topic / chapter to quiz on (default: colours)",
+        help="Topic to quiz on (default: colours)",
+    )
+    parser.add_argument(
+        "--material",
+        default=None,
+        help="TXT, Markdown or PDF file to base the quiz on (default: the model's own knowledge)",
     )
     parser.add_argument(
         "--questions",
@@ -64,7 +80,18 @@ def run_cli() -> None:
     args = parser.parse_args()
 
     print(f"Generating quiz — topic: {args.topic}")
-    result = run_once("", topic=args.topic, question_count=args.questions)
+    material = ""
+    if args.material:
+        from .rag.document_loader import load_document
+
+        material = load_document(args.material)
+    result = run_once(
+        "",
+        learning_material=material,
+        topic=args.topic,
+        question_count=args.questions,
+        use_model_knowledge=not material,
+    )
 
     if result.get("error"):
         print(f"\nError: {result['error']}")

@@ -66,6 +66,16 @@ Write-Step "Installing / upgrading dependencies (may take a while on first run).
 & $VenvPython -m pip install --quiet fastapi "uvicorn[standard]" httpx
 Write-Ok "Dependencies installed."
 
+# The default PyPI torch wheel on Windows is CPU-only, so swap in the CUDA build when a GPU exists.
+if (Get-Command nvidia-smi -ErrorAction SilentlyContinue) {
+    $cudaReady = (& $VenvPython -c "import torch; print(torch.cuda.is_available())").Trim()
+    if ($cudaReady -ne "True") {
+        Write-Step "NVIDIA GPU found but PyTorch has no CUDA support - installing the CUDA build ..."
+        & $VenvPython -m pip install --quiet --upgrade torch --index-url https://download.pytorch.org/whl/cu128
+        Write-Ok "CUDA build of PyTorch installed."
+    }
+}
+
 # 5. Ensure .env exists
 $envFile    = Join-Path $ScriptDir ".env"
 $envExample = Join-Path $ScriptDir ".env.example"

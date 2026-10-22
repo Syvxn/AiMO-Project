@@ -4,14 +4,14 @@ This guide helps new contributors understand how the agents app works and how to
 
 ## What this app does
 
-The agents app generates multiple-choice quizzes from text material using a lightweight RAG pipeline.
+The agents app generates multiple-choice quizzes with an instruction-tuned chat model, from supplied study material or from the model's own knowledge.
 
 Flow:
 
-1. Retriever loads `.txt` materials and finds relevant chunks.
-2. Teacher model generates quiz JSON from the retrieved context.
-3. Post-processing removes weak/duplicate/leaky outputs.
-4. Quiz is written to `study_quiz.json`.
+1. The website API sends the teacher's uploaded material, or asks for a model-knowledge quiz.
+2. The teacher node picks a topic-relevant excerpt and prompts the model for quiz JSON.
+3. Validation removes unsupported, duplicate, leaky or position-dependent questions and retries up to 3 times.
+4. Quiz is written to a new file in `generated_quizzes/`.
 
 ## Project map
 
@@ -31,20 +31,36 @@ From `apps/agents`:
 py -3.11 -m venv .venv
 .\.venv\Scripts\activate
 pip install -e .
-cp .env.example .env
 ```
 
-PowerShell copy command:
-
-```powershell
-Copy-Item .env.example .env
-```
+No `.env` file is needed; the defaults in `settings.py` work as they are. To change a
+setting, copy `.env.example` to `.env` and edit it.
 
 ## Team GPU/CPU setup
 
-Keep shared defaults in `.env`, then use `.env.local` for machine-specific
-overrides. The app loads `.env` first and `.env.local` second, so local values
-take precedence.
+The optional teacher-model pilot uses `Qwen/Qwen3-4B-Instruct-2507` with
+`TEACHER_QUANTIZATION=4bit`. This requires a CUDA GPU and the quantization extra:
+`pip install -e ".[quantization]"`. The CPU baseline keeps
+`TEACHER_QUANTIZATION=none`. Quantization is applied only to the teacher; NPC
+loading continues to use `ORCHESTRATOR_MODEL_ID` without quantization.
+
+From `apps/website`, the opt-in container configuration is:
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml -f docker-compose.teacher-pilot.yml up --build -d agents
+```
+
+The pilot downloads a separate model on first use. Omitting the teacher-pilot
+override returns to the baseline model configuration. Evaluate real textbook
+questions before treating any model change as a quality improvement.
+The pilot selects PyTorch's supported `cudaMallocAsync` allocator to avoid a
+large contiguous loading reservation failing on the 8 GB Windows GPU. It does
+not patch Transformers or change the baseline CPU configuration.
+The pilot disables automatic source reload to avoid overlapping model processes
+on a small GPU. Restart the agents container after editing its source.
+
+Put machine-specific overrides in `.env.local` (not committed). The app loads `.env` first
+and `.env.local` second, so local values take precedence.
 
 PowerShell example:
 
@@ -68,25 +84,46 @@ DEVICE_MAP=cpu
 
 ## First change (example)
 
-Goal: adjust number of retrieved chunks.
+Goal: make the quizzes more varied.
 
-1. Open `.env` and change `RAG_TOP_K`.
+1. In `.env`, set `TEMPERATURE=0.7`.
 2. Run:
 
 ```bash
 python -m aimo_agents.runner --topic colours --questions 5
 ```
 
-3. Validate output in `study_quiz.json`.
+3. Validate output in the newest file in `generated_quizzes/`.
 
 ## Common contributor tasks
 
-- Tune retrieval quality: edit `src/aimo_agents/rag/retriever.py` and related settings.
 - Change prompt/quiz format: edit teacher node logic in `src/aimo_agents/agents/teacher/nodes.py`.
 - Add pipeline behavior: update teacher graph in `src/aimo_agents/agents/teacher/graph.py`.
-- Add new material: place focused `.txt` files in `data/materials/chapters`.
 
 ## Testing and validation
+
+### Textbook practice used by the minigame
+
+The website API separates student pages from teacher guidance before calling the
+agents service. The minigame sends `language_practice=true` and
+`require_full_count=true` along with the selected unit's `learning_material` and
+separate `teaching_guidance`.
+
+Language practice uses complete student examples and source-grounded grammar
+scaffolds to keep the small model's task bounded. A source quotation must occur in
+the student material. For a fill-in-the-blank question, completing the sentence
+establishes the answer independently of the model's answer letter. A separate
+model review solves the exercise without seeing the proposed answer, checking
+that there is one correct option and the exercise works by itself. This review
+is a quality check, not a guarantee of semantic correctness. Source cleanup
+excludes exercise fragments and a limited set of adult terms; the adult course
+still needs content review before classroom use.
+Repeated correct words are allowed across different exercises.
+
+The minigame gets either the requested question count or an error; partial quizzes
+are not saved or started. `tests/test_language_practice.py` covers these contracts.
+Raw model output is available through the teacher module's DEBUG logging for
+development diagnosis; keep that logging disabled when handling private materials.
 
 From `apps/agents`:
 
@@ -98,7 +135,7 @@ Recommended after each change:
 
 1. Run `pytest`.
 2. Run one CLI generation.
-3. Open `study_quiz.json` and confirm format and answer quality.
+3. Open the newest file in `generated_quizzes/` and confirm format and answer quality.
 
 ## FOSS requirement
 
@@ -106,6 +143,6 @@ This project is intentionally FOSS-first. Use open-source models and libraries o
 
 ## Troubleshooting
 
-- Slow first run: initial model and embedding downloads can take time.
-- Empty retrieval results: check `MATERIAL_DIR` and verify `.txt` files exist.
-- Low quiz quality: tune `RAG_SCORE_THRESHOLD`, `RAG_TOP_K`, and chapter content focus.
+- Slow first run: the model download (about 3 GB) can take time.
+- Slow generation: a "CUDA is not available" warning means PyTorch is a CPU build; install a CUDA build.
+- Low quiz quality: try a larger chat model in `TEACHER_MODEL_ID`, or improve the study material.

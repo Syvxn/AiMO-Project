@@ -7,12 +7,10 @@ services:
     volumes:
       - ../agents/src:/app/src
       - ../agents/data:/app/data
-      - material_uploads:/app/data/materials/uploads
       - hf_cache:/root/.cache/huggingface
     environment:
       DEVICE_MAP: ${DEVICE_MAP:-auto}
-      MAX_NEW_TOKENS: "128"
-      MATERIAL_DIR: /app/data/materials
+      MATERIAL_DIR: /app/data/materials/chapters
     expose:
       - "8001"
 
@@ -70,6 +68,8 @@ services:
     image: nginx:1.28-alpine
     ports:
       - "80:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./infra/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:

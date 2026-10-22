@@ -3,19 +3,35 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
+import queue
 import threading
+from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
+import torch
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
-from transformers import AutoModelForCausalLM, AutoTokenizer, TextIteratorStreamer
-import threading
+from pydantic import BaseModel, Field
+from transformers import StoppingCriteria, StoppingCriteriaList, TextIteratorStreamer
 
 from .config.settings import load_settings
+from .models import load_causal_lm
 
-app = FastAPI(title="AiMO Agents Service")
+# Longest wait for the next token before the stream is abandoned.
+TOKEN_TIMEOUT_SECONDS = 60.0
+MAX_HISTORY_TURNS = 6
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Preload the model in a worker thread so the event loop stays responsive.
+    await asyncio.get_running_loop().run_in_executor(None, get_conv_model)
+    yield
+
+
+app = FastAPI(title="AiMO Agents Service", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,28 +40,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-_settings = None
-_conv_tokenizer = None
-_conv_model = None
-_conv_model_lock = threading.Lock()
-
-
 def get_conv_model():
-    global _settings, _conv_tokenizer, _conv_model
-    if _conv_model is None:
-        with _conv_model_lock:
-            if _conv_model is None:
-                _settings = load_settings()
-                print(f"Loading conversational model: {_settings.orchestrator_model_id}")
-                _conv_tokenizer = AutoTokenizer.from_pretrained(
-                    _settings.orchestrator_model_id
-                )
-                _conv_model = AutoModelForCausalLM.from_pretrained(
-                    _settings.orchestrator_model_id,
-                    device_map=_settings.device_map,
-                )
-                print("Conversational model loaded.")
-    return _conv_tokenizer, _conv_model
+    settings = load_settings()
+    return load_causal_lm(settings.orchestrator_model_id, settings.device_map)
 
 
 class ConversationRequest(BaseModel):
@@ -54,20 +51,18 @@ class ConversationRequest(BaseModel):
     persona: str
     history: list[dict[str, str]] = []
     user_text: str
-    max_new_tokens: int = 64
+    max_new_tokens: int = Field(default=160, ge=1, le=256)
 
 
 class QuizRequest(BaseModel):
-    topic: str
-    question_count: int = 3
+    topic: str = Field(max_length=200)
+    question_count: int = Field(default=3, ge=1, le=20)
     learning_material: str = ""
-
-
-@app.on_event("startup")
-async def startup():
-    # Load model in background thread so the server starts fast.
-    loop = asyncio.get_event_loop()
-    await loop.run_in_executor(None, get_conv_model)
+    # Without learning material, a quiz is only written when this is explicitly allowed.
+    use_model_knowledge: bool = False
+    teaching_guidance: str = ""
+    language_practice: bool = False
+    require_full_count: bool = False
 
 
 @app.get("/health")
@@ -75,39 +70,83 @@ def health():
     return {"status": "ok"}
 
 
+class _CancelCriteria(StoppingCriteria):
+    """Stops generation once the client has gone away."""
+
+    def __init__(self, cancelled: threading.Event) -> None:
+        self._cancelled = cancelled
+
+    def __call__(self, input_ids, scores, **kwargs):
+        return torch.full(
+            (input_ids.shape[0],), self._cancelled.is_set(), dtype=torch.bool, device=input_ids.device
+        )
+
+
+def _sse(payload: dict) -> str:
+    return f"data: {json.dumps(payload)}\n\n"
+
+
 async def _token_generator(
     tokenizer, model, prompt: str, max_new_tokens: int
 ) -> AsyncGenerator[str, None]:
     streamer = TextIteratorStreamer(
-        tokenizer, skip_prompt=True, skip_special_tokens=True
+        tokenizer, skip_prompt=True, skip_special_tokens=True, timeout=TOKEN_TIMEOUT_SECONDS
     )
+    cancelled = threading.Event()
+    failure: list[BaseException] = []
 
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-
     generation_kwargs = dict(
         **inputs,
         max_new_tokens=max_new_tokens,
         do_sample=False,
+        repetition_penalty=1.1,
         streamer=streamer,
+        stopping_criteria=StoppingCriteriaList([_CancelCriteria(cancelled)]),
     )
 
-    thread = threading.Thread(target=model.generate, kwargs=generation_kwargs)
+    def generate() -> None:
+        try:
+            model.generate(**generation_kwargs)
+        except BaseException as exc:  # noqa: BLE001 - must always unblock the reader
+            failure.append(exc)
+            streamer.end()
+
+    thread = threading.Thread(target=generate, daemon=True)
     thread.start()
 
-    for token in streamer:
-        yield f"data: {json.dumps({'type': 'token', 'text': token})}\n\n"
-        await asyncio.sleep(0)  # yield control to event loop between tokens
+    loop = asyncio.get_running_loop()
+    iterator = iter(streamer)
+    finished = object()
+    try:
+        while True:
+            # Queue reads block, so they run off the event loop.
+            token = await loop.run_in_executor(None, next, iterator, finished)
+            if token is finished:
+                break
+            yield _sse({"type": "token", "text": token})
+    except queue.Empty:
+        failure.append(TimeoutError("Timed out waiting for the model."))
+    finally:
+        cancelled.set()
 
-    yield f"data: {json.dumps({'type': 'done'})}\n\n"
-    thread.join()
+    if failure:
+        print(f"Conversation generation failed: {failure[0]!r}")
+        yield _sse({"type": "error", "message": "The assistant could not finish its reply."})
+        return
+    yield _sse({"type": "done"})
 
 
 def _build_prompt(persona: str, history: list[dict], user_text: str, tokenizer) -> str:
+    recent = [
+        {
+            "role": "assistant" if turn.get("role") == "assistant" else "user",
+            "text": turn.get("text", ""),
+        }
+        for turn in history[-MAX_HISTORY_TURNS:]
+    ]
     messages = [{"role": "system", "content": persona}]
-    for turn in history[-6:]:  # keep fewer turns for lower latency
-        role = turn.get("role", "user")
-        text = turn.get("text", "")
-        messages.append({"role": role, "content": text})
+    messages.extend({"role": turn["role"], "content": turn["text"]} for turn in recent)
     messages.append({"role": "user", "content": user_text})
 
     if hasattr(tokenizer, "apply_chat_template"):
@@ -120,9 +159,8 @@ def _build_prompt(persona: str, history: list[dict], user_text: str, tokenizer) 
 
     # Fallback: plain text prompt
     prompt = f"System: {persona}\n"
-    for turn in history[-6:]:
-        role = turn.get("role", "user").capitalize()
-        prompt += f"{role}: {turn.get('text', '')}\n"
+    for turn in recent:
+        prompt += f"{turn['role'].capitalize()}: {turn['text']}\n"
     prompt += f"User: {user_text}\nAssistant:"
     return prompt
 
@@ -147,7 +185,7 @@ async def quiz_generate(req: QuizRequest):
     """Run the teacher quiz pipeline and return a structured quiz payload."""
     from .runner import run_once
 
-    loop = asyncio.get_event_loop()
+    loop = asyncio.get_running_loop()
     result = await loop.run_in_executor(
         None,
         lambda: run_once(
@@ -155,7 +193,19 @@ async def quiz_generate(req: QuizRequest):
             learning_material=req.learning_material,
             topic=req.topic,
             question_count=req.question_count,
+            use_model_knowledge=req.use_model_knowledge,
+            **({"teaching_guidance": req.teaching_guidance} if req.teaching_guidance else {}),
+            **({"language_practice": True} if req.language_practice else {}),
+            **({"require_full_count": True} if req.require_full_count else {}),
         ),
+    )
+
+    quiz = result.get("quiz")
+    logging.getLogger("uvicorn.error").info(
+        "Quiz generation: model_calls=%s questions=%s failed=%s",
+        result.get("llm_calls", 0),
+        len(quiz.get("questions", [])) if isinstance(quiz, dict) else 0,
+        bool(result.get("error")),
     )
 
     if result.get("error"):

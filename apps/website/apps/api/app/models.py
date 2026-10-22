@@ -1,4 +1,4 @@
-from sqlalchemy import Column, DateTime, Enum as SQLEnum, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, Enum as SQLEnum, ForeignKey, Integer, String, Text, JSON
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
 from uuid import uuid4
@@ -53,3 +53,20 @@ class StudyMaterial(Base):
                 user=self.uploaded_by_user_id,
             )
         )
+
+
+class QuestionBankItem(Base):
+    __tablename__ = "question_bank_items"
+
+    id = Column(Integer, primary_key=True)
+    teacher_user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    material_id = Column(Integer, ForeignKey("study_materials.id", ondelete="CASCADE"), nullable=False, index=True)
+    chapter_id = Column(String, nullable=False, index=True)
+    question = Column(Text, nullable=False)
+    options = Column(JSON, nullable=False)
+    answer = Column(String(1), nullable=False)
+    skill = Column(String(20), nullable=False)
+    source_quote = Column(Text, nullable=False)
+    status = Column(String(20), nullable=False, default="draft")
+    reviewed_at = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)

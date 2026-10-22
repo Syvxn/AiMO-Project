@@ -58,6 +58,42 @@ Start with these docs first:
 
 ## Run Apps Independently
 
+### Teacher-approved textbook practice
+
+The teacher panel has a Minigame Question Bank. Select an uploaded textbook unit,
+prepare AI drafts or add questions manually, then review the question, four choices,
+correct answer and student source quotation. Save at least three questions as
+approved to make that unit playable. Saving an approved question as a draft
+withdraws it from future games. Drafts are never served to enrolled students.
+The unit's JSON can be downloaded for external LLM review and pasted back into
+the bank editor. Keep IDs to update existing questions. Save JSON edits keeps new
+and changed questions as drafts; Save JSON and approve all approves the submitted
+batch explicitly. The unit's Approve all button approves all saved questions.
+
+The API applies migration `005` on startup. Existing uploads are preserved. Game
+requests read approved exercises from the database without calling an AI model.
+AI assistance is optional; teachers can create and approve questions without it.
+
+### Optional AI drafting pilot (NVIDIA GPU)
+
+The opt-in teacher pilot uses `Qwen/Qwen3-4B-Instruct-2507` with 4-bit loading for
+teacher-facing drafts. Its output still needs human review; the pilot did not
+reliably reject incorrect vocabulary answers. NPC conversations retain their baseline model. From
+`apps/website`, start the teacher service with:
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml -f docker-compose.teacher-pilot.yml up --build -d agents
+```
+
+The first use downloads several GB of model weights into the shared model cache.
+The other website services and the dedicated game server must also be running as
+described below. The CPU baseline configuration remains available without this
+override.
+
+The Think English teacher edition is parsed into six student units with separate
+teacher guidance. Existing uploads do not need to be uploaded again. Reopen the
+minigame's chapter picker after updating the parser to refresh the unit IDs.
+
 You do not need to run every app at the same time. Each app can be developed and run on its own.
 
 ## Website App (`apps/website`)

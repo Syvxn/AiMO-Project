@@ -4,13 +4,47 @@ import asyncio
 import json
 import os
 from dataclasses import dataclass, field
-from typing import Any
 
 import httpx
+from fastapi import HTTPException
+
+from app.core.security import decode_token
+from app.database import SessionLocal
+from app.models import User
+from app.services.materials import generate_teacher_quiz
 
 
 DEFAULT_NPC_ID = "quiz_llehc"
 AGENTS_SERVICE_URL = os.getenv("AGENTS_SERVICE_URL", "http://agents:8001")
+MAX_QUIZ_TOPIC_CHARACTERS = 120
+
+
+@dataclass
+class QuizAccount:
+    """Who is asking for a quiz, reduced to which source material applies."""
+
+    # Teacher whose uploads are used; None means the model's own knowledge.
+    teacher_user_id: int | None
+
+
+def resolve_quiz_account(token: str) -> QuizAccount | None:
+    """Map a login token to the quiz source for that account, or None if it is not valid."""
+    token_data = decode_token(token) if token else None
+    if token_data is None:
+        return None
+    db = SessionLocal()
+    try:
+        user = db.query(User).filter(User.email == token_data.email).first()
+        if user is None:
+            return None
+        role = str(getattr(user.role, "value", user.role))
+        if role == "student":
+            return QuizAccount(teacher_user_id=user.teacher_user_id)
+        if role == "teacher":
+            return QuizAccount(teacher_user_id=user.id)
+        return QuizAccount(teacher_user_id=None)
+    finally:
+        db.close()
 
 
 @dataclass
@@ -38,7 +72,8 @@ NPC_PROFILES: dict[str, NpcProfile] = {
         capabilities={"quiz_generation"},
         persona=(
             "You are Rook, a friendly AI game guide for AiMO, an educational multiplayer "
-            "game. Help players explore and understand the game. Verified controls: WASD "
+            "game. Help players explore and understand the game. Reply in at most three "
+            "short sentences. Verified controls: WASD "
             "moves, right-click moves to a destination, E interacts with nearby NPCs, I "
             "opens character customization, and Escape opens the room menu or closes the "
             "current menu. Players can join rooms, talk with NPCs, and play quiz activities. "
@@ -70,7 +105,7 @@ def route_turn(profile: NpcProfile, user_text: str) -> str:
     return "conversation"
 
 
-def extract_quiz_topic(user_text: str) -> str:
+def extract_quiz_topic(user_text: str) -> str | None:
     lowered = user_text.lower()
     for splitter in (" about ", " on ", " for "):
         if splitter in lowered:
@@ -78,7 +113,7 @@ def extract_quiz_topic(user_text: str) -> str:
             candidate = user_text[idx:].strip(" .!?")
             if candidate:
                 return candidate
-    return "general knowledge"
+    return None
 
 
 async def stream_conversation_events(
@@ -91,7 +126,7 @@ async def stream_conversation_events(
         "persona": profile.persona,
         "history": memory,
         "user_text": user_text,
-        "max_new_tokens": 64,
+        "max_new_tokens": 160,
     }
 
     try:
@@ -117,6 +152,12 @@ async def stream_conversation_events(
                         text = event.get("text", "")
                         if text:
                             yield {"type": "typing_token", "text": text}
+                    elif event.get("type") == "error":
+                        yield {
+                            "type": "typing_token",
+                            "text": event.get("message") or "[Agent error]",
+                        }
+                        break
                     elif event.get("type") == "done":
                         break
 
@@ -124,6 +165,10 @@ async def stream_conversation_events(
         # Agents service not available — fall back to template reply
         async for event in _fallback_conversation(profile, user_text):
             yield event
+        return
+    except httpx.HTTPError:
+        yield {"type": "typing_token", "text": "[Agent timed out. Please try again.]"}
+        yield {"type": "assistant_message_done"}
         return
 
     yield {"type": "assistant_message_done"}
@@ -150,54 +195,39 @@ async def _fallback_conversation(profile: NpcProfile, user_text: str):
     yield {"type": "assistant_message_done"}
 
 
-async def stream_task_events(profile: NpcProfile, user_text: str):
+async def stream_task_events(profile: NpcProfile, user_text: str, account: QuizAccount | None):
     topic = extract_quiz_topic(user_text)
+    if topic is None:
+        yield {
+            "type": "task_progress",
+            "message": "What should the quiz be about? For example: make a quiz about colours.",
+        }
+        return
+    if account is None:
+        yield {
+            "type": "task_progress",
+            "message": "Sign in on the website and reopen the game so I can make quizzes for you.",
+        }
+        return
+    topic = topic[:MAX_QUIZ_TOPIC_CHARACTERS]
     yield {
         "type": "task_started",
         "task": "quiz_generation",
         "message": f"{profile.display_name} is preparing a quiz on {topic}...",
     }
 
+    db = SessionLocal()
     try:
-        async with httpx.AsyncClient(timeout=120.0) as client:
-            response = await client.post(
-                f"{AGENTS_SERVICE_URL}/quiz/generate",
-                json={"topic": topic, "question_count": 3},
-            )
-            if response.status_code == 200:
-                data = response.json()
-                if data.get("error"):
-                    yield {"type": "task_progress", "message": f"Quiz error: {data['error']}"}
-                else:
-                    yield {"type": "quiz_ready", "quiz": data["quiz"]}
-                    return
-            else:
-                yield {"type": "task_progress", "message": "Quiz generation failed. Try again."}
-    except httpx.ConnectError:
-        # Fall back to placeholder quiz
-        yield {"type": "task_progress", "message": "Generating question set..."}
-        await asyncio.sleep(0.2)
-        yield {"type": "quiz_ready", "quiz": _placeholder_quiz(topic)}
+        result = await generate_teacher_quiz(
+            db, teacher_user_id=account.teacher_user_id, topic=topic, question_count=3
+        )
+    except HTTPException as exc:
+        yield {"type": "task_progress", "message": f"Quiz error: {exc.detail}"}
+        return
+    finally:
+        db.close()
 
-    yield {
-        "type": "task_progress",
-        "message": "Quiz is ready! Submit your answers when done.",
-    }
-
-
-def _placeholder_quiz(topic: str) -> dict[str, Any]:
-    return {
-        "quiz_title": f"Practice Quiz: {topic.title()}",
-        "questions": [
-            {
-                "question": f"[{topic}] Question {i + 1}: choose the best answer.",
-                "options": ["A", "B", "C", "D"],
-                "answer": "A",
-            }
-            for i in range(3)
-        ],
-    }
-
+    yield {"type": "quiz_ready", "quiz": result["quiz"]}
 
 def trim_memory(memory: list[dict[str, str]], limit: int = 20) -> list[dict[str, str]]:
     if len(memory) <= limit:

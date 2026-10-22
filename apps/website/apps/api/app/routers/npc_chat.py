@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
@@ -7,6 +8,7 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from app.services.npc_chat import (
     ChatSession,
     resolve_profile,
+    resolve_quiz_account,
     route_turn,
     stream_conversation_events,
     stream_task_events,
@@ -14,6 +16,8 @@ from app.services.npc_chat import (
 )
 
 router = APIRouter(tags=["npc-chat"])
+
+MAX_MESSAGE_CHARACTERS = 500
 
 
 @router.websocket("/ws/npc-chat")
@@ -56,6 +60,10 @@ async def npc_chat_socket(websocket: WebSocket) -> None:
                 await websocket.send_json({"type": "error", "message": "Missing text."})
                 continue
 
+            if len(user_text) > MAX_MESSAGE_CHARACTERS:
+                await websocket.send_json({"type": "error", "message": "Message is too long."})
+                continue
+
             session = sessions.get(session_id)
             if session is None:
                 session = ChatSession(session_id=session_id, npc_id=npc_id)
@@ -77,7 +85,11 @@ async def npc_chat_socket(websocket: WebSocket) -> None:
                     }
                 )
 
-                async for event in stream_task_events(profile, user_text):
+                # The login token ties the quiz to the account's class (or lack of one).
+                account = await asyncio.to_thread(
+                    resolve_quiz_account, str(payload.get("token") or "")
+                )
+                async for event in stream_task_events(profile, user_text, account):
                     await websocket.send_json(event)
 
                 session.mode = "conversation"

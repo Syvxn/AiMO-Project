@@ -1,0 +1,11 @@
+# Opt-in, CUDA-only teacher pilot. NPC model and baseline defaults are unchanged.
+# docker compose -f docker-compose.yml -f docker-compose.gpu.yml -f docker-compose.teacher-pilot.yml up --build -d agents
+services:
+  agents:
+    # Avoid a second model process while a GPU request is still finishing.
+    command: ["uvicorn", "aimo_agents.server:app", "--host", "0.0.0.0", "--port", "8001"]
+    environment:
+      TEACHER_MODEL_ID: Qwen/Qwen3-4B-Instruct-2507
+      TEACHER_QUANTIZATION: 4bit
+      # Avoid a failed contiguous warm-up reservation on the 8 GB Windows GPU.
+      PYTORCH_CUDA_ALLOC_CONF: backend:cudaMallocAsync
