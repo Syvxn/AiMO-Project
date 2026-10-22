@@ -10,10 +10,9 @@ Chat filter word lists from https://github.com/censor-text/profanity-list
 
 **Tech stack:**
 
-- **Engine**: Godot 4.6 (GDScript only, no external dependencies)
+- **Engine**: Godot 4.7 (GDScript only, no external dependencies)
 - **Renderer**: GL Compatibility (supports mobile/web targets)
 - **Networking**: Godot built-in `WebSocketMultiplayerPeer`, port 8910
-- **Physics**: Godot built-in 2D physics
 
 ---
 
@@ -113,8 +112,7 @@ You can change stuff in the Godot editor while the game is running in debug mode
 ## TODO
 
 
-- **Game rooms** - Rooms are mostly stubs; the room logic is the main area waiting to be built out.
+- **More games/rooms** - We only have one or two example right now.
 - **Saving player information** - Customization choices are not saved anywhere.
 - **Adding/removing public rooms** - `main.gd` has stubbed `add_public_room` / `remove_public_room` functions ready to be implemented. Currently rooms other than players' personal rooms are simply placed by the developers.
-- **Role implementation** - Nothing in the game actually uses teacher/student status.
 - **Everything else** - This would include sound.

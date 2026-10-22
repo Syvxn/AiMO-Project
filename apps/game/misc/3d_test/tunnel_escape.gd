@@ -5,7 +5,7 @@ var grid_start_pos := Vector3(0.0, 0.0, -450.0)
 var grid_speed := 85.0
 var vehicle_controllable := true
 var fly_speed := 15.0
-var vehicle_health := 3
+var vehicle_health := 1
 var vehicle_invincible := false
 var firing_speed := 800.0
 var target_x_coordinates = []
@@ -60,6 +60,8 @@ func _process(delta: float) -> void:
 			grid_plane_material.set_shader_parameter("equation_visible", false)
 			equation_visible = false
 	if vehicle_controllable:
+		if Input.is_action_just_pressed("oops"):
+			vehicle_health += 1
 		var fly_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		var new_x = %VehicleGroup.position.x + fly_direction.x * fly_speed * delta
 		var new_y = %VehicleGroup.position.y - fly_direction.y * fly_speed * delta
@@ -83,7 +85,7 @@ func generate_equation() -> Variant:
 	var a = randi_range(-5,5)
 	var b = randi_range(-10,10)
 	var s = "y="
-	var plus = "+" if b>0 else ""
+	var plus = "+" if b>=0 else ""
 	match type:
 		Equation.LIN:
 			s += "%d*x%s%d" % [a, plus, b]

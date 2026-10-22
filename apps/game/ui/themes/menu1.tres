@@ -180,6 +180,20 @@ shadow_offset = Vector2(-12, 14)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irf3d"]
 draw_center = false
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_62xu5"]
+atlas = ExtResource("2_bkuoy")
+region = Rect2(34, 0, 16, 16)
+filter_clip = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8x81s"]
+bg_color = Color(0.58431375, 0.26666668, 0.18039216, 1)
+border_width_left = 4
+border_color = Color(0.58431375, 0.26666668, 0.18039216, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkuoy"]
 bg_color = Color(0.41568628, 0.14117648, 0.105882354, 1)
 corner_radius_top_left = 3
@@ -317,6 +331,8 @@ PopupMenu/colors/font_color = Color(1, 0.9882353, 0.91764706, 1)
 PopupMenu/colors/font_hover_color = Color(1, 0.9882353, 0.91764706, 1)
 PopupMenu/font_sizes/font_size = 12
 PopupMenu/fonts/font = ExtResource("1_qwuhx")
+PopupMenu/icons/radio_checked = SubResource("AtlasTexture_62xu5")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_8x81s")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_bkuoy")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_y3irv")
 RichTextLabel/colors/default_color = Color(1, 0.9882353, 0.91764706, 1)

@@ -8,6 +8,7 @@ var auto_move := false
 var auto_move_target : Vector2
 var stopped := false
 
+@export var bark_wait_time := 3.0
 @export var barks := [""]
 @export var current_bark_index := 0
 @onready var character_sprites = $CharacterSprites
@@ -15,6 +16,7 @@ var stopped := false
 
 
 func _ready() -> void:
+	%HideBarksTimer.wait_time = bark_wait_time
 	%BarkLabel.hide()
 	apply_visuals(fetch_visuals())
 	if multiplayer.is_server():
