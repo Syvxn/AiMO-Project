@@ -30,13 +30,13 @@ var quiz_request_kind := ""
 func _ready() -> void:
 	%QuizMenu.hide()
 	%GameHUD.hide()
+	%ChapterPicker.hide()
+	%QuizStatusLabel.hide()
 	SignalBus.item_autolooted.connect(_on_item_autlooted)
 	quiz_request = HTTPRequest.new()
 	quiz_request.timeout = 240.0
 	quiz_request.request_completed.connect(_on_quiz_request_completed)
 	add_child(quiz_request)
-	%ChapterPicker.hide()
-	%QuizStatusLabel.hide()
 	set_conveyor_speeds(0.0)
 
 
@@ -128,9 +128,18 @@ func _on_quiz_request_completed(
 		for chapter in chapters_response["chapters"]:
 			if typeof(chapter) != TYPE_DICTIONARY or not chapter.has("chapter_id") or not chapter.has("title"):
 				continue
-			var label = "%s — %s" % [chapter.get("material_title", "Textbook"), chapter["title"]]
-			chapter_option_button.add_item(label)
-			chapter_option_button.set_item_metadata(chapter_option_button.item_count - 1, chapter["chapter_id"])
+			# short label for game UI
+			var short_label = (
+				"%s — %s" % [chapter["title"], chapter.get("material_title", "Textbook"),]
+			).substr(0, 53) + "..."
+			chapter_option_button.add_item(short_label)
+			# old type label for requests
+			var chapter_label = "%s — %s" % [chapter.get("material_title", "Textbook"), chapter["title"]]
+			var metadata = {
+				"chapter_id": chapter["chapter_id"],
+				"chapter_label": chapter_label
+			}
+			chapter_option_button.set_item_metadata(chapter_option_button.item_count - 1, metadata)
 		if chapter_option_button.item_count == 0:
 			quiz_request_pending = false
 			quiz_request_kind = ""
@@ -163,49 +172,15 @@ func _show_quiz_error(body: PackedByteArray, fallback: String) -> void:
 	_show_quiz_status(message)
 
 
-#func _create_chapter_picker() -> void:
-	#chapter_picker = PanelContainer.new()
-	#chapter_picker.name = "ChapterPicker"
-	#chapter_picker.visible = false
-	#chapter_picker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	#chapter_picker.offset_left = -280
-	#chapter_picker.offset_top = -110
-	#chapter_picker.offset_right = 280
-	#chapter_picker.offset_bottom = 110
-	#chapter_picker.mouse_filter = Control.MOUSE_FILTER_STOP
-	#var layout = VBoxContainer.new()
-	#chapter_picker.add_child(layout)
-	#var title = Label.new()
-	#title.text = "Choose a chapter"
-	#title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	#title.add_theme_font_size_override("font_size", 24)
-	#layout.add_child(title)
-	#chapter_option_button = OptionButton.new()
-	#chapter_option_button.custom_minimum_size.y = 40
-	#layout.add_child(chapter_option_button)
-	#var buttons = HBoxContainer.new()
-	#buttons.alignment = BoxContainer.ALIGNMENT_CENTER
-	#layout.add_child(buttons)
-	#var start_button = Button.new()
-	#start_button.text = "Start Quiz"
-	#start_button.pressed.connect(_on_chapter_quiz_pressed)
-	#buttons.add_child(start_button)
-	#var cancel_button = Button.new()
-	#cancel_button.text = "Cancel"
-	#cancel_button.pressed.connect(_on_chapter_picker_cancelled)
-	#buttons.add_child(cancel_button)
-	#%GameHUD/Control.add_child(chapter_picker)
-
-
 func _on_chapter_quiz_pressed() -> void:
 	if chapter_option_button.item_count == 0:
 		return
 	var chapter_index = chapter_option_button.selected
-	var chapter_id = str(chapter_option_button.get_item_metadata(chapter_index))
+	var chapter_id = str(chapter_option_button.get_item_metadata(chapter_index)["chapter_id"])
 	if chapter_id.is_empty():
 		_show_quiz_status("Select a chapter to continue.")
 		return
-	var chapter_label = chapter_option_button.get_item_text(chapter_index)
+	var chapter_label = chapter_option_button.get_item_metadata(chapter_index)["chapter_label"]
 	chapter_picker.hide()
 	var host = str(JavaScriptBridge.eval("window.location.host"))
 	var protocol = str(JavaScriptBridge.eval("window.location.protocol"))

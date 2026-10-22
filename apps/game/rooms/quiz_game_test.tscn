@@ -1505,7 +1505,6 @@ vertical_alignment = 1
 
 [node name="ChapterPicker" type="PanelContainer" parent="GameHUD/Control" unique_id=639321671]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1542,6 +1541,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 text_overrun_behavior = 6
+clip_text = true
 fit_to_longest_item = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameHUD/Control/ChapterPicker/MarginContainer/VBoxContainer" unique_id=2117432075]
