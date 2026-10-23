@@ -1,6 +1,1 @@
-miles
-lucilla
-duncan
-odrade
-taraza
-burzmali
+miles;lucilla;duncan;odrade;taraza;burzmali

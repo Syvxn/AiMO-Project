@@ -32,13 +32,13 @@ func _physics_process(_delta: float) -> void:
 	if not get_parent().controllable:
 		return
 	#region simulation player movement for demo
-	var sim_char_names = []
-	var file = FileAccess.open(\"res://sim_char_names.txt\", FileAccess.READ)
-	var content = file.get_as_text()
-	for char_name in content.split(\"\\n\"):
-		if len(char_name) > 0:
-			sim_char_names.append(char_name)
-	file.close()
+	var sim_char_names = [\"miles\", \"lucilla\", \"duncan\", \"odrade\", \"taraza\", \"burzmali\"]
+	#var file = FileAccess.open(\"res://sim_char_names.txt\", FileAccess.READ)
+	#var content = file.get_as_text()
+	#for char_name in content.split(\";\"):
+		#if len(char_name) > 0:
+			#sim_char_names.append(char_name)
+	#file.close()
 	if get_parent().username.to_lower() in sim_char_names:
 		if get_parent().get_node(\"%DemoWalkTimer\").is_stopped():
 			if walk_direction == Vector2.ZERO:

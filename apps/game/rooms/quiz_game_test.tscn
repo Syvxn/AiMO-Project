@@ -1566,7 +1566,7 @@ theme_override_constants/margin_left = 5
 layout_mode = 2
 text = "Cancel"
 
-[node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353 groups=["menus"]]
+[node name="QuizMenu" type="CanvasLayer" parent="." unique_id=1406152353]
 unique_name_in_owner = true
 layer = 2
 visible = false
